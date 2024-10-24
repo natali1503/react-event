@@ -1,4 +1,5 @@
 import {
+  CounterActionTypes,
   DECREMENT,
   FETCH_DATA_FAILURE,
   FETCH_DATA_REQUEST,
@@ -6,13 +7,28 @@ import {
   INCREMENT,
 } from './actions'
 
-const initialState = {
+export interface User {
+  id: number
+  name: string
+  username: string
+}
+
+export type TCounterState = {
+  counter: number
+  users: ReadonlyArray<User>
+  loading: boolean
+}
+
+const initialState: TCounterState = {
   counter: 0,
   users: [],
   loading: false,
 }
 
-export const counterReducer = (state = initialState, action: any) => {
+export const counterReducer = (
+  state = initialState,
+  action: CounterActionTypes
+): TCounterState => {
   switch (action.type) {
     case INCREMENT:
       return { ...state, counter: state.counter + 1 }

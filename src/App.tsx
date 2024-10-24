@@ -8,15 +8,15 @@ import {
   ListItemText,
 } from '@mui/material'
 import { increment, decrement } from './store/actions'
-import { useDispatch, useSelector } from 'react-redux'
 import { fetchData } from './store/async_action'
+import { useAppDispatch, useAppSelector } from './hooks/useTypedRedux'
 
 function App() {
-  const counter = useSelector((state: any) => state.counter.counter)
-  const list = useSelector((state: any) => state.counter.users)
-  const loading = useSelector((state: any) => state.counter.loading)
+  const counter = useAppSelector((state) => state.counter.counter)
+  const list = useAppSelector((state) => state.counter.users)
+  const loading = useAppSelector((state) => state.counter.loading)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const requestUsersHandler = () => {
     dispatch(fetchData())
