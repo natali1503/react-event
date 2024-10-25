@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import { counterReducer } from './reducer'
+import rtkReducer from './rtkSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  counter: rtkReducer,
   // остальные редьюсеры
 })
 

@@ -7,19 +7,20 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material'
-import { increment, decrement } from './store/actions'
-import { fetchData } from './store/async_action'
-import { useAppDispatch, useAppSelector } from './hooks/useTypedRedux'
+import { useAppDispatch } from './hooks/useAppDispatch'
+import { useAppSelector } from './hooks/useAppSelector'
+import { increment, decrement, fetchUsers, addUserById } from './store/rtkSlice'
 
 function App() {
-  const counter = useAppSelector((state) => state.counter.counter)
-  const list = useAppSelector((state) => state.counter.users)
-  const loading = useAppSelector((state) => state.counter.loading)
+  const counter = useAppSelector((state) => state.counter.value)
+  const users = useAppSelector((state) => state.counter.users)
+  const pending = useAppSelector((state) => state.counter.pending)
 
   const dispatch = useAppDispatch()
 
-  const requestUsersHandler = () => {
-    dispatch(fetchData())
+  const handleAddUser = () => {
+    const id: number = Math.floor(Math.random() * 10 + 1)
+    dispatch(addUserById(id))
   }
 
   return (
@@ -31,13 +32,16 @@ function App() {
       </ButtonGroup>
 
       <Box sx={{ m: 2 }}>
-        <Button variant="contained" onClick={requestUsersHandler}>
+        <Button variant="contained" onClick={() => dispatch(fetchUsers())}>
           Запросить данные
         </Button>
+        <Button variant="contained" onClick={handleAddUser}>
+          Добавить пользователя
+        </Button>
         <List>
-          {list.length > 0 &&
-            !loading &&
-            list.map((item) => {
+          {pending && <p>Loading ...</p>}
+          {users.length > 0 &&
+            users.map((item) => {
               return (
                 <ListItem key={item.id}>
                   <ListItemText>{item.name}</ListItemText>
