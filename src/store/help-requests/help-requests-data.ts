@@ -12,9 +12,6 @@ export const helpRequestData = createSlice({
   name: "HELP_REQUEST",
   initialState: initialState,
   reducers: {
-    //setHelpRequestsList: (state) => {
-    //  state.helpRequestsList = state.helpRequestsList; // ???
-    //},
   },
   extraReducers(builder) {
     builder

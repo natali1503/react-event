@@ -1,28 +1,25 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import CardItem from "../CardItem/CardItem";
 import Grid from '@mui/material/Grid2';
 import { HelpRequest } from "../../types/HelpRequest";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { fetchHelpRequestsAction } from "../../store/api-actions";
 
 type RequestsProps = {
   helpRequests: HelpRequest[];
+  viewMode: string;
 };
 
 const CardList: FC<RequestsProps> = (requests) => {
-  const { helpRequests } = requests;
-  const dispatch = useAppDispatch();
-  
-  useEffect(()=> {
-    dispatch(fetchHelpRequestsAction());
-  }, []);
+  const { helpRequests, viewMode } = requests;
 
   return (
-    <Grid container spacing={2}>
+    <Grid 
+    container
+    spacing={viewMode === 'grid' ? 2 : 0}
+    direction={viewMode === 'list' ? 'column' : 'row'}>
       {helpRequests.map((request) => {
          const keyValue = request.id;
          return (
-          <CardItem key={keyValue} helpRequest={request}/>
+          <CardItem key={keyValue} helpRequest={request} orientation={viewMode === 'grid' ? 'vertical' : 'horizontal'} />
          );
       })}
     </Grid>
