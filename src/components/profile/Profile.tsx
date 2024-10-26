@@ -8,13 +8,13 @@ import PagesProfile from "./PagesProfile";
 import CardProfile from "./CardProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { authUser, getUser } from "../../store/profileStore";
-import { RootState } from "../../store/types";
+import { AppDispatch, RootState } from "../../store/types";
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
   const [isData, setIsData] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: RootState) => {
     return state.profile;
   });

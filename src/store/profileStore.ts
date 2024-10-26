@@ -58,18 +58,13 @@ export const authUser = createAsyncThunk("profile/authUser", async () => {
   return response.json();
 });
 
-export const getUser = createAsyncThunk(
-  "profile/user",
-  async (token: string) => {
-    const response = await fetch(`${url}user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-
-      // body: JSON.stringify(data),
-    });
-    return response.json();
-  }
-);
+export const getUser = createAsyncThunk("profile", async (token: string) => {
+  const response = await fetch(`${url}user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.json();
+});
