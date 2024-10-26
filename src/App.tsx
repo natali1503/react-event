@@ -1,4 +1,5 @@
 import './App.css'
+import Header from './components/Header/Header.tsx'
 import {
   Box,
   Button,
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <>
+      <Header/>
       <h1>Counter: {counter}</h1>
       <ButtonGroup variant="contained" aria-label="Basic button group">
         <Button onClick={() => dispatch(increment())}>Increment</Button>
