@@ -1,5 +1,6 @@
 import './App.css'
 import Header from './components/Header/Header.tsx'
+import BottomNavigationApp from './components/Footer/Footer.tsx'
 import {
   Box,
   Button,
@@ -52,6 +53,7 @@ function App() {
             })}
         </List>
       </Box>
+      <BottomNavigationApp/>
     </>
   )
 }
