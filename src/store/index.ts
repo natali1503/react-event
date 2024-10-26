@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import rtkReducer from './rtkSlice'
 import { configureStore } from '@reduxjs/toolkit'
+import { helpRequestData } from './help-requests/help-requests-data'
 
 const rootReducer = combineReducers({
-  counter: rtkReducer,
+  "HELP_REQUEST": helpRequestData.reducer,
   // остальные редьюсеры
 })
 

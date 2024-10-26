@@ -53,7 +53,7 @@ const CardItem: FC<CardItemProps> = (props) => {
 
           <Stack spacing={0.5} sx={{ marginBottom: '20px' }}>
             <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Завершение</Typography>
-            <Typography variant="body2">{helpRequest.endingDate}</Typography>
+            <Typography variant="body2">{helpRequest.endingDate.toString()}</Typography>
           </Stack>
 
           <Stack spacing={0.5}>
