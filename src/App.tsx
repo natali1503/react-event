@@ -38,7 +38,8 @@ function App() {
           <Route path={AppRoute.Login} element={<LoginPage />} />
 
           <Route element={<PrivateRoute />}>
-            <Route path={AppRoute.TestPage} element={<JustAnotherPage />} />
+            <Route path={AppRoute.Profile} element={<Profile />} />
+            {/* <Route path={AppRoute.TestPage} element={<JustAnotherPage />} /> */}
             {/* <Route path={AppRoute.TestPage} element={<JustAnotherPage />} /> */}
           </Route>
           <Route path='*' element={<NotFoundPage />} />

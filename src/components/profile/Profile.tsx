@@ -16,29 +16,28 @@ export default function Profile() {
 
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: RootState) => {
+    console.log(state);
     return state.profile;
   });
 
   useEffect(() => {
-    dispatch(authUser());
-  }, [dispatch]);
+    if (!isAuth) return;
+    console.log(1);
 
-  useEffect(() => {
-    if (!profile.token) return;
-    dispatch(getUser(profile.token));
-  }, [profile.token]);
+    dispatch(getUser());
+  });
 
-  useEffect(() => {
-    if (Object.keys(profile.data).length === 0) return;
-    setIsData(true);
-  }, [profile.data]);
+  // useEffect(() => {
+  //   if (Object.keys(profile.data).length === 0) return;
+  //   setIsData(true);
+  // }, [profile.data]);
 
   function handleChange(e: React.SyntheticEvent, numberTab: number) {
     setNumberTab(numberTab);
   }
 
   return (
-    profile.token && (
+    isAuth && (
       <Box>
         <Box
           display='flex'

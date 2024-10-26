@@ -1,10 +1,10 @@
-import { APIMethod, APIRoute, BASE_URL } from '../const/const'
+import { APIMethod, APIRoute, BASE_URL } from "../const/const";
 
 class ApiService {
-  private baseUrl: string
+  private baseUrl: string;
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl
+    this.baseUrl = baseUrl;
   }
 
   // метод, которые принимает параметры для запроса и подтыкает authorization
@@ -17,37 +17,37 @@ class ApiService {
       const res = await fetch(`${fullUrl}`, {
         method: method,
         headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${localStorage.getItem('token')}`,
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: body,
-      })
-      return await res.json()
+      });
+      return await res.json();
     } catch (e) {
-      throw new Error('Something went wrong while fetching!')
+      throw new Error("Something went wrong while fetching!");
     }
   }
 
   async login(login: string, password: string): Promise<any> {
-    const body = await JSON.stringify({ password: password, login: login })
+    const body = await JSON.stringify({ password: password, login: login });
 
     const res = await fetch(APIRoute.Login, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: body,
-    })
+    });
 
-    return await res.json()
+    return await res.json();
   }
 
   async getUser() {
-    const res = await this.fetchDataWithToken(APIRoute.User, APIMethod.GET)
-    return res
+    const res = await this.fetchDataWithToken(APIRoute.User, APIMethod.GET);
+    return res;
   }
 }
 
-export const api = new ApiService(BASE_URL)
+export const api = new ApiService(BASE_URL);
 
-api.getUser().then((res) => console.log(res))
+// api.getUser().then((res) => console.log(res))
