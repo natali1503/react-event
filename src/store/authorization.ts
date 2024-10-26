@@ -20,6 +20,14 @@ export const authorizationSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
+    initializeAuth: (state) => {
+      const token = localStorage.getItem('token')
+      if (token) state.isAuthenticated = true
+    },
+    logOut: (state) => {
+      localStorage.removeItem('token')
+      state.isAuthenticated = false
+    },
     // increment: (state) => {
     //   state.value += 1
     // },
@@ -61,17 +69,17 @@ export const authorizationSlice = createSlice({
   },
 })
 
-//export const { increment, decrement, getUsers } = authorizationSlice.actions
+export const { initializeAuth } = authorizationSlice.actions
 
 export default authorizationSlice.reducer
 
 // Async thunk
-export const fetchUsers = createAsyncThunk(
-  'getUsersAction', //string for the action type prefix
-  async () => {
-    return await api.getAllUsers()
-  }
-)
+// export const fetchUsers = createAsyncThunk(
+//   'getUsersAction', //string for the action type prefix
+//   async () => {
+//     return await api.getAllUsers()
+//   }
+// )
 
 export const loginUser = createAsyncThunk<
   void,

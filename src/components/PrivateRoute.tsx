@@ -1,7 +1,5 @@
-import React from 'react'
 import { useAppSelector } from '../hooks/useAppSelector'
-import LoginPage from '../pages/LoginPage'
-import { Navigate, Outlet, Route } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import { AppRoute } from '../const/const'
 
 const PrivateRoute = () => {

@@ -4,7 +4,6 @@ import {
   Button,
   FormControl,
   IconButton,
-  Input,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -14,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 import { loginUser } from '../store/authorization'
 import { useAppDispatch } from '../hooks/useAppDispatch'
 import { useAppSelector } from '../hooks/useAppSelector'
-import { replace, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AppRoute } from '../const/const'
 
 const LoginPage = () => {
