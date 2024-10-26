@@ -3,12 +3,19 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
 
+
 import LogInButton from './LogInButton';
 import ImageAvatar from './Avatar'
 
-const isUserLogged: boolean = true // передавать статус пользьзователя залогинен/нет в формате boolean
+import { useAppSelector } from '../../hooks/useAppSelector'
 
-export default function Header() {
+// TODO сделать роут к странице запросы о помощи. 
+// TODO сделать роут к странице мой профиль. 
+
+export default function HeaderNavigationApp() {
+
+  const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated)
+
   return (
     <Box 
       sx={{ 
@@ -25,18 +32,20 @@ export default function Header() {
         <Toolbar 
           sx={{ 
             width: '85%', 
+            maxWidth: '1500px',
             height: '64px', 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center', 
             margin: '0 auto',
-            padding: '0',
+            paddingLeft: 'none',
+            paddingRight: 'none',
           }}
         >
           <img
             style={{ maxWidth: '220px', height: '40px' }} 
-            srcSet={`src/components/Header/assets/LeftSide.svg`}
-            src={`src/components/Header/assets/LeftSide.svg`}
+            srcSet={`/assets/LeftSide.svg`}
+            src={`/assets/LeftSide.svg`}
             alt={'image-title'}
             loading="lazy"
           />
@@ -63,7 +72,7 @@ export default function Header() {
                     alignItems: 'center' 
                 }}
             > 
-            {isUserLogged ? <ImageAvatar/> : <LogInButton/>}
+            {isAuthenticated ? <ImageAvatar/> : <LogInButton/>}
             </Box>
         </Toolbar>
       </AppBar>

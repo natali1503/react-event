@@ -14,15 +14,40 @@ export default function BottomNavigationApp() {
         }}>
         <Box sx={{ 
             width: '85%', 
+            maxWidth: '1500px',
             height: '64px', 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center', 
             margin: '0 auto',
         }}>
-            <Link href="/" underline="hover" sx={{ color: 'black', '&:hover': { color: 'black' } }}>Об ивенте</Link>
-            <Link href="/" underline="hover" sx={{ color: 'black', '&:hover': { color: 'black' } }}>Github проекта</Link>
-            <Link href="/" underline="hover" sx={{ color: 'black', '&:hover': { color: 'black' } }}>Чат для джунов</Link>
+            <Link href="/" 
+                target="_blank" 
+                underline="hover" 
+                sx={{ 
+                    color: 'black', '&:hover': { color: 'black' }, 
+                    width:'122px' 
+                }}>Об ивенте</Link>
+            <Link 
+                href="https://github.com/nat-davydova/charity_event_back_oct2024/tree/main" 
+                
+                underline="hover" 
+                sx={{ 
+                    color: 'black', 
+                    '&:hover': { color: 'black' }, 
+                    width:'122px' 
+                }}
+            >Github проекта</Link>
+            <Link 
+                href="https://t.me/natti_jun_front" 
+                target="_blank" 
+                underline="hover" 
+                sx={{ 
+                    color: 'black', 
+                    '&:hover': { color: 'black' }, 
+                    width:'122px' 
+                }}
+            >Чат для джунов</Link>
         </Box>
     </Box>
   );

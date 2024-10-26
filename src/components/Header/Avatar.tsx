@@ -1,8 +1,13 @@
 import { useState, Fragment } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../store/authorization';
+
 import {Box, Avatar, Menu, MenuItem, ListItemIcon, IconButton} from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
 
 export default function ImageAvatar() {
+  const dispatch = useDispatch()
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -12,6 +17,7 @@ export default function ImageAvatar() {
   };
 
   const handleClose = () => {
+    dispatch(logOut()); // Вызываем действие для разлогинивания
     setAnchorEl(null);
   };
 

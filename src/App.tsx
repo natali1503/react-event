@@ -9,6 +9,9 @@ import { useEffect } from 'react'
 import NotFoundPage from './pages/NotFoundPage'
 import { initializeAuth } from './store/authorization'
 
+import HeaderNavigationApp from './components/Header/Header'
+import BottomNavigationApp from './components/Footer/Footer'
+
 function App() {
   const dispatch = useAppDispatch()
 
@@ -19,6 +22,7 @@ function App() {
   return (
     <>
       <Router>
+        <HeaderNavigationApp/>
         <Routes>
           <Route path={AppRoute.Login} element={<LoginPage />} />
 
@@ -28,6 +32,7 @@ function App() {
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <BottomNavigationApp />
       </Router>
     </>
   )
