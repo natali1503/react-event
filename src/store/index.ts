@@ -5,7 +5,6 @@ import profileSlice from "./profileStore";
 import authorizationReducer from "./authorization";
 
 const rootReducer = combineReducers({
-  counter: rtkReducer,
   auth: authorizationReducer,
   profile: profileSlice,
 });

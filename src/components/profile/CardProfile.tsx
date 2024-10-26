@@ -23,7 +23,7 @@ export default function CardProfile() {
       <Divider />
       <Stack>
         <Stack marginBottom={"10px"} marginTop={"20px"}>
-          <Typography variant="h6" marginLeft={"20px"}>
+          <Typography variant='h6' marginLeft={"20px"}>
             {data.name} {data.lastName}
           </Typography>
         </Stack>
@@ -43,7 +43,7 @@ export default function CardProfile() {
 
       <Stack margin={"0 20px"}>
         <Button
-          variant="outlined"
+          variant='outlined'
           sx={{ color: "#000", border: "1px solid #000" }}
           onClick={handleClick}
         >

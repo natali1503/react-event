@@ -41,20 +41,20 @@ export default function Profile() {
     profile.token && (
       <Box>
         <Box
-          display="flex"
+          display='flex'
           flexDirection={"column"}
           bgcolor={"#f5f6f5"}
           // margin={"84px 210px"}
         >
           <Stack>
-            <Typography variant="h4" margin={"30px 40px"}>
+            <Typography variant='h4' margin={"30px 40px"}>
               Мой профиль
             </Typography>
           </Stack>
           {!isData ? (
             <Skeleton />
           ) : (
-            <Box display="flex" margin={"20px 40px"} gap={"20px"}>
+            <Box display='flex' margin={"20px 40px"} gap={"20px"}>
               <Stack
                 bgcolor={"white"}
                 borderRadius={"4px"}
@@ -72,9 +72,9 @@ export default function Profile() {
               >
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <Tabs value={numberTab} onChange={handleChange}>
-                    <Tab label="Личные данные" {...a11yProps(0)} />
-                    <Tab label="Контакты" {...a11yProps(1)} />
-                    <Tab label="Избранное" {...a11yProps(2)} />
+                    <Tab label='Личные данные' {...a11yProps(0)} />
+                    <Tab label='Контакты' {...a11yProps(1)} />
+                    <Tab label='Избранное' {...a11yProps(2)} />
                   </Tabs>
                 </Box>
                 <PagesProfile value={numberTab} index={0}>
