@@ -38,6 +38,40 @@ class ApiService {
     const endpoint = `${USERS}/${id}`
     return await this.fetchData<User>(endpoint)
   }
+
+  async login(login: string, password: string): Promise<any> {
+    const body = await JSON.stringify({ password: password, login: login })
+
+    const res = await fetch('http://localhost:4040/api/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    })
+
+    return await res.json()
+  }
+
+  // requestWithAuthToken потом удалить, просто для теста
+  async requestWithAuthToken(token: string) {
+    const res = await fetch('http://localhost:4040/api/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+    })
+    return await res.json()
+  }
 }
 
 export const api = new ApiService(BASE_URL)
+
+//api.login('testUser15@test.com', 'password15').then((res) => console.log(res))
+
+// api
+//   .requestWithAuthToken(
+//     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjczYjcxYmUxLWI5NzQtNDcwNS1iYWZkLTU4ZmFiNDEwN2VkNSIsImlhdCI6MTcyOTk0NDM5NCwiZXhwIjoxNzI5OTQ3OTk0fQ.q8DAcpPH4FRebgC0jQGyZ85ZItZNjnpYSNvNFgth4qU'
+//   )
+//   .then((res) => console.log(res))

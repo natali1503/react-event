@@ -11,21 +11,41 @@ import { useAppDispatch } from './hooks/useAppDispatch'
 import { useAppSelector } from './hooks/useAppSelector'
 import { increment, decrement, fetchUsers, addUserById } from './store/rtkSlice'
 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AppRoute } from './const/const'
+import LoginPage from './pages/LoginPage'
+import JustAnotherPage from './pages/JustAnotherPage'
+import PrivateRoute from './components/PrivateRoute'
+import { useEffect } from 'react'
+import NotFoundPage from './pages/NotFoundPage'
+
 function App() {
-  const counter = useAppSelector((state) => state.counter.value)
-  const users = useAppSelector((state) => state.counter.users)
-  const pending = useAppSelector((state) => state.counter.pending)
+  //const dispatch = useAppDispatch()
 
-  const dispatch = useAppDispatch()
+  // const counter = useAppSelector((state) => state.counter.value)
+  // const users = useAppSelector((state) => state.counter.users)
+  // const pending = useAppSelector((state) => state.counter.pending)
 
-  const handleAddUser = () => {
-    const id: number = Math.floor(Math.random() * 10 + 1)
-    dispatch(addUserById(id))
-  }
+  // const handleAddUser = () => {
+  //   const id: number = Math.floor(Math.random() * 10 + 1)
+  //   dispatch(addUserById(id))
+  // }
 
   return (
     <>
-      <h1>Counter: {counter}</h1>
+      <Router>
+        <Routes>
+          <Route path={AppRoute.Login} element={<LoginPage />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path={AppRoute.TestPage} element={<JustAnotherPage />} />
+            {/* <Route path={AppRoute.TestPage} element={<JustAnotherPage />} /> */}
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
+
+      {/* <h1>Counter: {counter}</h1>
       <ButtonGroup variant="contained" aria-label="Basic button group">
         <Button onClick={() => dispatch(increment())}>Increment</Button>
         <Button onClick={() => dispatch(decrement())}>Decrement</Button>
@@ -49,7 +69,7 @@ function App() {
               )
             })}
         </List>
-      </Box>
+      </Box> */}
     </>
   )
 }
