@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { RootState } from "../../store/types";
 import { useSelector } from "react-redux";
 import { getDateStr } from "../../features/getDateStr";
+import { Row } from "./element/Row";
 
 export default function PersonalData() {
   const { data } = useSelector((state: RootState) => {
@@ -84,19 +85,6 @@ export default function PersonalData() {
     </Box>
   );
 }
-
-interface IRow {
-  header: string;
-  value: string;
-}
-const Row = ({ header, value }: IRow) => {
-  return (
-    <Stack direction={"row"} gap={"4px"}>
-      <Typography fontWeight={"500"}>{header}:</Typography>
-      <Typography>{value}</Typography>
-    </Stack>
-  );
-};
 
 interface IItemEducation {
   organizationName: string;

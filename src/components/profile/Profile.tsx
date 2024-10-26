@@ -2,9 +2,9 @@ import { Box, Skeleton, Stack, Tab, Tabs, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import PersonalData from "./PersonalData";
-import Сontacts from "./Сontacts";
+import Contacts from "./Contacts";
 import Favorites from "./Favorites";
-import PagesProfile from "./pagesProfile";
+import PagesProfile from "./PagesProfile";
 import CardProfile from "./CardProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { authUser, getUser } from "../../store/profileStore";
@@ -44,7 +44,7 @@ export default function Profile() {
           display="flex"
           flexDirection={"column"}
           bgcolor={"#f5f6f5"}
-          margin={"84px 210px"}
+          // margin={"84px 210px"}
         >
           <Stack>
             <Typography variant="h4" margin={"30px 40px"}>
@@ -55,10 +55,21 @@ export default function Profile() {
             <Skeleton />
           ) : (
             <Box display="flex" margin={"20px 40px"} gap={"20px"}>
-              <Stack bgcolor={"white"}>
+              <Stack
+                bgcolor={"white"}
+                borderRadius={"4px"}
+                border={"1px solid #e0e0e0"}
+              >
                 <CardProfile />
               </Stack>
-              <Box bgcolor={"white"} padding={"36px"}>
+              <Box
+                bgcolor={"white"}
+                padding={"36px"}
+                borderRadius={"4px"}
+                border={"1px solid #e0e0e0"}
+                minHeight={"100vh"}
+                minWidth={"100vh"}
+              >
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <Tabs value={numberTab} onChange={handleChange}>
                     <Tab label="Личные данные" {...a11yProps(0)} />
@@ -70,7 +81,7 @@ export default function Profile() {
                   <PersonalData />
                 </PagesProfile>
                 <PagesProfile value={numberTab} index={1}>
-                  <Сontacts />
+                  <Contacts />
                 </PagesProfile>
                 <PagesProfile value={numberTab} index={2}>
                   <Favorites />
@@ -89,28 +100,4 @@ function a11yProps(index: number) {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
-}
-
-async function auth() {
-  const data = {
-    login: "testUser15@test.com",
-    password: "password15",
-  };
-  try {
-    const response = await fetch("http://localhost:4040/api/auth", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: "Bearer your_token_here", // Добавьте заголовок авторизации, если требуется
-      },
-      // mode: "no-cors",
-      body: JSON.stringify(data),
-      // credentials: "include",
-    });
-    const token = await response.json();
-    console.log(token);
-    return token;
-  } catch (e) {
-    console.log("Error");
-  }
 }
