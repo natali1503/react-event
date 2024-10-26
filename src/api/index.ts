@@ -1,7 +1,4 @@
-import { User } from '../store/rtkSlice'
-
-const BASE_URL = 'https://jsonplaceholder.typicode.com'
-const USERS = '/users'
+import { APIMethod, APIRoute, BASE_URL } from '../const/const'
 
 class ApiService {
   private baseUrl: string
@@ -10,34 +7,47 @@ class ApiService {
     this.baseUrl = baseUrl
   }
 
-  // переработать метод, чтобы принимал опции GET POST, тело запроса
-  private async fetchData<T>(endPoint: string): Promise<T> {
-    const res = await fetch(`${this.baseUrl}${endPoint}`)
-
-    if (!res.ok) {
+  // метод, которые принимает параметры для запроса и подтыкает authorization
+  private async fetchDataWithToken<T>(
+    fullUrl: APIRoute,
+    method: APIMethod,
+    body?: string
+  ): Promise<T> {
+    try {
+      const res = await fetch(`${fullUrl}`, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: body,
+      })
+      return await res.json()
+    } catch (e) {
       throw new Error('Something went wrong while fetching!')
     }
+  }
+
+  async login(login: string, password: string): Promise<any> {
+    const body = await JSON.stringify({ password: password, login: login })
+
+    const res = await fetch(APIRoute.Login, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    })
 
     return await res.json()
   }
 
-  private async delay(ms: number) {
-    return new Promise((resolve) => {
-      setTimeout(function () {
-        resolve('Ok!')
-      }, ms)
-    })
-  }
-
-  async getAllUsers() {
-    await this.delay(2000)
-    return await this.fetchData<User[]>(USERS)
-  }
-
-  async getUserById(id: number) {
-    const endpoint = `${USERS}/${id}`
-    return await this.fetchData<User>(endpoint)
+  async getUser() {
+    const res = await this.fetchDataWithToken(APIRoute.User, APIMethod.GET)
+    return res
   }
 }
 
 export const api = new ApiService(BASE_URL)
+
+api.getUser().then((res) => console.log(res))
