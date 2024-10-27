@@ -2,8 +2,8 @@
 import Filters from '../../components/Filters';
 import Search from '../../components/Search';
 // styles
-import { Box, Typography, Grid2 } from '@mui/material';
-import { useEffect } from 'react';
+import { Box, Typography, Grid2, CircularProgress } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { getHelpRequests } from '../../store/help-requests/selectors';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
@@ -14,10 +14,15 @@ import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRe
 const Helps = () => {
   const helpRequestList = useAppSelector(getHelpRequests);
   const dispatch = useAppDispatch();
+  const [isData, setIsData] = useState(helpRequestList.length);
 
   useEffect(()=> {
     dispatch(fetchHelpRequestsAction());
   }, []);
+
+  useEffect(() => {
+    setIsData(helpRequestList.length);
+  }, [helpRequestList]);
 
   return (
     <Box>
@@ -29,7 +34,13 @@ const Helps = () => {
         <Grid2 container size={{ xs: 2, sm: 4, md: 'grow' }} flexDirection={{ xs: 'column' }}>
           <Search/>
           <Grid2 sx={{backgroundColor: "white", padding: "2rem"}}>
-          <HelpRequestsComponent helpRequests={helpRequestList}/>
+          {!isData ? (
+            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <HelpRequestsComponent helpRequests={helpRequestList}/>
+          )}
           </Grid2>
         </Grid2>
       </Grid2>
