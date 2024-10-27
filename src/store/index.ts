@@ -1,13 +1,10 @@
 import { combineReducers, Middleware } from 'redux';
-import rtkReducer from './rtkSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import authorizationReducer, { logOut } from './authorization';
-import { requestUnsuccessfullByDesign } from './authorization';
-import { combineReducers } from 'redux';
-import rtkReducer from './rtkSlice';
-import { configureStore } from '@reduxjs/toolkit';
-import profileSlice from './profileStore';
-import authorizationReducer from './authorization';
+import authorizationReducer, {
+  logOut,
+  requestUnsuccessfullByDesign,
+} from './authorization';
+
 import profileReducer from './profileStore';
 
 const rootReducer = combineReducers({
@@ -17,16 +14,17 @@ const rootReducer = combineReducers({
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
   if (action.type.endsWith('rejected')) {
-    if (action.payload?.status === 500) {
-      console.log('ИЗ миддлавара с ошибкой 500');
-      // debugger
+    // debugger;
+    if (action.error?.message === '500') {
       // просто ошибка сервера, не убираем флаг isAuth и не редиректимся на страницу логина
-      store.dispatch(requestUnsuccessfullByDesign());
-    } else if (action.payload?.status === 403) {
-      // просрочился jwt, убираем флаг isAuth и редиректимся на страницу логина
-      store.dispatch(logOut());
+      // console.log('ИЗ миддлавара с ошибкой 500');
       // debugger
-      console.log('ИЗ миддлавара с ошибкой 403');
+      store.dispatch(requestUnsuccessfullByDesign());
+    } else if (action.error?.message === '403') {
+      // просрочился jwt, убираем флаг isAuth и редиректимся на страницу логина
+      // console.log('ИЗ миддлавара с ошибкой 403');
+      // debugger;
+      store.dispatch(logOut());
     }
   }
 

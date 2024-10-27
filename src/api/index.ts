@@ -1,9 +1,8 @@
 import { APIMethod, APIRoute, BASE_URL } from '../const/const';
 import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
-import { APIMethod, APIRoute, BASE_URL } from '../const/const';
 import { IError } from '../types/IError';
-import { IUser } from '../types/IUser';
+import { IAuth } from '../types/IAuth';
 
 class ApiService {
   private baseUrl: string;
@@ -36,11 +35,9 @@ class ApiService {
       console.log(e);
       return { codeError: 500, message: String(e) };
     }
-
-    // return await res.json()
   }
 
-  async login(login: string, password: string): Promise<any> {
+  async login(login: string, password: string): Promise<IAuth> {
     const body = await JSON.stringify({ password: password, login: login });
 
     const res = await fetch(APIRoute.Login, {
@@ -70,36 +67,3 @@ class ApiService {
 }
 
 export const api = new ApiService(BASE_URL);
-
-// if (!res.ok) {
-//   // Пытаемся прочитать ответ как JSON или как текст
-//   let errorMessage: string
-//   try {
-//     // Проверка JSON формата
-//     const contentType = res.headers.get('content-type')
-//     if (contentType && contentType.includes('application/json')) {
-//       const errorData = await res.json()
-//       errorMessage = errorData.message || 'An error occurred'
-//     } else {
-//       // Если не JSON, читаем как текст
-//       errorMessage = await res.text()
-//     }
-//   } catch (e) {
-//     errorMessage = 'An error occurred while processing the error response'
-//   }
-
-//   // Выбрасываем сериализуемый объект ошибки
-//   throw {
-//     message: errorMessage,
-//     status: res.status,
-//   }
-//return await res.json()
-
-// async getUser() {
-
-//       const res = await this.fetchDataWithToken<IUser>(
-//         APIRoute.User,
-//         APIMethod.GET
-//       )
-//       return res
-//     }

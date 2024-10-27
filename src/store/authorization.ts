@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../api/index';
 import { IUser } from '../types/IUser';
+import { IAuth } from '../types/IAuth';
 
 // Define a type for the slice state
 interface CounterState {
@@ -40,6 +41,10 @@ export const authorizationSlice = createSlice({
       state.isGetCurentUserPending = false;
       state.isDesignedError = true;
     },
+    requestSuccessfull: (state) => {
+      state.isDesignedError = false;
+      state.isGetCurentUserPending = false;
+    },
     // increment: (state) => {
     //   state.value += 1
     // },
@@ -77,20 +82,20 @@ export const authorizationSlice = createSlice({
       .addCase(loginUser.rejected, (state) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
-      })
-
-      .addCase(getCurrentUser.pending, (state) => {
-        state.isGetCurentUserPending = true;
-      })
-      .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.currentUser = action.payload;
-        state.isAuthenticated = true;
-        state.isGetCurentUserPending = false;
-      })
-      .addCase(getCurrentUser.rejected, (state) => {
-        state.isGetCurentUserPending = false;
-        // state.isAuthenticated = false
       });
+
+    // .addCase(getCurrentUser.pending, (state) => {
+    //   state.isGetCurentUserPending = true;
+    // })
+    // .addCase(getCurrentUser.fulfilled, (state, action) => {
+    //   state.currentUser = action.payload;
+    //   state.isAuthenticated = true;
+    //   state.isGetCurentUserPending = false;
+    // })
+    // .addCase(getCurrentUser.rejected, (state) => {
+    //   state.isGetCurentUserPending = false;
+    //   // state.isAuthenticated = false
+    // });
   },
 });
 
@@ -112,7 +117,7 @@ export const loginUser = createAsyncThunk<
   { login: string; password: string }
 >('loginUser', async ({ login, password }, { rejectWithValue }) => {
   try {
-    const res = await api.login(login, password);
+    const res: IAuth = await api.login(login, password);
     if (res.auth) {
       console.log(123);
       localStorage.setItem('token', res.token); // Сохраняем токен в localStorage
@@ -123,16 +128,3 @@ export const loginUser = createAsyncThunk<
     return rejectWithValue('Login failed');
   }
 });
-
-export const getCurrentUser = createAsyncThunk(
-  '/api/user',
-  async (_, thunkApi) => {
-    try {
-      //const token = localStorage.getItem('token') ?? ''
-      return await api.getUser();
-    } catch (error) {
-      console.log('Error in thunk:', error);
-      return thunkApi.rejectWithValue(error);
-    }
-  }
-);

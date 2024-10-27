@@ -1,4 +1,4 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -9,32 +9,22 @@ import {
   InputLabel,
   OutlinedInput,
   TextField,
-<<<<<<< HEAD
   Typography,
-} from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { loginUser } from '../store/authorization'
-import { useAppDispatch } from '../hooks/useAppDispatch'
-import { useAppSelector } from '../hooks/useAppSelector'
-import { useNavigate } from 'react-router-dom'
-import { AppRoute } from '../const/const'
-import TestingProfiles from '../components/TestingProfiles'
-=======
-} from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { loginUser } from "../store/authorization";
-import { useAppDispatch } from "../hooks/useAppDispatch";
-import { useAppSelector } from "../hooks/useAppSelector";
-import { useNavigate } from "react-router-dom";
-import { AppRoute } from "../const/const";
->>>>>>> main
+} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { loginUser } from '../store/authorization';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../const/const';
+import TestingProfiles from '../components/TestingProfiles';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login, setLogin] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -74,10 +64,11 @@ const LoginPage = () => {
   }, [isAuthenticated, navigate]);
 
   return (
-<<<<<<< HEAD
     <Grid2 container spacing={2}>
       <Grid2 size={6}>
-        <Box sx={{ maxWidth: '480px' }}>
+        <Box
+          sx={{ maxWidth: '480px', display: 'flex', flexDirection: 'column' }}
+        >
           <Typography sx={{ fontWeight: 400, fontSize: '34px' }}>
             Авторизация
           </Typography>
@@ -86,7 +77,7 @@ const LoginPage = () => {
           >
             Вход
           </Typography>
-          <FormControl sx={{ m: 1, width: '25ch' }}>
+          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
             {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
             <TextField
               id="outlined-basic"
@@ -100,11 +91,11 @@ const LoginPage = () => {
               value={login}
               placeholder="Введите e-mail"
               onChange={(e) => {
-                handleInputLoginChange(e)
+                handleInputLoginChange(e);
               }}
             />
           </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch' }}>
+          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
             <InputLabel htmlFor="outlined-adornment-password">
               Пароль
             </InputLabel>
@@ -114,7 +105,7 @@ const LoginPage = () => {
               placeholder="Введите пароль"
               value={password}
               onChange={(e) => {
-                handleInputPasswordChange(e)
+                handleInputPasswordChange(e);
               }}
               endAdornment={
                 <InputAdornment position="end">
@@ -136,14 +127,14 @@ const LoginPage = () => {
               label="Password"
             />
           </FormControl>
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{ m: 1, width: '25ch', alignSelf: 'center' }}
+          >
+            Войти
+          </Button>
         </Box>
-        <Button
-          variant="contained"
-          onClick={handleSubmit}
-          sx={{ m: 1, width: '25ch' }}
-        >
-          Войти
-        </Button>
       </Grid2>
 
       {/* Test Profiles Section */}
@@ -154,64 +145,7 @@ const LoginPage = () => {
         <TestingProfiles />
       </Grid2>
     </Grid2>
-  )
-}
-=======
-    <Box>
-      <Box>
-        <FormControl sx={{ m: 1, width: "25ch" }}>
-          {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
-          <TextField
-            id="outlined-basic"
-            label="Логин"
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
-            variant="outlined"
-            value={login}
-            placeholder="Введите e-mail"
-            onChange={(e) => {
-              handleInputLoginChange(e);
-            }}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "25ch" }}>
-          <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            placeholder="Введите пароль"
-            value={password}
-            onChange={(e) => {
-              handleInputPasswordChange(e);
-            }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={
-                    showPassword ? "hide the password" : "display the password"
-                  }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-      </Box>
-      <Button variant="contained" onClick={handleSubmit}>
-        Войти
-      </Button>
-    </Box>
   );
 };
->>>>>>> main
 
 export default LoginPage;
