@@ -1,9 +1,12 @@
 // styles
 import { Paper, TextField, Typography } from '@mui/material';
-import { useState } from 'react';
+
+type SearchProps = {
+  searchTerm: string,
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
+};
 
 // Debounce function
-
 const debounce = <T extends (...args: any[]) => void>(
   func: T,
   delay: number
@@ -19,9 +22,7 @@ const debounce = <T extends (...args: any[]) => void>(
   };
 };
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
+const Search = ({searchTerm, setSearchTerm}: SearchProps) => {
   // Function to be executed after input change
   const performLogic = (value: string) => {
     // Your logic here, e.g., updating a list, triggering a search, etc.
