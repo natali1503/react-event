@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { APIMethod, APIRoute, BASE_URL } from '../const/const';
 import { IError } from '../types/IError';
 import { IUser } from '../types/IUser';
+import { HelpRequest } from '../types/HelpRequest'
 
 class ApiService {
   private baseUrl: string;
@@ -62,6 +63,11 @@ class ApiService {
     if (isCodeError(res)) {
       throw new Error(String(res.codeError));
     } else return res;
+  }
+
+  async getHelpRequests(): Promise<HelpRequest[]> {
+    const res = await this.fetchDataWithToken(APIRoute.HelpRequests, APIMethod.GET);
+    return res as HelpRequest[]; // Явное приведение к типу HelpRequest[]
   }
 }
 

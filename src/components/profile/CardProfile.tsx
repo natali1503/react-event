@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
-import img from '../../img/Vector.png';
+import img from '/img/Vector.png';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {

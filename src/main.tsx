@@ -26,6 +26,6 @@ createRoot(document.getElementById('root')!).render(
         theme="light"
       />
     </Provider>
-    //{' '}
+    {/*{' '}*/}
   </StrictMode>
 );

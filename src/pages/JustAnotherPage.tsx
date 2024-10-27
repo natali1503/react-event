@@ -1,7 +1,15 @@
-import React from 'react'
+
+import HelpRequestsComponent from '../components/HelpRequestsComponent/HelpRequestsComponent';
+
 
 const JustAnotherPage = () => {
-  return <div>JustAnotherPage</div>
+ 
+
+  return (
+    <>
+      <HelpRequestsComponent helpRequests={helpRequestList}/>
+    </>
+  );
 }
 
-export default JustAnotherPage
+export default JustAnotherPage;

@@ -1,14 +1,16 @@
-import { combineReducers } from 'redux';
-import rtkReducer from './rtkSlice';
-import { configureStore } from '@reduxjs/toolkit';
-import profileSlice from './profileStore';
-import authorizationReducer from './authorization';
+import { combineReducers } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
+import authorizationReducer from './authorization'
+import { helpRequestData } from './help-requests/help-requests-data'
 import profileReducer from './profileStore';
 
 const rootReducer = combineReducers({
+  //counter: rtkReducer,
   auth: authorizationReducer,
   profile: profileReducer,
-});
+  'HELP_REQUEST': helpRequestData.reducer,
+  // остальные редьюсеры
+})
 
 export const store = configureStore({
   reducer: rootReducer,
