@@ -38,18 +38,42 @@ class ApiService {
     }
   }
 
-  async login(login: string, password: string): Promise<IAuth> {
-    const body = await JSON.stringify({ password: password, login: login });
+  async login(login: string, password: string): Promise<T | IError> {
+    try {
+      const body = await JSON.stringify({ password: password, login: login });
 
-    const res = await fetch(APIRoute.Login, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    });
+      const res = await fetch(APIRoute.Login, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      });
 
-    return await res.json();
+      if (!res.ok && res.status === 500) {
+        // запланированная ошибка сервера, логин пароль может и правильный
+        debugger;
+        return {
+          codeError: res.status,
+          message: 'IG: Planned server error',
+        } as IError;
+      }
+
+      if (!res.ok && res.status === 400) {
+        // но ошибка неправильный логин пароль
+        debugger;
+        return {
+          codeError: res.status,
+          message: 'IG: Invalid credentials',
+        } as IError;
+      }
+      return await res.json();
+    } catch (e) {
+      // запланированная ошибка сервера
+      debugger;
+      toast.error('Ошибка! Попробуйте еще раз');
+      return { codeError: 500, message: String(e) };
+    }
   }
 
   async getUser() {

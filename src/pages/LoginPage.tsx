@@ -21,10 +21,13 @@ import TestingProfiles from '../components/TestingProfiles';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
+  const loginError = useAppSelector((store) => store.auth.loginError);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -44,17 +47,36 @@ const LoginPage = () => {
   const handleInputPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setPassword(e.target.value);
+    const passwordValue = e.target.value;
+    setPassword(passwordValue);
+
+    // Проверка на минимальную длину пароля
+    if (passwordValue.length < 5) {
+      setPasswordError('Пароль не менее 5 символов');
+    } else {
+      setPasswordError(null);
+    }
   };
 
   const handleInputLoginChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setLogin(e.target.value);
+    const email = e.target.value;
+    setLogin(email);
+
+    // Регулярное выражение для проверки формата email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      setEmailError('Введите корректный email-адрес');
+    } else {
+      setEmailError(null);
+    }
   };
 
   const handleSubmit = () => {
-    dispatch(loginUser({ login, password }));
+    if (!emailError) {
+      dispatch(loginUser({ login, password }));
+    }
   };
 
   useEffect(() => {
@@ -93,6 +115,8 @@ const LoginPage = () => {
               onChange={(e) => {
                 handleInputLoginChange(e);
               }}
+              error={!!emailError || !!loginError}
+              helperText={emailError || (loginError && 'Ошибка авторизации')}
             />
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
@@ -126,11 +150,17 @@ const LoginPage = () => {
               }
               label="Password"
             />
+            {(passwordError || loginError) && (
+              <Typography color="error" variant="caption">
+                {passwordError || 'Ошибка авторизации'}
+              </Typography>
+            )}
           </FormControl>
           <Button
             variant="contained"
             onClick={handleSubmit}
             sx={{ m: 1, width: '25ch', alignSelf: 'center' }}
+            disabled={!login || !password || !!emailError || !!passwordError}
           >
             Войти
           </Button>

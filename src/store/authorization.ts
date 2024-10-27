@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../api/index';
 import { IUser } from '../types/IUser';
 import { IAuth } from '../types/IAuth';
+import { IError } from '../types/IError';
 
 // Define a type for the slice state
 interface CounterState {
@@ -10,6 +11,8 @@ interface CounterState {
   isGetCurentUserPending: boolean;
   isDesignedError: boolean;
   currentUser: IUser | null;
+  loginError: boolean;
+  invalidCredentials: boolean;
 }
 
 // Define the initial state using that type
@@ -19,6 +22,8 @@ const initialState: CounterState = {
   isGetCurentUserPending: false,
   isDesignedError: false,
   currentUser: null,
+  loginError: false,
+  invalidCredentials: false,
 };
 
 export const authorizationSlice = createSlice({
@@ -45,33 +50,10 @@ export const authorizationSlice = createSlice({
       state.isDesignedError = false;
       state.isGetCurentUserPending = false;
     },
-    // increment: (state) => {
-    //   state.value += 1
-    // },
-    // decrement: (state) => {
-    //   state.value -= 1
-    // },
-    // // Use the PayloadAction type to declare the contents of `action.payload`
-    // getUsers: (state, action: PayloadAction<User[]>) => {
-    //   state.users = action.payload
-    // },
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(fetchUsers.fulfilled, (state, action) => {
-      //   state.users = action.payload
-      //   state.pending = false
-      // })
-      // .addCase(fetchUsers.pending, (state) => {
-      //   state.pending = true
-      // })
-      // .addCase(addUserById.fulfilled, (state, action) => {
-      //   state.users.push(action.payload)
-      //   state.pending = false
-      // })
-      // .addCase(addUserById.pending, (state) => {
-      //   state.pending = true
-      // })
+
       .addCase(loginUser.pending, (state) => {
         state.isAuthPending = true;
       })
@@ -79,9 +61,11 @@ export const authorizationSlice = createSlice({
         state.isAuthPending = false;
         state.isAuthenticated = true;
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
+        state.loginError = action.payload.loginError;
+        state.invalidCredentials = action.payload.invalidCredentials; // Устанавливаем ошибку из rejectWithValue
       });
 
     // .addCase(getCurrentUser.pending, (state) => {
@@ -115,16 +99,29 @@ export default authorizationSlice.reducer;
 export const loginUser = createAsyncThunk<
   void,
   { login: string; password: string }
->('loginUser', async ({ login, password }, { rejectWithValue }) => {
+>('loginUser', async ({ login, password }, thunkAPI) => {
   try {
-    const res: IAuth = await api.login(login, password);
+    const res: IAuth | IError = await api.login(login, password);
+    // debugger;
     if (res.auth) {
+      // debugger;
       console.log(123);
       localStorage.setItem('token', res.token); // Сохраняем токен в localStorage
-    } else {
-      throw new Error('Login failed');
     }
-  } catch {
-    return rejectWithValue('Login failed');
+    if (res.codeError === 400) {
+      // debugger;
+      return thunkAPI.rejectWithValue({
+        invalidCredentials: true,
+        loginError: true,
+      }); // Неверный пароль
+    } else if (res.codeError === 500) {
+      // debugger;
+      return thunkAPI.rejectWithValue({
+        invalidCredentials: false,
+        loginError: true,
+      }); // Общая ошибка сервера
+    }
+  } catch (e) {
+    return thunkAPI.rejectWithValue('Login failed');
   }
 });
