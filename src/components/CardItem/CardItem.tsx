@@ -59,7 +59,7 @@ const CardItem: FC<CardItemProps> = (props) => {
 
           <Stack spacing={0.5} sx={{ marginBottom: '20px' }}>
             <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Локация</Typography>
-            <Typography variant="body2">Область: {helpRequest.location.district}</Typography>
+            <Typography variant="body2">{helpRequest.location.district}</Typography>
             <Typography variant="body2">Населенный пункт: {helpRequest.location.city}</Typography>
           </Stack>
 
