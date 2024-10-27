@@ -1,14 +1,14 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { api } from '../api/index'
-import { IUser } from '../types/IUser'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { api } from '../api/index';
+import { IUser } from '../types/IUser';
 
 // Define a type for the slice state
 interface CounterState {
-  isAuthenticated: boolean
-  isAuthPending: boolean
-  isGetCurentUserPending: boolean
-  isDesignedError: boolean
-  currentUser: IUser | null
+  isAuthenticated: boolean;
+  isAuthPending: boolean;
+  isGetCurentUserPending: boolean;
+  isDesignedError: boolean;
+  currentUser: IUser | null;
 }
 
 // Define the initial state using that type
@@ -18,7 +18,7 @@ const initialState: CounterState = {
   isGetCurentUserPending: false,
   isDesignedError: false,
   currentUser: null,
-}
+};
 
 export const authorizationSlice = createSlice({
   name: 'authorization',
@@ -26,19 +26,19 @@ export const authorizationSlice = createSlice({
   initialState,
   reducers: {
     initializeAuth: (state) => {
-      state.isAuthenticated = true
+      state.isAuthenticated = true;
     },
     logOut: (state) => {
-      localStorage.removeItem('token')
-      state.isAuthenticated = false
-      state.isAuthPending = false
-      state.currentUser = null
-      state.isGetCurentUserPending = false
+      localStorage.removeItem('token');
+      state.isAuthenticated = false;
+      state.isAuthPending = false;
+      state.currentUser = null;
+      state.isGetCurentUserPending = false;
     },
 
     requestUnsuccessfullByDesign: (state) => {
-      state.isGetCurentUserPending = false
-      state.isDesignedError = true
+      state.isGetCurentUserPending = false;
+      state.isDesignedError = true;
     },
     // increment: (state) => {
     //   state.value += 1
@@ -68,36 +68,36 @@ export const authorizationSlice = createSlice({
       //   state.pending = true
       // })
       .addCase(loginUser.pending, (state) => {
-        state.isAuthPending = true
+        state.isAuthPending = true;
       })
       .addCase(loginUser.fulfilled, (state) => {
-        state.isAuthPending = false
-        state.isAuthenticated = true
+        state.isAuthPending = false;
+        state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state) => {
-        state.isAuthPending = false
-        state.isAuthenticated = false
+        state.isAuthPending = false;
+        state.isAuthenticated = false;
       })
 
       .addCase(getCurrentUser.pending, (state) => {
-        state.isGetCurentUserPending = true
+        state.isGetCurentUserPending = true;
       })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
-        state.currentUser = action.payload
-        state.isAuthenticated = true
-        state.isGetCurentUserPending = false
+        state.currentUser = action.payload;
+        state.isAuthenticated = true;
+        state.isGetCurentUserPending = false;
       })
       .addCase(getCurrentUser.rejected, (state) => {
-        state.isGetCurentUserPending = false
+        state.isGetCurentUserPending = false;
         // state.isAuthenticated = false
-      })
+      });
   },
-})
+});
 
 export const { initializeAuth, logOut, requestUnsuccessfullByDesign } =
-  authorizationSlice.actions
+  authorizationSlice.actions;
 
-export default authorizationSlice.reducer
+export default authorizationSlice.reducer;
 
 // Async thunk
 // export const fetchUsers = createAsyncThunk(
@@ -112,26 +112,27 @@ export const loginUser = createAsyncThunk<
   { login: string; password: string }
 >('loginUser', async ({ login, password }, { rejectWithValue }) => {
   try {
-    const res = await api.login(login, password)
+    const res = await api.login(login, password);
     if (res.auth) {
-      localStorage.setItem('token', res.token) // Сохраняем токен в localStorage
+      console.log(123);
+      localStorage.setItem('token', res.token); // Сохраняем токен в localStorage
     } else {
-      throw new Error('Login failed')
+      throw new Error('Login failed');
     }
   } catch {
-    return rejectWithValue('Login failed')
+    return rejectWithValue('Login failed');
   }
-})
+});
 
 export const getCurrentUser = createAsyncThunk(
   '/api/user',
   async (_, thunkApi) => {
     try {
       //const token = localStorage.getItem('token') ?? ''
-      return await api.getUser()
+      return await api.getUser();
     } catch (error) {
-      console.log('Error in thunk:', error)
-      return thunkApi.rejectWithValue(error)
+      console.log('Error in thunk:', error);
+      return thunkApi.rejectWithValue(error);
     }
   }
-)
+);

@@ -1,35 +1,42 @@
-import { combineReducers, Middleware } from 'redux'
-import rtkReducer from './rtkSlice'
-import { configureStore } from '@reduxjs/toolkit'
-import authorizationReducer, { logOut } from './authorization'
-import { requestUnsuccessfullByDesign } from './authorization'
+import { combineReducers, Middleware } from 'redux';
+import rtkReducer from './rtkSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import authorizationReducer, { logOut } from './authorization';
+import { requestUnsuccessfullByDesign } from './authorization';
+import { combineReducers } from 'redux';
+import rtkReducer from './rtkSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import profileSlice from './profileStore';
+import authorizationReducer from './authorization';
+import profileReducer from './profileStore';
 
 const rootReducer = combineReducers({
-  counter: rtkReducer,
   auth: authorizationReducer,
-  // остальные редьюсеры
-})
+  profile: profileReducer,
+});
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
   if (action.type.endsWith('rejected')) {
     if (action.payload?.status === 500) {
-      console.log('ИЗ миддлавара с ошибкой 500')
+      console.log('ИЗ миддлавара с ошибкой 500');
       // debugger
       // просто ошибка сервера, не убираем флаг isAuth и не редиректимся на страницу логина
-      store.dispatch(requestUnsuccessfullByDesign())
+      store.dispatch(requestUnsuccessfullByDesign());
     } else if (action.payload?.status === 403) {
       // просрочился jwt, убираем флаг isAuth и редиректимся на страницу логина
-      store.dispatch(logOut())
+      store.dispatch(logOut());
       // debugger
-      console.log('ИЗ миддлавара с ошибкой 403')
+      console.log('ИЗ миддлавара с ошибкой 403');
     }
   }
 
-  return next(action)
-}
+  return next(action);
+};
 
 export const store = configureStore({
   reducer: rootReducer,
+
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),
-})
+  devTools: true,
+});
