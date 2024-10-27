@@ -1,11 +1,14 @@
-import { APIMethod, APIRoute, BASE_URL } from '../const/const'
+import { toast } from 'react-toastify';
+import { APIMethod, APIRoute, BASE_URL } from '../const/const';
+import { IError } from '../types/IError';
+import { IUser } from '../types/IUser';
 import { HelpRequest } from '../types/HelpRequest'
 
 class ApiService {
-  private baseUrl: string
+  private baseUrl: string;
 
   constructor(baseUrl: string) {
-    this.baseUrl = baseUrl
+    this.baseUrl = baseUrl;
   }
 
   // метод, которые принимает параметры для запроса и подтыкает authorization
@@ -13,7 +16,7 @@ class ApiService {
     fullUrl: APIRoute,
     method: APIMethod,
     body?: string
-  ): Promise<T> {
+  ): Promise<T | IError> {
     try {
       const res = await fetch(`${fullUrl}`, {
         method: method,
@@ -22,15 +25,20 @@ class ApiService {
           authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: body,
-      })
-      return await res.json()
+      });
+      if (res.ok) return (await res.json()) as T;
+      else {
+        return { codeError: res.status, message: await res.json() } as IError;
+      }
     } catch (e) {
-      throw new Error('Something went wrong while fetching!')
+      toast.error('Ошибка! Попробуйте еще раз');
+      console.log(e);
+      return { codeError: 500, message: String(e) };
     }
   }
 
   async login(login: string, password: string): Promise<any> {
-    const body = await JSON.stringify({ password: password, login: login })
+    const body = await JSON.stringify({ password: password, login: login });
 
     const res = await fetch(APIRoute.Login, {
       method: 'POST',
@@ -38,14 +46,23 @@ class ApiService {
         'Content-Type': 'application/json',
       },
       body: body,
-    })
+    });
 
-    return await res.json()
+    return await res.json();
   }
 
   async getUser() {
-    const res = await this.fetchDataWithToken(APIRoute.User, APIMethod.GET)
-    return res
+    const res: IUser | IError = await this.fetchDataWithToken(
+      APIRoute.User,
+      APIMethod.GET
+    );
+
+    const isCodeError = (object): object is IError => {
+      return 'codeError' in object;
+    };
+    if (isCodeError(res)) {
+      throw new Error(String(res.codeError));
+    } else return res;
   }
 
   async getHelpRequests(): Promise<HelpRequest[]> {
@@ -54,6 +71,4 @@ class ApiService {
   }
 }
 
-export const api = new ApiService(BASE_URL)
-
-api.getUser().then((res) => console.log(res))
+export const api = new ApiService(BASE_URL);

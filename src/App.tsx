@@ -10,12 +10,13 @@ import NotFoundPage from './pages/NotFoundPage'
 import { initializeAuth } from './store/authorization'
 //import { HelpRequest } from './types/HelpRequest'
 import { useAppDispatch } from './hooks/useAppDispatch'
+import './App.css';
+
+import HeaderNavigationApp from './components/Header/Header';
+import BottomNavigationApp from './components/Footer/Footer';
+import Profile from './components/profile/Profile';
 
 function App() {
-  /*const counter = useAppSelector((state) => state.counter.value)
-  const users = useAppSelector((state) => state.counter.users)
-  const pending = useAppSelector((state) => state.counter.pending)*/
-
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -30,15 +31,18 @@ function App() {
   return (
     <>
       <Router>
+        <HeaderNavigationApp />
         <Routes>
           <Route path={AppRoute.Login} element={<LoginPage />} />
 
-          <Route element={<PrivateRoute />}>
+          {/* <Route element={<PrivateRoute />}>*/}
             <Route path={AppRoute.TestPage} element={<JustAnotherPage />} />
+            <Route path={AppRoute.Profile} element={<Profile />} />
             {/* <Route path={AppRoute.TestPage} element={<JustAnotherPage />} /> */}
-          </Route>
+          {/* </Route>*/}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <BottomNavigationApp />
       </Router>
     </>
   )
