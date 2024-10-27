@@ -2,7 +2,7 @@
 import Filters from '../../components/Filters';
 import Search from '../../components/Search';
 // styles
-import { Box, Typography, Grid2 } from '@mui/material';
+import { Box, Typography, Grid2, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { getHelpRequests } from '../../store/help-requests/selectors';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -19,10 +19,15 @@ const Helps = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<HelpRequest[]>([]);
+  const [isData, setIsData] = useState(helpRequestList.length);
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchHelpRequestsAction());
   }, []);
+
+  useEffect(() => {
+    setIsData(helpRequestList.length);
+  }, [helpRequestList]);
 
   useEffect(() => {
     const filterHelpRequests = () => {
@@ -60,7 +65,13 @@ const Helps = () => {
   }, [helpRequestList, searchTerm, selectedOptions]);
 
   return (
-    <Box>
+    <>
+      {!isData ? (
+        <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box>
       <Typography variant="h4">
         Запросы о помощи
       </Typography>
@@ -80,7 +91,9 @@ const Helps = () => {
         </Grid2>
       </Grid2>
     </Box>
+    )}
+    </>
   )
 }
 
-export default Helps
+export default Helps;

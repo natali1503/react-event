@@ -30,7 +30,6 @@ const Search = ({searchTerm, setSearchTerm}: SearchProps) => {
 
   // Debounce a function that will execute after a delay
   const debouncedAction = debounce((value: string) => {
-    console.log(newValue);
     // Actions that should happen after the debounce period
     // e.g., triggering a search or API call\
   }, 500);

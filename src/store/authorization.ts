@@ -7,6 +7,8 @@ import { IAuth } from '../types/IAuth';
 interface CounterState {
   isAuthenticated: boolean;
   isAuthPending: boolean;
+  user: string;
+  errorMessage: string | null; // Добавляем поле для хранения сообщения об ошибке
   isGetCurentUserPending: boolean;
   isDesignedError: boolean;
   currentUser: IUser | null;
@@ -16,6 +18,8 @@ interface CounterState {
 const initialState: CounterState = {
   isAuthenticated: false,
   isAuthPending: false,
+  user: "",
+  errorMessage: null, // Изначально ошибка отсутствует
   isGetCurentUserPending: false,
   isDesignedError: false,
   currentUser: null,
@@ -32,6 +36,7 @@ export const authorizationSlice = createSlice({
     logOut: (state) => {
       localStorage.removeItem('token');
       state.isAuthenticated = false;
+      state.errorMessage = null; // Сбрасываем сообщение об ошибке при выходе
       state.isAuthPending = false;
       state.currentUser = null;
       state.isGetCurentUserPending = false;
@@ -74,14 +79,17 @@ export const authorizationSlice = createSlice({
       // })
       .addCase(loginUser.pending, (state) => {
         state.isAuthPending = true;
+        state.errorMessage = null; // Сбрасываем сообщение об ошибке при новом запросе
       })
       .addCase(loginUser.fulfilled, (state) => {
         state.isAuthPending = false;
         state.isAuthenticated = true;
+        state.errorMessage = null; // Сбрасываем сообщение об ошибке при успешной аутентификации
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
+        state.errorMessage = action.payload as string; // Сохраняем сообщение об ошибке
       });
 
     // .addCase(getCurrentUser.pending, (state) => {
@@ -124,7 +132,9 @@ export const loginUser = createAsyncThunk<
     } else {
       throw new Error('Login failed');
     }
-  } catch {
-    return rejectWithValue('Login failed');
+  } catch (error) {
+    // @ts-expect-error: тип error не определен для message
+    return rejectWithValue(error.response?.data?.message || 'Login failed');
+    //return rejectWithValue("Login failed");
   }
 });

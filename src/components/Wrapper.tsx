@@ -6,10 +6,10 @@ export default function Wrapper({ children }) {
   return (
     <Box
       width={'100%'}
-      height={'100vh'}
       bgcolor={'#ffffff'}
       display={'flex'}
       flexDirection={'column'}
+      min-height={'100vh'}
     >
       <HeaderNavigationApp />
       <Box margin={'0 210px'} flexGrow={'1'}>
