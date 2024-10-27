@@ -69,7 +69,7 @@ export const authorizationSlice = createSlice({
   },
 })
 
-export const { initializeAuth } = authorizationSlice.actions
+export const { initializeAuth, logOut } = authorizationSlice.actions
 
 export default authorizationSlice.reducer
 

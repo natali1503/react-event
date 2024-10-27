@@ -1,5 +1,4 @@
 import './App.css'
-
 import { useAppDispatch } from './hooks/useAppDispatch'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AppRoute } from './const/const'
@@ -9,6 +8,9 @@ import PrivateRoute from './components/PrivateRoute'
 import { useEffect } from 'react'
 import NotFoundPage from './pages/NotFoundPage'
 import { initializeAuth } from './store/authorization'
+
+import HeaderNavigationApp from './components/Header/Header'
+import BottomNavigationApp from './components/Footer/Footer'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -20,6 +22,7 @@ function App() {
   return (
     <>
       <Router>
+        <HeaderNavigationApp/>
         <Routes>
           <Route path={AppRoute.Login} element={<LoginPage />} />
 
@@ -29,6 +32,7 @@ function App() {
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        <BottomNavigationApp />
       </Router>
     </>
   )
