@@ -24,10 +24,11 @@ const Protected: FC<Props> = ({ onlyUnAuth = false, component }) => {
     return <Navigate to={AppRoute.Login} state={{ from: location }} />;
   }
 
-  return <>{component}</>;
+  return <Component />;
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }: Props) => (
+
+export const OnlyUnAuth: React.FC<Props> = ({ component }: Props) => (
   <Protected onlyUnAuth={true} component={component} />
 );

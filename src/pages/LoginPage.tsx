@@ -18,6 +18,7 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/TestingProfiles';
+import { showErrorToast } from '../components/Toasts/showToasts';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
@@ -84,6 +85,12 @@ const LoginPage = () => {
       navigate(AppRoute.Profile, { replace: true });
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (loginError) {
+      showErrorToast('Ошибка! Попробуйте еще раз!');
+    }
+  }, [loginError]);
 
   return (
     <Grid2 container spacing={2}>

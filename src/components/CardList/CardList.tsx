@@ -1,7 +1,7 @@
-import { FC } from "react";
-import CardItem from "../CardItem/CardItem";
+import { FC } from 'react';
+import CardItem from '../CardItem/CardItem';
 import Grid from '@mui/material/Grid2';
-import { HelpRequest } from "../../types/HelpRequest";
+import { HelpRequest } from '../../types/HelpRequest';
 
 type RequestsProps = {
   helpRequests: HelpRequest[];
@@ -12,18 +12,24 @@ const CardList: FC<RequestsProps> = (requests) => {
   const { helpRequests, viewMode } = requests;
 
   return (
-    <Grid 
-    container
-    spacing={viewMode === 'grid' ? 2 : 0}
-    direction={viewMode === 'list' ? 'column' : 'row'}>
+    <Grid
+      container
+      spacing={viewMode === 'grid' ? 2 : 0}
+      direction={viewMode === 'list' ? 'column' : 'row'}
+      justifyContent={'center'}
+    >
       {helpRequests.map((request) => {
-         const keyValue = request.id;
-         return (
-          <CardItem key={keyValue} helpRequest={request} orientation={viewMode === 'grid' ? 'vertical' : 'horizontal'} />
-         );
+        const keyValue = request.id;
+        return (
+          <CardItem
+            key={keyValue}
+            helpRequest={request}
+            orientation={viewMode === 'grid' ? 'vertical' : 'horizontal'}
+          />
+        );
       })}
     </Grid>
   );
-}
+};
 
 export default CardList;

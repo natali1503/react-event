@@ -24,6 +24,7 @@ export const authMiddleware: Middleware = (store) => (next) => (action) => {
     if (action.error?.message === '500') {
       // просто ошибка сервера, не убираем флаг isAuth и не редиректимся на страницу логина
       // debugger
+
       store.dispatch(requestUnsuccessfullByDesign());
       // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     } else if (action.error?.message === '403') {

@@ -8,6 +8,8 @@ import { IError } from '../types/IError';
 interface CounterState {
   isAuthenticated: boolean;
   isAuthPending: boolean;
+  user: string;
+  errorMessage: string | null; // Добавляем поле для хранения сообщения об ошибке
   isGetCurentUserPending: boolean;
   isDesignedError: boolean;
   currentUser: IUser | null;
@@ -19,6 +21,8 @@ interface CounterState {
 const initialState: CounterState = {
   isAuthenticated: false,
   isAuthPending: false,
+  user: '',
+  errorMessage: null, // Изначально ошибка отсутствует
   isGetCurentUserPending: false,
   isDesignedError: false,
   currentUser: null,
@@ -37,6 +41,7 @@ export const authorizationSlice = createSlice({
     logOut: (state) => {
       localStorage.removeItem('token');
       state.isAuthenticated = false;
+      state.errorMessage = null; // Сбрасываем сообщение об ошибке при выходе
       state.isAuthPending = false;
       state.currentUser = null;
       state.isGetCurentUserPending = false;
@@ -56,10 +61,12 @@ export const authorizationSlice = createSlice({
 
       .addCase(loginUser.pending, (state) => {
         state.isAuthPending = true;
+        state.errorMessage = null; // Сбрасываем сообщение об ошибке при новом запросе
       })
       .addCase(loginUser.fulfilled, (state) => {
         state.isAuthPending = false;
         state.isAuthenticated = true;
+        state.errorMessage = null; // Сбрасываем сообщение об ошибке при успешной аутентификации
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
@@ -106,5 +113,6 @@ export const loginUser = createAsyncThunk<
     }
   } catch {
     return thunkAPI.rejectWithValue('Login failed');
+    //return rejectWithValue("Login failed");
   }
 });

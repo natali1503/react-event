@@ -10,6 +10,8 @@ export default function BottomNavigationApp() {
       sx={{
         width: '100vw',
         borderTop: '1px solid #e0e0e0',
+        marginTop: 'auto',
+        zIndex: '1',
       }}
     >
       <Stack direction={'row'} justifyContent={'space-around'}>
@@ -25,7 +27,7 @@ export default function BottomNavigationApp() {
           Об ивенте
         </Link>
         <Link
-          href="https://github.com/nat-davydova/charity_event_back_oct2024/tree/main"
+          href="https://github.com/heyhurricane/react-event"
           underline="hover"
           sx={{
             color: 'black',
