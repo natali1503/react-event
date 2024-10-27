@@ -16,6 +16,7 @@ import './App.css';
 import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
 import Helps from './pages/Helps/Helps';
+import UserInfoID from './pages/Helps/UserInfoID';
 //import UserInfoID from './pages/Helps/UserInfoID'
 
 function App() {
@@ -43,6 +44,10 @@ function App() {
             <Route
               path={AppRoute.Profile}
               element={<OnlyAuth component={Profile} />}
+            />
+            <Route
+              path={AppRoute.HelpRequest}
+              element={<OnlyAuth component={UserInfoID} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

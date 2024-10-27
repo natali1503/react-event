@@ -11,12 +11,7 @@ type CardItemProps = {
 };
 
 const CardItem: FC<CardItemProps> = (props) => {
-  const { helpRequest, orientation, keyValue } = props;
-
-  const handleHelpClick = () => {
-    console.log(keyValue); // Выводим requestId в консоль
-  };
-  
+  const { helpRequest, orientation} = props;
 
   return (
     <>
