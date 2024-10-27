@@ -24,18 +24,17 @@ export default function HeaderNavigationApp() {
     <Box 
       sx={{ 
         backgroundColor: 'white', 
-        //width: '100vw', 
         height: '84px', 
-        margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        margin: '0 210px',
       }}
     >
       <AppBar position="static" color="inherit" sx={{ zIndex: '1' }}>
         <Toolbar
           sx={{
-            width: '85%',
+            width: '100%',
             maxWidth: '1500px',
             height: '64px',
             display: 'flex',

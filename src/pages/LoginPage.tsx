@@ -74,62 +74,6 @@ const LoginPage = () => {
   }, [isErrorMessage]);
 
   return (
-<<<<<<< HEAD
-    <Box>
-      <Box>
-        <FormControl sx={{ m: 1, width: "25ch" }}>
-          {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
-          <TextField
-            id="outlined-basic"
-            label="Логин"
-            slotProps={{
-              inputLabel: {
-                shrink: true,
-              },
-            }}
-            variant="outlined"
-            value={login}
-            placeholder="Введите e-mail"
-            onChange={(e) => {
-              handleInputLoginChange(e);
-            }}
-          />
-        </FormControl>
-        <FormControl sx={{ m: 1, width: "25ch" }}>
-          <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
-          <OutlinedInput
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            placeholder="Введите пароль"
-            value={password}
-            onChange={(e) => {
-              handleInputPasswordChange(e);
-            }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label={
-                    showPassword ? "hide the password" : "display the password"
-                  }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-      </Box>
-      <Button variant="contained" onClick={handleSubmit}>
-        Войти
-      </Button>
-      <ToastContainer />
-    </Box>
-=======
     <Grid2 container spacing={2}>
       <Grid2 size={6}>
         <Box
@@ -143,7 +87,7 @@ const LoginPage = () => {
           >
             Вход
           </Typography>
-          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
+          <FormControl sx={{ m: 1, width: '25px', alignSelf: 'center' }}>
             {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
             <TextField
               id="outlined-basic"
@@ -211,7 +155,6 @@ const LoginPage = () => {
         <TestingProfiles />
       </Grid2>
     </Grid2>
->>>>>>> upstream/main
   );
 };
 

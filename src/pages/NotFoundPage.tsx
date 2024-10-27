@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react'
 import NoFoundData from '../components/NotFoundPage/NoFoundData'
 
@@ -21,12 +20,5 @@ const NotFoundPage = () => {
     <NoFoundData/>
   </div>
 }
-=======
-import React from 'react';
-
-const NotFoundPage = () => {
-  return <div>NotFoundPage</div>;
-};
->>>>>>> upstream/main
 
 export default NotFoundPage;

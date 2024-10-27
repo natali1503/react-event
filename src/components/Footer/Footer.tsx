@@ -6,15 +6,13 @@ export default function BottomNavigationApp() {
     <Box bottom={0}
         sx={{ 
             height: '152px',
-            margin: '0 auto',
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',  
-            backgroundColor: '#FFFFFF'
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            margin: '0 210px',
         }}>
         <Box sx={{ 
-            width: '85%', 
-            maxWidth: '1500px',
+            width: '100%', 
             height: '64px', 
             display: 'flex', 
             justifyContent: 'space-between', 
