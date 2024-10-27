@@ -19,8 +19,12 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/TestingProfiles';
 
+import { ToastContainer } from 'react-toastify';
+import { showErrorToast } from "../components/Toasts/showToasts";
+
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
+  const isErrorMessage = useAppSelector((store) => store.auth.errorMessage);// tostify
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login, setLogin] = useState<string>('');
@@ -63,6 +67,12 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, navigate]);
 
+  useEffect(() => {
+    if (isErrorMessage) {
+      showErrorToast('Ошибка! Попробуйте еще раз!')
+    }
+  }, [isErrorMessage]);
+
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={6}>
@@ -77,7 +87,7 @@ const LoginPage = () => {
           >
             Вход
           </Typography>
-          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
+          <FormControl sx={{ m: 1, width: '25px', alignSelf: 'center' }}>
             {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
             <TextField
               id="outlined-basic"

@@ -12,7 +12,7 @@ import {
   IconButton,
 } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 
 export default function ImageAvatar() {
@@ -27,14 +27,18 @@ export default function ImageAvatar() {
   };
 
   const handleClickProfile = (event: React.MouseEvent<HTMLElement>) => {
-    // navigate(AppRoute.Profile, { replace: true });
+    navigate(AppRoute.Profile, { replace: true });
     console.log('handleClickProfile');
   };
 
   const handleClose = () => {
-    dispatch(logOut()); // Вызываем действие для разлогинивания
     setAnchorEl(null);
   };
+
+  const handlLogOut = () => {
+    dispatch(logOut()); // Вызываем действие для разлогинивания
+    navigate(AppRoute.Login, { replace: true }); 
+  }
 
   return (
     <Fragment>
@@ -90,7 +94,10 @@ export default function ImageAvatar() {
         <MenuItem onClick={handleClickProfile}>
           <Avatar /> Мой профиль
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem 
+          component={Link}
+          to="/login"  
+          onClick={handlLogOut} >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
