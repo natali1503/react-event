@@ -10,6 +10,8 @@ export default function BottomNavigationApp() {
       sx={{
         width: '100vw',
         borderTop: '1px solid #e0e0e0',
+        marginTop: 'auto',
+        zIndex: '1',
       }}
     >
       <Stack direction={'row'} justifyContent={'space-around'}>
