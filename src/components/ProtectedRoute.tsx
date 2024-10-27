@@ -1,8 +1,12 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 
+type Props = {
+  onlyUnAuth?: boolean;
+  component: ReactNode;
+};
 /// refactored one
 const Protected: FC<Props> = ({ onlyUnAuth = false, component }) => {
   const user = useAppSelector((store) => store.auth.isAuthenticated); // может сразу пользователя просить

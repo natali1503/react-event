@@ -1,17 +1,11 @@
-import { APIMethod, APIRoute, BASE_URL } from '../const/const';
+import { APIMethod, APIRoute } from '../const/const';
 import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
 import { IError } from '../types/IError';
-import { IAuth } from '../types/IAuth';
 import { HelpRequest } from '../types/HelpRequest';
+import { IAuth } from '../types/IAuth';
 
 class ApiService {
-  private baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
-
   // метод, которые принимает параметры для запроса и подтыкает authorization
   private async fetchDataWithToken<T>(
     fullUrl: APIRoute,
@@ -38,7 +32,7 @@ class ApiService {
     }
   }
 
-  async login(login: string, password: string): Promise<T | IError> {
+  async login(login: string, password: string): Promise<IAuth | IError> {
     try {
       const body = await JSON.stringify({ password: password, login: login });
 
@@ -102,4 +96,4 @@ class ApiService {
   }
 }
 
-export const api = new ApiService(BASE_URL);
+export const api = new ApiService();

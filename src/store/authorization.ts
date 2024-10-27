@@ -64,22 +64,11 @@ export const authorizationSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
+        // @ts-expect-error наладить типизацию экшена, согласовать с запросом
         state.loginError = action.payload.loginError;
+        // @ts-expect-error наладить типизацию экшена, согласовать с запросом
         state.invalidCredentials = action.payload.invalidCredentials; // Устанавливаем ошибку из rejectWithValue
       });
-
-    // .addCase(getCurrentUser.pending, (state) => {
-    //   state.isGetCurentUserPending = true;
-    // })
-    // .addCase(getCurrentUser.fulfilled, (state, action) => {
-    //   state.currentUser = action.payload;
-    //   state.isAuthenticated = true;
-    //   state.isGetCurentUserPending = false;
-    // })
-    // .addCase(getCurrentUser.rejected, (state) => {
-    //   state.isGetCurentUserPending = false;
-    //   // state.isAuthenticated = false
-    // });
   },
 });
 
@@ -88,14 +77,6 @@ export const { initializeAuth, logOut, requestUnsuccessfullByDesign } =
 
 export default authorizationSlice.reducer;
 
-// Async thunk
-// export const fetchUsers = createAsyncThunk(
-//   'getUsersAction', //string for the action type prefix
-//   async () => {
-//     return await api.getAllUsers()
-//   }
-// )
-
 export const loginUser = createAsyncThunk<
   void,
   { login: string; password: string }
@@ -103,17 +84,19 @@ export const loginUser = createAsyncThunk<
   try {
     const res: IAuth | IError = await api.login(login, password);
     // debugger;
+    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     if (res.auth) {
-      // debugger;
-      console.log(123);
+      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
       localStorage.setItem('token', res.token); // Сохраняем токен в localStorage
     }
+    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     if (res.codeError === 400) {
       // debugger;
       return thunkAPI.rejectWithValue({
         invalidCredentials: true,
         loginError: true,
       }); // Неверный пароль
+      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     } else if (res.codeError === 500) {
       // debugger;
       return thunkAPI.rejectWithValue({
@@ -121,7 +104,7 @@ export const loginUser = createAsyncThunk<
         loginError: true,
       }); // Общая ошибка сервера
     }
-  } catch (e) {
+  } catch {
     return thunkAPI.rejectWithValue('Login failed');
   }
 });
