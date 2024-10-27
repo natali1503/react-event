@@ -31,12 +31,18 @@ export default function Profile() {
 
   return (
     isAuth && (
-      <Box>
+      <Box
+        display="flex"
+        flexDirection={'column'}
+        alignItems={'center'}
+        width={'100%'}
+      >
         <Box
+          width={'100%'}
           display="flex"
           flexDirection={'column'}
           bgcolor={'#f5f6f5'}
-          // margin={"84px 210px"}
+          // margin={'0 210px'}
         >
           <Stack alignItems={'flex-start'}>
             <Typography variant="h4" margin={'30px 40px'}>
@@ -51,6 +57,7 @@ export default function Profile() {
                 bgcolor={'white'}
                 borderRadius={'4px'}
                 border={'1px solid #e0e0e0'}
+                height={'100%'}
               >
                 <CardProfile />
               </Stack>
@@ -60,7 +67,7 @@ export default function Profile() {
                 borderRadius={'4px'}
                 border={'1px solid #e0e0e0'}
                 minHeight={'100vh'}
-                minWidth={'100vh'}
+                width={'100%'}
               >
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <Tabs value={numberTab} onChange={handleChange}>
