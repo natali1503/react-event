@@ -62,8 +62,9 @@ class ApiService {
 
       if (!res.ok && res.status === 400) {
         // неправильный логин пароль
+        // debugger;
         toast.error('Неправильный логин пароль! Попробуйте еще раз');
-        debugger;
+
         return {
           codeError: res.status,
           message: 'IG: Invalid credentials',
@@ -72,7 +73,7 @@ class ApiService {
       return await res.json();
     } catch (e) {
       // запланированная ошибка сервера
-      debugger;
+      // debugger;
       toast.error('Ошибка! Попробуйте еще раз');
       return { codeError: 500, message: String(e) };
     }
