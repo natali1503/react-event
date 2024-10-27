@@ -3,7 +3,6 @@ import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AppRoute } from './const/const'
 import LoginPage from './pages/LoginPage'
-import JustAnotherPage from './pages/JustAnotherPage'
 import PrivateRoute from './components/PrivateRoute'
 import { useEffect } from 'react'
 import NotFoundPage from './pages/NotFoundPage'
@@ -15,6 +14,7 @@ import './App.css';
 import HeaderNavigationApp from './components/Header/Header';
 import BottomNavigationApp from './components/Footer/Footer';
 import Profile from './components/profile/Profile';
+import Helps from './pages/Helps/Helps'
 
 function App() {
   const dispatch = useAppDispatch()
@@ -36,7 +36,7 @@ function App() {
           <Route path={AppRoute.Login} element={<LoginPage />} />
 
           {/* <Route element={<PrivateRoute />}>*/}
-            <Route path={AppRoute.TestPage} element={<JustAnotherPage />} />
+            <Route path={AppRoute.Main} element={<Helps />} />
             <Route path={AppRoute.Profile} element={<Profile />} />
             {/* <Route path={AppRoute.TestPage} element={<JustAnotherPage />} /> */}
           {/* </Route>*/}
