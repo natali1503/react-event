@@ -6,6 +6,7 @@ interface CounterState {
   isAuthenticated: boolean;
   isAuthPending: boolean;
   user: string;
+  errorMessage: string | null; // Добавляем поле для хранения сообщения об ошибке
 }
 
 // Define the initial state using that type
@@ -13,6 +14,7 @@ const initialState: CounterState = {
   isAuthenticated: false,
   isAuthPending: false,
   user: "",
+  errorMessage: null, // Изначально ошибка отсутствует
 };
 
 export const authorizationSlice = createSlice({
@@ -27,6 +29,7 @@ export const authorizationSlice = createSlice({
     logOut: (state) => {
       localStorage.removeItem("token");
       state.isAuthenticated = false;
+      state.errorMessage = null; // Сбрасываем сообщение об ошибке при выходе
     },
     // increment: (state) => {
     //   state.value += 1
@@ -57,14 +60,17 @@ export const authorizationSlice = createSlice({
       // })
       .addCase(loginUser.pending, (state) => {
         state.isAuthPending = true;
+        state.errorMessage = null; // Сбрасываем сообщение об ошибке при новом запросе
       })
       .addCase(loginUser.fulfilled, (state) => {
         state.isAuthPending = false;
         state.isAuthenticated = true;
+        state.errorMessage = null; // Сбрасываем сообщение об ошибке при успешной аутентификации
       })
-      .addCase(loginUser.rejected, (state) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
+        state.errorMessage = action.payload as string; // Сохраняем сообщение об ошибке
       });
   },
 });
@@ -93,7 +99,8 @@ export const loginUser = createAsyncThunk<
     } else {
       throw new Error("Login failed");
     }
-  } catch {
-    return rejectWithValue("Login failed");
+  } catch (error) {
+    return rejectWithValue(error.response?.data?.message || 'Login failed');
+    //return rejectWithValue("Login failed");
   }
 });

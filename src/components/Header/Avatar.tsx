@@ -30,9 +30,12 @@ export default function ImageAvatar() {
     navigate(AppRoute.Profile, { replace: true });
   };
   const handleClose = () => {
-    dispatch(logOut()); // Вызываем действие для разлогинивания
     setAnchorEl(null);
   };
+
+  const handlLogOut = () => {
+    dispatch(logOut()); // Вызываем действие для разлогинивания
+  }
 
   return (
     <Fragment>
@@ -88,7 +91,7 @@ export default function ImageAvatar() {
         <MenuItem onClick={handleClickProfile}>
           <Avatar /> Мой профиль
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handlLogOut} >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
