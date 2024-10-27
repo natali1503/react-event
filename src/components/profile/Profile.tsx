@@ -17,6 +17,9 @@ export default function Profile() {
   const profile = useSelector((state: RootState) => {
     return state.profile;
   });
+  const isAuth = useSelector((state: RootState) => {
+    return state.auth.isAuthenticated;
+  });
 
   useEffect(() => {
     dispatch(getUser());
@@ -35,12 +38,12 @@ export default function Profile() {
           bgcolor={'#f5f6f5'}
           // margin={"84px 210px"}
         >
-          <Stack>
+          <Stack alignItems={'flex-start'}>
             <Typography variant="h4" margin={'30px 40px'}>
               Мой профиль
             </Typography>
           </Stack>
-          {!isData ? (
+          {!profile.isData ? (
             <Skeleton />
           ) : (
             <Box display="flex" margin={'20px 40px'} gap={'20px'}>

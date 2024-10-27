@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography } from '@mui/material';
 
 interface IRow {
   header: string;
@@ -6,8 +6,8 @@ interface IRow {
 }
 export const Row = ({ header, value }: IRow) => {
   return (
-    <Stack direction={"row"} gap={"4px"}>
-      <Typography fontWeight={"500"}>{header}:</Typography>
+    <Stack direction={'row'} gap={'4px'}>
+      <Typography fontWeight={'500'}>{header}:</Typography>
       <Typography>{value}</Typography>
     </Stack>
   );

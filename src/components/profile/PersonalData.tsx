@@ -7,8 +7,6 @@ import { Row } from './element/Row';
 
 export default function PersonalData() {
   const { data } = useSelector((state: RootState) => {
-    console.log(state.profile);
-
     return state.profile;
   });
 
