@@ -13,9 +13,10 @@ import './App.css';
 
 import HeaderNavigationApp from './components/Header/Header';
 import BottomNavigationApp from './components/Footer/Footer';
-import Profile from './components/profile/Profile';
+
 import { Box } from '@mui/material';
 import Wrapper from './components/Wrapper';
+import Profile from './pages/Profile/Profile';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -38,8 +39,6 @@ function App() {
 
             {/* <Route element={<PrivateRoute />}> */}
             <Route path={AppRoute.Profile} element={<Profile />} />
-            <Route path={AppRoute.TestPage} element={<JustAnotherPage />} />
-            <Route path={AppRoute.TestPage} element={<JustAnotherPage />} />
             {/* </Route> */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

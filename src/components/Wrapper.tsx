@@ -5,7 +5,7 @@ import BottomNavigationApp from './Footer/Footer';
 export default function Wrapper({ children }) {
   return (
     <Box
-      width={'100vw'}
+      width={'100%'}
       height={'100vh'}
       bgcolor={'#ffffff'}
       display={'flex'}

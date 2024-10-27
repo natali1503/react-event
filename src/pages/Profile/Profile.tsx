@@ -1,14 +1,14 @@
 import { Box, Skeleton, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import PersonalData from './PersonalData';
-import Contacts from './Contacts';
-import Favorites from './Favorites';
-import PagesProfile from './PagesProfile';
-import CardProfile from './CardProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../store/profileStore';
 import { AppDispatch, RootState } from '../../store/types';
+import CardProfile from '../../components/profile/CardProfile';
+import PagesProfile from '../../components/profile/PagesProfile';
+import PersonalData from '../../components/profile/PersonalData';
+import Favorites from '../../components/profile/Favorites';
+import Contacts from '../../components/profile/Contacts';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
