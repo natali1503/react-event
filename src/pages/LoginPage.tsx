@@ -20,11 +20,11 @@ import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/TestingProfiles';
 
 import { ToastContainer } from 'react-toastify';
-import { showErrorToast } from "../components/Toasts/showToasts";
+import { showErrorToast } from '../components/Toasts/showToasts';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
-  const isErrorMessage = useAppSelector((store) => store.auth.errorMessage);// tostify
+  const isErrorMessage = useAppSelector((store) => store.auth.errorMessage); // tostify
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login, setLogin] = useState<string>('');
@@ -69,7 +69,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isErrorMessage) {
-      showErrorToast('Ошибка! Попробуйте еще раз!')
+      showErrorToast('Ошибка! Попробуйте еще раз!');
     }
   }, [isErrorMessage]);
 
@@ -87,7 +87,7 @@ const LoginPage = () => {
           >
             Вход
           </Typography>
-          <FormControl sx={{ m: 1, width: '25px', alignSelf: 'center' }}>
+          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
             {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
             <TextField
               id="outlined-basic"
