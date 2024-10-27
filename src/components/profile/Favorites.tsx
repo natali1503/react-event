@@ -13,8 +13,11 @@ export default function Favorites() {
 
   useEffect(() => {
     dispatch(fetchHelpRequestsAction());
-    setIsData(helpRequestList.length);
   }, []);
+
+  useEffect(() => {
+    setIsData(helpRequestList.length);
+  }, [helpRequestList]);
 
   return (
     <>
