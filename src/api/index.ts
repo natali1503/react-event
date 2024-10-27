@@ -52,7 +52,8 @@ class ApiService {
 
       if (!res.ok && res.status === 500) {
         // запланированная ошибка сервера, логин пароль может и правильный
-        debugger;
+        //debugger;
+        toast.error('Ошибка на сервере! Попробуйте еще раз');
         return {
           codeError: res.status,
           message: 'IG: Planned server error',
@@ -60,7 +61,8 @@ class ApiService {
       }
 
       if (!res.ok && res.status === 400) {
-        // но ошибка неправильный логин пароль
+        // неправильный логин пароль
+        toast.error('Неправильный логин пароль! Попробуйте еще раз');
         debugger;
         return {
           codeError: res.status,
