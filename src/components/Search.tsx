@@ -1,10 +1,16 @@
 // styles
-import { Paper, TextField, Typography } from '@mui/material'
-import { useState } from 'react';
+import { Paper, TextField, Typography } from '@mui/material';
+
+type SearchProps = {
+  searchTerm: string,
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
+};
 
 // Debounce function
-
-const debounce = <T extends (...args: any[]) => void>(func: T, delay: number) => {
+const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   return (...args: any[]) => {
     if (timeoutId) {
@@ -16,9 +22,7 @@ const debounce = <T extends (...args: any[]) => void>(func: T, delay: number) =>
   };
 };
 
-const Search = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
+const Search = ({searchTerm, setSearchTerm}: SearchProps) => {
   // Function to be executed after input change
   const performLogic = (value: string) => {
     // Your logic here, e.g., updating a list, triggering a search, etc.
@@ -43,10 +47,12 @@ const Search = () => {
   };
 
   return (
-    <Paper sx={{backgroundColor: "white", padding: "0.5rem 3rem"}}>
-      <Typography><h3>Найти запрос</h3></Typography>
+    <Paper sx={{ backgroundColor: 'white', padding: '0.5rem 3rem' }}>
+      <Typography>
+        <h3>Найти запрос</h3>
+      </Typography>
       <TextField
-        label="Введите название задачи или организации" 
+        label="Введите название задачи или организации"
         variant="standard"
         fullWidth
         sx={{ mb: 4 }}
@@ -54,7 +60,7 @@ const Search = () => {
         onChange={handleInputChange}
       />
     </Paper>
-  )
+  );
 };
 
 export default Search;
