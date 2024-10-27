@@ -1,50 +1,76 @@
-# React + TypeScript + Vite
+# React Event
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Это SPA-маркетплейс для благотворительных сборов, созданный в рамках [хакатона](https://github.com/nat-davydova/charity_event_back_oct2024).
+Приложение позволяет пользователям просматривать запросы о помощи от различных фондов, откладывать интересующие их запросы в "Избранное" и участвовать в благотворительности.
+[Деплой]()
 
-Currently, two official plugins are available:
+## Основные возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Просмотр благотворительных запросов**: Пользователи могут просматривать все доступные запросы в формате списка или сетки.
+- **Фильтрация и поиск**: В блоке "Найдено" отображается количество запросов, соответствующих выбранным фильтрам и поисковому запросу.
+- **Аутентификация**: Доступ к приложению возможен только для трех заранее определенных пользователей.
+- **Личный профиль**: Пользователи могут просматривать свои личные данные и избранные запросы.
+- **Управление сессией**: Возможность выхода из аккаунта в любой момент, что аннулирует текущую сессию и перенаправляет на страницу Входа.
 
-## Expanding the ESLint configuration
+## Используемые технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **TypeScript**: Статическая типизация для повышения надежности кода.
+- **React**: Библиотека для построения пользовательского интерфейса.
+- **MUI (Material-UI)**: Компонентная библиотека для быстрого создания интерфейсов с использованием Material Design.
+- **Redux Toolkit**: Набор инструментов для управления состоянием приложения и упрощения работы с Redux.
+- **React Toastify**: Библиотека для удобного отображения уведомлений и всплывающих сообщений.
 
-- Configure the top-level `parserOptions` property like this:
+## Установка
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Клонируйте репозиторий:
+   ```bash
+   git clone https://github.com/heyhurricane/react-event.git
+   ```
+2. Перейдите в папку проекта:
+   ```bash
+   cd react-event
+   ```
+3. Установите зависимости:
+   ```bash
+   npm install
+   ```
+4. Запустите проект:
+   ```bash
+   npm pun dev
+   ```
+
+## Функционал и сценарии использования
+
+### Аутентификация
+
+- Пользователь может войти только с учетными данными одного из трех предопределенных пользователей.
+- При неверно указанной паре логин пароль выводится сообщение "Неправильный логин пароль! Попробуйте еще раз"
+- При получении ошибки от сервера, выводится сообщение "Ошибка на сервере! Попробуйте позже"
+- Успешная аутентификация перенаправляет пользователя на страницу со списком запросов.
+- Авторизированный пользователь не может попасть на страницу логина пока сам не разлогинится.
+- Если у пользователя просрочился jwt токен, редиректим его на страницу логина.
+- Валидация полей логина как имейла и пароля не меньше 6 символов.
+
+### Список запросов
+
+- Все запросы загружаются через API при загрузке страницы.
+- Запросы можно просматривать в виде списка или сетки, с указанием их общего количества.
+
+### Профиль пользователя
+
+- Профиль содержит разделы "Личные данные" и "Контакты", данные для которых загружаются через API.
+- Раздел "Избранное" показывает запросы, добавленные пользователем, аналогично отображению на странице списка запросов.
+
+### Меню профиля
+
+- В меню доступно два действия: "Мой профиль" и "Выйти".
+- Нажатие на "Выйти" аннулирует сессию и возвращает пользователя на страницу Входа.
+- Нажатие на "Мой профиль" переадресует пользователя на страницу профиля.
+
+## Ошибки
+
+- Если API вызовы для загрузки данных или избранного завершатся с ошибкой, пользователю отображаются соответствующие сообщения об ошибках.
+
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
 ```

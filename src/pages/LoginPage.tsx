@@ -18,17 +18,17 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/TestingProfiles';
-
-import { ToastContainer } from 'react-toastify';
-import { showErrorToast } from "../components/Toasts/showToasts";
+import { showErrorToast } from '../components/Toasts/showToasts';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
-  const isErrorMessage = useAppSelector((store) => store.auth.errorMessage);// tostify
+  const loginError = useAppSelector((store) => store.auth.loginError);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -48,17 +48,36 @@ const LoginPage = () => {
   const handleInputPasswordChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setPassword(e.target.value);
+    const passwordValue = e.target.value;
+    setPassword(passwordValue);
+
+    // Проверка на минимальную длину пароля
+    if (passwordValue.length < 5) {
+      setPasswordError('Пароль не менее 5 символов');
+    } else {
+      setPasswordError(null);
+    }
   };
 
   const handleInputLoginChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setLogin(e.target.value);
+    const email = e.target.value;
+    setLogin(email);
+
+    // Регулярное выражение для проверки формата email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      setEmailError('Введите корректный email-адрес');
+    } else {
+      setEmailError(null);
+    }
   };
 
   const handleSubmit = () => {
-    dispatch(loginUser({ login, password }));
+    if (!emailError) {
+      dispatch(loginUser({ login, password }));
+    }
   };
 
   useEffect(() => {
@@ -68,10 +87,10 @@ const LoginPage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    if (isErrorMessage) {
-      showErrorToast('Ошибка! Попробуйте еще раз!')
+    if (loginError) {
+      showErrorToast('Ошибка! Попробуйте еще раз!');
     }
-  }, [isErrorMessage]);
+  }, [loginError]);
 
   return (
     <Grid2 container spacing={2}>
@@ -87,7 +106,7 @@ const LoginPage = () => {
           >
             Вход
           </Typography>
-          <FormControl sx={{ m: 1, width: '25px', alignSelf: 'center' }}>
+          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
             {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
             <TextField
               id="outlined-basic"
@@ -103,6 +122,8 @@ const LoginPage = () => {
               onChange={(e) => {
                 handleInputLoginChange(e);
               }}
+              error={!!emailError || !!loginError}
+              helperText={emailError || (loginError && 'Ошибка авторизации')}
             />
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
@@ -136,11 +157,17 @@ const LoginPage = () => {
               }
               label="Password"
             />
+            {(passwordError || loginError) && (
+              <Typography color="error" variant="caption">
+                {passwordError || 'Ошибка авторизации'}
+              </Typography>
+            )}
           </FormControl>
           <Button
             variant="contained"
             onClick={handleSubmit}
             sx={{ m: 1, width: '25ch', alignSelf: 'center' }}
+            disabled={!login || !password || !!emailError || !!passwordError}
           >
             Войти
           </Button>

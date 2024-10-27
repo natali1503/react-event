@@ -1,52 +1,53 @@
+import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
 export default function BottomNavigationApp() {
   return (
-    <Box bottom={0}
-        sx={{ 
-            height: '152px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '0 210px',
-        }}>
-        <Box sx={{ 
-            width: '100%', 
-            height: '64px', 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            margin: '0 auto',
-        }}>
-            <Link href="https://t.me/natti_jun_front/239" 
-                target="_blank" 
-                underline="hover" 
-                sx={{ 
-                    color: 'black', '&:hover': { color: 'black' }, 
-                    width:'122px' 
-                }}>Об ивенте</Link>
-            <Link 
-                href="https://github.com/heyhurricane/react-event" 
-                target="_blank"
-                underline="hover" 
-                sx={{ 
-                    color: 'black', 
-                    '&:hover': { color: 'black' }, 
-                    width:'122px' 
-                }}
-            >Github проекта</Link>
-            <Link 
-                href="https://t.me/pixels_and_feather" 
-                target="_blank" 
-                underline="hover" 
-                sx={{ 
-                    color: 'black', 
-                    '&:hover': { color: 'black' }, 
-                    width:'122px' 
-                }}
-            >Чат для джунов</Link>
-        </Box>
+    <Box
+      bgcolor={'#fff'}
+      padding={'64px 0'}
+      sx={{
+        width: '100vw',
+        borderTop: '1px solid #e0e0e0',
+        marginTop: 'auto',
+        zIndex: '1',
+      }}
+    >
+      <Stack direction={'row'} justifyContent={'space-around'}>
+        <Link
+          href="/"
+          target="_blank"
+          underline="hover"
+          sx={{
+            color: 'black',
+            '&:hover': { color: 'black' },
+          }}
+        >
+          Об ивенте
+        </Link>
+        <Link
+          href="https://github.com/heyhurricane/react-event"
+          underline="hover"
+          sx={{
+            color: 'black',
+            '&:hover': { color: 'black' },
+          }}
+        >
+          Github проекта
+        </Link>
+        <Link
+          href="https://t.me/natti_jun_front"
+          target="_blank"
+          underline="hover"
+          sx={{
+            color: 'black',
+            '&:hover': { color: 'black' },
+          }}
+        >
+          Чат для джунов
+        </Link>
+      </Stack>
     </Box>
   );
 }

@@ -6,7 +6,6 @@ import { AppRoute } from './const/const';
 import { useEffect } from 'react';
 import NotFoundPage from './pages/NotFoundPage';
 import { initializeAuth } from './store/authorization';
-import { useAppSelector } from './hooks/useAppSelector';
 import { OnlyAuth, OnlyUnAuth } from './components/ProtectedRoute';
 
 import LoginPage from './pages/LoginPage';
@@ -17,14 +16,10 @@ import './App.css';
 import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
 import Helps from './pages/Helps/Helps';
+//import UserInfoID from './pages/Helps/UserInfoID'
 
 function App() {
   const dispatch = useAppDispatch();
-
-  const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
-
-  console.log('App component re-rendered');
-  console.log(isAuthenticated);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -39,15 +34,15 @@ function App() {
           <Routes>
             <Route
               path={AppRoute.Login}
-              element={<OnlyUnAuth component={<LoginPage />} />}
+              element={<OnlyUnAuth component={LoginPage} />}
             />
             <Route
               path={AppRoute.Main}
-              element={<OnlyAuth component={<Helps />} />}
+              element={<OnlyAuth component={Helps} />}
             />
             <Route
               path={AppRoute.Profile}
-              element={<OnlyAuth component={<Profile />} />}
+              element={<OnlyAuth component={Profile} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
