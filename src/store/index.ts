@@ -6,10 +6,14 @@ import authorizationReducer, {
 } from './authorization';
 
 import profileReducer from './profileStore';
+import { helpRequestData } from './help-requests/help-requests-data';
 
 const rootReducer = combineReducers({
+  //counter: rtkReducer,
   auth: authorizationReducer,
   profile: profileReducer,
+  HELP_REQUEST: helpRequestData.reducer,
+  // остальные редьюсеры
 });
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {

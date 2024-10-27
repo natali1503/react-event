@@ -1,29 +1,22 @@
 import './App.css';
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppRoute } from './const/const';
-
-import JustAnotherPage from './pages/JustAnotherPage';
 
 import { useEffect } from 'react';
 import NotFoundPage from './pages/NotFoundPage';
-import { getCurrentUser, initializeAuth } from './store/authorization';
+import { initializeAuth } from './store/authorization';
 import { useAppSelector } from './hooks/useAppSelector';
 import { OnlyAuth, OnlyUnAuth } from './components/ProtectedRoute';
-import { useAppDispatch } from './hooks/useAppDispatch';
 
 import LoginPage from './pages/LoginPage';
 
+import { useAppDispatch } from './hooks/useAppDispatch';
 import './App.css';
 
-import HeaderNavigationApp from './components/Header/Header';
-import BottomNavigationApp from './components/Footer/Footer';
-import Profile from './components/profile/Profile';
+import Wrapper from './components/Wrapper';
+import Profile from './pages/Profile/Profile';
+import Helps from './pages/Helps/Helps';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -42,23 +35,23 @@ function App() {
   return (
     <>
       <Router>
-        <HeaderNavigationApp />
-        <Routes>
-          <Route
-            path={AppRoute.Login}
-            element={<OnlyUnAuth component={<LoginPage />} />}
-          />
-          <Route
-            path={AppRoute.Main}
-            element={<OnlyAuth component={<JustAnotherPage />} />}
-          />
-          <Route
-            path={AppRoute.Profile}
-            element={<OnlyAuth component={<Profile />} />}
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        <BottomNavigationApp />
+        <Wrapper>
+          <Routes>
+            <Route
+              path={AppRoute.Login}
+              element={<OnlyUnAuth component={<LoginPage />} />}
+            />
+            <Route
+              path={AppRoute.Main}
+              element={<OnlyAuth component={<Helps />} />}
+            />
+            <Route
+              path={AppRoute.Profile}
+              element={<OnlyAuth component={<Profile />} />}
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Wrapper>
       </Router>
     </>
   );

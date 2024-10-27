@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
-import img from '../../img/Vector.png';
+import img from '/img/Vector.png';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {
@@ -45,7 +45,7 @@ export default function CardProfile() {
         </Stack>
       </Stack>
 
-      <Stack margin={'0 20px'}>
+      <Stack margin={'0 20px'} marginBottom={'20px'}>
         <Button
           variant="outlined"
           sx={{ color: '#000', border: '1px solid #000' }}

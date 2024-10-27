@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { Navigate, useLocation } from 'react-router-dom';
+import { AppRoute } from '../const/const';
 
 /// refactored one
 const Protected: FC<Props> = ({ onlyUnAuth = false, component }) => {
@@ -16,7 +17,7 @@ const Protected: FC<Props> = ({ onlyUnAuth = false, component }) => {
   if (!onlyUnAuth && !user) {
     // Роут для авторизованных, но пользователь не авторизован
     // Перенаправляем на страницу логина
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to={AppRoute.Login} state={{ from: location }} />;
   }
 
   return <>{component}</>;

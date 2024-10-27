@@ -2,9 +2,9 @@ import { Box, Link, Stack, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/types";
 
-import vk from "../../img/vk.png";
-import tg from "../../img/telegram.png";
-import wh from "../../img/whatsapp.png";
+import vk from "/img/vk.png";
+import tg from "/img/telegram.png";
+import wh from "/img/whatsapp.png";
 
 export default function Contacts() {
   const { data } = useSelector((state: RootState) => {
