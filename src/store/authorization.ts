@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../api/index';
 import { IUser } from '../types/IUser';
 import { IAuth } from '../types/IAuth';
+import { IError } from '../types/IError';
 
 // Define a type for the slice state
 interface CounterState {
@@ -12,17 +13,21 @@ interface CounterState {
   isGetCurentUserPending: boolean;
   isDesignedError: boolean;
   currentUser: IUser | null;
+  loginError: boolean;
+  invalidCredentials: boolean;
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
   isAuthenticated: false,
   isAuthPending: false,
-  user: "",
+  user: '',
   errorMessage: null, // Изначально ошибка отсутствует
   isGetCurentUserPending: false,
   isDesignedError: false,
   currentUser: null,
+  loginError: false,
+  invalidCredentials: false,
 };
 
 export const authorizationSlice = createSlice({
@@ -50,33 +55,10 @@ export const authorizationSlice = createSlice({
       state.isDesignedError = false;
       state.isGetCurentUserPending = false;
     },
-    // increment: (state) => {
-    //   state.value += 1
-    // },
-    // decrement: (state) => {
-    //   state.value -= 1
-    // },
-    // // Use the PayloadAction type to declare the contents of `action.payload`
-    // getUsers: (state, action: PayloadAction<User[]>) => {
-    //   state.users = action.payload
-    // },
   },
   extraReducers: (builder) => {
     builder
-      // .addCase(fetchUsers.fulfilled, (state, action) => {
-      //   state.users = action.payload
-      //   state.pending = false
-      // })
-      // .addCase(fetchUsers.pending, (state) => {
-      //   state.pending = true
-      // })
-      // .addCase(addUserById.fulfilled, (state, action) => {
-      //   state.users.push(action.payload)
-      //   state.pending = false
-      // })
-      // .addCase(addUserById.pending, (state) => {
-      //   state.pending = true
-      // })
+
       .addCase(loginUser.pending, (state) => {
         state.isAuthPending = true;
         state.errorMessage = null; // Сбрасываем сообщение об ошибке при новом запросе
@@ -89,21 +71,11 @@ export const authorizationSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
-        state.errorMessage = action.payload as string; // Сохраняем сообщение об ошибке
+        // @ts-expect-error наладить типизацию экшена, согласовать с запросом
+        state.loginError = action.payload.loginError;
+        // @ts-expect-error наладить типизацию экшена, согласовать с запросом
+        state.invalidCredentials = action.payload.invalidCredentials; // Устанавливаем ошибку из rejectWithValue
       });
-
-    // .addCase(getCurrentUser.pending, (state) => {
-    //   state.isGetCurentUserPending = true;
-    // })
-    // .addCase(getCurrentUser.fulfilled, (state, action) => {
-    //   state.currentUser = action.payload;
-    //   state.isAuthenticated = true;
-    //   state.isGetCurentUserPending = false;
-    // })
-    // .addCase(getCurrentUser.rejected, (state) => {
-    //   state.isGetCurentUserPending = false;
-    //   // state.isAuthenticated = false
-    // });
   },
 });
 
@@ -112,29 +84,35 @@ export const { initializeAuth, logOut, requestUnsuccessfullByDesign } =
 
 export default authorizationSlice.reducer;
 
-// Async thunk
-// export const fetchUsers = createAsyncThunk(
-//   'getUsersAction', //string for the action type prefix
-//   async () => {
-//     return await api.getAllUsers()
-//   }
-// )
-
 export const loginUser = createAsyncThunk<
   void,
   { login: string; password: string }
->('loginUser', async ({ login, password }, { rejectWithValue }) => {
+>('loginUser', async ({ login, password }, thunkAPI) => {
   try {
-    const res: IAuth = await api.login(login, password);
+    const res: IAuth | IError = await api.login(login, password);
+    // debugger;
+    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     if (res.auth) {
-      console.log(123);
+      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
       localStorage.setItem('token', res.token); // Сохраняем токен в localStorage
-    } else {
-      throw new Error('Login failed');
     }
-  } catch (error) {
-    // @ts-expect-error: тип error не определен для message
-    return rejectWithValue(error.response?.data?.message || 'Login failed');
+    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
+    if (res.codeError === 400) {
+      // debugger;
+      return thunkAPI.rejectWithValue({
+        invalidCredentials: true,
+        loginError: true,
+      }); // Неверный пароль
+      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
+    } else if (res.codeError === 500) {
+      // debugger;
+      return thunkAPI.rejectWithValue({
+        invalidCredentials: false,
+        loginError: true,
+      }); // Общая ошибка сервера
+    }
+  } catch {
+    return thunkAPI.rejectWithValue('Login failed');
     //return rejectWithValue("Login failed");
   }
 });

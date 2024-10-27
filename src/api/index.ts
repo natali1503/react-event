@@ -1,17 +1,11 @@
-import { APIMethod, APIRoute, BASE_URL } from '../const/const';
+import { APIMethod, APIRoute } from '../const/const';
 import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
 import { IError } from '../types/IError';
-import { IAuth } from '../types/IAuth';
 import { HelpRequest } from '../types/HelpRequest';
+import { IAuth } from '../types/IAuth';
 
 class ApiService {
-  private baseUrl: string;
-
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
-  }
-
   // метод, которые принимает параметры для запроса и подтыкает authorization
   private async fetchDataWithToken<T>(
     fullUrl: APIRoute,
@@ -38,18 +32,45 @@ class ApiService {
     }
   }
 
-  async login(login: string, password: string): Promise<IAuth> {
-    const body = await JSON.stringify({ password: password, login: login });
+  async login(login: string, password: string): Promise<IAuth | IError> {
+    try {
+      const body = await JSON.stringify({ password: password, login: login });
 
-    const res = await fetch(APIRoute.Login, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: body,
-    });
+      const res = await fetch(APIRoute.Login, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: body,
+      });
 
-    return await res.json();
+      if (!res.ok && res.status === 500) {
+        // запланированная ошибка сервера, логин пароль может и правильный
+        //debugger;
+        toast.error('Ошибка на сервере! Попробуйте позже');
+        return {
+          codeError: res.status,
+          message: 'IG: Planned server error',
+        } as IError;
+      }
+
+      if (!res.ok && res.status === 400) {
+        // неправильный логин пароль
+        // debugger;
+        toast.error('Неправильный логин пароль! Попробуйте еще раз');
+
+        return {
+          codeError: res.status,
+          message: 'IG: Invalid credentials',
+        } as IError;
+      }
+      return await res.json();
+    } catch (e) {
+      // запланированная ошибка сервера
+      // debugger;
+      toast.error('Ошибка! Попробуйте еще раз');
+      return { codeError: 500, message: String(e) };
+    }
   }
 
   async getUser() {
@@ -75,4 +96,4 @@ class ApiService {
   }
 }
 
-export const api = new ApiService(BASE_URL);
+export const api = new ApiService();

@@ -7,7 +7,7 @@ export enum AppRoute {
 }
 
 // const BASE_URL = '/api'
-export const BASE_URL = 'https://natticharity.eveloth.ru/api'
+export const BASE_URL = 'https://natticharity.eveloth.ru/api';
 
 export enum APIRoute {
   HelpRequests = `${BASE_URL}/request`,
@@ -38,4 +38,4 @@ export const testUsers = [
     login: 'testUser17@test.com',
     password: 'password17',
   },
-]
+];

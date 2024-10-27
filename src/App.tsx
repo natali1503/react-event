@@ -6,7 +6,6 @@ import { AppRoute } from './const/const';
 import { useEffect } from 'react';
 import NotFoundPage from './pages/NotFoundPage';
 import { initializeAuth } from './store/authorization';
-import { useAppSelector } from './hooks/useAppSelector';
 import { OnlyAuth, OnlyUnAuth } from './components/ProtectedRoute';
 
 import LoginPage from './pages/LoginPage';
@@ -20,11 +19,6 @@ import Helps from './pages/Helps/Helps';
 
 function App() {
   const dispatch = useAppDispatch();
-
-  const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
-
-  console.log('App component re-rendered');
-  console.log(isAuthenticated);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
