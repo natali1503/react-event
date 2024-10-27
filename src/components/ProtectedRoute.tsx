@@ -24,7 +24,7 @@ const Protected: FC<Props> = ({ onlyUnAuth = false, component }) => {
     return <Navigate to={AppRoute.Login} state={{ from: location }} />;
   }
 
-  return <Component />;
+  return <>{component}</>;
 };
 
 export const OnlyAuth = Protected;
