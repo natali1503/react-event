@@ -12,7 +12,7 @@ import {
   IconButton,
 } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AppRoute } from '../../const/const';
 
 export default function ImageAvatar() {
@@ -35,6 +35,7 @@ export default function ImageAvatar() {
 
   const handlLogOut = () => {
     dispatch(logOut()); // Вызываем действие для разлогинивания
+    navigate(AppRoute.Login, { replace: true }); 
   }
 
   return (
@@ -91,7 +92,10 @@ export default function ImageAvatar() {
         <MenuItem onClick={handleClickProfile}>
           <Avatar /> Мой профиль
         </MenuItem>
-        <MenuItem onClick={handlLogOut} >
+        <MenuItem 
+          component={Link}
+          to="/login"  
+          onClick={handlLogOut} >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

@@ -2,6 +2,8 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const/const';
 
 
 import LogInButton from './LogInButton';
@@ -9,18 +11,20 @@ import ImageAvatar from './Avatar'
 
 import { useAppSelector } from '../../hooks/useAppSelector'
 
-// TODO сделать роут к странице запросы о помощи. 
-// TODO сделать роут к странице мой профиль. 
-
 export default function HeaderNavigationApp() {
 
+  const navigate = useNavigate();
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated)
+
+  const handleClickRequest = (event: React.MouseEvent<HTMLElement>) => {
+    navigate(AppRoute.Main, { replace: true });
+  };
 
   return (
     <Box 
       sx={{ 
         backgroundColor: 'white', 
-        width: '100vw', 
+        //width: '100vw', 
         height: '84px', 
         margin: '0 auto',
         display: 'flex', 
@@ -44,8 +48,8 @@ export default function HeaderNavigationApp() {
         >
           <img
             style={{ maxWidth: '220px', height: '40px' }} 
-            srcSet={`/assets/LeftSide.svg`}
-            src={`/assets/LeftSide.svg`}
+            srcSet={'/img/LeftSide.svg'}
+            src={'/img/LeftSide.svg'}
             alt={'image-title'}
             loading="lazy"
           />
@@ -55,7 +59,7 @@ export default function HeaderNavigationApp() {
                     display: 'flex', 
                     justifyContent: 'center' 
                 }}>
-                <Link color="inherit" href="#" underline="hover"
+                <Link onClick={handleClickRequest} color="inherit" href="#" underline="hover"
                     sx={{ 
                         fontSize: '16px', 
                         lineHeight: '150%', 
