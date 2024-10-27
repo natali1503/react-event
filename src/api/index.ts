@@ -1,4 +1,5 @@
 import { APIMethod, APIRoute, BASE_URL } from "../const/const";
+import { IUser } from "../types/IUser";
 
 class ApiService {
   private baseUrl: string;
@@ -43,11 +44,14 @@ class ApiService {
   }
 
   async getUser() {
-    const res = await this.fetchDataWithToken(APIRoute.User, APIMethod.GET);
+    const res: IUser = await this.fetchDataWithToken(
+      APIRoute.User,
+      APIMethod.GET
+    );
     return res;
   }
 }
 
 export const api = new ApiService(BASE_URL);
 
-// api.getUser().then((res) => console.log(res))
+// api.getUser().then((res) => console.log(res));
