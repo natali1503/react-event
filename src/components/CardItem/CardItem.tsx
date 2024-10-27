@@ -73,7 +73,7 @@ const CardItem: FC<CardItemProps> = (props) => {
               <Typography variant="body2" sx={{ marginBottom: '10px' }}>
                 Нас уже: {formatNumber(helpRequest.contributorsCount)}
               </Typography>
-              <Button size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
+              <Button href="/user:id" size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
             </CardActions>
           </Box>
         )}
@@ -123,7 +123,7 @@ const CardItem: FC<CardItemProps> = (props) => {
         </CardContent>
         {orientation !== 'horizontal' ? (<CardActions disableSpacing sx={{ padding: '0 16px 20px', textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto'}}>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>Нас уже: {formatNumber(helpRequest.contributorsCount)}</Typography>
-            <Button size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
+            <Button href="/user:id" size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
           </CardActions>)
           : <Button
               variant="outlined"
