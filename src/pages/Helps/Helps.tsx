@@ -10,13 +10,12 @@ import { fetchHelpRequestsAction } from '../../store/api-actions';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRequestsComponent';
 
-
 const Helps = () => {
   const helpRequestList = useAppSelector(getHelpRequests);
   const dispatch = useAppDispatch();
   const [isData, setIsData] = useState(helpRequestList.length);
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(fetchHelpRequestsAction());
   }, []);
 
@@ -25,27 +24,29 @@ const Helps = () => {
   }, [helpRequestList]);
 
   return (
-    <Box>
+    <>
+      {!isData ? (
+        <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box>
       <Typography variant="h4">
         Запросы о помощи
       </Typography>
-      <Grid2 container rowSpacing={1} columnSpacing={{ xs: 2, sm: 3, md: 4 }} sx={{mt: "1rem"}}>
+      <Grid2 container rowSpacing={1} columnSpacing={{ xs: 2, sm: 3, md: 4 }} sx={{mt: '1rem'}}>
         <Filters/>
         <Grid2 container size={{ xs: 2, sm: 4, md: 'grow' }} flexDirection={{ xs: 'column' }}>
           <Search/>
-          <Grid2 sx={{backgroundColor: "white", padding: "2rem"}}>
-          {!isData ? (
-            <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
-              <CircularProgress />
-            </Box>
-          ) : (
-            <HelpRequestsComponent helpRequests={helpRequestList}/>
-          )}
+          <Grid2 sx={{backgroundColor: 'white', padding: '2rem'}}>
+          <HelpRequestsComponent helpRequests={helpRequestList}/>
           </Grid2>
         </Grid2>
       </Grid2>
     </Box>
+    )}
+    </>
   )
 }
 
-export default Helps
+export default Helps;

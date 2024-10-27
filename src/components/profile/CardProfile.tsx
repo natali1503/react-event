@@ -2,14 +2,17 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
 import img from '/img/Vector.png';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../store/authorization';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {
     return state.profile;
   });
-
+  const dispatch = useDispatch();
   function handleClick() {
     //вызывать функцию для удаления токена
+    dispatch(logOut());
   }
 
   return (

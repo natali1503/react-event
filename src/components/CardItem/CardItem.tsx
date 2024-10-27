@@ -3,7 +3,6 @@ import { FC } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
-import { grey } from '@mui/material/colors';
 
 type CardItemProps = {
   helpRequest: HelpRequest;

@@ -37,8 +37,8 @@ export default function ImageAvatar() {
 
   const handlLogOut = () => {
     dispatch(logOut()); // Вызываем действие для разлогинивания
-    navigate(AppRoute.Login, { replace: true }); 
-  }
+    navigate(AppRoute.Login, { replace: true });
+  };
 
   return (
     <Fragment>
@@ -59,7 +59,7 @@ export default function ImageAvatar() {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
+        onClick={() => {}}
         slotProps={{
           paper: {
             elevation: 0,
@@ -94,10 +94,7 @@ export default function ImageAvatar() {
         <MenuItem onClick={handleClickProfile}>
           <Avatar /> Мой профиль
         </MenuItem>
-        <MenuItem 
-          component={Link}
-          to="/login"  
-          onClick={handlLogOut} >
+        <MenuItem component={Link} to="/login" onClick={handlLogOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
