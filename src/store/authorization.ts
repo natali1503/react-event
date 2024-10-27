@@ -1,18 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { api } from '../api/index'
+import { IUser } from '../types/IUser'
 
 // Define a type for the slice state
 interface CounterState {
   isAuthenticated: boolean
   isAuthPending: boolean
-  user: string
+  isGetCurentUserPending: boolean
+  isDesignedError: boolean
+  currentUser: IUser | null
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
   isAuthenticated: false,
   isAuthPending: false,
-  user: '',
+  isGetCurentUserPending: false,
+  isDesignedError: false,
+  currentUser: null,
 }
 
 export const authorizationSlice = createSlice({
@@ -21,12 +26,19 @@ export const authorizationSlice = createSlice({
   initialState,
   reducers: {
     initializeAuth: (state) => {
-      const token = localStorage.getItem('token')
-      if (token) state.isAuthenticated = true
+      state.isAuthenticated = true
     },
     logOut: (state) => {
       localStorage.removeItem('token')
       state.isAuthenticated = false
+      state.isAuthPending = false
+      state.currentUser = null
+      state.isGetCurentUserPending = false
+    },
+
+    requestUnsuccessfullByDesign: (state) => {
+      state.isGetCurentUserPending = false
+      state.isDesignedError = true
     },
     // increment: (state) => {
     //   state.value += 1
@@ -66,10 +78,24 @@ export const authorizationSlice = createSlice({
         state.isAuthPending = false
         state.isAuthenticated = false
       })
+
+      .addCase(getCurrentUser.pending, (state) => {
+        state.isGetCurentUserPending = true
+      })
+      .addCase(getCurrentUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload
+        state.isAuthenticated = true
+        state.isGetCurentUserPending = false
+      })
+      .addCase(getCurrentUser.rejected, (state) => {
+        state.isGetCurentUserPending = false
+        // state.isAuthenticated = false
+      })
   },
 })
 
-export const { initializeAuth } = authorizationSlice.actions
+export const { initializeAuth, logOut, requestUnsuccessfullByDesign } =
+  authorizationSlice.actions
 
 export default authorizationSlice.reducer
 
@@ -96,3 +122,16 @@ export const loginUser = createAsyncThunk<
     return rejectWithValue('Login failed')
   }
 })
+
+export const getCurrentUser = createAsyncThunk(
+  '/api/user',
+  async (_, thunkApi) => {
+    try {
+      //const token = localStorage.getItem('token') ?? ''
+      return await api.getUser()
+    } catch (error) {
+      console.log('Error in thunk:', error)
+      return thunkApi.rejectWithValue(error)
+    }
+  }
+)
