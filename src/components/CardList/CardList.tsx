@@ -23,6 +23,7 @@ const CardList: FC<RequestsProps> = (requests) => {
         return (
           <CardItem
             key={keyValue}
+            keyValue={keyValue}
             helpRequest={request}
             orientation={viewMode === 'grid' ? 'vertical' : 'horizontal'}
           />

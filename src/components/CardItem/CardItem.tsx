@@ -7,10 +7,11 @@ import { formatDate, formatNumber, formatString } from '../../helper-functions/h
 type CardItemProps = {
   helpRequest: HelpRequest;
   orientation: string;
+  keyValue: string;
 };
 
 const CardItem: FC<CardItemProps> = (props) => {
-  const { helpRequest, orientation } = props;
+  const { helpRequest, orientation} = props;
 
   return (
     <>
