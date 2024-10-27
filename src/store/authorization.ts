@@ -133,6 +133,7 @@ export const loginUser = createAsyncThunk<
       throw new Error('Login failed');
     }
   } catch (error) {
+    // @ts-expect-error: тип error не определен для message
     return rejectWithValue(error.response?.data?.message || 'Login failed');
     //return rejectWithValue("Login failed");
   }

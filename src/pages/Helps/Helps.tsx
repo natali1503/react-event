@@ -13,14 +13,16 @@ import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRe
 const Helps = () => {
   const helpRequestList = useAppSelector(getHelpRequests);
   const dispatch = useAppDispatch();
+  const [isData, setIsData] = useState(helpRequestList.length);
 
   useEffect(() => {
     dispatch(fetchHelpRequestsAction());
   }, []);
-  const [isData, setIsData] = useState(helpRequestList.length);
+
   useEffect(() => {
     setIsData(helpRequestList.length);
   }, [helpRequestList]);
+
   return (
     <>
       {!isData ? (
@@ -29,29 +31,22 @@ const Helps = () => {
         </Box>
       ) : (
         <Box>
-          <Typography variant="h4">Запросы о помощи</Typography>
-          <Grid2
-            container
-            rowSpacing={1}
-            columnSpacing={{ xs: 2, sm: 3, md: 4 }}
-            sx={{ mt: '1rem' }}
-          >
-            <Filters />
-            <Grid2
-              container
-              size={{ xs: 2, sm: 4, md: 'grow' }}
-              flexDirection={{ xs: 'column' }}
-            >
-              <Search />
-              <Grid2 sx={{ backgroundColor: 'white', padding: '2rem' }}>
-                <HelpRequestsComponent helpRequests={helpRequestList} />
-              </Grid2>
-            </Grid2>
+      <Typography variant="h4">
+        Запросы о помощи
+      </Typography>
+      <Grid2 container rowSpacing={1} columnSpacing={{ xs: 2, sm: 3, md: 4 }} sx={{mt: '1rem'}}>
+        <Filters/>
+        <Grid2 container size={{ xs: 2, sm: 4, md: 'grow' }} flexDirection={{ xs: 'column' }}>
+          <Search/>
+          <Grid2 sx={{backgroundColor: 'white', padding: '2rem'}}>
+          <HelpRequestsComponent helpRequests={helpRequestList}/>
           </Grid2>
-        </Box>
-      )}
+        </Grid2>
+      </Grid2>
+    </Box>
+    )}
     </>
-  );
-};
+  )
+}
 
 export default Helps;
