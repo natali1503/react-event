@@ -1,14 +1,14 @@
 import { Box, Skeleton, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import PersonalData from './PersonalData';
-import Contacts from './Contacts';
-import Favorites from './Favorites';
-import PagesProfile from './PagesProfile';
-import CardProfile from './CardProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../store/profileStore';
 import { AppDispatch, RootState } from '../../store/types';
+import CardProfile from '../../components/profile/CardProfile';
+import PagesProfile from '../../components/profile/PagesProfile';
+import PersonalData from '../../components/profile/PersonalData';
+import Favorites from '../../components/profile/Favorites';
+import Contacts from '../../components/profile/Contacts';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
@@ -31,12 +31,18 @@ export default function Profile() {
 
   return (
     isAuth && (
-      <Box>
+      <Box
+        display="flex"
+        flexDirection={'column'}
+        alignItems={'center'}
+        width={'100%'}
+      >
         <Box
+          width={'100%'}
           display="flex"
           flexDirection={'column'}
           bgcolor={'#f5f6f5'}
-          // margin={"84px 210px"}
+          // margin={'0 210px'}
         >
           <Stack alignItems={'flex-start'}>
             <Typography variant="h4" margin={'30px 40px'}>
@@ -51,6 +57,7 @@ export default function Profile() {
                 bgcolor={'white'}
                 borderRadius={'4px'}
                 border={'1px solid #e0e0e0'}
+                height={'100%'}
               >
                 <CardProfile />
               </Stack>
@@ -60,7 +67,7 @@ export default function Profile() {
                 borderRadius={'4px'}
                 border={'1px solid #e0e0e0'}
                 minHeight={'100vh'}
-                minWidth={'100vh'}
+                width={'100%'}
               >
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <Tabs value={numberTab} onChange={handleChange}>
