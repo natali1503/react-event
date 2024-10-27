@@ -1,8 +1,9 @@
-import { toast } from 'react-toastify';
 import { APIMethod, APIRoute, BASE_URL } from '../const/const';
-import { IError } from '../types/IError';
 import { IUser } from '../types/IUser';
-import { HelpRequest } from '../types/HelpRequest'
+import { toast } from 'react-toastify';
+import { IError } from '../types/IError';
+import { IAuth } from '../types/IAuth';
+import { HelpRequest } from '../types/HelpRequest';
 
 class ApiService {
   private baseUrl: string;
@@ -37,7 +38,7 @@ class ApiService {
     }
   }
 
-  async login(login: string, password: string): Promise<any> {
+  async login(login: string, password: string): Promise<IAuth> {
     const body = await JSON.stringify({ password: password, login: login });
 
     const res = await fetch(APIRoute.Login, {
@@ -66,7 +67,10 @@ class ApiService {
   }
 
   async getHelpRequests(): Promise<HelpRequest[]> {
-    const res = await this.fetchDataWithToken(APIRoute.HelpRequests, APIMethod.GET);
+    const res = await this.fetchDataWithToken(
+      APIRoute.HelpRequests,
+      APIMethod.GET
+    );
     return res as HelpRequest[]; // Явное приведение к типу HelpRequest[]
   }
 }

@@ -2,12 +2,15 @@ import './App.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppRoute } from './const/const';
-import LoginPage from './pages/LoginPage';
-import PrivateRoute from './components/PrivateRoute';
+
 import { useEffect } from 'react';
 import NotFoundPage from './pages/NotFoundPage';
 import { initializeAuth } from './store/authorization';
-//import { HelpRequest } from './types/HelpRequest'
+import { useAppSelector } from './hooks/useAppSelector';
+import { OnlyAuth, OnlyUnAuth } from './components/ProtectedRoute';
+
+import LoginPage from './pages/LoginPage';
+
 import { useAppDispatch } from './hooks/useAppDispatch';
 import './App.css';
 
@@ -18,25 +21,34 @@ import Helps from './pages/Helps/Helps';
 function App() {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(initializeAuth());
-  }, [dispatch]);
+  const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
 
-  /*const handleAddUser = () => {
-    const id: number = Math.floor(Math.random() * 10 + 1)
-    dispatch(addUserById(id))
-  }*/
+  console.log('App component re-rendered');
+  console.log(isAuthenticated);
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(initializeAuth());
+    }
+  }, []);
 
   return (
     <>
       <Router>
         <Wrapper>
           <Routes>
-            <Route path={AppRoute.Login} element={<LoginPage />} />
-            <Route path={AppRoute.Main} element={<Helps />} />
-            {/* <Route element={<PrivateRoute />}> */}
-            <Route path={AppRoute.Profile} element={<Profile />} />
-            {/* </Route> */}
+            <Route
+              path={AppRoute.Login}
+              element={<OnlyUnAuth component={<LoginPage />} />}
+            />
+            <Route
+              path={AppRoute.Main}
+              element={<OnlyAuth component={<Helps />} />}
+            />
+            <Route
+              path={AppRoute.Profile}
+              element={<OnlyAuth component={<Profile />} />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Wrapper>

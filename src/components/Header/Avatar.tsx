@@ -27,8 +27,10 @@ export default function ImageAvatar() {
   };
 
   const handleClickProfile = (event: React.MouseEvent<HTMLElement>) => {
-    navigate(AppRoute.Profile, { replace: true });
+    // navigate(AppRoute.Profile, { replace: true });
+    console.log('handleClickProfile');
   };
+
   const handleClose = () => {
     dispatch(logOut()); // Вызываем действие для разлогинивания
     setAnchorEl(null);

@@ -21,3 +21,21 @@ export enum APIMethod {
   POST = 'POST',
   DELETE = 'DELETE',
 }
+
+export const testUsers = [
+  {
+    name: 'Первый пользователь',
+    login: 'testUser15@test.com',
+    password: 'password15',
+  },
+  {
+    name: 'Второй пользователь',
+    login: 'testUser16@test.com',
+    password: 'password16',
+  },
+  {
+    name: 'Второй пользователь',
+    login: 'testUser17@test.com',
+    password: 'password17',
+  },
+]
