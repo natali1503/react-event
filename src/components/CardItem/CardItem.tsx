@@ -7,10 +7,16 @@ import { formatDate, formatNumber, formatString } from "../../helper-functions/h
 type CardItemProps = {
   helpRequest: HelpRequest;
   orientation: string;
+  keyValue: string;
 };
 
 const CardItem: FC<CardItemProps> = (props) => {
-  const { helpRequest, orientation } = props;
+  const { helpRequest, orientation, keyValue } = props;
+
+  const handleHelpClick = () => {
+    console.log(keyValue); // Выводим requestId в консоль
+  };
+  
 
   return (
     <>
@@ -84,7 +90,7 @@ const CardItem: FC<CardItemProps> = (props) => {
         </CardContent>
         <CardActions disableSpacing sx={{ padding: '0 16px 20px', textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto'}}>
           <Typography variant="body2" sx={{ marginBottom: '10px' }}>Нас уже: {formatNumber(helpRequest.contributorsCount)}</Typography>
-          <Button size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
+          <Button size="large" variant="contained" color="primary" fullWidth onClick={handleHelpClick}>Помочь</Button>
         </CardActions>
       </Card>
     </>
