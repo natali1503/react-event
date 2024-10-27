@@ -39,15 +39,15 @@ function App() {
           <Routes>
             <Route
               path={AppRoute.Login}
-              element={<OnlyUnAuth component={<LoginPage />} />}
+              element={<OnlyUnAuth component={LoginPage} />}
             />
             <Route
               path={AppRoute.Main}
-              element={<OnlyAuth component={<Helps />} />}
+              element={<OnlyAuth component={Helps} />}
             />
             <Route
               path={AppRoute.Profile}
-              element={<OnlyAuth component={<Profile />} />}
+              element={<OnlyAuth component={Profile} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
