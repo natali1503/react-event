@@ -1,10 +1,13 @@
 // styles
-import { Paper, TextField, Typography } from '@mui/material'
+import { Paper, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
 // Debounce function
 
-const debounce = <T extends (...args: any[]) => void>(func: T, delay: number) => {
+const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+) => {
   let timeoutId: ReturnType<typeof setTimeout>;
   return (...args: any[]) => {
     if (timeoutId) {
@@ -26,7 +29,6 @@ const Search = () => {
 
   // Debounce a function that will execute after a delay
   const debouncedAction = debounce((value: string) => {
-    console.log(newValue);
     // Actions that should happen after the debounce period
     // e.g., triggering a search or API call\
   }, 500);
@@ -43,10 +45,12 @@ const Search = () => {
   };
 
   return (
-    <Paper sx={{backgroundColor: "white", padding: "0.5rem 3rem"}}>
-      <Typography><h3>Найти запрос</h3></Typography>
+    <Paper sx={{ backgroundColor: 'white', padding: '0.5rem 3rem' }}>
+      <Typography>
+        <h3>Найти запрос</h3>
+      </Typography>
       <TextField
-        label="Введите название задачи или организации" 
+        label="Введите название задачи или организации"
         variant="standard"
         fullWidth
         sx={{ mb: 4 }}
@@ -54,7 +58,7 @@ const Search = () => {
         onChange={handleInputChange}
       />
     </Paper>
-  )
+  );
 };
 
 export default Search;

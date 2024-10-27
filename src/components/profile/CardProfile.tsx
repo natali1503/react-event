@@ -45,7 +45,7 @@ export default function CardProfile() {
         </Stack>
       </Stack>
 
-      <Stack margin={'0 20px'}>
+      <Stack margin={'0 20px'} marginBottom={'20px'}>
         <Button
           variant="outlined"
           sx={{ color: '#000', border: '1px solid #000' }}

@@ -7,9 +7,9 @@ import { AppRoute } from '../../const/const';
 
 
 import LogInButton from './LogInButton';
-import ImageAvatar from './Avatar'
+import ImageAvatar from './Avatar';
 
-import { useAppSelector } from '../../hooks/useAppSelector'
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 export default function HeaderNavigationApp() {
 
@@ -27,20 +27,20 @@ export default function HeaderNavigationApp() {
         //width: '100vw', 
         height: '84px', 
         margin: '0 auto',
-        display: 'flex', 
-        justifyContent: 'space-between', 
-        alignItems: 'center', 
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
       }}
     >
-      <AppBar position="static" color="inherit">
-        <Toolbar 
-          sx={{ 
-            width: '85%', 
+      <AppBar position="static" color="inherit" sx={{ zIndex: '1' }}>
+        <Toolbar
+          sx={{
+            width: '85%',
             maxWidth: '1500px',
-            height: '64px', 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
+            height: '64px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             margin: '0 auto',
             paddingLeft: 'none',
             paddingRight: 'none',
