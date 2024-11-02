@@ -1,5 +1,3 @@
-import './App.css';
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AppRoute } from './const/const';
 
@@ -11,7 +9,6 @@ import { OnlyAuth, OnlyUnAuth } from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 
 import { useAppDispatch } from './hooks/useAppDispatch';
-import './App.css';
 
 import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
