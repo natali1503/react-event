@@ -36,6 +36,7 @@ const YandexMapComponent: FC<YandexMapComponentProps> = ({ helpRequests, isMount
             Округ: ${item.location.district}, <br />
             Помощь актуальна до: ${formatDate(item.endingDate)}
           `,
+          clusterCaption: `${item.location.city}`,
         },
       }));
 
