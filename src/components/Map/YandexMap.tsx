@@ -25,10 +25,10 @@ const YandexMapComponent: FC<YandexMapComponentProps> = ({ helpRequests, isMount
     if (objectManagerRef.current) {
       const features = helpRequests.map(item => ({
         type: 'Feature',
-        id: `${item.location.longitude}-${item.location.latitude}`,
+        id: `${item.location.latitude}-${item.location.longitude}`,
         geometry: {
           type: 'Point',
-          coordinates: [item.location.longitude, item.location.latitude],
+          coordinates: [item.location.latitude, item.location.longitude],
         },
         properties: {
           balloonContent: `
@@ -52,7 +52,7 @@ const YandexMapComponent: FC<YandexMapComponentProps> = ({ helpRequests, isMount
           resolve();
         } else {
           const script = document.createElement('script');
-          script.src = 'https://api-maps.yandex.ru/2.1/?apikey=noKey&lang=en_US';
+          script.src = 'https://api-maps.yandex.ru/2.1/?apikey=noKey&lang=ru_RU';
           script.async = true;
           script.onload = () => {
             const checkYmapsLoaded = setInterval(() => {

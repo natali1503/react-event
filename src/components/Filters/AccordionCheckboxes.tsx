@@ -17,6 +17,10 @@ const AccordionCheckboxes: React.FC<AccordionCheckboxesProps> = ({ item, index, 
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
   };
+
+  if (!item.accordion) {
+    return null;
+  };
     
   return (
     <Accordion

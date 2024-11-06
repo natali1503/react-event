@@ -12,17 +12,18 @@ type SearchProps = {
 
 const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
   const [inputValue, setInputValue] = useState(searchTerm);
-  const debouncedSearch = useRef<(value: string) => void | null>(null); // Ref to hold the debounced function
+
+  const handleSearch = useCallback((value: string) => {
+    setSearchTerm(value);
+  }, [setSearchTerm]);
+
+  const debouncedSearch = useRef<(value: string) => void>(debouncedFunction(handleSearch, 250));
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setInputValue(newValue);
     debouncedSearch.current?.(newValue);
   };
-
-  const handleSearch = useCallback((value: string) => {
-    setSearchTerm(value);
-  }, [setSearchTerm]);
 
   useEffect(() => {
     // todo: fix this warning - functional works as expected

@@ -12,7 +12,10 @@ type StandardCheckboxesProps = {
 };
 
 const StandardCheckboxes: FC<StandardCheckboxesProps> = ({ item, index, selectedOptions, handleToggle }) => {
-  
+  if (!item.options) {
+    return null
+  };
+
   return (
     <Box key={index}>
       <Typography variant="subtitle1" sx={{ opacity: '0.6' }}>

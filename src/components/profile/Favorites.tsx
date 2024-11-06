@@ -26,7 +26,7 @@ export default function Favorites() {
           <CircularProgress />
         </Box>
       ) : (
-        <HelpRequestsComponent helpRequests={helpRequestList} />
+        <HelpRequestsComponent helpRequests={helpRequestList} currentPage={1} setCurrentPage={() => {}}/>
       )}
     </>
   );

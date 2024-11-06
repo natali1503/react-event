@@ -62,7 +62,7 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         {filterOptions.map((item, index) => {
-          if (item.options) {
+          if (item.type === 'checkList') {
             // render standard options
             return (
               <StandardCheckboxes
@@ -72,7 +72,7 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
                 handleToggle={handleToggle}
               /> 
             )
-          } else if (item.accordion) {
+          } else if (item.type === 'accordionList') {
             // Render options inside accordion
             return (
               <AccordionCheckboxes

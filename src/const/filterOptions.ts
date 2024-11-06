@@ -2,6 +2,7 @@ import { IFilterOption } from '../types/IFilterOption';
 
 export const filterOptions: IFilterOption[] = [
   {
+    type: 'checkList',
     title: 'Кому мы помогаем',
     options: [
       { label: 'Пенсионеры', prop: 'person' },
@@ -9,6 +10,7 @@ export const filterOptions: IFilterOption[] = [
     ],
   },
   {
+    type: 'checkList',
     title: 'Чем мы помогаем',
     options: [
       { label: 'Вещи', prop: 'material' },
@@ -16,6 +18,7 @@ export const filterOptions: IFilterOption[] = [
     ],
   },
   {
+    type: 'accordionList',
     accordion: {
       accordionTitle: 'Волонтерство',
       items: [
