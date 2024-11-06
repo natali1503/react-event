@@ -5,14 +5,15 @@ import GridOnIcon from '@mui/icons-material/GridOn';
 import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { HelpRequest } from '../../types/HelpRequest';
+import MapWrapper from '../Map/MapWrapper';
 
 type RequestsProps = {
+  currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   helpRequests: HelpRequest[];
 };
 
-const HelpRequestsComponent: FC<RequestsProps> = (requests) => {
-  const { helpRequests } = requests;
-  const [currentPage, setCurrentPage] = useState(1);
+const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, helpRequests}) => {
   const [viewMode, setViewMode] = useState('grid');
   const itemsPerPage = 3;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -27,7 +28,7 @@ const HelpRequestsComponent: FC<RequestsProps> = (requests) => {
       <ListAltRoundedIcon />
     </ToggleButton>,
     <ToggleButton value="map" key="map">
-      <LocationOnIcon />
+      <LocationOnIcon /> 
     </ToggleButton>,
   ];
 
@@ -48,30 +49,39 @@ const HelpRequestsComponent: FC<RequestsProps> = (requests) => {
    return (
       <>
         <Box sx={{
-            display: 'flex',       
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginBottom: '20px'
-          }}>
+          display: 'flex',       
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
           <Typography variant="h6">Найдено: {helpRequests.length}</Typography>
           <ToggleButtonGroup size="small" {...control} aria-label="Small sizes">
             {children}
           </ToggleButtonGroup>
         </Box>
-        <CardList helpRequests={ currentItems } viewMode={viewMode}/>
-        <Box sx={{
-            display: 'flex',       
-            justifyContent: 'center',
-            marginTop: '20px'
-          }}>
-          <Pagination
-          count={Math.ceil(helpRequests.length / itemsPerPage)}
-          page={currentPage}
-          size='large'
-          onChange={handlePageChange}
-          color="primary"
-        />
-      </Box>
+        <Box>
+          {viewMode === 'map' ? (
+            <MapWrapper
+              helpRequests={helpRequests}
+            />
+          ) : (
+          <>
+            <CardList helpRequests={ currentItems } viewMode={viewMode}/>
+            <Box sx={{
+              display: 'flex',       
+              justifyContent: 'center',
+              marginTop: '20px',
+            }}>
+              <Pagination
+                count={Math.ceil(helpRequests.length / itemsPerPage)}
+                page={currentPage}
+                size='large'
+                onChange={handlePageChange}
+                color="primary"
+              />
+            </Box>
+          </>
+          )}
+        </Box>
       </>
    )
 };

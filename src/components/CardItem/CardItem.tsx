@@ -14,10 +14,13 @@ const CardItem: FC<CardItemProps> = (props) => {
   const { helpRequest, orientation} = props;
 
   return (
-    <>
       <Card sx={{ 
-        width: orientation === 'horizontal' ? '100%' : 320,
         display: 'flex', 
+        marginTop: orientation === 'horizontal' ? '20px' : '20px',
+        boxShadow: orientation === 'horizontal' ? 'none' : '',
+        borderBottom: orientation === 'horizontal' ? '1px solid #0000001F' : '',
+        borderRadius: orientation === 'horizontal' ? '0px' : '',
+        width: orientation === 'horizontal' ? '100%' : 320,
         flexDirection: orientation === 'horizontal' ? 'row' : 'column',
         padding: orientation === 'horizontal' ? '20px 0 30px 52px' : 0,
         gap: orientation === 'horizontal' ? '30px' : 0,
@@ -134,9 +137,8 @@ const CardItem: FC<CardItemProps> = (props) => {
             >
               В избранное
             </Button>
-        }   
+        }
       </Card>
-    </>
   );
 }
 
