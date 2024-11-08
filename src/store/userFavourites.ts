@@ -25,7 +25,7 @@ export const userFavouritesSlice = createSlice({
       state.isData = true;
     },
     setIsLoading(state) {
-      state.isLoading = true;
+      state.isLoading = !state.isLoading;
     },
   },
 });

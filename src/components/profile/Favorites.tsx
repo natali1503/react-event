@@ -22,6 +22,10 @@ export default function Favorites() {
     return state.HELP_REQUEST.helpRequestsList;
   });
 
+  const helpRequestDataError = useSelector((state: RootState) => {
+    return state.HELP_REQUEST.hasError;
+  });
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -43,9 +47,12 @@ export default function Favorites() {
     dispatch(setFavouriteHelp(favouriteHelp));
   }, [userFavourites.helpRequest]);
 
+  useEffect(() => {
+    if (helpRequestDataError) dispatch(setIsLoading());
+  }, [helpRequestDataError]);
   return (
     <Box>
-      {userFavourites.error && <Error />}
+      {helpRequestDataError && <Error />}
       {userFavourites.isLoading && (
         <Skeleton width={'100px'} height={'100px'} />
       )}

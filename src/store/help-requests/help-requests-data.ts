@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { HelpRequestData } from '../../types/state';
 import { fetchHelpRequestsAction } from '../api-actions';
 
@@ -9,23 +9,22 @@ const initialState: HelpRequestData = {
 };
 
 export const helpRequestData = createSlice({
-  name: "HELP_REQUEST",
+  name: 'HELP_REQUEST',
   initialState: initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
-    .addCase(fetchHelpRequestsAction.pending, (state) => {
-      state.isRequestsDataLoading = true;
-      state.hasError = false;
-    })
-    .addCase(fetchHelpRequestsAction.fulfilled, (state, action) => {
-      state.helpRequestsList = action.payload;
-      state.isRequestsDataLoading = false;
-    })
-    .addCase(fetchHelpRequestsAction.rejected, (state) => {
-      state.isRequestsDataLoading = false;
-      state.hasError = true;
-    });
-  }
+      .addCase(fetchHelpRequestsAction.pending, (state) => {
+        state.isRequestsDataLoading = true;
+        state.hasError = false;
+      })
+      .addCase(fetchHelpRequestsAction.fulfilled, (state, action) => {
+        state.helpRequestsList = action.payload;
+        state.isRequestsDataLoading = false;
+      })
+      .addCase(fetchHelpRequestsAction.rejected, (state, action) => {
+        state.isRequestsDataLoading = false;
+        if (action.error.message === '500') state.hasError = true;
+      });
+  },
 });
