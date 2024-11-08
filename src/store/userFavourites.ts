@@ -1,46 +1,35 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../types/IUser';
-import { api } from '../api';
-
-export const getUserFavourites = createAsyncThunk(
-  'user/favourites',
-  async () => {
-    console.log(123);
-    const response = await api.getUserFavourites();
-    console.log(response);
-    return response;
-  }
-);
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HelpRequest } from '../types/HelpRequest';
 
 export const userFavouritesSlice = createSlice({
   name: 'userFavourites',
   initialState: {
-    loading: false,
     isData: false,
-    data: [],
+    isLoading: false,
+    favouriteRequests: <string[]>[],
+    helpRequest: <HelpRequest[]>[],
+    favouriteHelp: <HelpRequest[]>[],
     error: '',
   },
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(getUserFavourites.pending, (state) => {
-        // state.data = <IUser>{};
-        state.isData = false;
-        state.loading = true;
-        state.error = '';
-      })
-      .addCase(getUserFavourites.fulfilled, (state, action) => {
-        state.loading = false;
-        // state.data = action.payload;
-        state.isData = true;
-      })
-      .addCase(getUserFavourites.rejected, (state, action) => {
-        state.isData = false;
-        // state.data = <IUser>{};
-        state.loading = false;
-        state.error = String(action.error.message);
-      });
+  reducers: {
+    setFavourites: (state, action: PayloadAction<string[]>) => {
+      state.favouriteRequests = action.payload;
+    },
+    setHelpRequest(state, action: PayloadAction<HelpRequest[]>) {
+      state.helpRequest = action.payload;
+    },
+    setFavouriteHelp(state, action: PayloadAction<HelpRequest[]>) {
+      state.favouriteHelp = action.payload;
+      console.log(state.favouriteHelp);
+      state.isLoading = false;
+      state.isData = true;
+    },
+    setIsLoading(state) {
+      state.isLoading = true;
+    },
   },
 });
 
 export default userFavouritesSlice.reducer;
+export const { setFavourites, setHelpRequest, setFavouriteHelp, setIsLoading } =
+  userFavouritesSlice.actions;

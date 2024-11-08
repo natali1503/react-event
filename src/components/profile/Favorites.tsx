@@ -1,19 +1,61 @@
-import { useEffect, useState } from 'react';
-import { useAppSelector } from '../../hooks/useAppSelector';
-import { getHelpRequests } from '../../store/help-requests/selectors';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { Box, CircularProgress } from '@mui/material';
-import { getUserFavourites } from '../../store/userFavourites';
+import { useEffect } from 'react';
+import { Box, Skeleton } from '@mui/material';
+import { useSelector } from 'react-redux';
 
+import { AppDispatch, RootState } from '../../store/types';
+import { Error } from '../Error';
+import { useDispatch } from 'react-redux';
+import {
+  setHelpRequest,
+  setFavouriteHelp,
+  setIsLoading,
+} from '../../store/userFavourites';
+import { matchFavourites } from '../../features/matchFavourites';
+import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
+import { fetchHelpRequestsAction } from '../../store/api-actions';
 export default function Favorites() {
-  const helpRequestList = useAppSelector(getHelpRequests);
-  const dispatch = useAppDispatch();
-  const [isData, setIsData] = useState(helpRequestList.length);
+  const userFavourites = useSelector((state: RootState) => {
+    return state.favourites;
+  });
+
+  const helpRequestData = useSelector((state: RootState) => {
+    return state.HELP_REQUEST.helpRequestsList;
+  });
+
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(getUserFavourites());
-    console.log(123);
-  }, []);
+    if (helpRequestData.length > 0) {
+      dispatch(setHelpRequest(helpRequestData));
+    } else {
+      dispatch(setIsLoading());
+      dispatch(fetchHelpRequestsAction());
+    }
+  }, [helpRequestData.length]);
 
-  return <Box></Box>;
+  useEffect(() => {
+    if (userFavourites.helpRequest.length === 0) return;
+
+    const favouriteHelp = matchFavourites(
+      userFavourites.helpRequest,
+      userFavourites.favouriteRequests
+    );
+    dispatch(setFavouriteHelp(favouriteHelp));
+  }, [userFavourites.helpRequest]);
+
+  return (
+    <Box>
+      {userFavourites.error && <Error />}
+      {userFavourites.isLoading && (
+        <Skeleton width={'100px'} height={'100px'} />
+      )}
+      {userFavourites.isData && (
+        <HelpRequestsComponent
+          currentPage={1}
+          setCurrentPage={() => {}}
+          helpRequests={userFavourites.favouriteHelp}
+        />
+      )}
+    </Box>
+  );
 }

@@ -1,26 +1,33 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '../types/IUser';
+import { IProfileData } from '../types/IUser';
 import { api } from '../api';
+import { setFavourites } from './userFavourites';
 
-export const getUser = createAsyncThunk<IUser>('profile/user', async () => {
-  console.log(66);
-  const response = await api.getUser();
-  return response;
-});
+export const getUser = createAsyncThunk<IProfileData>(
+  'profile/user',
+  async (_, { dispatch }) => {
+    const response = await api.getUser();
+
+    const { favouriteRequests, ...profileData } = response;
+    dispatch(setFavourites(favouriteRequests));
+
+    return profileData;
+  }
+);
 
 export const profileSlice = createSlice({
   name: 'profile',
   initialState: {
     loading: false,
     isData: false,
-    data: <IUser>{},
+    data: <IProfileData>{},
     error: '',
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getUser.pending, (state) => {
-        state.data = <IUser>{};
+        state.data = <IProfileData>{};
         state.isData = false;
         state.loading = true;
         state.error = '';
@@ -32,7 +39,7 @@ export const profileSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isData = false;
-        state.data = <IUser>{};
+        state.data = <IProfileData>{};
         state.loading = false;
         state.error = String(action.error.message);
       });
