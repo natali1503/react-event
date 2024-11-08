@@ -5,6 +5,10 @@ import { RootState } from '../../store/types';
 import vk from '/img/vk.png';
 import tg from '/img/telegram.png';
 import wh from '/img/whatsapp.png';
+import vk from '/img/vk.png';
+import tg from '/img/telegram.png';
+import wh from '/img/whatsapp.png';
+import { ItemSocial } from './element/ItemSocial';
 
 export default function Contacts() {
   const { data } = useSelector((state: RootState) => {
@@ -14,15 +18,20 @@ export default function Contacts() {
   return (
     <Box display={'flex'} flexDirection={'column'} gap={'30px'}>
       <Stack gap={'10px'} alignItems={'flex-start'}>
+    <Box display={'flex'} flexDirection={'column'} gap={'30px'}>
+      <Stack gap={'10px'} alignItems={'flex-start'}>
         <Typography variant="h6">E-mail</Typography>
         <Typography>{data.contacts.email}</Typography>
       </Stack>
+      <Stack gap={'10px'} alignItems={'flex-start'}>
       <Stack gap={'10px'} alignItems={'flex-start'}>
         <Typography variant="h6">Телефон</Typography>
         <Typography>{data.contacts.phone}</Typography>
       </Stack>
       <Stack gap={'10px'} alignItems={'flex-start'}>
+      <Stack gap={'10px'} alignItems={'flex-start'}>
         <Typography variant="h6">Социальные сети</Typography>
+        <Stack gap={'6px'}>
         <Stack gap={'6px'}>
           <ItemSocial
             name="Vkontakte"

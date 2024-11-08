@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IUser } from '../types/IUser';
 import { api } from '../api';
-import { toast } from 'react-toastify';
 
 export const getUser = createAsyncThunk<IUser>('profile/user', async () => {
+  console.log(66);
   const response = await api.getUser();
   return response;
 });

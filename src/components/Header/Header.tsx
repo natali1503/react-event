@@ -23,7 +23,7 @@ export default function HeaderNavigationApp() {
       sx={{
         backgroundColor: 'white',
         width: '100vw',
-        margin: '0 auto',
+        // margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -37,7 +37,6 @@ export default function HeaderNavigationApp() {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            margin: '0 auto',
             paddingLeft: 'none',
             paddingRight: 'none',
           }}

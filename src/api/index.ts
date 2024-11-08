@@ -94,6 +94,20 @@ class ApiService {
     );
     return res as HelpRequest[]; // Явное приведение к типу HelpRequest[]
   }
+
+  async getUserFavourites() {
+    const res: string[] | IError = await this.fetchDataWithToken(
+      APIRoute.FavoriteHelpRequests,
+      APIMethod.GET
+    );
+
+    const isCodeError = (object): object is IError => {
+      return 'codeError' in object;
+    };
+    if (isCodeError(res)) {
+      throw new Error(String(res.codeError));
+    } else return res;
+  }
 }
 
 export const api = new ApiService();

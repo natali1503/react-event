@@ -12,7 +12,7 @@ export default function Wrapper({ children }) {
       min-height={'100vh'}
     >
       <HeaderNavigationApp />
-      <Box margin={'0 210px'} flexGrow={'1'}>
+      <Box margin={'0 110px'} flexGrow={'1'}>
         {children}
       </Box>
       <BottomNavigationApp />

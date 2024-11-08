@@ -4,7 +4,7 @@ import authorizationReducer, {
   logOut,
   requestUnsuccessfullByDesign,
 } from './authorization';
-
+import userFavouritesReducer from './userFavourites';
 import profileReducer from './profileStore';
 import { helpRequestData } from './help-requests/help-requests-data';
 
@@ -12,6 +12,7 @@ const rootReducer = combineReducers({
   //counter: rtkReducer,
   auth: authorizationReducer,
   profile: profileReducer,
+  favourites: userFavouritesReducer,
   HELP_REQUEST: helpRequestData.reducer,
   // остальные редьюсеры
 });

@@ -1,13 +1,13 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box } from '@mui/material';
+import React from 'react';
 
-interface IPPagesProfile {
+interface IPagesProfile {
   children: React.ReactNode;
   index: number;
   value: number;
 }
 
-export default function PagesProfile(props: IPPagesProfile) {
+export default function PagesProfile(props: IPagesProfile) {
   const { children, value, index, ...other } = props;
 
   return (
