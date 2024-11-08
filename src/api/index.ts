@@ -88,7 +88,7 @@ class ApiService {
   }
 
   async getHelpRequests() {
-    const res: HelpRequest | IError = await this.fetchDataWithToken(
+    const res: HelpRequest[] | IError = await this.fetchDataWithToken(
       APIRoute.HelpRequests,
       APIMethod.GET
     );
