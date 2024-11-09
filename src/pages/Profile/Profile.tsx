@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../store/profileStore';
 import { AppDispatch, RootState } from '../../store/types';
-import CardProfile from '../../components/Profile/CardProfile';
-import PagesProfile from '../../components/Profile/PagesProfile';
-import PersonalData from '../../components/Profile/PersonalData';
-import Favorites from '../../components/Profile/Favorites';
-import Contacts from '../../components/Profile/Contacts';
+
 import { Error } from '../../components/Error';
+import { useMode } from '../../theme';
+import CardProfile from '../../components/Profile/CardProfile';
+import PersonalData from '../../components/Profile/PersonalData';
+import PagesProfile from '../../components/Profile/PagesProfile';
+import Contacts from '../../components/Profile/Contacts';
+import Favorites from '../../components/Profile/Favorites';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
