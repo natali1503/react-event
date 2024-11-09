@@ -17,21 +17,18 @@ const rootReducer = combineReducers({
 });
 
 export const authMiddleware: Middleware = (store) => (next) => (action) => {
-  // @ts-expect-error: тип action определен как unknown
+  // @ts-expect-error наладить типизацию экшена, согласовать с запросом
   if (action.type.endsWith('rejected')) {
     // debugger;
-    // @ts-expect-error: тип action определен как unknown
+    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     if (action.error?.message === '500') {
       // просто ошибка сервера, не убираем флаг isAuth и не редиректимся на страницу логина
-      // console.log('ИЗ миддлавара с ошибкой 500');
       // debugger
 
       store.dispatch(requestUnsuccessfullByDesign());
-
-      // @ts-expect-error: тип action определен как unknown
+      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
     } else if (action.error?.message === '403') {
       // просрочился jwt, убираем флаг isAuth и редиректимся на страницу логина
-      // console.log('ИЗ миддлавара с ошибкой 403');
       // debugger;
       store.dispatch(logOut());
     }

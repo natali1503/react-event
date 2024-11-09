@@ -7,16 +7,20 @@ import { formatDate, formatNumber, formatString } from '../../helper-functions/h
 type CardItemProps = {
   helpRequest: HelpRequest;
   orientation: string;
+  keyValue: string;
 };
 
 const CardItem: FC<CardItemProps> = (props) => {
-  const { helpRequest, orientation } = props;
+  const { helpRequest, orientation} = props;
 
   return (
-    <>
       <Card sx={{ 
-        width: orientation === 'horizontal' ? '100%' : 320,
         display: 'flex', 
+        marginTop: orientation === 'horizontal' ? '20px' : '20px',
+        boxShadow: orientation === 'horizontal' ? 'none' : '',
+        borderBottom: orientation === 'horizontal' ? '1px solid #0000001F' : '',
+        borderRadius: orientation === 'horizontal' ? '0px' : '',
+        width: orientation === 'horizontal' ? '100%' : 320,
         flexDirection: orientation === 'horizontal' ? 'row' : 'column',
         padding: orientation === 'horizontal' ? '20px 0 30px 52px' : 0,
         gap: orientation === 'horizontal' ? '30px' : 0,
@@ -73,7 +77,7 @@ const CardItem: FC<CardItemProps> = (props) => {
               <Typography variant="body2" sx={{ marginBottom: '10px' }}>
                 Нас уже: {formatNumber(helpRequest.contributorsCount)}
               </Typography>
-              <Button size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
+              <Button href="/user:id" size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
             </CardActions>
           </Box>
         )}
@@ -123,7 +127,7 @@ const CardItem: FC<CardItemProps> = (props) => {
         </CardContent>
         {orientation !== 'horizontal' ? (<CardActions disableSpacing sx={{ padding: '0 16px 20px', textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto'}}>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>Нас уже: {formatNumber(helpRequest.contributorsCount)}</Typography>
-            <Button size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
+            <Button href="/user:id" size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
           </CardActions>)
           : <Button
               variant="outlined"
@@ -133,9 +137,8 @@ const CardItem: FC<CardItemProps> = (props) => {
             >
               В избранное
             </Button>
-        }   
+        }
       </Card>
-    </>
   );
 }
 
