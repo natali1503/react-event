@@ -17,6 +17,7 @@ import './App.css';
 import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
 import Helps from './pages/Helps/Helps';
+//import UserInfoID from './pages/Helps/UserInfoID'
 
 function App() {
   const dispatch = useAppDispatch();
@@ -44,6 +45,10 @@ function App() {
             <Route
               path={AppRoute.Main}
               element={<OnlyAuth component={Helps} />}
+            />
+            <Route
+              path={AppRoute.HelpRequest}
+              element={<OnlyAuth component={<UserInfoID />} />}
             />
             <Route
               path={AppRoute.Profile}
