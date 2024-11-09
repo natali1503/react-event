@@ -1,9 +1,9 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/types';
-import img from '/img/Vector.png';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/authorization';
+import { UserImg } from './element/UserImg';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {
@@ -17,12 +17,7 @@ export default function CardProfile() {
 
   return (
     <Box>
-      <Box
-        display={'flex'}
-        component={'img'}
-        src={img}
-        padding={'40px 53px'}
-      ></Box>
+      <UserImg />
       <Divider />
       <Stack>
         <Stack
