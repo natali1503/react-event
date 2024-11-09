@@ -6,12 +6,11 @@ import { getUser } from '../../store/profileStore';
 import { AppDispatch, RootState } from '../../store/types';
 
 import { Error } from '../../components/Error';
-import { useMode } from '../../theme';
-import CardProfile from '../../components/Profile/CardProfile';
-import PersonalData from '../../components/Profile/PersonalData';
-import PagesProfile from '../../components/Profile/PagesProfile';
-import Contacts from '../../components/Profile/Contacts';
-import Favorites from '../../components/Profile/Favorites';
+import CardProfile from '../../components/temp/CardProfile';
+import PersonalData from '../../components/temp/PersonalData';
+import PagesProfile from '../../components/temp/PagesProfile';
+import Contacts from '../../components/temp/Contacts';
+import Favorites from '../../components/temp/Favorites';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
