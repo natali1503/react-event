@@ -4,6 +4,8 @@ import { RootState } from '../../store/types';
 import { useSelector } from 'react-redux';
 import { getDateStr } from '../../features/getDateStr';
 import { Row } from './element/Row';
+import { ItemEducation } from './element/ItemEducation';
+import { ItemBaseLocations } from './element/ItemBaseLocations';
 
 export default function PersonalData() {
   const { data } = useSelector((state: RootState) => {
@@ -85,45 +87,3 @@ export default function PersonalData() {
     </Box>
   );
 }
-
-interface IItemEducation {
-  organizationName: string;
-  level: string;
-  graduationYear: number;
-}
-const ItemEducation = ({
-  organizationName,
-  level,
-  graduationYear,
-}: IItemEducation) => {
-  return (
-    <Stack gap={'4px'}>
-      <Stack direction={'row'} gap={'4px'}>
-        <Row header={'Учреждение'} value={organizationName} />
-      </Stack>
-      <Stack direction={'row'} gap={'4px'}>
-        <Row header={'Уровень образования'} value={level} />
-      </Stack>
-      <Stack direction={'row'} gap={'4px'}>
-        <Row header={'Год окончания'} value={String(graduationYear)} />
-      </Stack>
-    </Stack>
-  );
-};
-
-interface IItemBaseLocations {
-  district: string;
-  city: string;
-}
-const ItemBaseLocations = ({ district, city }: IItemBaseLocations) => {
-  return (
-    <Stack gap={'4px'}>
-      <Stack direction={'row'} gap={'4px'}>
-        <Row header={'Область'} value={district} />
-      </Stack>
-      <Stack direction={'row'} gap={'4px'}>
-        <Row header={'Населенный пункт'} value={city} />
-      </Stack>
-    </Stack>
-  );
-};
