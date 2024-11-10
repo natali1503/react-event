@@ -1,8 +1,13 @@
-import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Divider, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
+import { FC, useEffect } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
+import { Star, StarBorder } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/types';
+import { addToFavouritesAction, getUser, removeFromFavouritesAction } from '../../store/api-actions';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -11,8 +16,35 @@ type CardItemProps = {
 };
 
 const CardItem: FC<CardItemProps> = (props) => {
-  const { helpRequest, orientation} = props;
+  const { helpRequest, orientation } = props;
+  const dispatch = useDispatch<AppDispatch>();
 
+  const userFavourites = useSelector((state: RootState) => {
+    return state.favourites;
+  });
+
+  const handleAddToFavourites = (favouriteId: string) => {
+    dispatch(addToFavouritesAction(favouriteId));
+    console.log('Handle action');
+    dispatch(getUser())
+  };
+
+  const handleRemoveFavourite = (favouriteId: string) => {
+    dispatch(removeFromFavouritesAction(favouriteId));
+    console.log('Handle action');
+    dispatch(getUser())
+  };
+
+  const checkFavourites = (id: string) => {
+    const isFavourite = userFavourites.favouriteRequests.some(fav => fav === id);
+    console.log(userFavourites.favouriteRequests, id, isFavourite);
+    return isFavourite;
+  };
+
+  useEffect(() => {
+    checkFavourites(helpRequest.id)
+  }, [userFavourites.favouriteRequests])
+  
   return (
       <Card sx={{ 
         display: 'flex', 
@@ -51,10 +83,20 @@ const CardItem: FC<CardItemProps> = (props) => {
             }} 
             title={formatString(helpRequest.title)}
             action={
-              <IconButton aria-label="add to favorites">
-                <StarBorderIcon />
+              <IconButton
+                onClick={() => (checkFavourites(helpRequest.id) ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
+                aria-label={checkFavourites(helpRequest.id) ? 'remove from favourites' : 'add to favourites'}
+                disabled={userFavourites.isLoading}
+              >
+                {userFavourites.isLoading ? (
+                  <CircularProgress size={24} />
+                ) : checkFavourites(helpRequest.id) ? (
+                  <Star /> 
+                ) : (
+                  <StarBorder />
+                )}
               </IconButton>
-            } 
+            }
           />
         ) : (
           <Box sx={{ 

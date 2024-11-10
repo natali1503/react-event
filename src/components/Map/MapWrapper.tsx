@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import YandexMapComponent from './YandexMap';
+import YandexMap from './YandexMap';
 import { HelpRequest } from '../../types/HelpRequest';
 
 type MapWrapperProps = {
@@ -17,7 +17,7 @@ const MapWrapper: React.FC<MapWrapperProps> = ({ helpRequests }) => {
   }, []);
 
   return (
-    <YandexMapComponent helpRequests={helpRequests} isMounted={isMounted} />
+    <YandexMap helpRequests={helpRequests} isMounted={isMounted} />
   );
 };
 

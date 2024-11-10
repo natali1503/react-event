@@ -3,6 +3,7 @@ import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
 import { IError } from '../types/IError';
 import { HelpRequest } from '../types/HelpRequest';
+import { IFavourite, IResponse } from '../types/IFavourite';
 
 class ApiService {
   // метод, которые принимает параметры для запроса и подтыкает authorization
@@ -70,7 +71,7 @@ class ApiService {
 
   async getUserFavourites() {
     const res: string[] | IError = await this.fetchDataWithToken(
-      APIRoute.FavoriteHelpRequests,
+      APIRoute.FavouritesHelpRequests,
       APIMethod.GET
     );
 
@@ -81,6 +82,49 @@ class ApiService {
       throw new Error(String(res.codeError));
     } else return res;
   }
-}
+
+  async addToFavourites(favouriteId: string) {
+    try {
+      const body = JSON.stringify({ requestId: favouriteId });
+      const res = await this.fetchDataWithToken<IFavourite[]>(
+        APIRoute.FavouritesHelpRequests,
+        APIMethod.POST,
+        body
+      );
+
+      if ('codeError' in res) {
+        console.error('Error adding to favourites:', res.message);
+        return null;
+      }
+
+      return res;
+
+    } catch (error) {
+      console.error('An error occurred:', error);
+      return null;
+    }
+  };
+
+  async removeFromFavourites(favouriteId: string) {
+    try {
+      const url = `${APIRoute.FavouritesHelpRequests}/${favouriteId}` as APIRoute;
+  
+      const res = await this.fetchDataWithToken<IResponse[]>(
+        url, 
+        APIMethod.DELETE
+      );
+  
+      if ('codeError' in res) {
+        console.error('Error removing from favourites:', res.message);
+        return res;
+      };
+    
+      return null;
+    } catch (error) {
+      console.error('Unexpected error while removing from favourites:', error);
+      return null;
+    };
+  };
+};
 
 export const api = new ApiService();

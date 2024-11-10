@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // data
 import { getHelpRequests } from '../../store/help-requests/selectors';
-import { fetchHelpRequestsAction } from '../../store/api-actions';
+import { fetchHelpRequestsAction, getUser } from '../../store/api-actions';
 // hooks
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -29,7 +29,10 @@ const Helps: React.FC = () => {
   );
 
   useEffect(() => {
-    if (helpRequestList.length === 0) dispatch(fetchHelpRequestsAction());
+    if (helpRequestList.length === 0) {
+      dispatch(getUser());
+      dispatch(fetchHelpRequestsAction())
+    };
   }, []);
 
   useEffect(() => {
