@@ -1,10 +1,10 @@
 export interface IFavourite {
-  id: string
+  id: string;
 };
 
 export interface IResponse {
-  success: boolean; 
-  message?: string; 
-  data?: IFavourite[]; 
+  success: boolean;
+  description?: string;
+  data?: IFavourite[];
   codeError?: number;
 };

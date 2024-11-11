@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Divider, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
@@ -25,26 +25,18 @@ const CardItem: FC<CardItemProps> = (props) => {
 
   const handleAddToFavourites = (favouriteId: string) => {
     dispatch(addToFavouritesAction(favouriteId));
-    console.log('Handle action');
     dispatch(getUser())
   };
 
   const handleRemoveFavourite = (favouriteId: string) => {
     dispatch(removeFromFavouritesAction(favouriteId));
-    console.log('Handle action');
     dispatch(getUser())
   };
 
-  const checkFavourites = (id: string) => {
-    const isFavourite = userFavourites.favouriteRequests.some(fav => fav === id);
-    console.log(userFavourites.favouriteRequests, id, isFavourite);
-    return isFavourite;
-  };
+  const userFavouriteId = userFavourites.favouriteRequests;
+  const isFavourite = userFavouriteId.some(favId => favId === helpRequest.id);
+  console.log(userFavouriteId, ' comparing with: ', helpRequest.id, ' result: ', isFavourite);
 
-  useEffect(() => {
-    checkFavourites(helpRequest.id)
-  }, [userFavourites.favouriteRequests])
-  
   return (
       <Card sx={{ 
         display: 'flex', 
@@ -84,13 +76,13 @@ const CardItem: FC<CardItemProps> = (props) => {
             title={formatString(helpRequest.title)}
             action={
               <IconButton
-                onClick={() => (checkFavourites(helpRequest.id) ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
-                aria-label={checkFavourites(helpRequest.id) ? 'remove from favourites' : 'add to favourites'}
+                onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
+                aria-label={isFavourite ? 'remove from favourites' : 'add to favourites'}
                 disabled={userFavourites.isLoading}
               >
                 {userFavourites.isLoading ? (
                   <CircularProgress size={24} />
-                ) : checkFavourites(helpRequest.id) ? (
+                ) : isFavourite ? (
                   <Star /> 
                 ) : (
                   <StarBorder />

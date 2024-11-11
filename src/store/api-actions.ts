@@ -30,7 +30,6 @@ export const addToFavouritesAction = createAsyncThunk<IFavourite[], string, { re
   async (favouriteId: string, { rejectWithValue }) => {
     try {
       const response = await api.addToFavourites(favouriteId); 
-      console.log('_action response: ', response);
 
       if (!response) {
         throw new Error('Failed to add to favourites');
@@ -57,8 +56,10 @@ export const removeFromFavouritesAction = createAsyncThunk(
       }
 
       return rejectWithValue(response);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log('Error removing from favourites:', error.message);
       return rejectWithValue('Unexpected error occurred while removing from favourites');
     }
   }
