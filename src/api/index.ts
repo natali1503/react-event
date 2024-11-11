@@ -100,7 +100,7 @@ class ApiService {
       return res;
 
     } catch (error) {
-      console.error('An error occurred:', error);
+      console.error('Unexpected error while adding to favourites:', error);
       return null;
     }
   };

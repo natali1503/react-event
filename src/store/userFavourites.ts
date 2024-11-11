@@ -41,7 +41,10 @@ export const userFavouritesSlice = createSlice({
       .addCase(addToFavouritesAction.fulfilled, (state, action: PayloadAction<IFavourite[]>) => {
         state.isLoading = false;
         state.isData = true;
-        state.favouriteRequests = action.payload.map(fav => fav.id);
+        const newFavouriteIds = action.payload.map(fav => fav.id);
+        state.favouriteRequests = [
+          ...new Set([...state.favouriteRequests, ...newFavouriteIds]),
+        ];
       })
       .addCase(addToFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;
