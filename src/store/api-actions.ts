@@ -25,9 +25,26 @@ export const getUser = createAsyncThunk<IProfileData>(
   }
 );
 
+export const getFavouritesAction = createAsyncThunk<string[], void, { rejectValue: string }>(
+  'favourites/getFavouritesAction',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await api.getUserFavourites(); 
+      if (!response || !Array.isArray(response)) {
+        throw new Error('Failed to fetch favourites');
+      }
+      return response;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error('Error fetching favourites:', error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const addToFavouritesAction = createAsyncThunk<IFavourite[], string, { rejectValue: string }>(
   'favourites/addToFavourites',
-  async (favouriteId: string, { rejectWithValue }) => {
+  async (favouriteId: string, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.addToFavourites(favouriteId); 
 
@@ -35,6 +52,7 @@ export const addToFavouritesAction = createAsyncThunk<IFavourite[], string, { re
         throw new Error('Failed to add to favourites');
       }
 
+      dispatch(getFavouritesAction());
       return response;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,11 +65,12 @@ export const addToFavouritesAction = createAsyncThunk<IFavourite[], string, { re
 
 export const removeFromFavouritesAction = createAsyncThunk(
   'favourites/remove',
-  async (favouriteId: string, { rejectWithValue }) => {
+  async (favouriteId: string, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.removeFromFavourites(favouriteId);
 
       if (response === null) {
+        dispatch(getFavouritesAction());
         return 'Item successfully removed from favourites';
       }
 

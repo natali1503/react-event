@@ -4,10 +4,10 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
 import { Star, StarBorder } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/types';
-import { addToFavouritesAction, getUser, removeFromFavouritesAction } from '../../store/api-actions';
+import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../../store/api-actions';
+import { useSelector } from 'react-redux';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -19,24 +19,20 @@ const CardItem: FC<CardItemProps> = (props) => {
   const { helpRequest, orientation } = props;
   const dispatch = useDispatch<AppDispatch>();
 
-  const userFavourites = useSelector((state: RootState) => {
-    return state.favourites;
-  });
+  const userFavourites = useSelector((state: RootState) => state.favourites);
 
-  const handleAddToFavourites = (favouriteId: string) => {
-    dispatch(addToFavouritesAction(favouriteId));
-    dispatch(getUser())
+  const isFavourite = userFavourites.favouriteRequests.includes(helpRequest.id);
+
+  const handleAddToFavourites = async (favouriteId: string) => {
+    await dispatch(addToFavouritesAction(favouriteId));
+    dispatch(getFavouritesAction());
   };
 
-  const handleRemoveFavourite = (favouriteId: string) => {
-    dispatch(removeFromFavouritesAction(favouriteId));
-    dispatch(getUser())
+  const handleRemoveFavourite = async (favouriteId: string) => {
+    await dispatch(removeFromFavouritesAction(favouriteId));
+    dispatch(getFavouritesAction());
   };
-
-  const userFavouriteId = userFavourites.favouriteRequests;
-  const isFavourite = userFavouriteId.some(favId => favId === helpRequest.id);
-  console.log(userFavouriteId, ' comparing with: ', helpRequest.id, ' result: ', isFavourite);
-
+  
   return (
       <Card sx={{ 
         display: 'flex', 
