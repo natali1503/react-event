@@ -5,6 +5,8 @@ import { IFavourite } from '../types/IFavourite';
 import { IProfileData } from '../types/IUser';
 import { setFavourites } from './userFavourites';
 
+const MAX_RETRIES = 5;
+
 export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[]>(
   'helpRequests/fetchHelpRequests',
   async () => {
@@ -28,17 +30,31 @@ export const getUser = createAsyncThunk<IProfileData>(
 export const getFavouritesAction = createAsyncThunk<string[], void, { rejectValue: string }>(
   'favourites/getFavouritesAction',
   async (_, { rejectWithValue }) => {
-    try {
-      const response = await api.getUserFavourites(); 
-      if (!response || !Array.isArray(response)) {
-        throw new Error('Failed to fetch favourites');
-      }
-      return response;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error('Error fetching favourites:', error.message);
-      return rejectWithValue(error.message);
-    }
+    let attempt = 1;
+
+    while (attempt <= MAX_RETRIES) {
+      try {
+        const response = await api.getUserFavourites(); 
+        if (Array.isArray(response) && response.length >= 0) {
+          return response;
+        }; 
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          if (attempt === MAX_RETRIES) {
+            return rejectWithValue(error.message);
+          }
+          attempt++;
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        } else {
+          if (attempt === MAX_RETRIES) {
+            return rejectWithValue('Unexpected error occurred');
+          }
+          attempt++;
+          await new Promise((resolve) => setTimeout(resolve, 500));
+        };
+      };
+    };
+    return rejectWithValue('Max retries reached');
   }
 );
 
