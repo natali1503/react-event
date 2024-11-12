@@ -15,10 +15,12 @@ import { applyFilter, applySearch } from '../../utils/filterUtils';
 import { HelpRequest } from '../../types/HelpRequest';
 // styles
 import { Box, Typography, Grid2, CircularProgress, Paper } from '@mui/material';
+import { useMode } from '../../theme';
 
 const Helps: React.FC = () => {
   const helpRequestList = useAppSelector(getHelpRequests);
   const dispatch = useAppDispatch();
+  const [theme] = useMode();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
@@ -64,7 +66,12 @@ const Helps: React.FC = () => {
   }, [helpRequestList, searchTerm, selectedOptions]);
 
   return (
-    <Paper sx={{ padding: '30px 40px', background: '#F5F5F5' }}>
+    <Paper
+      sx={{
+        padding: '30px 40px',
+        background: theme.palette.background.default,
+      }}
+    >
       {!hasHelpRequests ? (
         <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
           <CircularProgress />

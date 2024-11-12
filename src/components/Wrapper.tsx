@@ -1,12 +1,14 @@
 import { Box } from '@mui/material';
 import HeaderNavigationApp from './Header/Header';
 import BottomNavigationApp from './Footer/Footer';
+import { useMode } from '../theme';
 
 export default function Wrapper({ children }) {
+  const [theme] = useMode();
   return (
     <Box
       width={'100%'}
-      bgcolor={'#ffffff'}
+      bgcolor={theme.palette.background.paper}
       display={'flex'}
       flexDirection={'column'}
       min-height={'100vh'}

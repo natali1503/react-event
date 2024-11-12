@@ -1,15 +1,17 @@
 import { Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import { useMode } from '../../theme';
 
 export default function BottomNavigationApp() {
+  const [theme] = useMode();
   return (
     <Box
-      bgcolor={'#fff'}
+      bgcolor={theme.palette.background.paper}
       padding={'64px 0'}
+      borderTop={`1px solid ${theme.palette.grey[300]}`}
       sx={{
         width: '100vw',
-        borderTop: '1px solid #e0e0e0',
         marginTop: 'auto',
         zIndex: '1',
       }}

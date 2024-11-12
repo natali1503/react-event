@@ -11,10 +11,11 @@ import PersonalData from '../../components/Profile/PersonalData';
 import PagesProfile from '../../components/Profile/PagesProfile';
 import Contacts from '../../components/Profile/Contacts';
 import Favorites from '../../components/Profile/Favorites';
+import { useMode } from '../../theme';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
-
+  const [theme] = useMode();
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: RootState) => {
     return state.profile;
@@ -40,7 +41,7 @@ export default function Profile() {
         width={'100%'}
         display="flex"
         flexDirection={'column'}
-        bgcolor={'#f5f6f5'}
+        bgcolor={theme.palette.background.default}
       >
         <Stack alignItems={'flex-start'}>
           <Typography variant="h4" margin={'30px 40px'}>
@@ -54,7 +55,7 @@ export default function Profile() {
             <Stack
               bgcolor={'white'}
               borderRadius={'4px'}
-              border={'1px solid #e0e0e0'}
+              border={`1px solid ${theme.palette.grey[300]}`}
               height={'100%'}
             >
               <CardProfile />
@@ -63,7 +64,7 @@ export default function Profile() {
               bgcolor={'white'}
               padding={'36px'}
               borderRadius={'4px'}
-              border={'1px solid #e0e0e0'}
+              border={`1px solid ${theme.palette.grey[300]}`}
               minHeight={'100vh'}
               width={'100%'}
             >

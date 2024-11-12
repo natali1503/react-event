@@ -7,10 +7,13 @@ import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
 import Helps from './pages/Helps/Helps';
 import UserInfoID from './pages/Helps/UserInfoID';
+import { Theme } from './components/Theme';
+
+//import UserInfoID from './pages/Helps/UserInfoID'
 
 function App() {
   return (
-    <>
+    <Theme>
       <Router>
         <Wrapper>
           <Routes>
@@ -31,7 +34,7 @@ function App() {
           </Routes>
         </Wrapper>
       </Router>
-    </>
+    </Theme>
   );
 }
 
