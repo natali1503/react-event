@@ -3,7 +3,6 @@ import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
 import { IError } from '../types/IError';
 import { HelpRequest } from '../types/HelpRequest';
-import { IAuth } from '../types/IAuth';
 
 class ApiService {
   // метод, которые принимает параметры для запроса и подтыкает authorization
@@ -32,45 +31,13 @@ class ApiService {
     }
   }
 
-  async login(login: string, password: string): Promise<IAuth | IError> {
-    try {
-      const body = await JSON.stringify({ password: password, login: login });
-
-      const res = await fetch(APIRoute.Login, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body,
-      });
-
-      if (!res.ok && res.status === 500) {
-        // запланированная ошибка сервера, логин пароль может и правильный
-        //debugger;
-        toast.error('Ошибка на сервере! Попробуйте позже');
-        return {
-          codeError: res.status,
-          message: 'IG: Planned server error',
-        } as IError;
-      }
-
-      if (!res.ok && res.status === 400) {
-        // неправильный логин пароль
-        // debugger;
-        toast.error('Неправильный логин пароль! Попробуйте еще раз');
-
-        return {
-          codeError: res.status,
-          message: 'IG: Invalid credentials',
-        } as IError;
-      }
-      return await res.json();
-    } catch (e) {
-      // запланированная ошибка сервера
-      // debugger;
-      toast.error('Ошибка! Попробуйте еще раз');
-      return { codeError: 500, message: String(e) };
-    }
+  async login<T>(login: string, password: string): Promise<T | IError> {
+    const body = JSON.stringify({ password: password, login: login });
+    return await this.fetchDataWithToken<T>(
+      APIRoute.Login,
+      APIMethod.POST,
+      body
+    );
   }
 
   async getUser() {

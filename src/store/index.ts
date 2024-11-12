@@ -1,15 +1,11 @@
-import { combineReducers, Middleware } from 'redux';
+import { Action, combineReducers, Middleware } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import authorizationReducer, {
-  logOut,
-  requestUnsuccessfullByDesign,
-} from './authorization';
+import authorizationReducer, { logOut } from './authorization';
 import userFavouritesReducer from './userFavourites';
 import profileReducer from './profileStore';
 import { helpRequestData } from './help-requests/help-requests-data';
 
 const rootReducer = combineReducers({
-  //counter: rtkReducer,
   auth: authorizationReducer,
   profile: profileReducer,
   favourites: userFavouritesReducer,
@@ -17,30 +13,29 @@ const rootReducer = combineReducers({
   // остальные редьюсеры
 });
 
-export const authMiddleware: Middleware = (store) => (next) => (action) => {
-  // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-  if (action.type.endsWith('rejected')) {
-    // debugger;
-    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-    if (action.error?.message === '500') {
-      // просто ошибка сервера, не убираем флаг isAuth и не редиректимся на страницу логина
-      // debugger
+type RootState = ReturnType<typeof rootReducer>;
 
-      store.dispatch(requestUnsuccessfullByDesign());
-      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-    } else if (action.error?.message === '403') {
-      // просрочился jwt, убираем флаг isAuth и редиректимся на страницу логина
-      // debugger;
+// задавили линтер по необходимости согласно инструкции редакса https://redux.js.org/usage/usage-with-typescript
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export const authMiddleware: Middleware<{}, RootState> =
+  (store) => (next) => (action) => {
+    // здесь ловим 403 ошибку
+    const typedAction = action as Action;
+    //debugger;
+    if (
+      typedAction.type.endsWith('rejected') &&
+      // @ts-expect-error fix later
+      typedAction.error.message === '403'
+    ) {
+      //debugger;
       store.dispatch(logOut());
     }
-  }
 
-  return next(action);
-};
+    return next(action);
+  };
 
 export const store = configureStore({
   reducer: rootReducer,
-
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(authMiddleware),
   devTools: true,
