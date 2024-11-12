@@ -158,15 +158,22 @@ const CardItem: FC<CardItemProps> = (props) => {
         {orientation !== 'horizontal' ? (<CardActions disableSpacing sx={{ padding: '0 16px 20px', textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto'}}>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>Нас уже: {formatNumber(helpRequest.contributorsCount)}</Typography>
             <Button href="/user:id" size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
-          </CardActions>)
-          : <Button
-              variant="outlined"
-              size="small"
-              startIcon={<StarBorderIcon />}
-              sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
-            >
-              В избранное
-            </Button>
+          </CardActions>
+          ) : (
+            userFavourites.isLoading ? (
+              <CircularProgress size={24} />
+            ) :  (
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
+                startIcon={isFavourite? <Star /> : <StarBorderIcon />}
+                sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
+              >
+                {isFavourite ? 'Удалить избранное' : 'В избранное'}
+              </Button>
+            )
+          )
         }
       </Card>
   );
