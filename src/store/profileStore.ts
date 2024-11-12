@@ -1,19 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { IProfileData } from '../types/IUser';
-import { api } from '../api';
-import { setFavourites } from './userFavourites';
-
-export const getUser = createAsyncThunk<IProfileData>(
-  'profile/user',
-  async (_, { dispatch }) => {
-    const response = await api.getUser();
-
-    const { favouriteRequests, ...profileData } = response;
-    dispatch(setFavourites(favouriteRequests));
-
-    return profileData;
-  }
-);
+import { getUser } from './api-actions';
 
 export const profileSlice = createSlice({
   name: 'profile',

@@ -2,7 +2,7 @@ import { Box, Skeleton, Stack, Tab, Tabs, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../store/profileStore';
+import { getUser } from '../../store/api-actions';
 import { AppDispatch, RootState } from '../../store/types';
 
 import { Error } from '../../components/Error';

@@ -12,7 +12,7 @@ export const BASE_URL = 'https://natticharity.eveloth.ru/api';
 export enum APIRoute {
   HelpRequests = `${BASE_URL}/request`,
   Login = `${BASE_URL}/auth`,
-  FavoriteHelpRequests = `${BASE_URL}/user/favorites`,
+  FavouritesHelpRequests = `${BASE_URL}/user/favourites`,
   User = `${BASE_URL}/user`,
 }
 

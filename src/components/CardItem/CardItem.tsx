@@ -1,8 +1,13 @@
-import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Divider, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
 import { FC } from 'react';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
+import { Star, StarBorder } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/types';
+import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../../store/api-actions';
+import { useSelector } from 'react-redux';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -11,8 +16,23 @@ type CardItemProps = {
 };
 
 const CardItem: FC<CardItemProps> = (props) => {
-  const { helpRequest, orientation} = props;
+  const { helpRequest, orientation } = props;
+  const dispatch = useDispatch<AppDispatch>();
 
+  const userFavourites = useSelector((state: RootState) => state.favourites);
+
+  const isFavourite = userFavourites.favouriteRequests.includes(helpRequest.id);
+
+  const handleAddToFavourites = async (favouriteId: string) => {
+    await dispatch(addToFavouritesAction(favouriteId));
+    dispatch(getFavouritesAction());
+  };
+
+  const handleRemoveFavourite = async (favouriteId: string) => {
+    await dispatch(removeFromFavouritesAction(favouriteId));
+    dispatch(getFavouritesAction());
+  };
+  
   return (
       <Card sx={{ 
         display: 'flex', 
@@ -51,10 +71,20 @@ const CardItem: FC<CardItemProps> = (props) => {
             }} 
             title={formatString(helpRequest.title)}
             action={
-              <IconButton aria-label="add to favorites">
-                <StarBorderIcon />
+              <IconButton
+                onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
+                aria-label={isFavourite ? 'remove from favourites' : 'add to favourites'}
+                disabled={userFavourites.isLoading}
+              >
+                {userFavourites.isLoading ? (
+                  <CircularProgress size={24} />
+                ) : isFavourite ? (
+                  <Star /> 
+                ) : (
+                  <StarBorder />
+                )}
               </IconButton>
-            } 
+            }
           />
         ) : (
           <Box sx={{ 
@@ -128,15 +158,22 @@ const CardItem: FC<CardItemProps> = (props) => {
         {orientation !== 'horizontal' ? (<CardActions disableSpacing sx={{ padding: '0 16px 20px', textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto'}}>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>Нас уже: {formatNumber(helpRequest.contributorsCount)}</Typography>
             <Button href="/user:id" size="large" variant="contained" color="primary" fullWidth>Помочь</Button>
-          </CardActions>)
-          : <Button
-              variant="outlined"
-              size="small"
-              startIcon={<StarBorderIcon />}
-              sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
-            >
-              В избранное
-            </Button>
+          </CardActions>
+          ) : (
+            userFavourites.isLoading ? (
+              <CircularProgress size={24} />
+            ) :  (
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
+                startIcon={isFavourite? <Star /> : <StarBorderIcon />}
+                sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
+              >
+                {isFavourite ? 'Удалить избранное' : 'В избранное'}
+              </Button>
+            )
+          )
         }
       </Card>
   );
