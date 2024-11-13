@@ -13,6 +13,7 @@ import {
 import { matchFavourites } from '../../features/matchFavourites';
 import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
+import { NotFoundResult } from '../NotFoundResult';
 export default function Favorites() {
   const [currentFavPage, setCurrentFavPage] = useState<number>(1);
 
@@ -47,18 +48,21 @@ export default function Favorites() {
       userFavourites.favouriteRequests
     );
     dispatch(setFavouriteHelp(favouriteHelp));
-  }, [userFavourites.helpRequest]);
+  }, [userFavourites.helpRequest, userFavourites.favouriteRequests]);
 
   useEffect(() => {
     if (helpRequestDataError) dispatch(setIsLoading());
   }, [helpRequestDataError]);
+  const notFoundResult =
+    userFavourites.isData && userFavourites.favouriteRequests.length === 0;
   return (
     <Box>
       {helpRequestDataError && <Error />}
+      {notFoundResult && <NotFoundResult />}
       {userFavourites.isLoading && (
         <Skeleton width={'100px'} height={'100px'} />
       )}
-      {userFavourites.isData && (
+      {userFavourites.favouriteHelp.length > 0 && (
         <HelpRequestsComponent
           currentPage={currentFavPage}
           setCurrentPage={setCurrentFavPage}
