@@ -3,7 +3,7 @@ import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
 import { IError } from '../types/IError';
 import { HelpRequest } from '../types/HelpRequest';
-import { IAuth } from '../types/IAuth';
+import { IFavourite, IResponse } from '../types/IFavourite';
 
 class ApiService {
   // метод, которые принимает параметры для запроса и подтыкает authorization
@@ -50,45 +50,13 @@ class ApiService {
     }
   }
 
-  async login(login: string, password: string): Promise<IAuth | IError> {
-    try {
-      const body = await JSON.stringify({ password: password, login: login });
-
-      const res = await fetch(APIRoute.Login, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body,
-      });
-
-      if (!res.ok && res.status === 500) {
-        // запланированная ошибка сервера, логин пароль может и правильный
-        //debugger;
-        toast.error('Ошибка на сервере! Попробуйте позже');
-        return {
-          codeError: res.status,
-          message: 'IG: Planned server error',
-        } as IError;
-      }
-
-      if (!res.ok && res.status === 400) {
-        // неправильный логин пароль
-        // debugger;
-        toast.error('Неправильный логин пароль! Попробуйте еще раз');
-
-        return {
-          codeError: res.status,
-          message: 'IG: Invalid credentials',
-        } as IError;
-      }
-      return await res.json();
-    } catch (e) {
-      // запланированная ошибка сервера
-      // debugger;
-      toast.error('Ошибка! Попробуйте еще раз');
-      return { codeError: 500, message: String(e) };
-    }
+  async login<T>(login: string, password: string): Promise<T | IError> {
+    const body = JSON.stringify({ password: password, login: login });
+    return await this.fetchDataWithToken<T>(
+      APIRoute.Login,
+      APIMethod.POST,
+      body
+    );
   }
 
   async getUser() {
@@ -121,7 +89,7 @@ class ApiService {
 
   async getUserFavourites() {
     const res: string[] | IError = await this.fetchDataWithToken(
-      APIRoute.FavoriteHelpRequests,
+      APIRoute.FavouritesHelpRequests,
       APIMethod.GET
     );
 
@@ -150,6 +118,49 @@ class ApiService {
       throw new Error(String(res.codeError));
     } else return res;
   }
-}
+
+  async addToFavourites(favouriteId: string) {
+    try {
+      const body = JSON.stringify({ requestId: favouriteId });
+      const res = await this.fetchDataWithToken<IFavourite[]>(
+        APIRoute.FavouritesHelpRequests,
+        APIMethod.POST,
+        body
+      );
+
+      if ('codeError' in res) {
+        console.error('Error adding to favourites:', res.message);
+        return null;
+      }
+
+      return res;
+
+    } catch (error) {
+      console.error('Unexpected error while adding to favourites:', error);
+      return null;
+    }
+  };
+
+  async removeFromFavourites(favouriteId: string) {
+    try {
+      const url = `${APIRoute.FavouritesHelpRequests}/${favouriteId}` as APIRoute;
+  
+      const res = await this.fetchDataWithToken<IResponse[]>(
+        url, 
+        APIMethod.DELETE
+      );
+  
+      if ('codeError' in res) {
+        console.error('Error removing from favourites:', res.message);
+        return res;
+      };
+    
+      return null;
+    } catch (error) {
+      console.error('Unexpected error while removing from favourites:', error);
+      return null;
+    };
+  };
+};
 
 export const api = new ApiService();

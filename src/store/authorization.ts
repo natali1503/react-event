@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../api/index';
-import { IUser } from '../types/IUser';
 import { IAuth } from '../types/IAuth';
 import { IError } from '../types/IError';
 
@@ -8,26 +7,14 @@ import { IError } from '../types/IError';
 interface CounterState {
   isAuthenticated: boolean;
   isAuthPending: boolean;
-  user: string;
   errorMessage: string | null; // Добавляем поле для хранения сообщения об ошибке
-  isGetCurentUserPending: boolean;
-  isDesignedError: boolean;
-  currentUser: IUser | null;
-  loginError: boolean;
-  invalidCredentials: boolean;
 }
 
 // Define the initial state using that type
 const initialState: CounterState = {
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem('token'),
   isAuthPending: false,
-  user: '',
   errorMessage: null, // Изначально ошибка отсутствует
-  isGetCurentUserPending: false,
-  isDesignedError: false,
-  currentUser: null,
-  loginError: false,
-  invalidCredentials: false,
 };
 
 export const authorizationSlice = createSlice({
@@ -35,7 +22,7 @@ export const authorizationSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    initializeAuth: (state) => {
+    setAuthorized: (state) => {
       state.isAuthenticated = true;
     },
     logOut: (state) => {
@@ -43,17 +30,6 @@ export const authorizationSlice = createSlice({
       state.isAuthenticated = false;
       state.errorMessage = null; // Сбрасываем сообщение об ошибке при выходе
       state.isAuthPending = false;
-      state.currentUser = null;
-      state.isGetCurentUserPending = false;
-    },
-
-    requestUnsuccessfullByDesign: (state) => {
-      state.isGetCurentUserPending = false;
-      state.isDesignedError = true;
-    },
-    requestSuccessfull: (state) => {
-      state.isDesignedError = false;
-      state.isGetCurentUserPending = false;
     },
   },
   extraReducers: (builder) => {
@@ -71,16 +47,12 @@ export const authorizationSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
-        // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-        state.loginError = action.payload.loginError;
-        // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-        state.invalidCredentials = action.payload.invalidCredentials; // Устанавливаем ошибку из rejectWithValue
+        state.errorMessage = String(action.payload);
       });
   },
 });
 
-export const { initializeAuth, logOut, requestUnsuccessfullByDesign } =
-  authorizationSlice.actions;
+export const { setAuthorized, logOut } = authorizationSlice.actions;
 
 export default authorizationSlice.reducer;
 
@@ -89,30 +61,31 @@ export const loginUser = createAsyncThunk<
   { login: string; password: string }
 >('loginUser', async ({ login, password }, thunkAPI) => {
   try {
-    const res: IAuth | IError = await api.login(login, password);
-    // debugger;
-    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-    if (res.auth) {
-      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-      localStorage.setItem('token', res.token); // Сохраняем токен в localStorage
+    const res = await api.login<IAuth>(login, password);
+    //debugger;
+    if (res && (res as IError).codeError === 400) {
+      //debugger;
+      // пробрасываем дальше, чтобы выставить правильный текст ошибки
+      // либо неправильный логин пароль либо ошибка на сервере
+      return thunkAPI.rejectWithValue('Неправильный логин или пароль');
     }
-    // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-    if (res.codeError === 400) {
-      // debugger;
-      return thunkAPI.rejectWithValue({
-        invalidCredentials: true,
-        loginError: true,
-      }); // Неверный пароль
-      // @ts-expect-error наладить типизацию экшена, согласовать с запросом
-    } else if (res.codeError === 500) {
-      // debugger;
-      return thunkAPI.rejectWithValue({
-        invalidCredentials: false,
-        loginError: true,
-      }); // Общая ошибка сервера
+
+    if (res && (res as IError).codeError === 500) {
+      //debugger;
+      // пробрасываем дальше, чтобы выставить правильный текст ошибки
+      // либо неправильный логин пароль либо ошибка на сервере
+      return thunkAPI.rejectWithValue('Ошибка сервера, повторите позже');
     }
-  } catch {
-    return thunkAPI.rejectWithValue('Login failed');
-    //return rejectWithValue("Login failed");
+
+    if (res && 'token' in res) {
+      //debugger;
+      // если получили аутентификационные данные, все гуд
+      localStorage.setItem('token', res.token);
+      setAuthorized();
+    }
+  } catch (e) {
+    //debugger;
+    // если ошибка случилась еще где то, прокидываем ее дальше, тоже в миддлвар перехватчик
+    return thunkAPI.rejectWithValue(e);
   }
 });

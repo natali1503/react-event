@@ -18,15 +18,17 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/TestingProfiles';
-import { showErrorToast } from '../components/Toasts/showToasts';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
-  const loginError = useAppSelector((store) => store.auth.loginError);
+  const errorMessage = useAppSelector((store) => store.auth.errorMessage);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
@@ -86,11 +88,7 @@ const LoginPage = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  useEffect(() => {
-    if (loginError) {
-      showErrorToast('Ошибка! Попробуйте еще раз!');
-    }
-  }, [loginError]);
+  console.log('Login page render');
 
   return (
     <Grid2 container spacing={2}>
@@ -122,8 +120,8 @@ const LoginPage = () => {
               onChange={(e) => {
                 handleInputLoginChange(e);
               }}
-              error={!!emailError || !!loginError}
-              helperText={emailError || (loginError && 'Ошибка авторизации')}
+              error={!!emailError || !!errorMessage}
+              helperText={emailError || errorMessage}
             />
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
@@ -157,9 +155,9 @@ const LoginPage = () => {
               }
               label="Password"
             />
-            {(passwordError || loginError) && (
+            {(passwordError || errorMessage) && (
               <Typography color="error" variant="caption">
-                {passwordError || 'Ошибка авторизации'}
+                {passwordError || errorMessage}
               </Typography>
             )}
           </FormControl>

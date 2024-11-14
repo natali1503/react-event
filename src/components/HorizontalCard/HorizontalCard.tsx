@@ -4,6 +4,11 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
+import { Star } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/types';
+import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../../store/api-actions';
+import { useSelector } from 'react-redux';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -13,6 +18,22 @@ const HorizontalCard: FC<CardItemProps> = (props) => {
   const { helpRequest} = props;
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
   
+  const dispatch = useDispatch<AppDispatch>();
+
+  const userFavourites = useSelector((state: RootState) => state.favourites);
+
+  const isFavourite = userFavourites.favouriteRequests.includes(helpRequest.id);
+
+  const handleAddToFavourites = async (favouriteId: string) => {
+    await dispatch(addToFavouritesAction(favouriteId));
+    dispatch(getFavouritesAction());
+  };
+
+  const handleRemoveFavourite = async (favouriteId: string) => {
+    await dispatch(removeFromFavouritesAction(favouriteId));
+    dispatch(getFavouritesAction());
+  };
+
   return (
       <Card sx={{ 
         display: 'flex', 
@@ -85,10 +106,12 @@ const HorizontalCard: FC<CardItemProps> = (props) => {
          <Button
               variant="outlined"
               size="small"
-              startIcon={<StarBorderIcon />}
+              onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
+              startIcon={isFavourite? <Star /> : <StarBorderIcon />}
+
               sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
             >
-              В избранное
+               {isFavourite ? 'Удалить избранное' : 'В избранное'}
           </Button>
       </Card>
   );

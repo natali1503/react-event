@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Skeleton } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -14,6 +14,8 @@ import { matchFavourites } from '../../features/matchFavourites';
 import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
 export default function Favorites() {
+  const [currentFavPage, setCurrentFavPage] = useState<number>(1);
+
   const userFavourites = useSelector((state: RootState) => {
     return state.favourites;
   });
@@ -58,8 +60,8 @@ export default function Favorites() {
       )}
       {userFavourites.isData && (
         <HelpRequestsComponent
-          currentPage={1}
-          setCurrentPage={() => {}}
+          currentPage={currentFavPage}
+          setCurrentPage={setCurrentFavPage}
           helpRequests={userFavourites.favouriteHelp}
         />
       )}

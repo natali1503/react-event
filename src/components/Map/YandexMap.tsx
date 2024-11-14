@@ -8,19 +8,83 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ymaps: any;
   }
-}
+};
 
-type YandexMapComponentProps = {
+type YandexMap = {
   helpRequests: HelpRequest[];
   isMounted: React.MutableRefObject<boolean>; // Update type here
 };
 
-const YandexMapComponent: FC<YandexMapComponentProps> = ({ helpRequests, isMounted }) => {
+const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<IYandexMap | null>(null);
   const objectManagerRef = useRef<IYandexObjectManager | null>(null);
 
-  // Function to update markers on the map
+  const initMap = async () => {
+    try {
+      await loadYandexMaps();
+      await waitForYmapsMap();
+      const ymaps = window.ymaps;
+      
+        if (mapContainerRef.current) {
+          // Initialize map only once
+          if (!mapRef.current) {
+            mapRef.current = new ymaps.Map(mapContainerRef.current, {
+              center: [55.76, 37.64],
+              zoom: 4,
+            });
+
+            objectManagerRef.current = new ymaps.ObjectManager({
+              clusterize: true,
+              gridSize: 32,
+              clusterDisableClickZoom: true,
+            });
+
+            if (mapRef.current) { // Check if mapRef.current is not null
+              mapRef.current.geoObjects.add(objectManagerRef.current);
+            }
+          }
+          updateMarkers();
+        }
+    } catch (error) {
+        //todo: handle error and delete console.log
+        console.log('___map Error:',error);
+      } 
+  };
+
+  const loadYandexMaps = () => {
+    return new Promise<void>((resolve, reject) => {
+      if (window.ymaps) {
+        resolve();
+      } else {
+        const script = document.createElement('script');
+        script.src = 'https://api-maps.yandex.ru/2.1/?apikey=noKey&lang=ru_RU';
+        script.async = true;
+        script.onload = () => {
+          const checkYmapsLoaded = setInterval(() => {
+            if (window.ymaps) {
+              clearInterval(checkYmapsLoaded);
+              resolve();
+            }
+          }, 100);
+        };
+        script.onerror = () => reject(new Error('Failed to load Yandex Maps'));
+        document.head.appendChild(script);
+      }
+    });
+  };
+
+  const waitForYmapsMap = () => {
+    return new Promise<void>((resolve) => {
+      const checkMapReady = setInterval(() => {
+        if (window.ymaps.Map) {
+          clearInterval(checkMapReady);
+          resolve();
+        }
+      }, 100);
+    });
+  };
+
   const updateMarkers = () => {
     if (objectManagerRef.current) {
       const features = helpRequests.map(item => ({
@@ -40,79 +104,14 @@ const YandexMapComponent: FC<YandexMapComponentProps> = ({ helpRequests, isMount
         },
       }));
 
-      objectManagerRef.current.removeAll(); // Clear previous markers
-      if (helpRequests.length > 0) objectManagerRef.current.add(features); // Add new markers
+      objectManagerRef.current.removeAll();
+      if (helpRequests.length > 0) objectManagerRef.current.add(features);
     }
   };
 
   useEffect(() => {
-    const loadYandexMaps = () => {
-      return new Promise<void>((resolve, reject) => {
-        if (window.ymaps) {
-          resolve();
-        } else {
-          const script = document.createElement('script');
-          script.src = 'https://api-maps.yandex.ru/2.1/?apikey=noKey&lang=ru_RU';
-          script.async = true;
-          script.onload = () => {
-            const checkYmapsLoaded = setInterval(() => {
-              if (window.ymaps) {
-                clearInterval(checkYmapsLoaded);
-                resolve();
-              }
-            }, 100); // Check every 100ms
-          };
-          script.onerror = () => reject(new Error('Failed to load Yandex Maps'));
-          document.head.appendChild(script);
-        }
-      });
-    };
-
-    const waitForYmapsMap = () => {
-      return new Promise<void>((resolve) => {
-        const checkMapReady = setInterval(() => {
-          if (window.ymaps.Map) {
-            clearInterval(checkMapReady);
-            resolve();
-          }
-        }, 100); // Check every 100ms
-      });
-    };
-
-    const initMap = async () => {
-      try {
-        await loadYandexMaps();
-        await waitForYmapsMap();
-        const ymaps = window.ymaps;
-        
-          if (mapContainerRef.current) {
-            // Initialize map only once
-            if (!mapRef.current) {
-              mapRef.current = new ymaps.Map(mapContainerRef.current, {
-                center: [55.76, 37.64],
-                zoom: 4,
-              });
-
-              objectManagerRef.current = new ymaps.ObjectManager({
-                clusterize: true,
-                gridSize: 32,
-                clusterDisableClickZoom: true,
-              });
-
-              if (mapRef.current) { // Check if mapRef.current is not null
-                mapRef.current.geoObjects.add(objectManagerRef.current);
-              }
-            }
-            updateMarkers(); // Call to update markers on initial load
-          }
-      } catch (error) {
-          console.log('___map Error:',error);
-        } 
-    };
-
     initMap();
 
-    // Cleanup function to reset the map container when unmounted
     return () => {
       if (mapContainerRef.current) {
         mapContainerRef.current.innerHTML = '';
@@ -134,4 +133,4 @@ const YandexMapComponent: FC<YandexMapComponentProps> = ({ helpRequests, isMount
   );
 };
 
-export default YandexMapComponent;
+export default YandexMap;
