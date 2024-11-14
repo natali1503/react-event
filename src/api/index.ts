@@ -8,7 +8,7 @@ import { IAuth } from '../types/IAuth';
 class ApiService {
   // метод, которые принимает параметры для запроса и подтыкает authorization
   private async fetchDataWithToken<T>(
-    fullUrl: APIRoute,
+    fullUrl: string,
     method: APIMethod,
     body?: string
   ): Promise<T | IError> {
@@ -21,9 +21,27 @@ class ApiService {
         },
         body: body,
       });
-      if (res.ok) return (await res.json()) as T;
+
+      const contentType = res.headers.get('Content-Type') || '';
+      
+      if (res.ok) {
+        if (contentType.includes('application/json')) {
+          return (await res.json()) as T;
+        } else {
+          // Если ответ не JSON, возвращаем текст
+          return (await res.text()) as unknown as T; // Приводим текст к типу T
+        }
+       // return (await res.json()) as T;
+      }
       else {
-        return { codeError: res.status, message: await res.json() } as IError;
+        const errorMessage = contentType.includes('application/json')
+        ? await res.json()
+        : await res.text();
+
+        return {
+          codeError: res.status,
+          message: errorMessage
+        } as IError;
       }
     } catch (e) {
       toast.error('Ошибка! Попробуйте еще раз');
@@ -98,7 +116,7 @@ class ApiService {
     };
     if (isCodeError(res)) {
       throw new Error(String(res.codeError));
-    } else return res; // Явное приведение к типу HelpRequest[]
+    } else return res;
   }
 
   async getUserFavourites() {
@@ -111,6 +129,24 @@ class ApiService {
       return 'codeError' in object;
     };
     if (isCodeError(res)) {
+      throw new Error(String(res.codeError));
+    } else return res;
+  }
+
+
+  async contributeToRequest(id: string) {
+    const url = `${APIRoute.HelpRequests}/${id}/contribution`;
+    const res: string | IError = await this.fetchDataWithToken(
+      url,
+      APIMethod.POST
+    );
+
+    const isCodeError = (object): object is IError => {
+      return 'codeError' in object;
+    };
+
+    if (isCodeError(res)) {
+      console.log('api contributeToRequest');
       throw new Error(String(res.codeError));
     } else return res;
   }

@@ -10,3 +10,11 @@ export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[]>(
     return response;
   }
 );
+
+export const fetchСontributeToRequest = createAsyncThunk<string, { id: string }>(
+  'helpRequests/contributeToRequest',
+  async ({ id }) => {
+    const response = await api.contributeToRequest(id);
+    return response;
+  }
+);

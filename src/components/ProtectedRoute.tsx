@@ -18,11 +18,11 @@ const Protected: FC<Props> = ({ onlyUnAuth = false, component: Component }) => {
     return <Navigate to={from} />;
   }
 
-  // if (!onlyUnAuth && !user) {
-  //   // Роут для авторизованных, но пользователь не авторизован
-  //   // Перенаправляем на страницу логина
-  //   return <Navigate to={AppRoute.Login} state={{ from: location }} />;
-  // }
+  if (!onlyUnAuth && !user) {
+  // Роут для авторизованных, но пользователь не авторизован
+  // Перенаправляем на страницу логина
+    return <Navigate to={AppRoute.Login} state={{ from: location }} />;
+  }
 
   return <Component />; // Render the component as a JSX element
 };
