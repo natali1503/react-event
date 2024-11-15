@@ -102,21 +102,9 @@ class ApiService {
   }
 
 
-  async contributeToRequest(id: string) {
+  async contributeToRequest(id: string): Promise<string | IError> {
     const url = `${APIRoute.HelpRequests}/${id}/contribution`;
-    const res: string | IError = await this.fetchDataWithToken(
-      url,
-      APIMethod.POST
-    );
-
-    const isCodeError = (object): object is IError => {
-      return 'codeError' in object;
-    };
-
-    if (isCodeError(res)) {
-      console.log('api contributeToRequest');
-      throw new Error(String(res.codeError));
-    } else return res;
+    return this.fetchDataWithToken<string | IError>(url, APIMethod.POST);
   }
 
   async addToFavourites(favouriteId: string) {

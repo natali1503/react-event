@@ -20,10 +20,6 @@ function App() {
               element={<ProtectedRoute component={<Helps />} />}
             />
             <Route
-              path={AppRoute.HelpRequest}
-              element={<OnlyAuth component={<UserInfoID />} />}
-            />
-            <Route
               path={AppRoute.Profile}
               element={<ProtectedRoute component={<Profile />} />}
             />
