@@ -4,6 +4,7 @@ import { HelpRequest } from '../types/HelpRequest';
 import { IFavourite } from '../types/IFavourite';
 import { IProfileData } from '../types/IUser';
 import { setFavourites } from './userFavourites';
+import { IError } from '../types/IError';
 
 const MAX_RETRIES = 5;
 
@@ -14,6 +15,31 @@ export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[]>(
     return response;
   }
 );
+
+export const fetchСontributeToRequest = createAsyncThunk<
+  string, // Тип успешного результата
+  { id: string }, // Тип аргумента
+  { rejectValue: IError } // Тип объекта ошибки
+>(
+  'helpRequests/contributeToRequest',
+  async ({ id }, { rejectWithValue }) => {
+    try {
+      const response = await api.contributeToRequest(id);
+
+      if (typeof response === 'string') {
+        return response;
+      }
+
+      return rejectWithValue(response as IError);
+    } catch (error) {
+      return rejectWithValue({
+        codeError: 500,
+        message: String(error),
+      });
+    }
+  }
+);
+
 
 export const getUser = createAsyncThunk<IProfileData>(
   'profile/user',

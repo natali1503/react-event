@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import CardItem from '../CardItem/CardItem';
 import Grid from '@mui/material/Grid2';
 import { HelpRequest } from '../../types/HelpRequest';
+import CardItem from '../CardItem/CardItem';
 
 type RequestsProps = {
   helpRequests: HelpRequest[];

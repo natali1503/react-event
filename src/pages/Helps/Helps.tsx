@@ -24,6 +24,7 @@ const Helps: React.FC = () => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<HelpRequest[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  
   const [hasHelpRequests, setHasHelpRequests] = useState(
     helpRequestList.length > 0
   );

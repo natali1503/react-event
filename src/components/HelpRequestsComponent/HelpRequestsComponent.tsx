@@ -1,11 +1,9 @@
-import { Box, Typography, ToggleButtonGroup, Pagination, ToggleButton } from '@mui/material';
-import { FC, useState } from 'react';
+import { Box, Typography, Pagination } from '@mui/material';
+import { FC, useCallback, useState } from 'react';
 import CardList from '../CardList/CardList';
-import GridOnIcon from '@mui/icons-material/GridOn';
-import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { HelpRequest } from '../../types/HelpRequest';
 import MapWrapper from '../Map/MapWrapper';
+import ViewToggle from '../ViewToggle/ViewToggle';
 
 type RequestsProps = {
   currentPage: number;
@@ -20,43 +18,23 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = helpRequests.slice(indexOfFirstItem, indexOfLastItem);
 
-  const children = [
-    <ToggleButton value="grid" key="grid">
-      <GridOnIcon />
-    </ToggleButton>,
-    <ToggleButton value="list" key="list">
-      <ListAltRoundedIcon />
-    </ToggleButton>,
-    <ToggleButton value="map" key="map">
-      <LocationOnIcon /> 
-    </ToggleButton>,
-  ];
-
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
   };
 
-  const handleViewChange = (event: React.MouseEvent<HTMLElement>, newViewMode: string) => {
+  const handleViewChange = useCallback((newViewMode: string) => {
     setViewMode(newViewMode);
-  };
-
-  const control = {
-    value: viewMode,
-    onChange: handleViewChange,
-    exclusive: true,
-  };
-  
-   return (
-      <>
+  }, []);
+ 
+  return (
+    <>
         <Box sx={{
           display: 'flex',       
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
           <Typography variant="h6">Найдено: {helpRequests.length}</Typography>
-          <ToggleButtonGroup size="small" {...control} aria-label="Small sizes">
-            {children}
-          </ToggleButtonGroup>
+          <ViewToggle onOptionChange={handleViewChange} />
         </Box>
         <Box>
           {viewMode === 'map' ? (

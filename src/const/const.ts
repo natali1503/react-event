@@ -6,7 +6,7 @@ export enum AppRoute {
   TestPage = '/test', // to delete
 }
 
-// const BASE_URL = '/api'
+//const BASE_URL = 'http://localhost:4040/api';
 export const BASE_URL = 'https://natticharity.eveloth.ru/api';
 
 export enum APIRoute {
@@ -14,6 +14,7 @@ export enum APIRoute {
   Login = `${BASE_URL}/auth`,
   FavouritesHelpRequests = `${BASE_URL}/user/favourites`,
   User = `${BASE_URL}/user`,
+  ContributeToRequest = `${BASE_URL}/request/{id}/contribution`,
 }
 
 export enum APIMethod {
@@ -39,3 +40,9 @@ export const testUsers = [
     password: 'password17',
   },
 ];
+
+export enum VIEW_TOGGLE_OPTIONS {
+  Grid = 'grid',
+  List = 'list',
+  Map = 'map',
+}
