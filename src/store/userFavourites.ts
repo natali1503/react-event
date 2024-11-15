@@ -32,7 +32,7 @@ export const userFavouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    // Handle the "getFavouritesAction" states
+      // Handle the "getFavouritesAction" states
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -71,7 +71,7 @@ export const userFavouritesSlice = createSlice({
     });
 
     builder
-    // Handle the "removeFromFavouritesAction" states
+      // Handle the "removeFromFavouritesAction" states
       .addCase(removeFromFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';

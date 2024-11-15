@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // data
-import { getHelpRequests } from '../../store/help-requests/selectors';
+import { getFavouritesIDs, getHelpRequests } from '../../store/help-requests/selectors';
 import { fetchHelpRequestsAction, getFavouritesAction } from '../../store/api-actions';
 // hooks
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -18,13 +18,13 @@ import { Box, Typography, Grid2, CircularProgress, Paper } from '@mui/material';
 
 const Helps: React.FC = () => {
   const helpRequestList = useAppSelector(getHelpRequests);
+  const helpFavouritesIDs = useAppSelector(getFavouritesIDs);
   const dispatch = useAppDispatch();
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<HelpRequest[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  
   const [hasHelpRequests, setHasHelpRequests] = useState(
     helpRequestList.length > 0
   );
@@ -32,8 +32,11 @@ const Helps: React.FC = () => {
   useEffect(() => {
     if (helpRequestList.length === 0) {
       dispatch(fetchHelpRequestsAction())
-      dispatch(getFavouritesAction());
+      
     };
+    if (helpFavouritesIDs.length === 0) {
+      dispatch(getFavouritesAction());
+    }
   }, []);
 
   useEffect(() => {
