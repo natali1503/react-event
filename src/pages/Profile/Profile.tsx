@@ -21,6 +21,7 @@ export default function Profile() {
   });
 
   useEffect(() => {
+    if (profile.isData) return;
     dispatch(getUser());
   }, []);
 
