@@ -9,8 +9,6 @@ import Helps from './pages/Helps/Helps';
 import UserInfoID from './pages/Helps/UserInfoID';
 import { Theme } from './components/Theme';
 
-//import UserInfoID from './pages/Helps/UserInfoID'
-
 function App() {
   return (
     <Theme>

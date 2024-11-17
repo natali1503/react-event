@@ -91,80 +91,83 @@ const LoginPage = () => {
   console.log('Login page render');
 
   return (
-    <Grid2 container spacing={2}>
+    <Grid2 container spacing={2} marginTop={'64px'}>
       <Grid2 size={6}>
         <Box
+          marginLeft={'4rem'}
           sx={{ maxWidth: '480px', display: 'flex', flexDirection: 'column' }}
         >
-          <Typography sx={{ fontWeight: 400, fontSize: '34px' }}>
-            Авторизация
-          </Typography>
+          <Typography variant="h4">Авторизация</Typography>
           <Typography
-            sx={{ marginTop: '90px', fontWeight: 400, fontSize: '24px' }}
+            variant="h5"
+            sx={{ marginTop: '90px', marginBottom: '35px' }}
           >
             Вход
           </Typography>
-          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
-            {/* <InputLabel htmlFor="outlined-adornment-login">Логин</InputLabel> */}
-            <TextField
-              id="outlined-basic"
-              label="Логин"
-              slotProps={{
-                inputLabel: {
-                  shrink: true,
-                },
-              }}
-              variant="outlined"
-              value={login}
-              placeholder="Введите e-mail"
-              onChange={(e) => {
-                handleInputLoginChange(e);
-              }}
-              error={!!emailError || !!errorMessage}
-              helperText={emailError || errorMessage}
-            />
-          </FormControl>
-          <FormControl sx={{ m: 1, width: '25ch', alignSelf: 'center' }}>
-            <InputLabel htmlFor="outlined-adornment-password">
-              Пароль
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? 'text' : 'password'}
-              placeholder="Введите пароль"
-              value={password}
-              onChange={(e) => {
-                handleInputPasswordChange(e);
-              }}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showPassword
-                        ? 'hide the password'
-                        : 'display the password'
-                    }
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-            {(passwordError || errorMessage) && (
-              <Typography color="error" variant="caption">
-                {passwordError || errorMessage}
-              </Typography>
-            )}
-          </FormControl>
+          <Box display={'flex'} flexDirection={'column'} gap={'30px'}>
+            <FormControl>
+              <TextField
+                id="outlined-basic"
+                label="Логин"
+                slotProps={{
+                  inputLabel: {
+                    shrink: true,
+                  },
+                }}
+                variant="outlined"
+                value={login}
+                placeholder="Введите e-mail"
+                onChange={(e) => {
+                  handleInputLoginChange(e);
+                }}
+                error={!!emailError || !!errorMessage}
+                helperText={emailError || errorMessage}
+                sx={{ fontSize: '20rem' }}
+              />
+            </FormControl>
+            <FormControl>
+              <InputLabel htmlFor="outlined-adornment-password">
+                Пароль
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Введите пароль"
+                value={password}
+                onChange={(e) => {
+                  handleInputPasswordChange(e);
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? 'hide the password'
+                          : 'display the password'
+                      }
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      onMouseUp={handleMouseUpPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+              {(passwordError || errorMessage) && (
+                <Typography color="error" variant="caption">
+                  {passwordError || errorMessage}
+                </Typography>
+              )}
+            </FormControl>
+          </Box>
+
           <Button
             variant="contained"
             onClick={handleSubmit}
-            sx={{ m: 1, width: '25ch', alignSelf: 'center' }}
+            sx={{ marginTop: '4rem' }}
             disabled={!login || !password || !!emailError || !!passwordError}
           >
             Войти
@@ -174,10 +177,10 @@ const LoginPage = () => {
 
       {/* Test Profiles Section */}
       <Grid2 size={6}>
-        <Typography sx={{ fontWeight: 400, fontSize: '34px' }}>
-          Тестовые профили
-        </Typography>
-        <TestingProfiles />
+        <Box marginLeft={'4rem'}>
+          <Typography variant="h4">Тестовые профили</Typography>
+          <TestingProfiles />
+        </Box>
       </Grid2>
     </Grid2>
   );

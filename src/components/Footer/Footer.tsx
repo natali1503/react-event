@@ -19,6 +19,7 @@ export default function BottomNavigationApp() {
       <Stack direction={'row'} justifyContent={'space-around'}>
         <Link
           href="/"
+          fontSize={'16px'}
           target="_blank"
           underline="hover"
           sx={{
@@ -31,6 +32,7 @@ export default function BottomNavigationApp() {
         <Link
           href="https://github.com/heyhurricane/react-event"
           underline="hover"
+          fontSize={'16px'}
           sx={{
             color: 'black',
             '&:hover': { color: 'black' },
@@ -42,6 +44,7 @@ export default function BottomNavigationApp() {
           href="https://t.me/natti_jun_front"
           target="_blank"
           underline="hover"
+          fontSize={'16px'}
           sx={{
             color: 'black',
             '&:hover': { color: 'black' },

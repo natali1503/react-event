@@ -22,7 +22,7 @@ export default function PersonalData() {
 
   return (
     <Box display={'flex'} gap={'30px'} flexDirection={'column'}>
-      <Stack alignItems={'flex-start'}>
+      <Stack alignItems={'flex-start'} marginTop={'30px'}>
         <Typography variant="h6" marginBottom={'10px'}>
           Профиль
         </Typography>
@@ -35,7 +35,7 @@ export default function PersonalData() {
       </Stack>
 
       <Stack alignItems={'flex-start'}>
-        <Typography variant="h6" marginBottom={'10px'}>
+        <Typography variant={'h6'} marginBottom={'10px'}>
           Дата рождения
         </Typography>
         <Stack direction={'row'} gap={'4px'}>
@@ -44,7 +44,7 @@ export default function PersonalData() {
       </Stack>
 
       <Stack alignItems={'flex-start'}>
-        <Typography variant="h6" marginBottom={'10px'}>
+        <Typography variant={'h6'} marginBottom={'10px'}>
           Локация для помощи
         </Typography>
         <Stack gap={'16px'}>
@@ -57,7 +57,7 @@ export default function PersonalData() {
       </Stack>
 
       <Stack alignItems={'flex-start'}>
-        <Typography variant="h6" marginBottom={'10px'}>
+        <Typography variant={'h6'} marginBottom={'10px'}>
           Образование
         </Typography>
         <Stack gap={'16px'}>
@@ -77,7 +77,7 @@ export default function PersonalData() {
       </Stack>
 
       <Stack alignItems={'flex-start'}>
-        <Typography variant="h6" marginBottom={'10px'}>
+        <Typography variant={'h6'} marginBottom={'10px'}>
           Обо мне
         </Typography>
         <Stack direction={'row'} gap={'4px'}>

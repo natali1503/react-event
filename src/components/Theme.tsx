@@ -6,7 +6,7 @@ export function Theme({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {children};
+      {children}
     </ThemeProvider>
   );
 }

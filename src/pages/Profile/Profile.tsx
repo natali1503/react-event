@@ -44,14 +44,25 @@ export default function Profile() {
         bgcolor={theme.palette.background.default}
       >
         <Stack alignItems={'flex-start'}>
-          <Typography variant="h4" margin={'30px 40px'}>
+          <Typography
+            variant="h4"
+            margin={
+              'calc(3rem - 0.015*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem)) 0px calc(4rem - 0.02*(100vw - 192rem))'
+            }
+          >
             Мой профиль
           </Typography>
         </Stack>
         {profile.loading && <Skeleton width={'100px'} height={'100px'} />}
         {profile.error && <Error />}
         {profile.isData && (
-          <Box display="flex" margin={'20px 40px'} gap={'20px'}>
+          <Box
+            display="flex"
+            margin={
+              'calc(2rem - 0.01*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem))'
+            }
+            gap={'2rem'}
+          >
             <Stack
               bgcolor={'white'}
               borderRadius={'4px'}
@@ -62,17 +73,59 @@ export default function Profile() {
             </Stack>
             <Box
               bgcolor={'white'}
-              padding={'36px'}
+              padding={
+                '0 calc(3.6rem - 0.018*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem)) calc(3.6rem - 0.018*(100vw - 192rem))'
+              }
               borderRadius={'4px'}
               border={`1px solid ${theme.palette.grey[300]}`}
-              minHeight={'100vh'}
+              maxHeight={'100vh'}
               width={'100%'}
             >
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={numberTab} onChange={handleChange}>
-                  <Tab label="Личные данные" {...a11yProps(0)} />
-                  <Tab label="Контакты" {...a11yProps(1)} />
-                  <Tab label="Избранное" {...a11yProps(2)} />
+              <Box
+                sx={{
+                  padding: '10px 0 0 0',
+                }}
+              >
+                <Tabs
+                  value={numberTab}
+                  onChange={handleChange}
+                  sx={{
+                    minHeight: 0,
+                  }}
+                >
+                  <Tab
+                    label="Личные данные"
+                    {...a11yProps(0)}
+                    sx={{
+                      paddingTop: '0px',
+                      minHeight: 0,
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      fontSize: '14px',
+                    }}
+                  />
+                  <Tab
+                    label="Контакты"
+                    {...a11yProps(1)}
+                    sx={{
+                      paddingTop: '0px',
+                      minHeight: 0,
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      fontSize: '14px',
+                    }}
+                  />
+                  <Tab
+                    label="Избранное"
+                    {...a11yProps(2)}
+                    sx={{
+                      paddingTop: '0px',
+                      minHeight: 0,
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      fontSize: '14px',
+                    }}
+                  />
                 </Tabs>
               </Box>
               <PagesProfile value={numberTab} index={0}>
