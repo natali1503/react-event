@@ -10,7 +10,7 @@ export function NotFoundResult() {
       alignItems={'center'}
       gap={'20px'}
     >
-      <ReactSVG src="../../public/img/notFoundResult.svg" />
+      <ReactSVG src="/img/notFoundResult.svg" />
       <Typography variant="h5">Запросы не найдены</Typography>
     </Box>
   );

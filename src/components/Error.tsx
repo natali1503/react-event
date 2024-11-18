@@ -9,8 +9,9 @@ export function Error() {
       flexDirection={'column'}
       alignItems={'center'}
       gap={'20px'}
+      height={'100%'}
     >
-      <ReactSVG src="../../public/img/noDataError.svg" />
+      <ReactSVG src="/img/noDataError.svg" />
       <Typography variant="h5">
         Ошибка! Не удалось загрузить информацию
       </Typography>
