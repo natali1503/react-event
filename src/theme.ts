@@ -1,44 +1,55 @@
 import { createTheme } from '@mui/material/styles';
 
 export const themeSettings = (): object => {
+  const breakpoints = {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+    },
+  };
   return {
     palette: {
-      // primary: { main: '#f5f6f5' },
       secondary: { main: '#f5f6f5' },
       background: {
         default: '#f5f6f5',
         paper: '#fff',
       },
     },
-
+    breakpoints,
     typography: {
-      fontFamily: ['Source Sans', 'sans-serif'].join(','),
       fontSize: 19.6,
       h1: {
-        fontFamily: ['Source Sans', 'sans-serif'].join(','),
         fontSize: 30,
       },
       h2: {
-        fontFamily: ['Source Sans', 'sans-serif'].join(','),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ['Source Sans', 'sans-serif'].join(','),
         fontSize: 24,
       },
       h4: {
-        fontFamily: ['Source Sans', 'sans-serif'].join(','),
         fontSize: '3.4rem',
         fontWeight: 400,
+        [`@media (max-width:${breakpoints.values.lg}px)`]: {
+          fontSize: '2.5rem',
+        },
       },
       h5: {
-        fontFamily: ['Source Sans', 'sans-serif'].join(','),
         fontSize: '2.4rem',
         fontWeight: 400,
+        [`@media (max-width:${breakpoints.values.md}px)`]: {
+          fontSize: '2rem',
+        },
       },
       h6: {
-        fontFamily: ['Source Sans', 'sans-serif'].join(','),
         fontSize: '2rem',
+        fontWeight: 500,
+        [`@media (max-width:${breakpoints.values.lg}px)`]: {
+          fontSize: '1.6rem',
+        },
       },
     },
     components: {
@@ -46,6 +57,10 @@ export const themeSettings = (): object => {
         styleOverrides: {
           root: {
             fontSize: '1.5rem',
+            [`@media (max-width:${breakpoints.values.lg}px)`]: {
+              fontSize: '1.2rem', //
+              padding: '2px 6px',
+            },
           },
         },
       },

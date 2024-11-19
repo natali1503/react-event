@@ -6,6 +6,7 @@ import { getDateStr } from '../../features/getDateStr';
 import { Row } from './element/Row';
 import { ItemEducation } from './element/ItemEducation';
 import { ItemBaseLocations } from './element/ItemBaseLocations';
+import { useMode } from '../../theme';
 
 export default function PersonalData() {
   const { data } = useSelector((state: RootState) => {
@@ -13,7 +14,7 @@ export default function PersonalData() {
   });
 
   const [birthDate, setBirthDate] = useState('');
-
+  const [theme] = useMode();
   useEffect(() => {
     if (Object.keys(data).length === 0) return;
     const birthdate = getDateStr(data.birthdate);
@@ -21,23 +22,44 @@ export default function PersonalData() {
   }, [data]);
 
   return (
-    <Box display={'flex'} gap={'30px'} flexDirection={'column'}>
-      <Stack alignItems={'flex-start'} marginTop={'30px'}>
-        <Typography variant="h6" marginBottom={'10px'}>
-          Профиль
-        </Typography>
-        <Stack direction={'row'} gap={'4px'}>
-          <Row header={'Фамилия'} value={data.lastName} />
+    <Box
+      display={'flex'}
+      gap={'3rem'}
+      flexDirection={'column'}
+      sx={{
+        [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+          gap: '2rem',
+        },
+      }}
+    >
+      <Stack
+        alignItems={'flex-start'}
+        marginTop={'3rem'}
+        gap={'1rem'}
+        sx={{
+          [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+            marginTop: '1.5rem',
+          },
+        }}
+      >
+        <Stack>
+          <Typography variant="h6">Профиль</Typography>
         </Stack>
-        <Stack direction={'row'} gap={'4px'}>
-          <Row header={'Имя'} value={data.name} />
+        <Stack>
+          <Stack direction={'row'} gap={'4px'}>
+            <Row header={'Фамилия'} value={data.lastName} />
+          </Stack>
+          <Stack direction={'row'} gap={'4px'}>
+            <Row header={'Имя'} value={data.name} />
+          </Stack>
         </Stack>
       </Stack>
 
-      <Stack alignItems={'flex-start'}>
-        <Typography variant={'h6'} marginBottom={'10px'}>
-          Дата рождения
-        </Typography>
+      <Stack alignItems={'flex-start'} gap={'1rem'}>
+        <Stack>
+          <Typography variant={'h6'}>Дата рождения</Typography>
+        </Stack>
+
         <Stack direction={'row'} gap={'4px'}>
           <Typography>{birthDate}</Typography>
         </Stack>
@@ -77,9 +99,10 @@ export default function PersonalData() {
       </Stack>
 
       <Stack alignItems={'flex-start'}>
-        <Typography variant={'h6'} marginBottom={'10px'}>
-          Обо мне
-        </Typography>
+        <Stack gap={'1rem'}>
+          <Typography variant={'h6'}>Обо мне</Typography>
+        </Stack>
+
         <Stack direction={'row'} gap={'4px'}>
           <Typography>{data.additionalInfo}</Typography>
         </Stack>

@@ -6,12 +6,13 @@ export function UserImg() {
     <Box
       display={'flex'}
       justifyContent={'center'}
+      alignItems={'center'}
       padding={
         'calc(4rem + 0.02*(100vw - 192rem)) calc(5rem + 0.027*(100vw - 192rem))'
       }
     >
       <ReactSVG
-        src="../../public/img/profile.svg"
+        src="/img/profile.svg"
         beforeInjection={(svg) => {
           svg.removeAttribute('width');
           svg.removeAttribute('height');
@@ -24,4 +25,3 @@ export function UserImg() {
     </Box>
   );
 }
-// calc(4rem-0.017*(100vw - 192rem))

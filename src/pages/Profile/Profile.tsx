@@ -38,10 +38,16 @@ export default function Profile() {
       width={'100%'}
     >
       <Box
+        height={'100%'}
         width={'100%'}
         display="flex"
         flexDirection={'column'}
         bgcolor={theme.palette.background.default}
+        sx={{
+          [`@media (max-width:${theme.breakpoints.values.lg}px)`]: {
+            margin: '0 7rem',
+          },
+        }}
       >
         <Stack alignItems={'flex-start'}>
           <Typography
@@ -49,11 +55,20 @@ export default function Profile() {
             margin={
               'calc(3rem - 0.015*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem)) 0px calc(4rem - 0.02*(100vw - 192rem))'
             }
+            sx={{
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                marginTop: '2rem',
+              },
+            }}
           >
             Мой профиль
           </Typography>
         </Stack>
-        {profile.loading && <Skeleton width={'100px'} height={'100px'} />}
+        {profile.loading && (
+          <Box height={'100%'}>
+            <Skeleton width={'100px'} height={'100px'} />
+          </Box>
+        )}
         {profile.error && <Error />}
         {profile.isData && (
           <Box
@@ -61,13 +76,19 @@ export default function Profile() {
             margin={
               'calc(2rem - 0.01*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem))'
             }
+            flexDirection={'row'}
             gap={'2rem'}
+            sx={{
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                flexDirection: 'column',
+                margin: '2rem 4rem',
+              },
+            }}
           >
             <Stack
               bgcolor={'white'}
               borderRadius={'4px'}
               border={`1px solid ${theme.palette.grey[300]}`}
-              height={'100%'}
             >
               <CardProfile />
             </Stack>
@@ -101,7 +122,10 @@ export default function Profile() {
                       minHeight: 0,
                       borderBottom: 1,
                       borderColor: 'divider',
-                      fontSize: '14px',
+                      fontSize: '1.4rem',
+                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                        fontSize: '1.2rem',
+                      },
                     }}
                   />
                   <Tab
@@ -112,7 +136,10 @@ export default function Profile() {
                       minHeight: 0,
                       borderBottom: 1,
                       borderColor: 'divider',
-                      fontSize: '14px',
+                      fontSize: '1.4rem',
+                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                        fontSize: '1.2rem',
+                      },
                     }}
                   />
                   <Tab
@@ -123,7 +150,10 @@ export default function Profile() {
                       minHeight: 0,
                       borderBottom: 1,
                       borderColor: 'divider',
-                      fontSize: '14px',
+                      fontSize: '1.4rem',
+                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                        fontSize: '1.2rem',
+                      },
                     }}
                   />
                 </Tabs>
