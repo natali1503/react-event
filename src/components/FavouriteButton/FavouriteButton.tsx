@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { HelpRequest } from '../../types/HelpRequest';
 import { useFavourites } from '../../hooks/useFavourites';
 import FavouriteIconBtn from './elements/FavouriteIconBtn';
-import FavouriteIconBtnWithText from './elements/FavouriteIconWithText';
+import FavouriteIconBtnWithText from './elements/FavouriteIconBtnWithText';
 
 type FavouriteButton = {
   format: string;
