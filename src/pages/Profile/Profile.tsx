@@ -74,7 +74,7 @@ export default function Profile() {
           <Box
             display="flex"
             margin={
-              'calc(2rem - 0.01*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem))'
+              'calc(2rem - 0.01*(100vw - 192rem)) calc(2rem - 0.02*(100vw - 192rem))'
             }
             flexDirection={'row'}
             gap={'2rem'}
@@ -89,6 +89,7 @@ export default function Profile() {
               bgcolor={'white'}
               borderRadius={'4px'}
               border={`1px solid ${theme.palette.grey[300]}`}
+              height={'fit-content'}
             >
               <CardProfile />
             </Stack>
@@ -99,7 +100,6 @@ export default function Profile() {
               }
               borderRadius={'4px'}
               border={`1px solid ${theme.palette.grey[300]}`}
-              maxHeight={'100vh'}
               width={'100%'}
             >
               <Box

@@ -12,7 +12,6 @@ export function Logo() {
         }}
         style={{
           width: 'calc(31.3rem + 0.11*(100vw - 192rem))',
-          height: '3.2rem',
         }}
       />
     </Box>

@@ -15,7 +15,7 @@ export default function Wrapper({ children }) {
     >
       <HeaderNavigationApp />
       <Box
-        margin={'0 calc(21rem + 0.109375 * (100vw - 192rem))'}
+        margin={'0 calc(8.1rem + 0.109375 * (100vw - 192rem))'}
         flexGrow={'1'}
         display={'flex'}
         sx={{

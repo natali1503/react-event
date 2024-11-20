@@ -57,6 +57,7 @@ export const themeSettings = (): object => {
         styleOverrides: {
           root: {
             fontSize: '1.5rem',
+            height: '4.2rem',
             [`@media (max-width:${breakpoints.values.lg}px)`]: {
               fontSize: '1.2rem', //
               padding: '2px 6px',

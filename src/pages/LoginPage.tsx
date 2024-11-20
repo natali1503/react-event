@@ -2,8 +2,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
+  Divider,
   FormControl,
-  Grid2,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -18,11 +18,12 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/TestingProfiles';
+import { useMode } from '../theme';
 
 const LoginPage = () => {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
   const errorMessage = useAppSelector((store) => store.auth.errorMessage);
-
+  const [theme] = useMode();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -91,16 +92,36 @@ const LoginPage = () => {
   console.log('Login page render');
 
   return (
-    <Grid2 container spacing={2} marginTop={'64px'}>
-      <Grid2 size={6}>
+    <Box
+      width={'100%'}
+      display={'flex'}
+      borderLeft={`1px solid ${theme.palette.grey[300]}`}
+      borderRight={`1px solid ${theme.palette.grey[300]}`}
+    >
+      <Box display={'flex'} width={'100%'}>
         <Box
           marginLeft={'4rem'}
-          sx={{ maxWidth: '480px', display: 'flex', flexDirection: 'column' }}
+          marginTop={'64px'}
+          sx={{
+            maxWidth: '480px',
+            display: 'flex',
+            flexDirection: 'column',
+            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+              marginLeft: '2rem',
+            },
+            [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+              marginTop: '2.5rem',
+              marginLeft: '1rem',
+            },
+          }}
         >
           <Typography variant="h4">Авторизация</Typography>
           <Typography
             variant="h5"
-            sx={{ marginTop: '90px', marginBottom: '35px' }}
+            sx={{
+              marginTop: 'calc(9rem + 0.047 * (100vw - 192rem))',
+              marginBottom: '35px',
+            }}
           >
             Вход
           </Typography>
@@ -173,16 +194,29 @@ const LoginPage = () => {
             Войти
           </Button>
         </Box>
-      </Grid2>
-
-      {/* Test Profiles Section */}
-      <Grid2 size={6}>
-        <Box marginLeft={'4rem'}>
+      </Box>
+      <Box>
+        <Divider orientation="vertical" />
+      </Box>
+      <Box display={'flex'} width={'100%'}>
+        <Box
+          marginLeft={'4rem'}
+          marginTop={'64px'}
+          sx={{
+            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+              marginLeft: '2rem',
+            },
+            [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+              marginTop: '2.5rem',
+              marginLeft: '1rem',
+            },
+          }}
+        >
           <Typography variant="h4">Тестовые профили</Typography>
           <TestingProfiles />
         </Box>
-      </Grid2>
-    </Grid2>
+      </Box>
+    </Box>
   );
 };
 
