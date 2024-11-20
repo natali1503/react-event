@@ -9,7 +9,7 @@ import {
   setHelpRequest,
   setFavouriteHelp,
   setIsLoading,
-} from '../../store/userFavourites';
+} from '../../store/user-favourites/userFavourites';
 import { matchFavourites } from '../../features/matchFavourites';
 import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
 import { fetchHelpRequestsAction } from '../../store/api-actions';

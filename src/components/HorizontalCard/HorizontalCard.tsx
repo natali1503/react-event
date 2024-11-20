@@ -1,14 +1,11 @@
 import { Box, Button, Card, CardActions, CardContent, CardHeader, Divider, LinearProgress, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { FC, useState } from 'react';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
-import { Star } from '@mui/icons-material';
-import { useDispatch } from 'react-redux';
-import { AppDispatch, RootState } from '../../store/types';
-import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../../store/api-actions';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store/types';
+import FavouriteButton from '../FavouriteButton/FavouriteButton';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -16,23 +13,9 @@ type CardItemProps = {
 
 const HorizontalCard: FC<CardItemProps> = (props) => {
   const { helpRequest} = props;
-  const { handleContributeToRequest } = useContributeToRequest(helpRequest);
-  
-  const dispatch = useDispatch<AppDispatch>();
-
   const userFavourites = useSelector((state: RootState) => state.favourites);
-
-  const isFavourite = userFavourites.favouriteRequests.includes(helpRequest.id);
-
-  const handleAddToFavourites = async (favouriteId: string) => {
-    await dispatch(addToFavouritesAction(favouriteId));
-    dispatch(getFavouritesAction());
-  };
-
-  const handleRemoveFavourite = async (favouriteId: string) => {
-    await dispatch(removeFromFavouritesAction(favouriteId));
-    dispatch(getFavouritesAction());
-  };
+  const { handleContributeToRequest } = useContributeToRequest(helpRequest);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   return (
       <Card sx={{ 
@@ -103,16 +86,13 @@ const HorizontalCard: FC<CardItemProps> = (props) => {
             <Typography variant="body2">{formatDate(helpRequest.endingDate)}</Typography>
           </Stack>
         </CardContent>
-         <Button
-              variant="outlined"
-              size="small"
-              onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
-              startIcon={isFavourite? <Star /> : <StarBorderIcon />}
-
-              sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
-            >
-               {isFavourite ? 'Удалить избранное' : 'В избранное'}
-          </Button>
+        <FavouriteButton
+          format={'horizontal'}
+          helpRequest = {helpRequest}
+          favouriteRequests = {userFavourites.favouriteRequests}
+          isLoading = {isLoading}
+          setIsLoading = {setIsLoading}
+        />
       </Card>
   );
 }
