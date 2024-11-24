@@ -4,11 +4,13 @@ import { RootState } from '../../store/types';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/authorization';
 import { UserImg } from './element/UserImg';
+import { useMode } from '../../theme';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {
     return state.profile;
   });
+  const [theme] = useMode();
   const dispatch = useDispatch();
   function handleClick() {
     //вызывать функцию для удаления токена
@@ -16,7 +18,17 @@ export default function CardProfile() {
   }
 
   return (
-    <Box>
+    <Box
+      display={'flex'}
+      flexDirection={'column'}
+      minWidth={'calc(32rem-0.017*(100vw - 192rem))'}
+      sx={{
+        [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+        },
+      }}
+    >
       <UserImg />
       <Divider />
       <Stack>
@@ -43,10 +55,14 @@ export default function CardProfile() {
         </Stack>
       </Stack>
 
-      <Stack margin={'0 20px'} marginBottom={'20px'}>
+      <Stack margin={'0 20px'} marginBottom={'20px'} justifyContent={'center'}>
         <Button
           variant="outlined"
-          sx={{ color: '#000', border: '1px solid #000' }}
+          sx={{
+            color: '#000',
+            border: '1px solid #000',
+            padding: 0,
+          }}
           onClick={handleClick}
         >
           Выйти из аккаунта

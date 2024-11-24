@@ -28,7 +28,7 @@ export default function ImageAvatar() {
 
   const handleClickProfile = (event: React.MouseEvent<HTMLElement>) => {
     navigate(AppRoute.Profile, { replace: true });
-    console.log('handleClickProfile');
+    handleClose();
   };
 
   const handleClose = () => {
@@ -36,7 +36,7 @@ export default function ImageAvatar() {
   };
 
   const handlLogOut = () => {
-    dispatch(logOut()); // Вызываем действие для разлогинивания
+    dispatch(logOut());
     navigate(AppRoute.Login, { replace: true });
   };
 
@@ -91,10 +91,15 @@ export default function ImageAvatar() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClickProfile}>
+        <MenuItem onClick={handleClickProfile} sx={{ fontSize: '16px' }}>
           <Avatar /> Мой профиль
         </MenuItem>
-        <MenuItem component={Link} to="/login" onClick={handlLogOut}>
+        <MenuItem
+          component={Link}
+          to="/login"
+          onClick={handlLogOut}
+          sx={{ fontSize: '16px' }}
+        >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
