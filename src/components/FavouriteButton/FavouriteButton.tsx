@@ -7,17 +7,17 @@ import FavouriteIconBtnWithText from './elements/FavouriteIconBtnWithText';
 
 type FavouriteButton = {
   format: string;
-  favouriteRequests: string[];
+  favouriteRequestsIDs: string[];
   helpRequest: HelpRequest;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const FavouriteButton: React.FC<FavouriteButton> = (props) => {
-  const { format, helpRequest, favouriteRequests, isLoading, setIsLoading } =
+  const { format, helpRequest, favouriteRequestsIDs, isLoading, setIsLoading } =
     props;
   const { handleAddToFavourites, handleRemoveFavourite } = useFavourites();
-  const isFavourite = favouriteRequests.includes(helpRequest.id);
+  const isFavourite = favouriteRequestsIDs.includes(helpRequest.id);
 
   const handleToggleFavourite = async () => {
     setIsLoading(true);

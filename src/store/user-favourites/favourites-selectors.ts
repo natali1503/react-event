@@ -1,5 +1,9 @@
 import { RootState } from '../types';
 
-export const getFavouriteIDs = ((state: RootState): string[] => {
+export const getFavouriteRequestsIDs = ((state: RootState) => {
   return state['favourites'].favouriteRequests;
+});
+
+export const getIsFavouriteLoading = ((state: RootState) => {
+  return state['favourites'].isLoading;
 });

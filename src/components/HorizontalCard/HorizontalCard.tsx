@@ -4,8 +4,8 @@ import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/types';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
+import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -13,9 +13,9 @@ type CardItemProps = {
 
 const HorizontalCard: FC<CardItemProps> = (props) => {
   const { helpRequest} = props;
-  const userFavourites = useSelector((state: RootState) => state.favourites);
+  const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
       <Card sx={{ 
@@ -89,7 +89,7 @@ const HorizontalCard: FC<CardItemProps> = (props) => {
         <FavouriteButton
           format={'horizontal'}
           helpRequest = {helpRequest}
-          favouriteRequests = {userFavourites.favouriteRequests}
+          favouriteRequestsIDs = {userFavouritesIDs}
           isLoading = {isLoading}
           setIsLoading = {setIsLoading}
         />

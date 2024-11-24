@@ -2,11 +2,11 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Div
 import { FC, useState } from 'react';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
-import { RootState } from '../../store/types';
 //import { Link } from 'react-router-dom';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
-import { useSelector } from 'react-redux';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
+import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import { useSelector } from 'react-redux';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -14,9 +14,9 @@ type CardItemProps = {
 
 const VerticalCard: FC<CardItemProps> = (props) => {
   const { helpRequest} = props;
-  const userFavourites = useSelector((state: RootState) => state.favourites);
+  const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
     //<Link to={`/request/${helpRequest.id}`} style={{ textDecoration: 'none' }}>
@@ -57,7 +57,7 @@ const VerticalCard: FC<CardItemProps> = (props) => {
               <FavouriteButton
                 format={'vertical'}
                 helpRequest = {helpRequest}
-                favouriteRequests = {userFavourites.favouriteRequests}
+                favouriteRequestsIDs = {userFavouritesIDs}
                 isLoading = {isLoading}
                 setIsLoading = {setIsLoading}
               />

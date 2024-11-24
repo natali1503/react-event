@@ -3,10 +3,10 @@ import { HelpRequest } from '../types/HelpRequest';
 import { applyFilter, applySearch } from '../utils/filterUtils';
 
 type useFilterProps = {
-  helpRequestList: HelpRequest[];
+  helpRequestsList: HelpRequest[];
 };
 
-export function useFilters({ helpRequestList }: useFilterProps) {
+export function useFilters({ helpRequestsList }: useFilterProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -14,12 +14,12 @@ export function useFilters({ helpRequestList }: useFilterProps) {
 
   const filterHelpRequests = () => {
     const filterHelpRequests = () => {
-      if (!helpRequestList || helpRequestList.length === 0) {
+      if (!helpRequestsList || helpRequestsList.length === 0) {
         setFilteredData([]);
         return;
       }
 
-      let requestedData = helpRequestList;
+      let requestedData = helpRequestsList;
 
       if (searchTerm) {
         requestedData = applySearch(requestedData, searchTerm);
@@ -37,7 +37,7 @@ export function useFilters({ helpRequestList }: useFilterProps) {
 
   useEffect(() => {
     filterHelpRequests();
-  }, [helpRequestList, searchTerm, selectedOptions]);
+  }, [helpRequestsList, searchTerm, selectedOptions]);
 
   return {
     searchTerm,

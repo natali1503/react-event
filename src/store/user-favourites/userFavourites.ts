@@ -51,7 +51,7 @@ export const userFavouritesSlice = createSlice({
       });
 
     builder
-      // Handle the "addToFavouritesAction" states
+    // Handle the "addToFavouritesAction" states
       .addCase(addToFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
