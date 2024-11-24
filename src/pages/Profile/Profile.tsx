@@ -11,10 +11,11 @@ import PersonalData from '../../components/Profile/PersonalData';
 import PagesProfile from '../../components/Profile/PagesProfile';
 import Contacts from '../../components/Profile/Contacts';
 import Favorites from '../../components/Profile/Favorites';
+import { useMode } from '../../theme';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
-
+  const [theme] = useMode();
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: RootState) => {
     return state.profile;
@@ -37,41 +38,124 @@ export default function Profile() {
       width={'100%'}
     >
       <Box
+        height={'100%'}
         width={'100%'}
         display="flex"
         flexDirection={'column'}
-        bgcolor={'#f5f6f5'}
+        bgcolor={theme.palette.background.default}
+        sx={{
+          [`@media (max-width:${theme.breakpoints.values.lg}px)`]: {
+            margin: '0 7rem',
+          },
+        }}
       >
         <Stack alignItems={'flex-start'}>
-          <Typography variant="h4" margin={'30px 40px'}>
+          <Typography
+            variant="h4"
+            margin={
+              'calc(3rem - 0.015*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem)) 0px calc(4rem - 0.02*(100vw - 192rem))'
+            }
+            sx={{
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                marginTop: '2rem',
+              },
+            }}
+          >
             Мой профиль
           </Typography>
         </Stack>
-        {profile.loading && <Skeleton width={'100px'} height={'100px'} />}
+        {profile.loading && (
+          <Box height={'100%'}>
+            <Skeleton width={'100px'} height={'100px'} />
+          </Box>
+        )}
         {profile.error && <Error />}
         {profile.isData && (
-          <Box display="flex" margin={'20px 40px'} gap={'20px'}>
+          <Box
+            display="flex"
+            margin={
+              'calc(2rem - 0.01*(100vw - 192rem)) calc(2rem - 0.02*(100vw - 192rem))'
+            }
+            flexDirection={'row'}
+            gap={'2rem'}
+            sx={{
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                flexDirection: 'column',
+                margin: '2rem 4rem',
+              },
+            }}
+          >
             <Stack
               bgcolor={'white'}
               borderRadius={'4px'}
-              border={'1px solid #e0e0e0'}
-              height={'100%'}
+              border={`1px solid ${theme.palette.grey[300]}`}
+              height={'fit-content'}
             >
               <CardProfile />
             </Stack>
             <Box
               bgcolor={'white'}
-              padding={'36px'}
+              padding={
+                '0 calc(3.6rem - 0.018*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem)) calc(3.6rem - 0.018*(100vw - 192rem))'
+              }
               borderRadius={'4px'}
-              border={'1px solid #e0e0e0'}
-              minHeight={'100vh'}
+              border={`1px solid ${theme.palette.grey[300]}`}
               width={'100%'}
             >
-              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={numberTab} onChange={handleChange}>
-                  <Tab label="Личные данные" {...a11yProps(0)} />
-                  <Tab label="Контакты" {...a11yProps(1)} />
-                  <Tab label="Избранное" {...a11yProps(2)} />
+              <Box
+                sx={{
+                  padding: '10px 0 0 0',
+                }}
+              >
+                <Tabs
+                  value={numberTab}
+                  onChange={handleChange}
+                  sx={{
+                    minHeight: 0,
+                  }}
+                >
+                  <Tab
+                    label="Личные данные"
+                    {...a11yProps(0)}
+                    sx={{
+                      paddingTop: '0px',
+                      minHeight: 0,
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      fontSize: '1.4rem',
+                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                        fontSize: '1.2rem',
+                      },
+                    }}
+                  />
+                  <Tab
+                    label="Контакты"
+                    {...a11yProps(1)}
+                    sx={{
+                      paddingTop: '0px',
+                      minHeight: 0,
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      fontSize: '1.4rem',
+                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                        fontSize: '1.2rem',
+                      },
+                    }}
+                  />
+                  <Tab
+                    label="Избранное"
+                    {...a11yProps(2)}
+                    sx={{
+                      paddingTop: '0px',
+                      minHeight: 0,
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      fontSize: '1.4rem',
+                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                        fontSize: '1.2rem',
+                      },
+                    }}
+                  />
                 </Tabs>
               </Box>
               <PagesProfile value={numberTab} index={0}>

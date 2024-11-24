@@ -9,6 +9,8 @@ import LogInButton from './LogInButton';
 import ImageAvatar from './Avatar';
 
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { useMode } from '../../theme';
+import { Logo } from './Logo';
 
 export default function HeaderNavigationApp() {
   const navigate = useNavigate();
@@ -17,13 +19,12 @@ export default function HeaderNavigationApp() {
   const handleClickRequest = (event: React.MouseEvent<HTMLElement>) => {
     navigate(AppRoute.Main, { replace: true });
   };
-
+  const [theme] = useMode();
   return (
     <Box
+      bgcolor={theme.palette.background.default}
       sx={{
-        backgroundColor: 'white',
         width: '100vw',
-        // margin: '0 auto',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -41,13 +42,7 @@ export default function HeaderNavigationApp() {
             paddingRight: 'none',
           }}
         >
-          <img
-            style={{ maxWidth: '220px', height: '40px' }}
-            srcSet={'/img/LeftSide.svg'}
-            src={'/img/LeftSide.svg'}
-            alt={'image-title'}
-            loading="lazy"
-          />
+          <Logo />
           <Box
             sx={{
               flexGrow: 1,
@@ -71,8 +66,6 @@ export default function HeaderNavigationApp() {
           </Box>
           <Box
             sx={{
-              width: '220px',
-              height: '40px',
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',

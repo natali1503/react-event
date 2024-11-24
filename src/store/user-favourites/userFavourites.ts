@@ -7,6 +7,7 @@ export const userFavouritesSlice = createSlice({
   initialState: {
     isData: false,
     isLoading: false,
+    isFavouriteRequests: false,
     favouriteRequests: <string[]>[],
     helpRequest: <HelpRequest[]>[],
     favouriteHelp: <HelpRequest[]>[],
@@ -15,6 +16,7 @@ export const userFavouritesSlice = createSlice({
   reducers: {
     setFavourites: (state, action: PayloadAction<string[]>) => {
       state.favouriteRequests = action.payload;
+      state.isFavouriteRequests = true;
     },
     setHelpRequest(state, action: PayloadAction<HelpRequest[]>) {
       state.helpRequest = action.payload;
@@ -31,7 +33,7 @@ export const userFavouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Handle the "getFavouritesAction" states
+    // Handle the "getFavouritesAction" states
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -45,7 +47,7 @@ export const userFavouritesSlice = createSlice({
       .addCase(getFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = action.payload as string || 'Failed to fetch favourites';
+        state.error = (action.payload as string) || 'Failed to fetch favourites';
       });
 
     builder
@@ -70,7 +72,7 @@ export const userFavouritesSlice = createSlice({
     });
 
     builder
-      // Handle the "removeFromFavouritesAction" states
+    // Handle the "removeFromFavouritesAction" states
       .addCase(removeFromFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -85,7 +87,7 @@ export const userFavouritesSlice = createSlice({
       .addCase(removeFromFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = action.payload as string || 'Failed to remove from favourites';
+        state.error = (action.payload as string) || 'Failed to remove from favourites';
       });
   },
 });

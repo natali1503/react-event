@@ -13,7 +13,12 @@ export default function Contacts() {
   });
 
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'30px'}>
+    <Box
+      display={'flex'}
+      flexDirection={'column'}
+      gap={'30px'}
+      marginTop={'30px'}
+    >
       <Stack gap={'10px'} alignItems={'flex-start'}>
         <Typography variant="h6">E-mail</Typography>
         <Typography>{data.contacts.email}</Typography>
