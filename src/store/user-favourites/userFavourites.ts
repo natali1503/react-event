@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HelpRequest } from '../types/HelpRequest';
-import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from './api-actions';
-import { IFavourite } from '../types/IFavourite';
+import { HelpRequest } from '../../types/HelpRequest';
+import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../api-actions';
 
 export const userFavouritesSlice = createSlice({
   name: 'userFavourites',
@@ -34,7 +33,7 @@ export const userFavouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Handle the "getFavouritesAction" states
+    // Handle the "getFavouritesAction" states
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -52,26 +51,28 @@ export const userFavouritesSlice = createSlice({
       });
 
     builder
-      // Handle the "addToFavouritesAction" states
+    // Handle the "addToFavouritesAction" states
       .addCase(addToFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
         state.isData = false;
       })
-      .addCase(addToFavouritesAction.fulfilled, (state, action: PayloadAction<IFavourite[]>) => {
+      .addCase(addToFavouritesAction.fulfilled, (state, action: PayloadAction<string>) => {
         state.isLoading = false;
         state.isData = true;
-        const newFavouriteIds = action.payload.map((fav) => fav.id);
-        state.favouriteRequests = [...new Set([...state.favouriteRequests, ...newFavouriteIds])];
+        const idToAdd = action.payload;
+        state.favouriteRequests = [
+          ...new Set([...state.favouriteRequests, ...idToAdd]),
+        ];
       })
       .addCase(addToFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = (action.payload as string) || 'Failed to add to favourites';
-      });
+        state.error = action.payload as string || 'Failed to add to favourites';
+    });
 
     builder
-      // Handle the "removeFromFavouritesAction" states
+    // Handle the "removeFromFavouritesAction" states
       .addCase(removeFromFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -80,7 +81,8 @@ export const userFavouritesSlice = createSlice({
       .addCase(removeFromFavouritesAction.fulfilled, (state, action: PayloadAction<string>) => {
         state.isLoading = false;
         state.isData = true;
-        state.favouriteRequests = state.favouriteRequests.filter((id) => id !== action.payload);
+        const idToDelete = action.payload;
+        state.favouriteRequests = state.favouriteRequests.filter(id => id !== idToDelete);
       })
       .addCase(removeFromFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;

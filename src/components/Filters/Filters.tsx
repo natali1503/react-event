@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // components
 import StandardCheckboxes from './StandardCheckboxes';
 import AccordionCheckboxes from './AccordionCheckboxes';
@@ -10,7 +10,7 @@ import { FilterProps } from '../../types/IFilterOption';
 // styles
 import { Box, Button, Paper, Typography } from '@mui/material';
 
-const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
+const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Toggle checkbox filter
@@ -57,7 +57,7 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
     <Paper
       sx={{
         backgroundColor: 'white',
-        padding: '0.5rem 1.5rem',
+        padding: '0.8rem 2.4rem',
         height: 'fit-content',
       }}
     >
@@ -92,10 +92,10 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
         })}
       </Box>
 
-      <Box>
+      <Box sx={{ marginTop: '1rem' }}>
         <Typography
           variant="subtitle1"
-          sx={{ opacity: '0.6', marginTop: '1rem' }}
+          sx={{ opacity: '0.6' }}
         >
           Помощь актуальна до:
         </Typography>

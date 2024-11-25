@@ -3,7 +3,6 @@ import { IUser } from '../types/IUser';
 import { toast } from 'react-toastify';
 import { IError } from '../types/IError';
 import { HelpRequest } from '../types/HelpRequest';
-import { IFavourite, IResponse } from '../types/IFavourite';
 
 class ApiService {
   // метод, которые принимает параметры для запроса и подтыкает authorization
@@ -101,7 +100,6 @@ class ApiService {
     } else return res;
   }
 
-
   async contributeToRequest(id: string): Promise<string | IError> {
     const url = `${APIRoute.HelpRequests}/${id}/contribution`;
     return this.fetchDataWithToken<string | IError>(url, APIMethod.POST);
@@ -110,22 +108,21 @@ class ApiService {
   async addToFavourites(favouriteId: string) {
     try {
       const body = JSON.stringify({ requestId: favouriteId });
-      const res = await this.fetchDataWithToken<IFavourite[]>(
+      const res: string | IError = await this.fetchDataWithToken(
         APIRoute.FavouritesHelpRequests,
         APIMethod.POST,
         body
       );
 
-      if ('codeError' in res) {
-        console.error('Error adding to favourites:', res.message);
-        return null;
+      if ((res as IError).message && (res as IError).codeError) {
+        return res as IError;
       }
-
-      return res;
+      
+      return res as string;
 
     } catch (error) {
       console.error('Unexpected error while adding to favourites:', error);
-      return null;
+      return error as IError;
     }
   };
 
@@ -133,20 +130,20 @@ class ApiService {
     try {
       const url = `${APIRoute.FavouritesHelpRequests}/${favouriteId}` as APIRoute;
   
-      const res = await this.fetchDataWithToken<IResponse[]>(
+      const res: string | IError = await this.fetchDataWithToken(
         url, 
         APIMethod.DELETE
       );
   
-      if ('codeError' in res) {
-        console.error('Error removing from favourites:', res.message);
-        return res;
-      };
+      if ((res as IError).message && (res as IError).codeError) {
+        return res as IError;
+      }
     
-      return null;
+      return res as string;
+
     } catch (error) {
       console.error('Unexpected error while removing from favourites:', error);
-      return null;
+      return error as IError;;
     };
   };
 };
