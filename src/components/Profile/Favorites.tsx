@@ -3,7 +3,7 @@ import { Box, Skeleton } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { AppDispatch, RootState } from '../../store/types';
-import { Error } from '../Error';
+import { ErrorComponent } from '../Error';
 import { useDispatch } from 'react-redux';
 import {
   setHelpRequest,
@@ -57,7 +57,7 @@ export default function Favorites() {
     userFavourites.isData && userFavourites.favouriteRequests.length === 0;
   return (
     <Box>
-      {helpRequestDataError && <Error />}
+      {helpRequestDataError && <ErrorComponent />}
       {notFoundResult && <NotFoundResult />}
       {userFavourites.isLoading && (
         <Skeleton width={'100px'} height={'100px'} />

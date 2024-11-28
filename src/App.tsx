@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage';
 import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
 import Helps from './pages/Helps/Helps';
-import UserInfoID from './pages/Helps/UserInfoID';
+import HelpRequest from './pages/HelpRequest';
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
             />
             <Route
               path={AppRoute.HelpRequest}
-              element={<ProtectedRoute component={<UserInfoID />} />}
+              element={<ProtectedRoute component={<HelpRequest />} />}
             />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

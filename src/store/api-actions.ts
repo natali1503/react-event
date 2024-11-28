@@ -17,9 +17,9 @@ export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[]>(
 );
 
 export const fetchСontributeToRequest = createAsyncThunk<
-  string, // Тип успешного результата
-  { id: string }, // Тип аргумента
-  { rejectValue: IError } // Тип объекта ошибки
+  string,
+  { id: string },
+  { rejectValue: IError }
 >(
   'helpRequests/contributeToRequest',
   async ({ id }, { rejectWithValue }) => {
@@ -123,5 +123,13 @@ export const removeFromFavouritesAction = createAsyncThunk(
       console.log('Error removing from favourites:', error.message);
       return rejectWithValue('Unexpected error occurred while removing from favourites');
     }
+  }
+);
+
+export const fetchRequestAction = createAsyncThunk<HelpRequest, string>(
+  'helpRequests/fetchRequestAction',
+  async (id) => {
+    const response = await api.getHelpRequestInfo(id);
+    return response;
   }
 );
