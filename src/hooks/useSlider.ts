@@ -1,40 +1,36 @@
 import { useState, useEffect } from 'react';
 
 export function useSlider() {
-  const [offset, setOffset] = useState<number>(0); // Храним текущее смещение
-  const [currentDiv, setCurrentDiv] = useState<number>(1); // Храним текущее смещение
-  const [arrow, setArrow] = useState<string>(''); // Храним направление
+  const [offset, setOffset] = useState<number>(0);
+  const [currentDiv, setCurrentDiv] = useState<number>(1);
+  const [arrow, setArrow] = useState<string>('');
 
   useEffect(() => {
     if (arrow === '') return;
-    const div1 = document.getElementById('div1') as HTMLDivElement;
     const slider = document.getElementById('slider') as HTMLDivElement;
-    const children = slider.childNodes;
+    const children = slider.children;
 
-    if (arrow === 'prev') {
-      slider.style.transform = `translate(-${offset}px, 0px)`;
-    } else {
-      slider.style.transform = `translate(-${offset}px, 0px)`;
-    }
+    slider.style.transition = 'transform 1s ease-in-out';
+    slider.style.transform = `translate(-${offset}px, 0px)`;
 
     for (const child of children) {
-      if (Number(child.id.at(-1)) === currentDiv) {
-        child.style.opacity = '1';
-      } else {
-        child.style.opacity = '0.3';
-      }
+      const childElement = child as HTMLDivElement;
+      childElement.style.transition = 'all 1s ease-in-out';
+      const lastChar = child.id.length - 1;
+      childElement.style.opacity = Number(child.id[lastChar]) === currentDiv ? '1' : '0.2';
+      childElement.style.transform = Number(child.id[lastChar]) === currentDiv ? 'scale(1)' : 'scale(0.8)';
     }
-    div1.style.opacity = '0.3';
-  }, [currentDiv, offset, arrow]);
+  }, [currentDiv, offset]);
+
   useEffect(() => {
     const slider = document.getElementById('slider') as HTMLDivElement;
-    const children = slider.childNodes;
+    const children = slider.children;
     for (const child of children) {
-      if (Number(child.id.at(-1)) === currentDiv) {
-        child.style.opacity = '1';
-      } else {
-        child.style.opacity = '0.3';
-      }
+      const childElement = child as HTMLDivElement;
+      const lastChar = child.id.length - 1;
+      childElement.style.transition = 'all 1s ease-in-out';
+      childElement.style.opacity = Number(child.id[lastChar]) === currentDiv ? '1' : '0.2';
+      childElement.style.scale = Number(child.id[lastChar]) === currentDiv ? '1' : '0.8';
     }
   });
   return { offset, currentDiv, arrow, setOffset, setCurrentDiv, setArrow };

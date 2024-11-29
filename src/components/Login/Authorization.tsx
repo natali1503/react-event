@@ -89,8 +89,6 @@ export function Authorization() {
           [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
             marginTop: '0rem',
             marginLeft: '0rem',
-            borderLeft: `1px solid ${theme.palette.grey[300]}`,
-            borderRight: `1px solid ${theme.palette.grey[300]}`,
             padding: '3rem',
             paddingLeft: '6rem',
             paddingRight: '6rem',

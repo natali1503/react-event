@@ -17,6 +17,7 @@ export default function TestingProfilesSM() {
       display={'flex'}
       width={'100%'}
       sx={{
+        overflow: 'hidden',
         [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
           justifyContent: 'center',
           height: '100%',
@@ -33,15 +34,15 @@ export default function TestingProfilesSM() {
           [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
             marginTop: '0rem',
             marginLeft: '0rem',
-            borderLeft: `1px solid ${theme.palette.grey[300]}`,
-            borderRight: `1px solid ${theme.palette.grey[300]}`,
             padding: '3rem',
-            paddingLeft: '5rem',
-            paddingRight: '5rem',
+            paddingLeft: '6rem',
+            paddingRight: '6rem',
           },
         }}
       >
-        <Typography variant="h4">Тестовые профили</Typography>
+        <Typography variant="h4" marginLeft={'3.5rem'}>
+          Тестовые профили
+        </Typography>
         <Box
           display={'flex'}
           flexDirection={'row'}
