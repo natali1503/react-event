@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { ReactSVG } from 'react-svg';
 
-export function Error() {
+export function ErrorComponent() {
   return (
     <Box
       display={'flex'}

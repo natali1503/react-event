@@ -4,7 +4,7 @@ import Filters from '../../components/Filters/Filters';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRequestsComponent';
 import { NotFoundResult } from '../../components/NotFoundResult';
-import { Error } from '../../components/Error';
+import { ErrorComponent } from '../../components/Error';
 // styles
 import { useMode } from '../../theme';
 import { Box, Typography, Grid2, CircularProgress, Paper } from '@mui/material';
@@ -42,7 +42,7 @@ const Helps: React.FC = () => {
           <Grid2 container size={'grow'} flexDirection={'column'} gap={2}>
             <SearchPanel searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <Paper sx={{ backgroundColor: 'white', padding: '2rem' }}>
-              {isHelpRequestsError && <Error />}
+              {isHelpRequestsError && <ErrorComponent />}
 
               {isHelpRequestsLoading && (
                 <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>

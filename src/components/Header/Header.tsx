@@ -53,7 +53,6 @@ export default function HeaderNavigationApp() {
             <Link
               onClick={handleClickRequest}
               color="inherit"
-              href="#"
               underline="hover"
               sx={{
                 fontSize: '16px',

@@ -146,6 +146,23 @@ class ApiService {
       return error as IError;;
     };
   };
+
+  async getHelpRequestInfo(id: string) {
+    const url = `${APIRoute.HelpRequests}/${id}`;
+
+    const res: HelpRequest | IError = await this.fetchDataWithToken(
+      url,
+      APIMethod.GET
+    );
+
+    const isCodeError = (object): object is IError => {
+      return 'codeError' in object;
+    };
+
+    if (isCodeError(res)) {
+      throw new Error(String(res.codeError));
+    } else return res;
+  }
 };
 
 export const api = new ApiService();

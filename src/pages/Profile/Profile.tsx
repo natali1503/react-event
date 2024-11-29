@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../store/api-actions';
 import { AppDispatch, RootState } from '../../store/types';
 
-import { Error } from '../../components/Error';
+import { ErrorComponent } from '../../components/Error';
 import CardProfile from '../../components/Profile/CardProfile';
 import PersonalData from '../../components/Profile/PersonalData';
 import PagesProfile from '../../components/Profile/PagesProfile';
@@ -69,7 +69,7 @@ export default function Profile() {
             <Skeleton width={'100px'} height={'100px'} />
           </Box>
         )}
-        {profile.error && <Error />}
+        {profile.error && <ErrorComponent />}
         {profile.isData && (
           <Box
             display="flex"

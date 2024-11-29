@@ -2,7 +2,7 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Div
 import { FC, useState } from 'react';
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
@@ -19,7 +19,7 @@ const VerticalCard: FC<CardItemProps> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    //<Link to={`/request/${helpRequest.id}`} style={{ textDecoration: 'none' }}>
+    <Link to={`/request/${helpRequest.id}`} style={{ textDecoration: 'none' }}>
       <Card sx={{ 
         display: 'flex', 
         marginTop: '20px',
@@ -105,10 +105,15 @@ const VerticalCard: FC<CardItemProps> = (props) => {
         </CardContent>
         <CardActions disableSpacing sx={{ padding: '0 16px 20px', textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start', marginTop: 'auto'}}>
             <Typography variant="body2" sx={{ marginBottom: '10px' }}>Нас уже: {formatNumber(helpRequest.contributorsCount)}</Typography>
-            <Button size="large" variant="contained" color="primary" fullWidth onClick={() => handleContributeToRequest()}>Помочь</Button>
+            <Button size="large" variant="contained" color="primary" fullWidth 
+              onClick={(event) => {
+                event.stopPropagation();
+                event.preventDefault();
+                handleContributeToRequest();
+              }}>Помочь</Button>
           </CardActions>
       </Card>
-    //</Link>
+    </Link>
   );
 }
 
