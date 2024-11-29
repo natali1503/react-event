@@ -16,7 +16,7 @@ const FavouriteIconBtn = (props: FavouriteIconButtonProps) => {
         handleToggleFavourite();
       }}
     >
-      {isLoading ? <CircularProgress size={24} /> : favouriteIcon}
+      {isLoading ? <CircularProgress size={22} /> : favouriteIcon}
     </IconButton>
   );
 };
