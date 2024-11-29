@@ -90,7 +90,7 @@ const FundraisingForm: FC<RequestProps> = ({ helpRequest }) => {
             <Box display={'flex'} justifyContent={'space-between'}>
               <Stack>
                 <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Телефон</Typography>
-                <Typography variant="body2">{formatPhoneNumber(contacts.phone)}</Typography>
+                <Typography variant="body2">{ contacts.phone ? formatPhoneNumber(contacts.phone) : '-'}</Typography>
               </Stack>
 
               <Stack>
