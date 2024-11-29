@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 // utils
 import { debouncedFunction } from '../../utils/filterUtils';
 // styles
-import { InputAdornment, Paper, TextField, Typography } from '@mui/material';
+import { Box, InputBase, Paper, Stack, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 type SearchProps = {
@@ -31,26 +31,25 @@ const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
   }, [handleSearch]);
 
   return (
-    <Paper sx={{ backgroundColor: 'white', padding: '0.5rem 32px' }}>
-      <Typography>
-        <h3>Найти запрос</h3>
-      </Typography>
-      <TextField
-        label="Введите название задачи или организации"
-        variant="standard"
-        fullWidth
-        sx={{ mb: 4 }}
-        value={inputValue}
-        onChange={handleInputChange}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-
-      />
+    <Paper sx={{ backgroundColor: 'white', padding: '0 3.6rem' }}>
+      <Stack sx={{ padding: '2rem 0', mb: '1.6rem' }} gap={'2rem'}>
+        <Typography variant='h6' width='fit-content'>
+          Найти запрос
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid gray' }}>
+          <SearchIcon sx={{ position: 'absolute', color: 'gray'}} />
+          <InputBase
+            placeholder="Введите название задачи или организации"
+            value={inputValue}
+            onChange={handleInputChange}
+            sx={{
+              width: '100%',
+              fontSize: '1.6rem',
+              paddingLeft: '2.5rem'
+            }}
+          />
+        </Box>
+      </Stack>
     </Paper>
   );
 };

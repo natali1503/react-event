@@ -21,7 +21,7 @@ export default function HeaderNavigationApp() {
   };
   const [theme] = useMode();
   return (
-    <Box
+    <Box 
       bgcolor={theme.palette.background.default}
       sx={{
         width: '100vw',

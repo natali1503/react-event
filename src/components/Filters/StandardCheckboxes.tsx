@@ -18,10 +18,10 @@ const StandardCheckboxes: FC<StandardCheckboxesProps> = ({ item, index, selected
 
   return (
     <Box key={index}>
-      <Typography variant="subtitle1" sx={{ opacity: '0.6' }}>
+      <Typography variant="subtitle1" sx={{ opacity: '0.6', fontSize: '1.6rem'}}>
         {item.title}
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', ml: '1.2rem' }}>
         {item.options.map(({label, prop}) => (
           <FormControlLabel
             key={prop}
@@ -32,7 +32,11 @@ const StandardCheckboxes: FC<StandardCheckboxesProps> = ({ item, index, selected
               />
             }
             label={label}
-            sx={{ width: 'fit-content', userSelect: 'none' }}
+            sx={{
+              '& .MuiFormControlLabel-label': {
+                fontSize: '1.6rem', 
+              }, width: 'fit-content', userSelect: 'none'
+            }}
           />
         ))}
       </Box>

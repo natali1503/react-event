@@ -24,46 +24,62 @@ const AccordionCheckboxes: React.FC<AccordionCheckboxesProps> = ({ item, index, 
     
   return (
     <Accordion
-      sx={{
-        margin: 0,
-        '&.Mui-expanded': {
-          margin: 0, // Ensure no margin when expanded
-        },
-      }}
       key={index}
       expanded={expanded === item.accordion.accordionTitle}
       onChange={handleExpandAccordion(item.accordion.accordionTitle)}
+      sx={{
+        margin: 0,
+        '&.Mui-expanded': {
+          margin: 0,
+        },
+        '& .MuiAccordion-root': {
+        },
+      }}
     >
       <AccordionSummary
         aria-controls={`${item.accordion.accordionTitle}-content`}
         id={`${item.accordion.accordionTitle}-header`}
+        sx={{
+          '&.Mui-expanded': {
+            minHeight: '4.8rem',
+            height: '4.8rem',
+          }, height: '4.8rem',
+        }}
       >
-        <Typography>{item.accordion.accordionTitle}</Typography>
+        <Typography sx={{ml: '2rem', fontSize: '1.6rem'}}>
+          {item.accordion.accordionTitle}
+        </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{backgroundColor: '#F5F5F5'}}>
         <Box
-          sx={{display: 'flex', flexDirection: 'column', gap: 1, paddingLeft: '1rem' }}
+          sx={{display: 'flex', flexDirection: 'column', gap: 2, pl: '2rem' }}
         >
           {item.accordion.items.map((subItem) => (
             <Box
               key={subItem.title}
               sx={{ display: 'flex', flexDirection: 'column' }}
             >
-              <Typography variant="subtitle1" sx={{ opacity: '0.6' }}>
+              <Typography variant="subtitle1" sx={{ opacity: '0.6', fontSize: '1.6rem'}}>
                 {subItem.title}
               </Typography>
               {subItem.options.map(({label, prop}) => (
-                <FormControlLabel
-                  key={prop}
-                  control={
-                    <Checkbox
-                      checked={selectedOptions.includes(prop)}
-                      onChange={() => handleToggle(prop)}
-                    />
-                  }
-                  label={label}
-                  sx={{ width: 'fit-content', userSelect: 'none' }}
-                />
+                <Box sx={{ml: '1.2rem'}}>
+                  <FormControlLabel
+                    key={prop}
+                    control={
+                      <Checkbox
+                        checked={selectedOptions.includes(prop)}
+                        onChange={() => handleToggle(prop)}
+                      />
+                    }
+                    label={label}
+                    sx={{
+                      '& .MuiFormControlLabel-label': {
+                        fontSize: '1.6rem', 
+                      }, width: 'fit-content', userSelect: 'none'
+                    }}
+                  />
+                </Box>
               ))}
             </Box>
           ))}

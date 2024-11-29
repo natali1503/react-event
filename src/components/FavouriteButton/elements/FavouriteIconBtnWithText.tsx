@@ -16,18 +16,21 @@ const FavouriteIconBtnWithText = (props: FavouriteIconWithTextProps) => {
 
   return (
     <Button
-      variant="outlined"
-      size="small"
+      variant='outlined' 
+      size='small'
       onClick={handleToggleFavourite}
-      startIcon={isLoading ? <CircularProgress size={24} /> : favouriteIcon}
+      startIcon={isLoading ? <CircularProgress size={18} /> : favouriteIcon}
       aria-label={ariaLabel}
       disabled={isLoading}
       sx={{
         minWidth: 'fit-content',
+        height: 'fit-content',
         alignSelf: 'flex-start',
+        fontSize: '1.4rem',
+        fontWeight: '400',
         textTransform: 'none',
-        borderBlockColor: 'rgba(0, 0, 0, 0.2)',
-        color: '#000000',
+        color: '#000',
+        border: '1px solid #000',
       }}
     >
       {buttonText}

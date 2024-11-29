@@ -40,9 +40,9 @@ const FavouriteButton: React.FC<FavouriteButton> = (props) => {
   ) : (
     <StarBorder sx={{ color: iconColor, '&:hover': { color: '#FF7F00' } }} />
   );
-  const action = isFavourite ? 'Удалить' : 'Добавить';
-  const buttonText = `${action} в избранное`;
-  const ariaLabel = `${action} из избранного`;
+  const action = isFavourite ? 'Удалить из избранного' : 'В избранное';
+  const buttonText = `${action}`;
+  const ariaLabel = `${action}`;
 
   return (
     <Box>
