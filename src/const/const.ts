@@ -35,7 +35,7 @@ export const testUsers = [
     password: 'password16',
   },
   {
-    name: 'Второй пользователь',
+    name: 'Третий пользователь',
     login: 'testUser17@test.com',
     password: 'password17',
   },

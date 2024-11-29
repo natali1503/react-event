@@ -68,6 +68,9 @@ export default function HeaderNavigationApp() {
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',
+              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                // marginTop: '3rem',
+              },
             }}
           >
             {isAuthenticated ? <ImageAvatar /> : <LogInButton />}
