@@ -18,10 +18,14 @@ const FavouriteIconBtnWithText = (props: FavouriteIconWithTextProps) => {
     <Button
       variant='outlined' 
       size='small'
-      onClick={handleToggleFavourite}
       startIcon={isLoading ? <CircularProgress size={18} /> : favouriteIcon}
       aria-label={ariaLabel}
       disabled={isLoading}
+      onClick={(event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        handleToggleFavourite();
+      }}
       sx={{
         minWidth: 'fit-content',
         height: 'fit-content',

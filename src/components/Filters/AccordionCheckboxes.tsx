@@ -75,7 +75,7 @@ const AccordionCheckboxes: React.FC<AccordionCheckboxesProps> = ({ item, index, 
                     label={label}
                     sx={{
                       '& .MuiFormControlLabel-label': {
-                        fontSize: '1.6rem', 
+                        fontSize: '1.6rem',
                       }, width: 'fit-content', userSelect: 'none'
                     }}
                   />
