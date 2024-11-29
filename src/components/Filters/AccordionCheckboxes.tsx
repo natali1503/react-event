@@ -62,7 +62,7 @@ const AccordionCheckboxes: React.FC<AccordionCheckboxesProps> = ({ item, index, 
                     />
                   }
                   label={label}
-                  sx={{ userSelect: 'none' }}
+                  sx={{ width: 'fit-content', userSelect: 'none' }}
                 />
               ))}
             </Box>

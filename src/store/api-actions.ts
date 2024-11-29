@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../api';
 import { HelpRequest } from '../types/HelpRequest';
-import { IFavourite } from '../types/IFavourite';
 import { IProfileData } from '../types/IUser';
-import { setFavourites } from './userFavourites';
+import { setFavourites } from './user-favourites/userFavourites';
 import { IError } from '../types/IError';
+import { showSuccessToast } from '../components/Toasts/showToasts';
+import { toast } from 'react-toastify';
 
 const MAX_RETRIES = 5;
 
@@ -84,18 +85,20 @@ export const getFavouritesAction = createAsyncThunk<string[], void, { rejectValu
   }
 );
 
-export const addToFavouritesAction = createAsyncThunk<IFavourite[], string, { rejectValue: string }>(
+export const addToFavouritesAction = createAsyncThunk<string, string, { rejectValue: string | IError }>(
   'favourites/addToFavourites',
   async (favouriteId: string, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.addToFavourites(favouriteId); 
 
-      if (!response) {
-        throw new Error('Failed to add to favourites');
+      if ((response as IError).message && (response as IError).codeError) {
+        toast.error('Ошибка! Попробуйте еще раз')
+        return rejectWithValue(response);
       }
 
       dispatch(getFavouritesAction());
-      return response;
+      showSuccessToast('Успех! Добавлено в избранное');
+      return favouriteId;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -105,18 +108,23 @@ export const addToFavouritesAction = createAsyncThunk<IFavourite[], string, { re
   }
 );
 
-export const removeFromFavouritesAction = createAsyncThunk(
+export const removeFromFavouritesAction = createAsyncThunk <string, string, { rejectValue: string | IError }>(
   'favourites/remove',
   async (favouriteId: string, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.removeFromFavourites(favouriteId);
 
-      if (response === null) {
-        dispatch(getFavouritesAction());
-        return 'Item successfully removed from favourites';
+      if (!response) {
+        return rejectWithValue('Failed to remove from favourites: No response returned');
       }
 
-      return rejectWithValue(response);
+      if ((response as IError).message && (response as IError).codeError) {
+        toast.error('Ошибка! Попробуйте еще раз')
+        return rejectWithValue(response);
+      }
+
+      dispatch(getFavouritesAction());
+      return favouriteId;
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

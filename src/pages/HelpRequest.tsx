@@ -28,7 +28,7 @@ const HelpRequest: React.FC = () => {
   }
 
   return (
-    <Paper sx={{ padding: '30px 40px', background: '#F5F5F5' }}>
+    <Paper sx={{ padding: '30px 40px', background: '#F5F5F5', width: '100%' }}>
       {(!id || !request) ? (
         <Box>
           <ErrorComponent />

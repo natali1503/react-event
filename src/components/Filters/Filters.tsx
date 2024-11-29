@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // components
 import StandardCheckboxes from './StandardCheckboxes';
 import AccordionCheckboxes from './AccordionCheckboxes';
@@ -8,14 +8,9 @@ import { filterOptions } from '../../const/filterOptions';
 // types
 import { FilterProps } from '../../types/IFilterOption';
 // styles
-import {
-  Box,
-  Button,
-  Paper,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 
-const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
+const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Toggle checkbox filter
@@ -34,12 +29,16 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
     if (date) {
       // Set selected options to only include the new date
       setSelectedOptions((prev) => {
-        const filteredOptions = prev.filter((option) => !option.match(/^\d{4}-\d{2}-\d{2}$/));
+        const filteredOptions = prev.filter(
+          (option) => !option.match(/^\d{4}-\d{2}-\d{2}$/)
+        );
         return [...filteredOptions, date]; // Keep only the formatted date
       });
     } else {
       setSelectedDate(null);
-      setSelectedOptions((prev) => prev.filter((option) => !option.match(/^\d{4}-\d{2}-\d{2}$/)));
+      setSelectedOptions((prev) =>
+        prev.filter((option) => !option.match(/^\d{4}-\d{2}-\d{2}$/))
+      );
     }
   };
 
@@ -49,13 +48,19 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
   };
 
   useEffect(() => {
-    if (typeof(selectedDate) === 'string' || selectedDate === null) {
-      handleDateChange(selectedDate)
+    if (typeof selectedDate === 'string' || selectedDate === null) {
+      handleDateChange(selectedDate);
     }
-  }, [selectedDate])
+  }, [selectedDate]);
 
   return (
-    <Paper sx={{ backgroundColor: 'white', padding: '0.5rem 1.5rem', width: '316px', height: 'fit-content'}}>
+    <Paper
+      sx={{
+        backgroundColor: 'white',
+        padding: '0.8rem 2.4rem',
+        height: 'fit-content',
+      }}
+    >
       <Typography>
         <h3>Фильтрация</h3>
       </Typography>
@@ -67,11 +72,11 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
             return (
               <StandardCheckboxes
                 item={item}
-                index={index} 
+                index={index}
                 selectedOptions={selectedOptions}
                 handleToggle={handleToggle}
-              /> 
-            )
+              />
+            );
           } else if (item.type === 'accordionList') {
             // Render options inside accordion
             return (
@@ -81,16 +86,16 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
                 selectedOptions={selectedOptions}
                 handleToggle={handleToggle}
               />
-            )
+            );
           }
           return null;
         })}
       </Box>
 
-      <Box>
+      <Box sx={{ marginTop: '1rem' }}>
         <Typography
           variant="subtitle1"
-          sx={{ opacity: '0.6', marginTop: '1rem' }}
+          sx={{ opacity: '0.6' }}
         >
           Помощь актуальна до:
         </Typography>
@@ -115,7 +120,7 @@ const Filters: FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
           СБРОСИТЬ
         </Button>
       </Box>
-      
+
       {/* todo: Delete h3 and replace with smth better */}
       <h3></h3>
     </Paper>

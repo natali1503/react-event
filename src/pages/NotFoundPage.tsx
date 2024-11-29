@@ -1,24 +1,20 @@
-import React from 'react'
-import NoFoundData from '../components/NotFoundPage/NoFoundData'
+import { Typography, Box } from '@mui/material';
+import { ReactSVG } from 'react-svg';
 
 const NotFoundPage = () => {
-
-  const styles = {
-    container: {
-      height: '550px',
-      width: '750px',
-      border: '1px solid #ccc', // Добавим границу для наглядности
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: '0 auto', // Центрируем по горизонтали
-    },
-  };
-
-  return <div style={styles.container}
-  >NotFoundPage
-    <NoFoundData/>
-  </div>
-}
+  return (
+    <Box
+      display={'flex'}
+      justifyContent={'center'}
+      flexDirection={'column'}
+      alignItems={'center'}
+      gap={'20px'}
+      width={'100%'}
+    >
+      <ReactSVG src="/img/notFoundResult.svg" />
+      <Typography variant="h5">Страница не найдена</Typography>
+    </Box>
+  );
+};
 
 export default NotFoundPage;

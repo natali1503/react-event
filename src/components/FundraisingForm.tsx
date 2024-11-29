@@ -1,14 +1,12 @@
-import { Box, Button, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { HelpRequest } from '../types/HelpRequest';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { formatDate, formatPhoneNumber, formatString } from '../helper-functions/helper-functions';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
-import { Star } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../store/types';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../store/api-actions';
+import { useSelector } from 'react-redux';
+import FavouriteButton from './FavouriteButton/FavouriteButton';
+import { getFavouriteRequestsIDs } from '../store/user-favourites/favourites-selectors';
 
 type RequestProps = {
   helpRequest: HelpRequest;
@@ -17,21 +15,9 @@ type RequestProps = {
 const FundraisingForm: FC<RequestProps> = ({ helpRequest }) => {
 
   const { title, organization, description, goalDescription, actionsSchedule, endingDate, location, contacts } = helpRequest;
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleAddToFavourites = async (favouriteId: string) => {
-    await dispatch(addToFavouritesAction(favouriteId));
-    dispatch(getFavouritesAction());
-  };
-
-  const handleRemoveFavourite = async (favouriteId: string) => {
-    await dispatch(removeFromFavouritesAction(favouriteId));
-    dispatch(getFavouritesAction());
-  };
+  const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   
-  const userFavourites = useSelector((state: RootState) => state.favourites);
-  const isFavourite = userFavourites.favouriteRequests.includes(helpRequest.id);
-
   return (
     <Paper sx={{padding: '1.5rem', display: 'flex', justifyContent: 'space-between' }}>
       <Box sx={{maxWidth: '550px'}} display={'flex'} flexDirection={'column'} gap={'30px'}>
@@ -70,7 +56,7 @@ const FundraisingForm: FC<RequestProps> = ({ helpRequest }) => {
                       <CheckCircleOutlineIcon fontSize='medium'
                         sx={{ color: action.isDone ? 'success.light' : 'action.disabled' }}
                         />
-                      <Typography variant="body2">
+                      <Typography variant="body2" lineHeight={'100%'}>
                         {action.stepLabel}
                       </Typography>
                     </Box>
@@ -122,15 +108,13 @@ const FundraisingForm: FC<RequestProps> = ({ helpRequest }) => {
        </Stack>
       </Box>
 
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={() => (isFavourite ? handleRemoveFavourite(helpRequest.id) : handleAddToFavourites(helpRequest.id))}
-        startIcon={isFavourite? <Star /> : <StarBorderIcon />}
-        sx={{ minWidth: 'fit-content', alignSelf: 'flex-start', textTransform: 'none', borderBlockColor: 'rgba(0, 0, 0, 0.2)', color: '#000000'}}
-      >
-        {isFavourite ? 'Удалить избранное' : 'В избранное'}
-      </Button>
+      <FavouriteButton
+        format={'horizontal'}
+        helpRequest = {helpRequest}
+        favouriteRequestsIDs = {userFavouritesIDs}
+        isLoading = {isLoading}
+        setIsLoading = {setIsLoading}
+      />
     </Paper>
   )
 };

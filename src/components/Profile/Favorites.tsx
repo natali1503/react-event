@@ -9,7 +9,7 @@ import {
   setHelpRequest,
   setFavouriteHelp,
   setIsLoading,
-} from '../../store/userFavourites';
+} from '../../store/user-favourites/userFavourites';
 import { matchFavourites } from '../../features/matchFavourites';
 import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
@@ -56,7 +56,7 @@ export default function Favorites() {
   const notFoundResult =
     userFavourites.isData && userFavourites.favouriteRequests.length === 0;
   return (
-    <Box>
+    <Box marginTop={'20px'}>
       {helpRequestDataError && <ErrorComponent />}
       {notFoundResult && <NotFoundResult />}
       {userFavourites.isLoading && (

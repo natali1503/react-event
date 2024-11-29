@@ -1,7 +1,7 @@
 import { Action, combineReducers, Middleware } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
 import authorizationReducer, { logOut } from './authorization';
-import userFavouritesReducer from './userFavourites';
+import userFavouritesReducer from './user-favourites/userFavourites';
 import profileReducer from './profileStore';
 import { helpRequestData } from './help-requests/help-requests-data';
 

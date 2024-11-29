@@ -32,7 +32,7 @@ const StandardCheckboxes: FC<StandardCheckboxesProps> = ({ item, index, selected
               />
             }
             label={label}
-            sx={{ userSelect: 'none' }}
+            sx={{ width: 'fit-content', userSelect: 'none' }}
           />
         ))}
       </Box>
