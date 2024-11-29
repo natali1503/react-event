@@ -67,7 +67,6 @@ const Helps: React.FC = () => {
           <Grid2 container size={'grow'} flexDirection={'column'} gap={2}>
             <SearchPanel searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
             <Paper sx={{ backgroundColor: 'white', padding: '2rem' }}>
-
               {isHelpRequestsError ? <ErrorComponent />  : renderHelpRequestsComponent()}
             </Paper>
           </Grid2>
