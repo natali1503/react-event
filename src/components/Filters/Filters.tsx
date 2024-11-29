@@ -32,7 +32,8 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
         const filteredOptions = prev.filter(
           (option) => !option.match(/^\d{4}-\d{2}-\d{2}$/)
         );
-        return [...filteredOptions, date]; // Keep only the formatted date
+        // Keep only the formatted date
+        return [...filteredOptions, date]; 
       });
     } else {
       setSelectedDate(null);
@@ -54,75 +55,69 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
   }, [selectedDate]);
 
   return (
-    <Paper
-      sx={{
-        backgroundColor: 'white',
-        padding: '0.8rem 2.4rem',
-        height: 'fit-content',
-      }}
-    >
-      <Typography>
-        <h3>Фильтрация</h3>
-      </Typography>
-
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        {filterOptions.map((item, index) => {
-          if (item.type === 'checkList') {
-            // render standard options
-            return (
-              <StandardCheckboxes
-                item={item}
-                index={index}
-                selectedOptions={selectedOptions}
-                handleToggle={handleToggle}
-              />
-            );
-          } else if (item.type === 'accordionList') {
-            // Render options inside accordion
-            return (
-              <AccordionCheckboxes
-                item={item}
-                index={index}
-                selectedOptions={selectedOptions}
-                handleToggle={handleToggle}
-              />
-            );
-          }
-          return null;
-        })}
-      </Box>
-
-      <Box sx={{ marginTop: '1rem' }}>
-        <Typography
-          variant="subtitle1"
-          sx={{ opacity: '0.6' }}
-        >
-          Помощь актуальна до:
+    <Paper sx={{ backgroundColor: 'white', padding: '0 2rem', height: 'fit-content'}}>
+      <Box sx={{ padding: '2rem 0' }}>
+        <Typography variant='h6' width='fit-content'>
+          Фильтрация
         </Typography>
-        <Calendar
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
-      </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: '2rem'}}>
+          {filterOptions.map((item, index) => {
+            if (item.type === 'checkList') {
+              // render standard options
+              return (
+                <StandardCheckboxes
+                  item={item}
+                  index={index}
+                  selectedOptions={selectedOptions}
+                  handleToggle={handleToggle}
+                />
+              );
+            } else if (item.type === 'accordionList') {
+              // render options inside accordion
+              return (
+                <AccordionCheckboxes
+                  item={item}
+                  index={index}
+                  selectedOptions={selectedOptions}
+                  handleToggle={handleToggle}
+                />
+              );
+            }
+            return null;
+          })}
+        </Box>
 
-      <Box sx={{ marginTop: '2rem' }}>
-        <Button
-          disabled={selectedOptions.length === 0}
-          onClick={() => handleReset()}
-          variant="outlined"
-          sx={{
-            width: '100%',
-            color: 'black',
-            borderColor: 'black',
-            padding: 1,
-          }}
-        >
-          СБРОСИТЬ
-        </Button>
-      </Box>
+        <Box sx={{ marginTop: '2rem' }}>
+          <Typography
+            variant="subtitle1"
+            sx={{ opacity: '0.6' }}
+          >
+            Помощь актуальна до:
+          </Typography>
+          <Box sx={{ marginTop: '1rem' }}>
+            <Calendar
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+            />
+          </Box>
+        </Box>
 
-      {/* todo: Delete h3 and replace with smth better */}
-      <h3></h3>
+        <Box sx={{ marginTop: '4rem' }}>
+          <Button
+            disabled={selectedOptions.length === 0}
+            onClick={() => handleReset()}
+            variant="outlined"
+            sx={{
+              width: '100%',
+              color: 'black',
+              borderColor: 'black',
+              padding: 1,
+            }}
+          >
+            СБРОСИТЬ
+          </Button>
+        </Box>
+      </Box>
     </Paper>
   );
 };
