@@ -1,9 +1,11 @@
 import { Box } from '@mui/material';
 import { ReactSVG } from 'react-svg';
+import { useBreakpointOverlap } from '../../hooks/useBreakpointOverlap';
 
 export function Logo() {
+  const { breakpointOverlap } = useBreakpointOverlap();
   return (
-    <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} flexGrow={'1'}>
       <ReactSVG
         src="/img/LeftSide.svg"
         beforeInjection={(svg) => {
@@ -11,7 +13,7 @@ export function Logo() {
           svg.removeAttribute('height');
         }}
         style={{
-          width: 'calc(31.3rem + 0.11*(100vw - 192rem))',
+          width: `${breakpointOverlap ? 'calc(12rem ' : 'calc(31.3rem + 0.11*(100vw - 192rem))'}`,
         }}
       />
     </Box>
