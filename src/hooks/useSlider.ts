@@ -33,5 +33,16 @@ export function useSlider() {
       childElement.style.scale = Number(child.id[lastChar]) === currentDiv ? '1' : '0.8';
     }
   });
-  return { offset, currentDiv, arrow, setOffset, setCurrentDiv, setArrow };
+  function onHandleClickSlider(arrow: 'previous' | 'next', step: number = 1) {
+    if (arrow === 'next') {
+      setOffset((value: number) => value + step * 280);
+      setCurrentDiv((curr) => curr + step * 1);
+      setArrow(() => 'next');
+    } else {
+      setOffset((value) => value - step * 280);
+      setCurrentDiv((curr) => curr - step * 1);
+      setArrow(() => 'prev');
+    }
+  }
+  return { offset, currentDiv, arrow, setOffset, setCurrentDiv, setArrow, onHandleClickSlider };
 }

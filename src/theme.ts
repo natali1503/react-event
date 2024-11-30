@@ -12,6 +12,7 @@ export const themeSettings = (): object => {
   };
   return {
     palette: {
+      primary: { main: '#1E88E5' },
       secondary: { main: '#f5f6f5' },
       background: {
         default: '#f5f6f5',
