@@ -16,7 +16,7 @@ export default function HeaderNavigationApp() {
   const navigate = useNavigate();
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
 
-  const handleClickRequest = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClickRequest = () => {
     navigate(AppRoute.Main, { replace: true });
   };
   const [theme] = useMode();
@@ -40,6 +40,9 @@ export default function HeaderNavigationApp() {
             alignItems: 'center',
             paddingLeft: 'none',
             paddingRight: 'none',
+            [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+              padding: '0 0.5rem',
+            },
           }}
         >
           <Logo />
@@ -67,6 +70,7 @@ export default function HeaderNavigationApp() {
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
+              flexGrow: 1,
               alignItems: 'center',
               [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
                 // marginTop: '3rem',
