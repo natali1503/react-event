@@ -5,6 +5,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { Box } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { ruRU } from '@mui/x-date-pickers/locales';
 
 type CalendarProps = {
   selectedDate: string | null;
@@ -18,10 +19,10 @@ const Calendar: FC<CalendarProps> = ({selectedDate, setSelectedDate}) => {
     if (date) {
       const formattedDate = dayjs(date).format('YYYY-MM-DD')
       if (formattedDate != 'Invalid Date') {
-        setSelectedDate(formattedDate); // Format the date
+        setSelectedDate(formattedDate);
       }
     } else {
-      setSelectedDate(null); // Reset the selected date if cleared
+      setSelectedDate(null);
     }
   };
 
@@ -35,21 +36,47 @@ const Calendar: FC<CalendarProps> = ({selectedDate, setSelectedDate}) => {
     }
     return () => {};
   }, [cleared]);
-  
+
   return (
-    <LocalizationProvider adapterLocale="ru" dateAdapter={AdapterDayjs}>
+    <LocalizationProvider 
+      localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
+      dateAdapter={AdapterDayjs}
+    >
       <Box sx={{
         width: '100%',
-        margin: '10px 0',
+        padding: '0',
       }}>
         <DatePicker
-          sx={{ width: '100%'}}
-          value={selectedDate ? dayjs(selectedDate) : null} // Controlled date picker
+          value={selectedDate ? dayjs(selectedDate) : null}
           onChange={handleDateChange}
           yearsOrder="desc"
+          label="Выберете дату"
           format="DD - MM - YYYY"
           slotProps={{
-            field: { clearable: true, onClear: () => setCleared(true) },
+            field: { 
+              clearable: true, 
+              onClear: () => setCleared(true), 
+              sx: {
+                width: '100%',
+                '& .MuiInputBase-input': {
+                  height: '2rem'
+                },
+                '& .MuiInputLabel-root': {
+                  fontSize: '1.6rem',
+                }
+              }
+            },
+            popper: {
+              sx: {
+                '& .MuiTypography-root': {
+                  fontSize: '1.6rem',
+                  fontWeight: '500'
+                },
+                '& .MuiPickersDay-root': {
+                  fontSize: '1.4rem',
+                }
+              },
+            },
           }}
         />
       </Box>

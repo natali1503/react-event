@@ -8,11 +8,15 @@ const FavouriteIconBtn = (props: FavouriteIconButtonProps) => {
 
   return (
     <IconButton
-      onClick={handleToggleFavourite}
       aria-label={ariaLabel}
       disabled={isLoading}
+      onClick={(event) => {
+        event.stopPropagation();
+        event.preventDefault();
+        handleToggleFavourite();
+      }}
     >
-      {isLoading ? <CircularProgress size={24} /> : favouriteIcon}
+      {isLoading ? <CircularProgress size={22} /> : favouriteIcon}
     </IconButton>
   );
 };
