@@ -1,10 +1,7 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Link from '@mui/material/Link';
+import { AppBar, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const/const';
 
+import { AppRoute } from '../../const/const';
 import LogInButton from './LogInButton';
 import ImageAvatar from './Avatar';
 
@@ -31,7 +28,7 @@ export default function HeaderNavigationApp() {
       }}
     >
       <AppBar position="static" color="inherit" sx={{ zIndex: '1' }}>
-        <Toolbar
+        <Box
           sx={{
             width: '100%',
             height: '64px',
@@ -40,8 +37,14 @@ export default function HeaderNavigationApp() {
             alignItems: 'center',
             paddingLeft: 'none',
             paddingRight: 'none',
+            [`@media (max-width:${theme.breakpoints.values.lg}px)`]: {
+              padding: '0 7rem',
+            },
+            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+              padding: '0 2rem',
+            },
             [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-              padding: '0 0.5rem',
+              padding: '0 0',
             },
           }}
         >
@@ -72,14 +75,12 @@ export default function HeaderNavigationApp() {
               justifyContent: 'flex-end',
               flexGrow: 1,
               alignItems: 'center',
-              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-                // marginTop: '3rem',
-              },
+              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {},
             }}
           >
             {isAuthenticated ? <ImageAvatar /> : <LogInButton />}
           </Box>
-        </Toolbar>
+        </Box>
       </AppBar>
     </Box>
   );
