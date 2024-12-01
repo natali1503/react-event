@@ -9,7 +9,7 @@ export default function BottomNavigationApp() {
       flexDirection={'row'}
       justifyContent={'space-between'}
       bgcolor={theme.palette.background.paper}
-      padding={'calc(6.4rem + 0.033 * (100vw - 192rem)) 0'}
+      padding={'0 calc(8.1rem + 0.109375 * (100vw - 192rem))'}
       borderTop={`1px solid ${theme.palette.grey[300]}`}
       height={'15rem'}
       alignItems={'center'}

@@ -18,7 +18,7 @@ export default function HeaderNavigationApp() {
   };
   const [theme] = useMode();
   return (
-    <Box 
+    <Box
       bgcolor={theme.palette.background.default}
       sx={{
         width: '100vw',
@@ -31,6 +31,7 @@ export default function HeaderNavigationApp() {
         <Box
           sx={{
             width: '100%',
+            padding: '0 calc(8.1rem + 0.109375 * (100vw - 192rem))',
             height: '64px',
             display: 'flex',
             justifyContent: 'space-between',
