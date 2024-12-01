@@ -1,22 +1,34 @@
-import { Stack } from '@mui/material';
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
+import { Box, Link } from '@mui/material';
 import { useMode } from '../../theme';
 
 export default function BottomNavigationApp() {
   const [theme] = useMode();
   return (
     <Box
+      display={'flex'}
+      flexDirection={'row'}
+      justifyContent={'space-between'}
       bgcolor={theme.palette.background.paper}
       padding={'calc(6.4rem + 0.033 * (100vw - 192rem)) 0'}
       borderTop={`1px solid ${theme.palette.grey[300]}`}
+      height={'15rem'}
+      alignItems={'center'}
       sx={{
         width: '100vw',
         marginTop: 'auto',
         zIndex: '1',
+        [`@media (max-width:${theme.breakpoints.values.lg}px)`]: {
+          padding: '0 7rem',
+        },
+        [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+          padding: '0 2rem',
+        },
+        [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+          padding: '0 0',
+        },
       }}
     >
-      <Stack direction={'row'} justifyContent={'space-around'}>
+      <Box display={'flex'} justifyContent={'flex-start'}>
         <Link
           href="/"
           fontSize={'16px'}
@@ -29,6 +41,8 @@ export default function BottomNavigationApp() {
         >
           Об ивенте
         </Link>
+      </Box>
+      <Box display={'flex'}>
         <Link
           href="https://github.com/heyhurricane/react-event"
           underline="hover"
@@ -40,6 +54,8 @@ export default function BottomNavigationApp() {
         >
           Github проекта
         </Link>
+      </Box>
+      <Box display={'flex'} justifyContent={'flex-end'}>
         <Link
           href="https://t.me/natti_jun_front"
           target="_blank"
@@ -52,7 +68,7 @@ export default function BottomNavigationApp() {
         >
           Чат для джунов
         </Link>
-      </Stack>
+      </Box>
     </Box>
   );
 }
