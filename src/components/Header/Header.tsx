@@ -74,9 +74,11 @@ export default function HeaderNavigationApp() {
             sx={{
               display: 'flex',
               justifyContent: 'flex-end',
-              flexGrow: 1,
               alignItems: 'center',
-              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {},
+              width: 'calc(31.3rem + 0.11*(100vw - 192rem))',
+              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                width: 'calc(12rem) ',
+              },
             }}
           >
             {isAuthenticated ? <ImageAvatar /> : <LogInButton />}

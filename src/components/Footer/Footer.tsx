@@ -28,7 +28,16 @@ export default function BottomNavigationApp() {
         },
       }}
     >
-      <Box display={'flex'} justifyContent={'flex-start'}>
+      <Box
+        display={'flex'}
+        width={'12rem'}
+        justifyContent={'flex-start'}
+        sx={{
+          ['@media (max-width:550px)']: {
+            width: '10rem',
+          },
+        }}
+      >
         <Link
           href="/"
           fontSize={'16px'}
