@@ -18,6 +18,7 @@ export function TestingProfilesIteam({ user }) {
         borderWidth: 1,
         borderRadius: 2,
         marginBottom: 2,
+        cursor: 'pointer',
       }}
     >
       <CardContent>

@@ -65,6 +65,7 @@ export default function HeaderNavigationApp() {
                 fontSize: '16px',
                 lineHeight: '150%',
                 letterSpacing: '0.15px',
+                cursor: 'pointer',
               }}
             >
               Запросы о помощи
