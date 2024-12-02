@@ -23,7 +23,6 @@ export const userFavouritesSlice = createSlice({
     },
     setFavouriteHelp(state, action: PayloadAction<HelpRequest[]>) {
       state.favouriteHelp = action.payload;
-      console.log(state.favouriteHelp);
       state.isLoading = false;
       state.isData = true;
     },
@@ -33,7 +32,7 @@ export const userFavouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    // Handle the "getFavouritesAction" states
+      // Handle the "getFavouritesAction" states
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -51,7 +50,7 @@ export const userFavouritesSlice = createSlice({
       });
 
     builder
-    // Handle the "addToFavouritesAction" states
+      // Handle the "addToFavouritesAction" states
       .addCase(addToFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -61,18 +60,16 @@ export const userFavouritesSlice = createSlice({
         state.isLoading = false;
         state.isData = true;
         const idToAdd = action.payload;
-        state.favouriteRequests = [
-          ...new Set([...state.favouriteRequests, ...idToAdd]),
-        ];
+        state.favouriteRequests = [...new Set([...state.favouriteRequests, ...idToAdd])];
       })
       .addCase(addToFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = action.payload as string || 'Failed to add to favourites';
-    });
+        state.error = (action.payload as string) || 'Failed to add to favourites';
+      });
 
     builder
-    // Handle the "removeFromFavouritesAction" states
+      // Handle the "removeFromFavouritesAction" states
       .addCase(removeFromFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.error = '';
@@ -82,7 +79,7 @@ export const userFavouritesSlice = createSlice({
         state.isLoading = false;
         state.isData = true;
         const idToDelete = action.payload;
-        state.favouriteRequests = state.favouriteRequests.filter(id => id !== idToDelete);
+        state.favouriteRequests = state.favouriteRequests.filter((id) => id !== idToDelete);
       })
       .addCase(removeFromFavouritesAction.rejected, (state, action) => {
         state.isLoading = false;
