@@ -3,8 +3,6 @@ import React from 'react';
 import Filters from '../../components/Filters/Filters';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRequestsComponent';
-import { NotFoundResult } from '../../components/NotFoundResult';
-import { ErrorComponent } from '../../components/Error';
 // styles
 import { useMode } from '../../theme';
 import { Box, Typography, Grid2, CircularProgress, Paper } from '@mui/material';
@@ -28,7 +26,7 @@ const Helps: React.FC = () => {
   const [theme] = useMode();
 
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
-  const isNoDataToDisplay = hasHelpRequests && filteredData.length === 0;
+  const noSearchResult = hasHelpRequests && filteredData.length === 0;
 
   const renderHelpRequestsComponent = () => {
     if (isHelpRequestsLoading) {
@@ -39,15 +37,13 @@ const Helps: React.FC = () => {
       );
     }
 
-    if (isNoDataToDisplay) {
-      return <NotFoundResult />
-    }
- 
     return (
       <HelpRequestsComponent
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         helpRequests={dataToDisplay}
+        isHelpRequestsError={isHelpRequestsError}
+        noSearchResult={noSearchResult}
       />
     );
   };
@@ -66,8 +62,8 @@ const Helps: React.FC = () => {
           <Filters selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />
           <Grid2 container size={'grow'} flexDirection={'column'} gap={2}>
             <SearchPanel searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <Paper sx={{ backgroundColor: 'white', padding: '2rem' }}>
-              {isHelpRequestsError ? <ErrorComponent />  : renderHelpRequestsComponent()}
+            <Paper sx={{padding: '2rem 3rem'}}>
+              {renderHelpRequestsComponent()}
             </Paper>
           </Grid2>
         </Grid2>
