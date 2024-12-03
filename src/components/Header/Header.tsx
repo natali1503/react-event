@@ -24,7 +24,6 @@ export default function HeaderNavigationApp() {
     <Box 
       bgcolor={theme.palette.background.default}
       sx={{
-        width: '100vw',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',

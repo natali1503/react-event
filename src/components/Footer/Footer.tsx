@@ -11,7 +11,6 @@ export default function BottomNavigationApp() {
       padding={'calc(6.4rem + 0.033 * (100vw - 192rem)) 0'}
       borderTop={`1px solid ${theme.palette.grey[300]}`}
       sx={{
-        width: '100vw',
         marginTop: 'auto',
         zIndex: '1',
       }}
