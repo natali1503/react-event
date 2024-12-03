@@ -55,7 +55,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
   }, [selectedDate]);
 
   return (
-    <Paper sx={{ backgroundColor: 'white', padding: '0 2rem', height: 'fit-content'}}>
+    <Paper sx={{ backgroundColor: 'white', padding: '0 2rem', height: 'fit-content', width: '320px'}}>
       <Box sx={{ padding: '2rem 0' }}>
         <Typography variant='h6' width='fit-content'>
           Фильтрация

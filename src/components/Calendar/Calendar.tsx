@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 // logic
 import dayjs, { Dayjs } from 'dayjs';
+import 'dayjs/locale/ru';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import { AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
+import { ruRU } from '@mui/x-date-pickers/locales';
+
 // styles
 import { Box } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { ruRU } from '@mui/x-date-pickers/locales';
 
 type CalendarProps = {
   selectedDate: string | null;
@@ -37,10 +40,14 @@ const Calendar: FC<CalendarProps> = ({selectedDate, setSelectedDate}) => {
     return () => {};
   }, [cleared]);
 
+  dayjs.extend(updateLocale);
+  dayjs.locale('ru');
+
   return (
     <LocalizationProvider 
       localeText={ruRU.components.MuiLocalizationProvider.defaultProps.localeText}
       dateAdapter={AdapterDayjs}
+      adapterLocale='ru'
     >
       <Box sx={{
         width: '100%',
