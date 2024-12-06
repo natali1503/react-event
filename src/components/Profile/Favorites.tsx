@@ -5,11 +5,7 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/types';
 import { ErrorComponent } from '../Error';
 import { useDispatch } from 'react-redux';
-import {
-  setHelpRequest,
-  setFavouriteHelp,
-  setIsLoading,
-} from '../../store/user-favourites/userFavourites';
+import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
 import { matchFavourites } from '../../features/matchFavourites';
 import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
@@ -43,23 +39,19 @@ export default function Favorites() {
   useEffect(() => {
     if (userFavourites.helpRequest.length === 0) return;
 
-    const favouriteHelp = matchFavourites(
-      userFavourites.helpRequest,
-      userFavourites.favouriteRequests
-    );
+    const favouriteHelp = matchFavourites(userFavourites.helpRequest, userFavourites.favouriteRequests);
     dispatch(setFavouriteHelp(favouriteHelp));
   }, [userFavourites.helpRequest, userFavourites.favouriteRequests]);
 
   useEffect(() => {
     if (helpRequestDataError) dispatch(setIsLoading());
   }, [helpRequestDataError]);
-  const notFoundResult =
-    userFavourites.isData && userFavourites.favouriteRequests.length === 0;
+  const notFoundResult = userFavourites.isData && userFavourites.favouriteRequests.length === 0;
   return (
     <Box marginTop={'20px'}>
       {helpRequestDataError && <ErrorComponent />}
       {notFoundResult && <NotFoundResult />}
-      {userFavourites.isLoading && (
+      {userFavourites.isLoading && userFavourites.favouriteHelp.length === 0 && (
         <Skeleton width={'100px'} height={'100px'} />
       )}
       {userFavourites.favouriteHelp.length > 0 && (
