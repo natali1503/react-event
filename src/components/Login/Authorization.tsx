@@ -15,17 +15,14 @@ import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { loginUser } from '../../store/authorization';
+import { setPassword, setLogin } from '../../store/formAuthorization';
 
 export function Authorization() {
   const errorMessage = useAppSelector((store) => store.auth.errorMessage);
+  const { login, password, emailError, passwordError } = useAppSelector((store) => store.formAuthorization);
+
   const [theme] = useMode();
   const dispatch = useAppDispatch();
-
-  const [login, setLogin] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -40,25 +37,12 @@ export function Authorization() {
 
   const handleInputPasswordChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const passwordValue = e.target.value;
-    setPassword(passwordValue);
-
-    if (passwordValue.length < 5) {
-      setPasswordError('Пароль не менее 5 символов');
-    } else {
-      setPasswordError(null);
-    }
+    dispatch(setPassword(passwordValue));
   };
 
   const handleInputLoginChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const email = e.target.value;
-    setLogin(email);
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && !emailRegex.test(email)) {
-      setEmailError('Введите корректный email-адрес');
-    } else {
-      setEmailError(null);
-    }
+    dispatch(setLogin(email));
   };
 
   const handleSubmit = () => {
@@ -66,6 +50,7 @@ export function Authorization() {
       dispatch(loginUser({ login, password }));
     }
   };
+
   return (
     <Box
       display={'flex'}

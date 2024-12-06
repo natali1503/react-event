@@ -5,7 +5,7 @@ import { useBreakpointOverlap } from '../../hooks/useBreakpointOverlap';
 export function Logo() {
   const { breakpointOverlap } = useBreakpointOverlap();
   return (
-    <Box display={'flex'} justifyContent={'center'} alignItems={'center'} flexGrow={'1'}>
+    <Box display={'flex'} justifyContent={'flex-start'} alignItems={'center'}>
       <ReactSVG
         src="/img/LeftSide.svg"
         beforeInjection={(svg) => {

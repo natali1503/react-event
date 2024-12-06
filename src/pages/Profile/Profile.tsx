@@ -1,4 +1,4 @@
-import { Box, Skeleton, Stack, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import PagesProfile from '../../components/Profile/PagesProfile';
 import Contacts from '../../components/Profile/Contacts';
 import Favorites from '../../components/Profile/Favorites';
 import { useMode } from '../../theme';
+import { TabsProfile } from '../../components/Profile/element/TabsProfile';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
@@ -26,17 +27,8 @@ export default function Profile() {
     dispatch(getUser());
   }, []);
 
-  function handleChange(e: React.SyntheticEvent, numberTab: number) {
-    setNumberTab(numberTab);
-  }
-
   return (
-    <Box
-      display="flex"
-      flexDirection={'column'}
-      alignItems={'center'}
-      width={'100%'}
-    >
+    <Box display="flex" flexDirection={'column'} alignItems={'center'} width={'100%'}>
       <Box
         height={'100%'}
         width={'100%'}
@@ -73,9 +65,7 @@ export default function Profile() {
         {profile.isData && (
           <Box
             display="flex"
-            margin={
-              'calc(2rem - 0.01*(100vw - 192rem)) calc(2rem - 0.02*(100vw - 192rem))'
-            }
+            margin={'calc(2rem - 0.01*(100vw - 192rem)) calc(2rem - 0.02*(100vw - 192rem))'}
             flexDirection={'row'}
             gap={'2rem'}
             sx={{
@@ -101,63 +91,9 @@ export default function Profile() {
               borderRadius={'4px'}
               border={`1px solid ${theme.palette.grey[300]}`}
               width={'100%'}
+              minHeight={'80vh'}
             >
-              <Box
-                sx={{
-                  padding: '10px 0 0 0',
-                }}
-              >
-                <Tabs
-                  value={numberTab}
-                  onChange={handleChange}
-                  sx={{
-                    minHeight: 0,
-                  }}
-                >
-                  <Tab
-                    label="Личные данные"
-                    {...a11yProps(0)}
-                    sx={{
-                      paddingTop: '0px',
-                      minHeight: 0,
-                      borderBottom: 1,
-                      borderColor: 'divider',
-                      fontSize: '1.4rem',
-                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                        fontSize: '1.2rem',
-                      },
-                    }}
-                  />
-                  <Tab
-                    label="Контакты"
-                    {...a11yProps(1)}
-                    sx={{
-                      paddingTop: '0px',
-                      minHeight: 0,
-                      borderBottom: 1,
-                      borderColor: 'divider',
-                      fontSize: '1.4rem',
-                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                        fontSize: '1.2rem',
-                      },
-                    }}
-                  />
-                  <Tab
-                    label="Избранное"
-                    {...a11yProps(2)}
-                    sx={{
-                      paddingTop: '0px',
-                      minHeight: 0,
-                      borderBottom: 1,
-                      borderColor: 'divider',
-                      fontSize: '1.4rem',
-                      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                        fontSize: '1.2rem',
-                      },
-                    }}
-                  />
-                </Tabs>
-              </Box>
+              <TabsProfile value={numberTab} setValue={setNumberTab} />
               <PagesProfile value={numberTab} index={0}>
                 <PersonalData />
               </PagesProfile>
@@ -173,11 +109,4 @@ export default function Profile() {
       </Box>
     </Box>
   );
-}
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
 }
