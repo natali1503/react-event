@@ -4,7 +4,7 @@ import { RootState } from '../../store/types';
 
 import { ItemSocial } from './element/ItemSocial';
 import { Vk } from './element/Vk';
-import { WhatsApp } from './element/Whatsapp';
+import { WhatsApp } from './element/WhatsApp';
 import { Telegram } from './element/Telegram';
 
 export default function Contacts() {
