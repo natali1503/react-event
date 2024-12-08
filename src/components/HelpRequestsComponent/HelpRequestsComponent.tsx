@@ -45,7 +45,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   const errorMessage = renderErrorMessage();
 
   return (
-    <Box>
+    <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, height: '100%'}}>
       <Box sx={{
         display: 'flex',       
         justifyContent: 'space-between',
@@ -54,7 +54,9 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
         <Typography variant="h6">Найдено: {helpRequests.length}</Typography>
         <ViewToggle onOptionChange={handleViewChange} />
       </Box>
-      <Box>
+      <Box sx={{
+        height: '100%'
+      }}>
         {errorMessage}
         {errorMessage === null && (
           <>

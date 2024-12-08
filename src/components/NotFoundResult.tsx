@@ -5,6 +5,7 @@ export function NotFoundResult() {
   return (
     <Box
       display={'flex'}
+      height={'100%'}
       justifyContent={'center'}
       flexDirection={'column'}
       alignItems={'center'}
