@@ -14,9 +14,16 @@ type RequestsProps = {
 
 const CardList: FC<RequestsProps> = (requests) => {
   const { helpRequests, viewMode, totalPages, currentPage, setCurrentPage } = requests;
-  
+
   const listRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<number>(0);
+
+  // Make sure the currentPage stays within bounds when totalPages updates
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalPages, currentPage, setCurrentPage]);
 
   const handleWheel = (e: WheelEvent) => {
     // Prevent page scroll when scrolling inside the CardList component
@@ -28,12 +35,11 @@ const CardList: FC<RequestsProps> = (requests) => {
       }
     } else {
       if (currentPage > 1) {
-        setCurrentPage((prevPage) => prevPage - 1);
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
       }
     }
   };
 
-  // Swipe detection handler (for mobile)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartRef.current = e.touches[0].clientX;
   };
@@ -46,14 +52,14 @@ const CardList: FC<RequestsProps> = (requests) => {
       setCurrentPage((prevPage) => prevPage + 1);
     }
     if (touchEnd - touchStartRef.current > swipeThreshold && currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
+      setCurrentPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
     }
   };
 
   useEffect(() => {
     const listElement = listRef.current;
     if (listElement) {
-      listElement.addEventListener('wheel', handleWheel);
+      listElement.addEventListener('wheel', handleWheel, { passive: false });
     }
     return () => {
       if (listElement) {
@@ -64,13 +70,12 @@ const CardList: FC<RequestsProps> = (requests) => {
 
   return (
     <Box
+      ref={listRef}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       <Grid
         container
-        width={'fitContent'}
-        ref={listRef}
         spacing={viewMode === 'grid' ? 2 : 0}
         direction={viewMode === 'list' ? 'column' : 'row'}
         justifyContent={'center'}
