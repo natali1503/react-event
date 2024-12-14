@@ -17,8 +17,11 @@ export default function PagesProfile(props: IPagesProfile) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      style={{
+        height: '100%'
+      }}
     >
-      {value === index && <Box>{children}</Box>}
+      {value === index && <Box display={'flex'} flexDirection={'column'} height={'100%'}>{children}</Box>}
     </div>
   );
 }

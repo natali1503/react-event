@@ -21,6 +21,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = helpRequests.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(helpRequests.length / itemsPerPage)
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -45,7 +46,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   const errorMessage = renderErrorMessage();
 
   return (
-    <Box>
+    <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, height: '100%'}}>
       <Box sx={{
         display: 'flex',       
         justifyContent: 'space-between',
@@ -54,7 +55,9 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
         <Typography variant="h6">Найдено: {helpRequests.length}</Typography>
         <ViewToggle onOptionChange={handleViewChange} />
       </Box>
-      <Box>
+      <Box sx={{
+        height: '100%'
+      }}>
         {errorMessage}
         {errorMessage === null && (
           <>
@@ -62,14 +65,20 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
               <MapWrapper helpRequests={helpRequests}/>
             ) : (
               <Box>
-                <CardList helpRequests={currentItems} viewMode={viewMode} />
+                <CardList 
+                  helpRequests={currentItems} 
+                  viewMode={viewMode} 
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
                 <Box sx={{
                   display: 'flex',       
                   justifyContent: 'center',
                   marginTop: '30px'
                 }}>
                   <Pagination
-                    count={Math.ceil(helpRequests.length / itemsPerPage)}
+                    count={totalPages}
                     page={currentPage}
                     size='large'
                     onChange={handlePageChange}

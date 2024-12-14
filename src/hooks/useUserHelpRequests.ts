@@ -3,7 +3,7 @@ import { useAppDispatch } from './useAppDispatch';
 import { fetchHelpRequestsAction, getUser } from '../store/api-actions';
 import { useSelector } from 'react-redux';
 import { getHelpRequests, getIsRequestLoading, getRequestDataError } from '../store/help-requests/selectors';
-import { setHelpRequest, setIsLoading } from '../store/user-favourites/userFavourites';
+import { setHelpRequest } from '../store/user-favourites/userFavourites';
 
 export function useUserHelpRequests() {
   const dispatch = useAppDispatch();
@@ -13,24 +13,17 @@ export function useUserHelpRequests() {
   const isHelpRequestsError = useSelector(getRequestDataError)
 
   useEffect(() => {
-    if (helpRequestsList.length === 0) {
-      dispatch(getUser());
-    }
-  }, []);
-
-  useEffect(() => {
     if (helpRequestsList.length > 0) {
       dispatch(setHelpRequest(helpRequestsList));
     } else {
-      dispatch(setIsLoading());
       dispatch(fetchHelpRequestsAction());
-      dispatch(setIsLoading());
     }
   }, [helpRequestsList.length]);
 
+  // get favourite IDs list and profileData
   useEffect(() => {
-    if (isHelpRequestsError) dispatch(setIsLoading());
-  }, [isHelpRequestsError]);
+    dispatch(getUser());
+  }, [helpRequestsList.length]);
 
   useEffect(() => {
     setHasHelpRequests(helpRequestsList.length > 0);

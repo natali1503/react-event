@@ -11,7 +11,12 @@ import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
 
 const Helps: React.FC = () => {
-  const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError } = useUserHelpRequests();
+  const { 
+    helpRequestsList, 
+    hasHelpRequests, 
+    isHelpRequestsLoading, 
+    isHelpRequestsError 
+  } = useUserHelpRequests();
 
   const {
     searchTerm,
@@ -62,7 +67,7 @@ const Helps: React.FC = () => {
           <Filters selectedOptions={selectedOptions} setSelectedOptions={setSelectedOptions} />
           <Grid2 container size={'grow'} flexDirection={'column'} gap={2}>
             <SearchPanel searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-            <Paper sx={{padding: '2rem 3rem'}}>
+            <Paper sx={{minHeight: 'calc(57.35rem - 14.1rem - 1.6rem)', padding: '2rem 3rem'}}>
               {renderHelpRequestsComponent()}
             </Paper>
           </Grid2>

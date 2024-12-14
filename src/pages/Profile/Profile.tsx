@@ -91,7 +91,7 @@ export default function Profile() {
               borderRadius={'4px'}
               border={`1px solid ${theme.palette.grey[300]}`}
               width={'100%'}
-              minHeight={'80vh'}
+              minHeight={'60vh'}
             >
               <TabsProfile value={numberTab} setValue={setNumberTab} />
               <PagesProfile value={numberTab} index={0}>

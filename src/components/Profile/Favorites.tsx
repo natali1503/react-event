@@ -48,7 +48,7 @@ export default function Favorites() {
   }, [helpRequestDataError]);
   const notFoundResult = userFavourites.isData && userFavourites.favouriteRequests.length === 0;
   return (
-    <Box marginTop={'20px'}>
+    <Box height={'100%'} marginTop={'20px'} >
       {helpRequestDataError && <ErrorComponent />}
       {notFoundResult && <NotFoundResult />}
       {userFavourites.isLoading && userFavourites.favouriteHelp.length === 0 && (
