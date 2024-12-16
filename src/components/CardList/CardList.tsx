@@ -1,8 +1,9 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { HelpRequest } from '../../types/HelpRequest';
 import CardItem from '../CardItem/CardItem';
 import Grid from '@mui/material/Grid2';
 import { Box } from '@mui/material';
+import './swipeAnimations.css'
 
 type RequestsProps = {
   helpRequests: HelpRequest[];
@@ -15,6 +16,7 @@ type RequestsProps = {
 const CardList: FC<RequestsProps> = (requests) => {
   const { helpRequests, viewMode, totalPages, currentPage, setCurrentPage } = requests;
 
+  const [animationState, setAnimationState] = useState<'enter' | 'exit' | 'none'>('none');
   const listRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<number>(0);
 
@@ -26,17 +28,14 @@ const CardList: FC<RequestsProps> = (requests) => {
   }, [totalPages, currentPage, setCurrentPage]);
 
   const handleWheel = (e: WheelEvent) => {
-    // Prevent page scroll when scrolling inside the CardList component
     e.preventDefault();
 
-    if (e.deltaY > 0) {
-      if (currentPage < totalPages) {
-        setCurrentPage((prevPage) => prevPage + 1);
-      }
-    } else {
-      if (currentPage > 1) {
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
-      }
+    if (e.deltaY > 0 && currentPage < totalPages) {
+      setAnimationState('exit');
+      setCurrentPage((prevPage) => prevPage + 1);
+    } else if (e.deltaY < 0 && currentPage > 1) {
+      setAnimationState('exit');
+      setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     }
   };
 
@@ -49,10 +48,11 @@ const CardList: FC<RequestsProps> = (requests) => {
     const swipeThreshold = 50;
 
     if (touchStartRef.current - touchEnd > swipeThreshold && currentPage < totalPages) {
+      setAnimationState('exit');
       setCurrentPage((prevPage) => prevPage + 1);
-    }
-    if (touchEnd - touchStartRef.current > swipeThreshold && currentPage > 1) {
-      setCurrentPage((prevPage) => Math.max(prevPage - 1, 1)); // Prevent going below page 1
+    } else if (touchEnd - touchStartRef.current > swipeThreshold && currentPage > 1) {
+      setAnimationState('exit');
+      setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
     }
   };
 
@@ -68,17 +68,27 @@ const CardList: FC<RequestsProps> = (requests) => {
     };
   }, [currentPage]);
 
+  useEffect(() => {
+    if (animationState === 'exit') {
+      setAnimationState('enter');
+    }
+  }, [helpRequests, animationState]);
+
   return (
     <Box
-      ref={listRef}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
+      display={'flex'}
+      justifyContent={'center'}
+      width={'100%'}
     >
       <Grid
         container
+        className={animationState === 'exit' ? 'card-exit' : animationState === 'enter' ? 'card-enter' : ''}
+        width={viewMode === 'grid' ? 'fitContent' : '100%'}
         spacing={viewMode === 'grid' ? 2 : 0}
         direction={viewMode === 'list' ? 'column' : 'row'}
-        justifyContent={'center'}
+        ref={listRef}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {helpRequests.map((request) => {
           const keyValue = request.id;
