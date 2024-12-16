@@ -10,12 +10,12 @@ import { Box, Typography, Grid2, CircularProgress, Paper } from '@mui/material';
 import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
 
-const Helps: React.FC = () => {
+const HelpDesk: React.FC = () => {
   const { 
-    helpRequestsList, 
-    hasHelpRequests, 
-    isHelpRequestsLoading, 
-    isHelpRequestsError 
+    helpRequestsList,
+    hasHelpRequests,
+    isHelpRequestsLoading,
+    isHelpRequestsError
   } = useUserHelpRequests();
 
   const {
@@ -77,4 +77,4 @@ const Helps: React.FC = () => {
   );
 };
 
-export default Helps;
+export default HelpDesk;
