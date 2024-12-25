@@ -51,7 +51,6 @@ const ScrollAndSwipeHandler: React.FC<ScrollAndSwipeHandlerProps> = (props) => {
     }, cooldownDuration);
   };
 
-
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartRef.current = e.touches[0].clientX;
   };
