@@ -4,13 +4,13 @@ import Filters from '../../components/Filters/Filters';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRequestsComponent';
 import FilterButton from '../../components/Filters/FilterButton';
+import ModalWindow from '../../components/ModalWindow/ModalWindow';
 // styles
-import { useMode } from '../../theme';
 import { Box, Typography, Grid2, CircularProgress, Paper} from '@mui/material';
+import { useMode } from '../../theme';
 // hooks
 import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
-import ModalWindow from '../../components/ModalWindow/ModalWindow';
 
 const HelpDesk: React.FC = () => {
   const { 
@@ -27,7 +27,9 @@ const HelpDesk: React.FC = () => {
     filteredData,
     setSearchTerm,
     setSelectedOptions,
-    setCurrentPage
+    setCurrentPage,
+    selectedDate, 
+    setSelectedDate
   } = useFilters({ helpRequestsList });
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
@@ -76,17 +78,16 @@ const HelpDesk: React.FC = () => {
         <Typography variant="h4">Запросы о помощи</Typography>
         <Grid2 container columnSpacing={3} mt={'1.2rem'}>
           <Box sx={{
-            display: 'block',
-            '@media (max-width: 1560px)': {
+            display: 'flex',
+            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
               display: 'none',
-            },
-            '@media (min-width: 1561px)': {
-              display: 'block',
-            },
+            }
           }}>
             <Filters 
               selectedOptions={selectedOptions} 
+              selectedDate={selectedDate}
               setSelectedOptions={setSelectedOptions} 
+              setSelectedDate={setSelectedDate}
             />
           </Box>
           <Grid2 container size={'grow'} flexDirection={'column'} gap={2}>
@@ -95,16 +96,13 @@ const HelpDesk: React.FC = () => {
                 <SearchPanel searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
               </Box>
               <Box sx={{
+                display: 'none',
                 width: 'fitContent',
-                display: 'flex',
                 justifyContent: 'center',
                 alignContent: 'center',
-                '@media (max-width: 1560px)': {
+                [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
                   display: 'flex',
-                },
-                '@media (min-width: 1561px)': {
-                  display: 'none',
-                },
+                }
               }}>
                 <FilterButton onClick={handleOpenFilterModal}/>
               </Box>
@@ -120,9 +118,11 @@ const HelpDesk: React.FC = () => {
         handleCloseFilterModal={handleCloseFilterModal}
         slideDirection={'left'}
       >
-        <Filters
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+        <Filters 
+          selectedOptions={selectedOptions} 
+          selectedDate={selectedDate}
+          setSelectedOptions={setSelectedOptions} 
+          setSelectedDate={setSelectedDate}
         />
       </ModalWindow>
     </Paper>

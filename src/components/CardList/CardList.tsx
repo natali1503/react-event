@@ -25,8 +25,8 @@ const CardList: FC<RequestsProps> = (requests) => {
     >
       <ScrollAndSwipeHandler
         currentPage={currentPage} 
-        totalPages={totalPages}
         setCurrentPage={setCurrentPage}
+        totalPages={totalPages}
         helpRequests={helpRequests}
         cooldownDuration={scrollCooldownDuration}
         viewMode={viewMode}

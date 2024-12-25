@@ -15,7 +15,6 @@ const ModalWindow: React.FC<ModalWindowProps> = (props) => {
     <Dialog
       open={openFilterModal}
       onClose={handleCloseFilterModal}
-      keepMounted
       sx={{
         '& .MuiDialog-paper': {
           position: 'absolute',

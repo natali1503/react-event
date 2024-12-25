@@ -3,6 +3,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { debouncedFunction } from '../../utils/filterUtils';
 // styles
 import { Box, InputBase, Paper, Stack, Typography } from '@mui/material';
+import { useMode } from '../../theme';
 import SearchIcon from '@mui/icons-material/Search';
 
 type SearchProps = {
@@ -12,6 +13,7 @@ type SearchProps = {
 
 const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
   const [inputValue, setInputValue] = useState(searchTerm);
+  const [theme] = useMode();
 
   const handleSearch = useCallback((value: string) => {
     setSearchTerm(value);
@@ -36,30 +38,25 @@ const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
     }}>
       <Stack 
         sx={{ 
-          backgroundColor: 'white', 
-          gap: '2rem', 
-          '@media (max-width: 1560px)': {
-            padding: '1.6rem', 
-            mb: '0' 
-          },
-          '@media (min-width: 1561px)': {
-            padding: '2rem', 
-            mb: '1.6rem'
-          },
+          backgroundColor: 'white',
+          gap: '2rem',
+          padding: '2rem',
+          mb: '1.6rem',
+          [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+            padding: '1.6rem',
+            mb: '0'
+          }
         }}
       >
         <Typography 
-          variant='h6' 
+          variant='h6'
           width='fit-content'
           sx={{
+            display: 'flex',
             width: 'fit-content',
-            display: 'block',
-              '@media (max-width: 1560px)': {
-                display: 'none',
-              },
-              '@media (min-width: 1561px)': {
-                display: 'block',
-              },
+            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+              display: 'none',
+            }
           }}
         >
           Найти запрос
