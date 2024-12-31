@@ -1,18 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Box, Skeleton } from '@mui/material';
+import { FC, useEffect } from 'react';
+import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { AppDispatch, RootState } from '../../store/types';
-import { ErrorComponent } from '../Error';
+
 import { useDispatch } from 'react-redux';
 import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
 import { matchFavourites } from '../../features/matchFavourites';
-import HelpRequestsComponent from '../HelpRequestsComponent/HelpRequestsComponent';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
-import { NotFoundResult } from '../NotFoundResult';
-export default function Favorites() {
-  const [currentFavPage, setCurrentFavPage] = useState<number>(1);
 
+import { ViewHelpRequests } from '../ViewHelpRequests';
+import { VIEW_TOGGLE_OPTIONS } from '../../const/const';
+
+interface IFavorites {
+  viewMode: VIEW_TOGGLE_OPTIONS;
+}
+const Favorites: FC<IFavorites> = ({ viewMode }) => {
   const userFavourites = useSelector((state: RootState) => {
     return state.favourites;
   });
@@ -46,21 +49,19 @@ export default function Favorites() {
   useEffect(() => {
     if (helpRequestDataError) dispatch(setIsLoading());
   }, [helpRequestDataError]);
+
   const notFoundResult = userFavourites.isData && userFavourites.favouriteRequests.length === 0;
+
   return (
-    <Box height={'100%'} marginTop={'20px'} >
-      {helpRequestDataError && <ErrorComponent />}
-      {notFoundResult && <NotFoundResult />}
-      {userFavourites.isLoading && userFavourites.favouriteHelp.length === 0 && (
-        <Skeleton width={'100px'} height={'100px'} />
-      )}
-      {userFavourites.favouriteHelp.length > 0 && (
-        <HelpRequestsComponent
-          currentPage={currentFavPage}
-          setCurrentPage={setCurrentFavPage}
-          helpRequests={userFavourites.favouriteHelp}
-        />
-      )}
+    <Box height={'100%'} marginTop={'20px'}>
+      <ViewHelpRequests
+        viewMode={viewMode}
+        helpRequests={userFavourites.favouriteHelp}
+        isLoading={userFavourites.isLoading}
+        isHelpRequestsError={helpRequestDataError}
+        notFoundResult={notFoundResult}
+      />
     </Box>
   );
-}
+};
+export default Favorites;

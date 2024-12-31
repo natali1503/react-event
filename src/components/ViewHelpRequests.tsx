@@ -1,0 +1,82 @@
+import { FC, useEffect, useState } from 'react';
+import { HelpRequest } from '../types/HelpRequest';
+import { Box, Skeleton } from '@mui/material';
+import CardList from './CardList/CardList';
+import MapWrapper from './Map/MapWrapper';
+import { ErrorComponent } from './Error';
+import { NotFoundResult } from './NotFoundResult';
+import { VIEW_TOGGLE_OPTIONS } from '../const/const';
+import Pagination from './Pagination';
+import { usePagination } from '../hooks/usePagination';
+
+interface IViewHelpRequests {
+  viewMode: string;
+  helpRequests: HelpRequest[];
+  isHelpRequestsError: boolean;
+  isLoading: boolean;
+  notFoundResult: boolean;
+}
+
+export const ViewHelpRequests: FC<IViewHelpRequests> = ({
+  viewMode,
+  helpRequests,
+  isHelpRequestsError,
+  isLoading,
+  notFoundResult,
+}) => {
+  const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
+    quantityHelpRequests: helpRequests.length,
+  });
+  const [currentItems, setCurrentItems] = useState(helpRequests.slice(indexOfFirstItem, indexOfLastItem));
+
+  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
+
+  const renderErrorMessage = () => {
+    if (isHelpRequestsError) {
+      return <ErrorComponent />;
+    }
+    if (isLoading) {
+      return <Skeleton width={'100px'} height={'100px'} />;
+    }
+    if (notFoundResult) {
+      return <NotFoundResult />;
+    }
+
+    return null;
+  };
+  const errorMessage = renderErrorMessage();
+
+  useEffect(() => {
+    setCurrentItems(helpRequests.slice(indexOfFirstItem, indexOfLastItem));
+  }, [helpRequests, indexOfFirstItem, indexOfLastItem]);
+
+  return (
+    <Box
+      sx={{
+        height: '100%',
+      }}
+    >
+      {errorMessage}
+      {errorMessage === null && (
+        <>
+          {viewMode === VIEW_TOGGLE_OPTIONS.Map ? (
+            <MapWrapper helpRequests={helpRequests} />
+          ) : (
+            <Box>
+              <CardList
+                helpRequests={currentItems}
+                viewMode={viewMode}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+              <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
+            </Box>
+          )}
+        </>
+      )}
+    </Box>
+  );
+};
