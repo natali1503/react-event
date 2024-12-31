@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { HelpRequest } from '../types/HelpRequest';
 import { applyFilter, applySearch } from '../utils/filterUtils';
 
@@ -12,32 +12,28 @@ export function useFilters({ helpRequestsList }: useFilterProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filteredData, setFilteredData] = useState<HelpRequest[]>([]);
 
-  const filterHelpRequests = () => {
-    const filterHelpRequests = () => {
-      if (!helpRequestsList || helpRequestsList.length === 0) {
-        setFilteredData([]);
-        return;
-      }
+  const filterHelpRequests = useCallback(() => {
+    if (!helpRequestsList || helpRequestsList.length === 0) {
+      setFilteredData([]);
+      return;
+    }
 
-      let requestedData = helpRequestsList;
+    let requestedData = helpRequestsList;
 
-      if (searchTerm) {
-        requestedData = applySearch(requestedData, searchTerm);
-      }
+    if (searchTerm) {
+      requestedData = applySearch(requestedData, searchTerm);
+    }
 
-      if (selectedOptions.length > 0) {
-        requestedData = applyFilter(requestedData, selectedOptions);
-      }
+    if (selectedOptions.length > 0) {
+      requestedData = applyFilter(requestedData, selectedOptions);
+    }
 
-      setCurrentPage(1);
-      setFilteredData(requestedData);
-    };
-    filterHelpRequests();
-  };
+    setFilteredData(requestedData);
+  }, [helpRequestsList, searchTerm, selectedOptions]);
 
   useEffect(() => {
     filterHelpRequests();
-  }, [helpRequestsList, searchTerm, selectedOptions]);
+  }, [filterHelpRequests]);
 
   return {
     searchTerm,

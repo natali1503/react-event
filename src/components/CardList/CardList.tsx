@@ -3,14 +3,14 @@ import { HelpRequest } from '../../types/HelpRequest';
 import CardItem from '../CardItem/CardItem';
 import Grid from '@mui/material/Grid2';
 import { Box } from '@mui/material';
-import './swipeAnimations.css'
+import './swipeAnimations.css';
 
 type RequestsProps = {
   helpRequests: HelpRequest[];
   viewMode: string;
   totalPages: number;
   currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>> ;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const CardList: FC<RequestsProps> = (requests) => {
@@ -22,6 +22,7 @@ const CardList: FC<RequestsProps> = (requests) => {
 
   // Make sure the currentPage stays within bounds when totalPages updates
   useEffect(() => {
+    if (!totalPages) return;
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
@@ -75,11 +76,7 @@ const CardList: FC<RequestsProps> = (requests) => {
   }, [helpRequests, animationState]);
 
   return (
-    <Box
-      display={'flex'}
-      justifyContent={'center'}
-      width={'100%'}
-    >
+    <Box display={'flex'} justifyContent={'center'} width={'100%'}>
       <Grid
         container
         className={animationState === 'exit' ? 'card-exit' : animationState === 'enter' ? 'card-enter' : ''}

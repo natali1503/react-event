@@ -15,6 +15,8 @@ interface IViewHelpRequests {
   isHelpRequestsError: boolean;
   isLoading: boolean;
   notFoundResult: boolean;
+  isResetFilters?: boolean;
+  setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ViewHelpRequests: FC<IViewHelpRequests> = ({
@@ -23,6 +25,8 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   isHelpRequestsError,
   isLoading,
   notFoundResult,
+  isResetFilters,
+  setIsResetFilters,
 }) => {
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
     quantityHelpRequests: helpRequests.length,
@@ -47,6 +51,13 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     return null;
   };
   const errorMessage = renderErrorMessage();
+
+  useEffect(() => {
+    if (isResetFilters && setIsResetFilters) {
+      setCurrentPage(1);
+      setIsResetFilters(false);
+    }
+  }, [isResetFilters]);
 
   useEffect(() => {
     setCurrentItems(helpRequests.slice(indexOfFirstItem, indexOfLastItem));

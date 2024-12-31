@@ -10,7 +10,7 @@ import { FilterProps } from '../../types/IFilterOption';
 // styles
 import { Box, Button, Paper, Typography } from '@mui/material';
 
-const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions }) => {
+const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions, setIsResetFilters }) => {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   // Toggle checkbox filter
@@ -29,23 +29,20 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
     if (date) {
       // Set selected options to only include the new date
       setSelectedOptions((prev) => {
-        const filteredOptions = prev.filter(
-          (option) => !option.match(/^\d{4}-\d{2}-\d{2}$/)
-        );
+        const filteredOptions = prev.filter((option) => !option.match(/^\d{4}-\d{2}-\d{2}$/));
         // Keep only the formatted date
-        return [...filteredOptions, date]; 
+        return [...filteredOptions, date];
       });
     } else {
       setSelectedDate(null);
-      setSelectedOptions((prev) =>
-        prev.filter((option) => !option.match(/^\d{4}-\d{2}-\d{2}$/))
-      );
+      setSelectedOptions((prev) => prev.filter((option) => !option.match(/^\d{4}-\d{2}-\d{2}$/)));
     }
   };
 
   const handleReset = () => {
     setSelectedOptions([]);
     setSelectedDate(null);
+    setIsResetFilters(true);
   };
 
   useEffect(() => {
@@ -54,13 +51,17 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
     }
   }, [selectedDate]);
 
+  useEffect(() => {
+    setIsResetFilters(true);
+  }, [selectedOptions]);
+
   return (
-    <Paper sx={{ backgroundColor: 'white', padding: '0 2rem', height: 'fit-content', width: '320px'}}>
+    <Paper sx={{ backgroundColor: 'white', padding: '0 2rem', height: 'fit-content', width: '320px' }}>
       <Box sx={{ padding: '2rem 0' }}>
-        <Typography variant='h6' width='fit-content'>
+        <Typography variant="h6" width="fit-content">
           Фильтрация
         </Typography>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: '2rem'}}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: '2rem' }}>
           {filterOptions.map((item, index) => {
             if (item.type === 'checkList') {
               // render standard options
@@ -88,17 +89,11 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
         </Box>
 
         <Box sx={{ marginTop: '2rem' }}>
-          <Typography
-            variant="subtitle1"
-            sx={{ opacity: '0.6' }}
-          >
+          <Typography variant="subtitle1" sx={{ opacity: '0.6' }}>
             Помощь актуальна до:
           </Typography>
           <Box sx={{ marginTop: '1rem' }}>
-            <Calendar
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-            />
+            <Calendar selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
           </Box>
         </Box>
 
