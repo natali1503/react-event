@@ -49,7 +49,7 @@ class ApiService {
     }
   }
 
-  async login<T>(login: string, password: string): Promise<T | IError> {
+  /*async login<T>(login: string, password: string): Promise<T | IError> {
     const body = JSON.stringify({ password: password, login: login });
     return await this.fetchDataWithToken<T>(
       APIRoute.Login,
@@ -98,13 +98,14 @@ class ApiService {
     if (isCodeError(res)) {
       throw new Error(String(res.codeError));
     } else return res;
-  }
+  }*/
 
   async contributeToRequest(id: string): Promise<string | IError> {
     const url = `${APIRoute.HelpRequests}/${id}/contribution`;
     return this.fetchDataWithToken<string | IError>(url, APIMethod.POST);
   }
 
+  /*
   async addToFavourites(favouriteId: string) {
     try {
       const body = JSON.stringify({ requestId: favouriteId });
@@ -162,7 +163,7 @@ class ApiService {
     if (isCodeError(res)) {
       throw new Error(String(res.codeError));
     } else return res;
-  }
+  }*/
 };
 
 export const api = new ApiService();
