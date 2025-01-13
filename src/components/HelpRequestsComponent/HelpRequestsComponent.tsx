@@ -10,18 +10,19 @@ import { NotFoundResult } from '../NotFoundResult';
 type RequestsProps = {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  customItemsPerPage?: number;
   helpRequests: HelpRequest[];
   isHelpRequestsError?: boolean;
   noSearchResult? : boolean;
 };
 
-const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, helpRequests, noSearchResult, isHelpRequestsError}) => {
+const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, customItemsPerPage, helpRequests, noSearchResult, isHelpRequestsError}) => {
   const [viewMode, setViewMode] = useState('grid');
-  const itemsPerPage = 3;
+  const itemsPerPage = customItemsPerPage || 3
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = helpRequests.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length])
+  const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage])
   const scrollCooldownDuration = 50;
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {

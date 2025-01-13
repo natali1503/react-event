@@ -11,6 +11,7 @@ import { useMode } from '../../theme';
 // hooks
 import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
+import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
 
 const HelpDesk: React.FC = () => {
   const { 
@@ -33,6 +34,7 @@ const HelpDesk: React.FC = () => {
   } = useFilters({ helpRequestsList });
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
+  const itemsPerPage = useResponsiveItemsPerPage()
   const [theme] = useMode();
 
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
@@ -51,6 +53,7 @@ const HelpDesk: React.FC = () => {
       <HelpRequestsComponent
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        customItemsPerPage={itemsPerPage}
         helpRequests={dataToDisplay}
         isHelpRequestsError={isHelpRequestsError}
         noSearchResult={noSearchResult}
