@@ -82,6 +82,10 @@ const HelpDesk: React.FC = () => {
         <Grid2 container columnSpacing={3} mt={'1.2rem'}>
           <Box sx={{
             display: 'flex',
+            [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
+              width: '22.5%',
+              minWidth: '240px',
+            },
             [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
               display: 'none',
             }

@@ -7,15 +7,14 @@ const useResponsiveItemsPerPage = () => {
     const updateItemsPerPage = () => {
       const width = window.innerWidth;
 
-      if (width < 600) {
+
+      if (width < 856) {
         setItemsPerPage(1);
-      } else if (width >= 600 && width < 836) {
-        setItemsPerPage(1);
-      } else if (width >= 836 && width < 960) {
+      } else if (width >= 856 && width < 961) {
         setItemsPerPage(2);
-      } else if (width >= 960 && width < 1280) {
+      } else if (width >= 961 && width < 1218) {
         setItemsPerPage(1);
-      } else if (width >= 1280 && width < 1560) {
+      } else if (width >= 1218 && width < 1582) {
         setItemsPerPage(2);
       } else {
         setItemsPerPage(3);

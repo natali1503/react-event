@@ -61,6 +61,9 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
       padding: '0 2rem', 
       height: 'fit-content', 
       width: '320px',
+      [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
+        width: '100%',
+      },
       [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
         boxShadow: 'none',
       }
