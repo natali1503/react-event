@@ -47,6 +47,9 @@ const VerticalCard: FC<CardItemProps> = (props) => {
           flexDirection: 'column',
           padding: 0,
           gap: 0,
+          [`@media (max-width:${450}px)`]: {
+            width: '100%',
+          },
         }}
       >
         <CardMedia

@@ -9,13 +9,13 @@ const useResponsiveItemsPerPage = () => {
 
       if (width < 600) {
         setItemsPerPage(1);
-      } else if (width > 600 && width < 836) {
+      } else if (width >= 600 && width < 836) {
         setItemsPerPage(1);
-      } else if (width > 836 && width < 960) {
+      } else if (width >= 836 && width < 960) {
         setItemsPerPage(2);
-      } else if (width > 960 && width < 1280) {
+      } else if (width >= 960 && width < 1280) {
         setItemsPerPage(1);
-      } else if (width > 1280 && width < 1560) {
+      } else if (width >= 1280 && width < 1560) {
         setItemsPerPage(2);
       } else {
         setItemsPerPage(3);
