@@ -22,20 +22,20 @@ const HelpDesk: React.FC = () => {
   } = useUserHelpRequests();
 
   const {
-    searchTerm,
     selectedOptions,
+    selectedDate,
+    searchTerm,
     currentPage,
     filteredData,
     setSearchTerm,
     setSelectedOptions,
     setCurrentPage,
-    selectedDate, 
     setSelectedDate
   } = useFilters({ helpRequestsList });
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
-  const itemsPerPage = useResponsiveItemsPerPage()
   const [theme] = useMode();
+  const itemsPerPage = useResponsiveItemsPerPage()
 
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
   const noSearchResult = hasHelpRequests && filteredData.length === 0;

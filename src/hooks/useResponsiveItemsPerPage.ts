@@ -7,7 +7,6 @@ const useResponsiveItemsPerPage = () => {
     const updateItemsPerPage = () => {
       const width = window.innerWidth;
 
-
       if (width < 856) {
         setItemsPerPage(1);
       } else if (width >= 856 && width < 961) {
