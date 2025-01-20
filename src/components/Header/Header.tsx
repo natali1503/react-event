@@ -44,9 +44,6 @@ export default function HeaderNavigationApp() {
             [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
               padding: '0 2rem',
             },
-            [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-              padding: '0 0',
-            },
           }}
         >
           <Logo />

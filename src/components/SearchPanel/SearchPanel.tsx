@@ -69,7 +69,10 @@ const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
             sx={{
               width: '100%',
               fontSize: '1.6rem',
-              paddingLeft: '2.5rem'
+              paddingLeft: '2.5rem',
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                fontSize: '1.4rem'
+              }
             }}
           />
         </Box>
