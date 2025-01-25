@@ -1,4 +1,4 @@
-import { Box, Typography, Pagination } from '@mui/material';
+import { Box, Typography, Pagination, useMediaQuery } from '@mui/material';
 import { FC, useCallback, useMemo, useState } from 'react';
 import CardList from '../CardList/CardList';
 import { HelpRequest } from '../../types/HelpRequest';
@@ -24,6 +24,8 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   const currentItems = helpRequests.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage])
   const scrollCooldownDuration = 50;
+  const isMediumScreen = useMediaQuery('(max-width:604px)');
+  const isSmallScreen = useMediaQuery('(max-width:380px)');
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -46,6 +48,15 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   };
 
   const errorMessage = renderErrorMessage();
+
+  let paginationSize;
+  if (isSmallScreen) {
+    paginationSize = 'small';
+  } else if (isMediumScreen) {
+    paginationSize = 'medium';
+  } else {
+    paginationSize = 'large';
+  }
 
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', flex: 1, height: '100%'}}>
@@ -85,9 +96,11 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
                   <Pagination
                     count={totalPages}
                     page={currentPage}
-                    size='large'
                     onChange={handlePageChange}
                     color="primary"
+                    size={paginationSize}
+                    hidePrevButton={isMediumScreen}
+                    hideNextButton={isMediumScreen}
                   />
                 </Box>
               </Box>

@@ -75,6 +75,9 @@ const HelpDesk: React.FC = () => {
         padding: '3rem 4rem',
         background: theme.palette.background.default,
         width: '100%',
+        [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+          padding: '2rem 2rem',
+        },
       }}
     >
       <Box>
