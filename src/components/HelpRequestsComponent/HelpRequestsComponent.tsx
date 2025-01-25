@@ -12,10 +12,11 @@ type RequestsProps = {
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   helpRequests: HelpRequest[];
   isHelpRequestsError?: boolean;
+  isFavouriteRequestsError?: boolean;
   noSearchResult? : boolean;
 };
 
-const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, helpRequests, noSearchResult, isHelpRequestsError}) => {
+const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, helpRequests, noSearchResult, isHelpRequestsError, isFavouriteRequestsError}) => {
   const [viewMode, setViewMode] = useState('grid');
   const itemsPerPage = 3;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -31,7 +32,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
   }, []);
 
   const renderErrorMessage = () => {
-    if (isHelpRequestsError) {
+    if (isHelpRequestsError || isFavouriteRequestsError) {
       return <ErrorComponent/>
     }
 

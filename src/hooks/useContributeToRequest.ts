@@ -1,4 +1,4 @@
-import { fetchСontributeToRequest } from '../store/api-actions';
+import { fetchContributeToRequest } from '../store/api-actions';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from './useAppDispatch';
 import { HelpRequest } from '../types/HelpRequest';
@@ -10,15 +10,15 @@ const useContributeToRequest = (helpRequest: HelpRequest | undefined) => {
 
   const handleContributeToRequest = () => {
     if (helpRequest) {
-      dispatch(fetchСontributeToRequest({ id: helpRequest.id }))
+      dispatch(fetchContributeToRequest({ id: helpRequest.id }))
         .then(unwrapResult) // Обрабатываем успешный результат
         .then(() => {
           toast.success('Успех! Спасибо за помощь!');
         })
-        .catch((error: IError) => {
+        //.catch((error: IError) => { 
           // Обрабатываем ошибки из rejectWithValue
-          toast.error(`Ошибка! ${error.message || 'Попробуйте еще раз'}`);
-        });
+        //  toast.error(`Ошибка! ${error.message || 'Попробуйте еще раз'}`);
+        //});  // TODO: проверить, нужно ли это или нет
     }
   };
 

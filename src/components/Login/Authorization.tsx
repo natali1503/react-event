@@ -10,17 +10,21 @@ import {
   Typography,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { loginUser } from '../../store/authorization';
+import { loginAction } from '../../store/api-actions';
 import { setPassword, setLogin } from '../../store/formAuthorization';
+import { AuthData } from '../../types/auth-data';
 
 export function Authorization() {
-  const errorMessage = useAppSelector((store) => store.auth.errorMessage);
-  const { login, password, emailError, passwordError } = useAppSelector((store) => store.formAuthorization);
-
+  //const errorMessage = useAppSelector((store) => store.auth.errorMessage);
+  //const { login, password, emailError, passwordError } = useAppSelector((store) => store.formAuthorization);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
+  const loginRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  
   const [theme] = useMode();
   const dispatch = useAppDispatch();
 
@@ -45,9 +49,27 @@ export function Authorization() {
     dispatch(setLogin(email));
   };
 
-  const handleSubmit = () => {
-    if (!emailError) {
-      dispatch(loginUser({ login, password }));
+  const onSubmit = (authData: AuthData) => {
+    //if (!emailError) {
+      dispatch(loginAction(authData));
+    //}
+  };
+
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (loginRef.current !== null && passwordRef.current !== null) {
+      if (passwordRef.current.value.length > 4) {
+        setIsPasswordValid(true);
+        onSubmit({
+          login: loginRef.current.value,
+          password: passwordRef.current.value,
+        });
+      }
+      else {
+        setIsPasswordValid(false);
+      }
     }
   };
 
@@ -101,13 +123,14 @@ export function Authorization() {
                 },
               }}
               variant="outlined"
-              value={login}
+              //value={login}
+              inputRef={loginRef}
               placeholder="Введите e-mail"
               onChange={(e) => {
                 handleInputLoginChange(e);
               }}
-              error={!!emailError || !!errorMessage}
-              helperText={emailError || errorMessage}
+              //error={!!emailError || !!errorMessage}
+              //helperText={emailError || errorMessage}
               sx={{ fontSize: '20rem' }}
             />
           </FormControl>
@@ -117,7 +140,8 @@ export function Authorization() {
               id="outlined-adornment-password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Введите пароль"
-              value={password}
+              //value={password}
+              inputRef={passwordRef}
               onChange={(e) => {
                 handleInputPasswordChange(e);
               }}
@@ -136,19 +160,19 @@ export function Authorization() {
               }
               label="Password"
             />
-            {(passwordError || errorMessage) && (
+            {/*(passwordError || errorMessage) && (
               <Typography color="error" variant="caption">
                 {passwordError || errorMessage}
               </Typography>
-            )}
+            )*/}
           </FormControl>
         </Box>
 
         <Button
           variant="contained"
-          onClick={handleSubmit}
+          onClick={handleFormSubmit}
           sx={{ marginTop: '4rem' }}
-          disabled={!login || !password || !!emailError || !!passwordError}
+          //disabled={!login || !password || !!emailError || !!passwordError}
         >
           Войти
         </Button>

@@ -2,7 +2,7 @@ import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../store/api-actions';
+import { getUserAction } from '../../store/api-actions';
 import { AppDispatch, RootState } from '../../store/types';
 
 import { ErrorComponent } from '../../components/Error';
@@ -24,7 +24,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (profile.isData) return;
-    dispatch(getUser());
+    dispatch(getUserAction());
   }, []);
 
   return (

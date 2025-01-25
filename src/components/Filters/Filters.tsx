@@ -70,6 +70,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
                   index={index}
                   selectedOptions={selectedOptions}
                   handleToggle={handleToggle}
+                  key={index}
                 />
               );
             } else if (item.type === 'accordionList') {
@@ -80,6 +81,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, setSelectedOptions })
                   index={index}
                   selectedOptions={selectedOptions}
                   handleToggle={handleToggle}
+                  key={index}
                 />
               );
             }

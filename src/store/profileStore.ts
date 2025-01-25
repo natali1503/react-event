@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IProfileData } from '../types/IUser';
-import { getUser } from './api-actions';
+import { getUserAction } from './api-actions';
 
 export const profileSlice = createSlice({
   name: 'profile',
@@ -13,18 +13,18 @@ export const profileSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.pending, (state) => {
+      .addCase(getUserAction.pending, (state) => {
         state.data = <IProfileData>{};
         state.isData = false;
         state.loading = true;
         state.error = '';
       })
-      .addCase(getUser.fulfilled, (state, action) => {
+      .addCase(getUserAction.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
         state.isData = true;
       })
-      .addCase(getUser.rejected, (state, action) => {
+      .addCase(getUserAction.rejected, (state, action) => {
         state.isData = false;
         state.data = <IProfileData>{};
         state.loading = false;

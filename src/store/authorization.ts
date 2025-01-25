@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../api/index';
 import { IAuth } from '../types/IAuth';
 import { IError } from '../types/IError';
+import { loginAction } from './api-actions';
+import { dropToken } from '../services/token';
 
 // Define a type for the slice state
 interface CounterState {
@@ -26,7 +28,7 @@ export const authorizationSlice = createSlice({
       state.isAuthenticated = true;
     },
     logOut: (state) => {
-      localStorage.removeItem('token');
+      dropToken();
       state.isAuthenticated = false;
       state.errorMessage = null; // Сбрасываем сообщение об ошибке при выходе
       state.isAuthPending = false;
@@ -35,16 +37,16 @@ export const authorizationSlice = createSlice({
   extraReducers: (builder) => {
     builder
 
-      .addCase(loginUser.pending, (state) => {
+      .addCase(loginAction.pending, (state) => {
         state.isAuthPending = true;
         state.errorMessage = null; // Сбрасываем сообщение об ошибке при новом запросе
       })
-      .addCase(loginUser.fulfilled, (state) => {
+      .addCase(loginAction.fulfilled, (state) => {
         state.isAuthPending = false;
         state.isAuthenticated = true;
         state.errorMessage = null; // Сбрасываем сообщение об ошибке при успешной аутентификации
       })
-      .addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginAction.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
         state.errorMessage = String(action.payload);
@@ -56,7 +58,7 @@ export const { setAuthorized, logOut } = authorizationSlice.actions;
 
 export default authorizationSlice.reducer;
 
-export const loginUser = createAsyncThunk<
+/*export const loginUser = createAsyncThunk<
   void,
   { login: string; password: string }
 >('loginUser', async ({ login, password }, thunkAPI) => {
@@ -88,4 +90,4 @@ export const loginUser = createAsyncThunk<
     // если ошибка случилась еще где то, прокидываем ее дальше, тоже в миддлвар перехватчик
     return thunkAPI.rejectWithValue(e);
   }
-});
+});*/

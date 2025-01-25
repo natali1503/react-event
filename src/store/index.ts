@@ -5,6 +5,7 @@ import userFavouritesReducer from './user-favourites/userFavourites';
 import profileReducer from './profileStore';
 import formAuthorizationReducer from './formAuthorization';
 import { helpRequestData } from './help-requests/help-requests-data';
+import { createAPI } from '../services/api';
 
 const rootReducer = combineReducers({
   auth: authorizationReducer,
@@ -22,21 +23,33 @@ type RootState = ReturnType<typeof rootReducer>;
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
   // здесь ловим 403 ошибку
   const typedAction = action as Action;
-  //debugger;
-  if (
-    typedAction.type.endsWith('rejected') &&
-    // @ts-expect-error fix later
-    typedAction.error.message === '403'
+
+  if (typedAction.type.endsWith('rejected') &&
+    typedAction.error?.name === 'AxiosError' &&
+    typedAction.error?.message.includes('403')
   ) {
-    //debugger;
-    store.dispatch(logOut());
+    //store.dispatch(logOut()); // TODO: убрать двойной вывод инфо-тоста о разлогинивании
   }
 
   return next(action);
 };
 
-export const store = configureStore({
+/*export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware),
   devTools: true,
+});*/
+
+export const api = createAPI();
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }).concat(authMiddleware),
+    devTools: true,
 });
+

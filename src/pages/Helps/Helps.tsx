@@ -11,7 +11,7 @@ import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
 
 const Helps: React.FC = () => {
-  const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError } = useUserHelpRequests();
+  const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } = useUserHelpRequests();
 
   const {
     searchTerm,
@@ -43,6 +43,7 @@ const Helps: React.FC = () => {
         setCurrentPage={setCurrentPage}
         helpRequests={dataToDisplay}
         isHelpRequestsError={isHelpRequestsError}
+        isFavouriteRequestsError={isFavouriteRequestsError}
         noSearchResult={noSearchResult}
       />
     );

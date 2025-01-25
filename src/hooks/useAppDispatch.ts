@@ -5,4 +5,4 @@ import type { AppDispatch } from '../store/types'
 // https://redux-toolkit.js.org/tutorials/typescript#define-typed-hooks
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
+export const useAppDispatch = () => useDispatch<AppDispatch>();
