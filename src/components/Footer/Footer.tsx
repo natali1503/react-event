@@ -34,12 +34,8 @@ export default function BottomNavigationApp() {
     >
       <Box
         display={'flex'}
-        width={'12rem'}
         justifyContent={'flex-start'}
         sx={{
-          ['@media (max-width:550px)']: {
-            width: '10rem',
-          },
           [`@media (max-width:${500}px)`]: {
             justifyContent: 'center'
           },
