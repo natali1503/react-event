@@ -1,0 +1,29 @@
+.card-enter {
+  animation: fadeInScale 0.25s ease-out forwards;
+}
+
+.card-exit {
+  animation: fadeOutScale 0.25s ease-in forwards;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0.8;
+    transform: scale(0.995); 
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(0.995);
+  }
+}

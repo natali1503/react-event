@@ -1,37 +1,34 @@
-import { Box, Typography, Pagination } from '@mui/material';
-import { FC, useCallback, useState } from 'react';
-import CardList from '../CardList/CardList';
+import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
 import { HelpRequest } from '../../types/HelpRequest';
-import MapWrapper from '../Map/MapWrapper';
 import ViewToggle from '../ViewToggle/ViewToggle';
-import { ErrorComponent } from '../Error';
-import { NotFoundResult } from '../NotFoundResult';
+
+import { useViewMode } from '../../hooks/useViewMode';
+
+import { ViewHelpRequests } from '../ViewHelpRequests';
 
 type RequestsProps = {
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   helpRequests: HelpRequest[];
-  isHelpRequestsError?: boolean;
+  isHelpRequestsError: boolean;
   isFavouriteRequestsError?: boolean;
-  noSearchResult? : boolean;
+  noSearchResult: boolean;
+  isLoading: boolean;
+  isResetFilters: boolean;
+  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, helpRequests, noSearchResult, isHelpRequestsError, isFavouriteRequestsError}) => {
-  const [viewMode, setViewMode] = useState('grid');
-  const itemsPerPage = 3;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = helpRequests.slice(indexOfFirstItem, indexOfLastItem);
+const HelpRequestsComponent: FC<RequestsProps> = ({
+  helpRequests,
+  noSearchResult,
+  isHelpRequestsError,
+  isLoading,
+  isResetFilters,
+  setIsResetFilters,
+  isFavouriteRequestsError
+}) => {
+  const { viewMode, handleViewChange } = useViewMode();
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
-  };
-
-  const handleViewChange = useCallback((newViewMode: string) => {
-    setViewMode(newViewMode);
-  }, []);
-
-  const renderErrorMessage = () => {
+  const renderErrorMessage = () => {  // TODO: проверить
     if (isHelpRequestsError || isFavouriteRequestsError) {
       return <ErrorComponent/>
     }
@@ -43,48 +40,29 @@ const HelpRequestsComponent: FC<RequestsProps> = ({currentPage, setCurrentPage, 
     return null; 
   };
 
-  const errorMessage = renderErrorMessage();
-
   return (
-    <Box>
-      <Box sx={{
-        display: 'flex',       
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100%' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography variant="h6">Найдено: {helpRequests.length}</Typography>
-        <ViewToggle onOptionChange={handleViewChange} />
+        <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />
       </Box>
-      <Box>
-        {errorMessage}
-        {errorMessage === null && (
-          <>
-            {viewMode === 'map' ? (
-              <MapWrapper helpRequests={helpRequests}/>
-            ) : (
-              <Box>
-                <CardList helpRequests={currentItems} viewMode={viewMode} />
-                <Box sx={{
-                  display: 'flex',       
-                  justifyContent: 'center',
-                  marginTop: '30px'
-                }}>
-                  <Pagination
-                    count={Math.ceil(helpRequests.length / itemsPerPage)}
-                    page={currentPage}
-                    size='large'
-                    onChange={handlePageChange}
-                    color="primary"
-                  />
-                </Box>
-              </Box>
-            )}
-          </>
-        )}
-      </Box>
+      <ViewHelpRequests
+        viewMode={viewMode}
+        helpRequests={helpRequests}
+        isHelpRequestsError={isHelpRequestsError}
+        isLoading={isLoading}
+        notFoundResult={noSearchResult}
+        isResetFilters={isResetFilters}
+        setIsResetFilters={setIsResetFilters}
+      />
     </Box>
-   )
+  );
 };
 
 export default HelpRequestsComponent;
-

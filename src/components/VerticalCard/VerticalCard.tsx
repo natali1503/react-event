@@ -124,11 +124,11 @@ const VerticalCard: FC<CardItemProps> = (props) => {
             >
               <Typography
                 variant="body2"
-                // minHeight={'3.5rem'}
+                minHeight={'3.5rem'}
                 sx={{
                   display: '-webkit-box',
-                  '-webkit-line-clamp': '2',
-                  '-webkit-box-orient': 'vertical',
+                  WebkitLineClamp: '2',
+                  WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                 }}

@@ -5,9 +5,9 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import Wrapper from './components/Wrapper';
 import Profile from './pages/Profile/Profile';
-import Helps from './pages/Helps/Helps';
 import HelpRequest from './pages/HelpRequest';
 import { Theme } from './components/Theme';
+import HelpDesk from './pages/HelpDesk/HelpDesk';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
             <Route path={AppRoute.Login} element={<LoginPage />} />
             <Route
               path={AppRoute.Main}
-              element={<ProtectedRoute component={<Helps />} />}
+              element={<ProtectedRoute component={<HelpDesk />} />}
             />
             <Route
               path={AppRoute.Profile}
