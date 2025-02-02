@@ -14,13 +14,8 @@ export function useUserHelpRequests() {
   const isHelpRequestsLoading = useSelector(getIsRequestLoading);
   const isHelpRequestsError = useSelector(getRequestDataError)
   const isFavouriteRequestsError = useSelector(getFavouriteRequestsError)
-  useEffect(() => {
-    if (!favouriteRequestsFlag) {
-      dispatch(getFavouritesAction());
-    }
-  }, []);
-
-  useEffect(() => {
+  
+  /*useEffect(() => {
     if (helpRequestsList.length > 0) {
       dispatch(setHelpRequest(helpRequestsList));
     } else {
@@ -28,15 +23,41 @@ export function useUserHelpRequests() {
       dispatch(fetchHelpRequestsAction());
       dispatch(setIsLoading());
     }
-  }, [helpRequestsList.length]);
+  }, [helpRequestsList.length]);*/
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        dispatch(setIsLoading());
+        const helpRequestsResult = await dispatch(fetchHelpRequestsAction()).unwrap();
+        if (helpRequestsResult.length > 0) {
+          dispatch(setHelpRequest(helpRequestsResult));
+          setHasHelpRequests(true);
+          if (!favouriteRequestsFlag) {
+            await dispatch(getFavouritesAction()).unwrap();
+          }
+        } else {
+          setHasHelpRequests(false);
+        }
+      } catch (error) {
+        console.error('Ошибка загрузки данных:', error);
+      } finally {
+        dispatch(setIsLoading());
+      }
+    };
+  
+   // if (helpRequestsList.length == 0) {
+      fetchData();
+   // }
+  }, [dispatch])
+
+  /*useEffect(() => {
     if (isHelpRequestsError) dispatch(setIsLoading());
   }, [isHelpRequestsError]);
 
   useEffect(() => {
     setHasHelpRequests(helpRequestsList.length > 0);
-  }, [helpRequestsList]);
+  }, [helpRequestsList]);*/
 
   return { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError };
 };

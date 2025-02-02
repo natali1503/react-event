@@ -28,7 +28,7 @@ export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (a
     typedAction.error?.name === 'AxiosError' &&
     typedAction.error?.message.includes('403')
   ) {
-    //store.dispatch(logOut()); // TODO: убрать двойной вывод инфо-тоста о разлогинивании
+    store.dispatch(logOut()); // TODO: убрать двойной вывод инфо-тоста о разлогинивании
   }
 
   return next(action);

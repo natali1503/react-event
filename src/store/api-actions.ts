@@ -63,31 +63,6 @@ export const getFavouritesAction = createAsyncThunk<string[], void, {
   async (_, {extra: api}) => {
     const response = await api.get(APIRoute.FavouritesHelpRequests);
     return response.data;
-    //let attempt = 1;
-
-    /*while (attempt <= 5) {
-      try {
-        const response = await api.post(APIRoute.FavouritesHelpRequests); 
-        if (Array.isArray(response) && response.length >= 0) {
-          return response;
-        }; 
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          if (attempt === 5) {
-            return ''; //rejectWithValue(error.message);
-          }
-          attempt++;
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        } else {
-          if (attempt === 5) {
-            return ''; //rejectWithValue('Unexpected error occurred');
-          }
-          attempt++;
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        };
-      };
-    };
-    return ''; //rejectWithValue('Max retries reached');*/
   }
 );
 
