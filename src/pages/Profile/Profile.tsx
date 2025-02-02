@@ -76,6 +76,9 @@ export default function Profile() {
                 flexDirection: 'column',
                 margin: '2rem 4rem',
               },
+              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                margin: '2rem 2rem',
+              },
             }}
           >
             <Stack

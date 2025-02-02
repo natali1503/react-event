@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useMemo } from 'react';
 import { HelpRequest } from '../types/HelpRequest';
-import { Box, Skeleton } from '@mui/material';
+import { Box, Skeleton, useMediaQuery } from '@mui/material';
 import CardList from './CardList/CardList';
 import MapWrapper from './Map/MapWrapper';
 import { ErrorComponent } from './Error';
@@ -18,6 +18,7 @@ interface IViewHelpRequests {
   isResetFilters?: boolean;
   setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
   isFavouriteRequestsError?: boolean;
+  customItemsPerPage?: number;
 }
 
 export const ViewHelpRequests: FC<IViewHelpRequests> = ({
@@ -30,9 +31,14 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   setIsResetFilters,
   isFavouriteRequestsError,
 }) => {
-  const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
+  const { currentPage, indexOfLastItem, indexOfFirstItem, customItemsPerPage, setCurrentPage } = usePagination({
     quantityHelpRequests: helpRequests.length,
   });
+  const itemsPerPage = customItemsPerPage || 3;
+  const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage])
+  const isMediumScreen = useMediaQuery('(max-width:604px)');
+  const isSmallScreen = useMediaQuery('(max-width:380px)');
+  const scrollCooldownDuration = 50;
   const [currentItems, setCurrentItems] = useState(helpRequests.slice(indexOfFirstItem, indexOfLastItem));
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -53,6 +59,15 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     return null;
   };
   const errorMessage = renderErrorMessage();
+
+  let paginationSize;
+  if (isSmallScreen) {
+    paginationSize = 'small';
+  } else if (isMediumScreen) {
+    paginationSize = 'medium';
+  } else {
+    paginationSize = 'large';
+  }
 
   useEffect(() => {
     if (isResetFilters && setIsResetFilters) {
@@ -84,8 +99,15 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
                 totalPages={totalPages}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                scrollCooldownDuration={scrollCooldownDuration}
               />
-              <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} />
+              <Pagination 
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    handlePageChange={handlePageChange}  
+                    size={paginationSize}
+                    hidePrevButton={isMediumScreen}
+                    hideNextButton={isMediumScreen}/>
             </Box>
           )}
         </>

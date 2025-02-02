@@ -24,7 +24,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
   isLoading,
   isResetFilters,
   setIsResetFilters,
-  isFavouriteRequestsError
+  isFavouriteRequestsError,
 }) => {
   const { viewMode, handleViewChange } = useViewMode();
 

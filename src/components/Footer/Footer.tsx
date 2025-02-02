@@ -23,18 +23,21 @@ export default function BottomNavigationApp() {
         [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
           padding: '0 2rem',
         },
-        [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-          padding: '0 0',
+        [`@media (max-width:${theme.breakpoints.values.xs}px)`]: {
+          padding: '0 1rem',
+        },
+        [`@media (max-width:${400}px)`]: {
+          flexDirection: 'column',
+          padding: '1.5rem 0',
         },
       }}
     >
       <Box
         display={'flex'}
-        width={'12rem'}
         justifyContent={'flex-start'}
         sx={{
-          ['@media (max-width:550px)']: {
-            width: '10rem',
+          [`@media (max-width:${500}px)`]: {
+            justifyContent: 'center'
           },
         }}
       >

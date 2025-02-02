@@ -20,7 +20,7 @@ export default function Wrapper({ children }) {
         display={'flex'}
         sx={{
           [`@media (max-width:${theme.breakpoints.values.lg}px)`]: {
-            margin: '0 7rem',
+            margin: '0 4rem',
           },
           [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
             margin: '0 2rem',

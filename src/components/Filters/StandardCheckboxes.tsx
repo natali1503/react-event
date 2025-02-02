@@ -33,9 +33,13 @@ const StandardCheckboxes: FC<StandardCheckboxesProps> = ({ item, index, selected
             }
             label={label}
             sx={{
+              width: 'fit-content', 
+              hyphens: 'auto',
+              wordBreak: 'break-word',
+              userSelect: 'none',
               '& .MuiFormControlLabel-label': {
-                fontSize: '1.6rem', 
-              }, width: 'fit-content', userSelect: 'none'
+                fontSize: '1.6rem'
+              }, 
             }}
           />
         ))}

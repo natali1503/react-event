@@ -44,9 +44,6 @@ export default function HeaderNavigationApp() {
             [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
               padding: '0 2rem',
             },
-            [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-              padding: '0 0',
-            },
           }}
         >
           <Logo />
@@ -55,6 +52,7 @@ export default function HeaderNavigationApp() {
               flexGrow: 1,
               display: 'flex',
               justifyContent: 'center',
+              textAlign: 'center'
             }}
           >
             <Link
@@ -78,7 +76,7 @@ export default function HeaderNavigationApp() {
               alignItems: 'center',
               width: 'calc(31.3rem + 0.11*(100vw - 192rem))',
               [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-                width: 'calc(12rem) ',
+                width: 'calc(5rem) ',
               },
             }}
           >

@@ -5,9 +5,12 @@ interface IPagination {
   totalPages: number;
   currentPage: number;
   handlePageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+  size: 'small' | 'medium' | 'large';
+  hidePrevButton: boolean;
+  hideNextButton: boolean;
 }
 
-const Pagination: FC<IPagination> = ({ totalPages, currentPage, handlePageChange }) => {
+const Pagination: FC<IPagination> = ({ totalPages, currentPage, handlePageChange, size, hideNextButton, hidePrevButton }) => {
   return (
     <Box
       sx={{
@@ -16,7 +19,7 @@ const Pagination: FC<IPagination> = ({ totalPages, currentPage, handlePageChange
         marginTop: '30px',
       }}
     >
-      <MuiPagination count={totalPages} page={currentPage} size="large" onChange={handlePageChange} color="primary" />
+      <MuiPagination count={totalPages} page={currentPage} size={size} onChange={handlePageChange} hidePrevButton={hidePrevButton} hideNextButton={hideNextButton} color="primary" />
     </Box>
   );
 };
