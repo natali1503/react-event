@@ -17,6 +17,7 @@ interface IViewHelpRequests {
   notFoundResult: boolean;
   isResetFilters?: boolean;
   setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
+  isFavouriteRequestsError?: boolean;
 }
 
 export const ViewHelpRequests: FC<IViewHelpRequests> = ({
@@ -27,6 +28,7 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   notFoundResult,
   isResetFilters,
   setIsResetFilters,
+  isFavouriteRequestsError,
 }) => {
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
     quantityHelpRequests: helpRequests.length,
@@ -38,7 +40,7 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   };
 
   const renderErrorMessage = () => {
-    if (isHelpRequestsError) {
+    if (isHelpRequestsError || isFavouriteRequestsError) {
       return <ErrorComponent />;
     }
     if (isLoading) {

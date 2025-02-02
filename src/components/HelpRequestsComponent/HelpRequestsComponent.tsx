@@ -28,18 +28,6 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
 }) => {
   const { viewMode, handleViewChange } = useViewMode();
 
-  const renderErrorMessage = () => {  // TODO: проверить
-    if (isHelpRequestsError || isFavouriteRequestsError) {
-      return <ErrorComponent/>
-    }
-
-    if (noSearchResult) {
-      return <NotFoundResult />;
-    }
-
-    return null; 
-  };
-
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, height: '100%' }}>
       <Box
@@ -60,6 +48,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
         notFoundResult={noSearchResult}
         isResetFilters={isResetFilters}
         setIsResetFilters={setIsResetFilters}
+        isFavouriteRequestsError={isFavouriteRequestsError}
       />
     </Box>
   );

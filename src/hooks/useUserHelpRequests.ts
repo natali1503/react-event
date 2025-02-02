@@ -27,7 +27,6 @@ export function useUserHelpRequests() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch(setIsLoading()); // TODO: проверить
         const helpRequestsResult = await dispatch(fetchHelpRequestsAction()).unwrap();
         if (helpRequestsResult.length > 0) {
           dispatch(setHelpRequest(helpRequestsResult));
@@ -40,8 +39,6 @@ export function useUserHelpRequests() {
         }
       } catch (error) {
         console.error('Ошибка загрузки данных:', error);
-      } finally {
-        dispatch(setIsLoading());
       }
     };
   
