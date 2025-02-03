@@ -6,8 +6,8 @@ export enum AppRoute {
   TestPage = '/test', // to delete
 }
 
-//const BASE_URL = 'http://localhost:4040/api';
-export const BASE_URL = 'https://natticharity.eveloth.ru/api';
+const BASE_URL = 'http://localhost:4040/api';
+//export const BASE_URL = 'https://natticharity.eveloth.ru/api';
 
 export enum APIRoute {
   HelpRequests = `${BASE_URL}/request`,
