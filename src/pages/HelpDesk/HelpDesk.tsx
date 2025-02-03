@@ -40,9 +40,12 @@ const HelpDesk: React.FC = () => {
     return (
       <HelpRequestsComponent
         helpRequests={dataToDisplay}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         isHelpRequestsError={isHelpRequestsError}
         noSearchResult={noSearchResult}
         isLoading={isHelpRequestsLoading}
+        customItemsPerPage={itemsPerPage}
         isResetFilters={isResetFilters}
         setIsResetFilters={setIsResetFilters}
         isFavouriteRequestsError={isFavouriteRequestsError}

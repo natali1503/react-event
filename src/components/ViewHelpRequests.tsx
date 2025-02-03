@@ -19,6 +19,7 @@ interface IViewHelpRequests {
   setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
   isFavouriteRequestsError?: boolean;
   customItemsPerPage?: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ViewHelpRequests: FC<IViewHelpRequests> = ({

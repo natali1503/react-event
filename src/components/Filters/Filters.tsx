@@ -11,7 +11,7 @@ import { FilterProps } from '../../types/IFilterOption';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { useMode } from '../../theme';
 
-const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSelectedOptions, setSelectedDate }) => {
+const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSelectedOptions, setSelectedDate, setIsResetFilters }) => {
   const [theme] = useMode();
 
   // Toggle checkbox filter
@@ -43,7 +43,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
   const handleReset = () => {
     setSelectedOptions([]);
     setSelectedDate(null);
-    setIsResetFilters(true); // TODO: посмотреть фильтры
+    setIsResetFilters(true);
   };
 
   useEffect(() => {
