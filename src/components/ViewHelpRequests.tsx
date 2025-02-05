@@ -12,34 +12,37 @@ import { usePagination } from '../hooks/usePagination';
 interface IViewHelpRequests {
   viewMode: string;
   helpRequests: HelpRequest[];
-  isHelpRequestsError: boolean;
-  isLoading: boolean;
-  notFoundResult: boolean;
-  isResetFilters?: boolean;
-  setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
-  isFavouriteRequestsError?: boolean;
   customItemsPerPage?: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  notFoundResult: boolean;
+  isLoading: boolean;
+  isResetFilters?: boolean;
+  isHelpRequestsError: boolean;
+  isFavouriteRequestsError?: boolean;
+  setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   viewMode,
   helpRequests,
-  isHelpRequestsError,
-  isLoading,
+  customItemsPerPage,
   notFoundResult,
+  isLoading,
   isResetFilters,
-  setIsResetFilters,
+  isHelpRequestsError,
   isFavouriteRequestsError,
+  setIsResetFilters,
 }) => {
-  const { currentPage, indexOfLastItem, indexOfFirstItem, customItemsPerPage, setCurrentPage } = usePagination({
-    quantityHelpRequests: helpRequests.length,
-  });
   const itemsPerPage = customItemsPerPage || 3;
-  const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage])
+  const scrollCooldownDuration = 50;
+
+  const { currentPage, setCurrentPage, indexOfLastItem, indexOfFirstItem } = usePagination({
+    quantityHelpRequests: helpRequests.length,
+    itemsPerPage
+  });
+
+  const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage]);
   const isMediumScreen = useMediaQuery('(max-width:604px)');
   const isSmallScreen = useMediaQuery('(max-width:380px)');
-  const scrollCooldownDuration = 50;
   const [currentItems, setCurrentItems] = useState(helpRequests.slice(indexOfFirstItem, indexOfLastItem));
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -59,6 +62,7 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
 
     return null;
   };
+
   const errorMessage = renderErrorMessage();
 
   let paginationSize;
@@ -68,7 +72,7 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     paginationSize = 'medium';
   } else {
     paginationSize = 'large';
-  }
+  };
 
   useEffect(() => {
     if (isResetFilters && setIsResetFilters) {
@@ -103,12 +107,12 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
                 scrollCooldownDuration={scrollCooldownDuration}
               />
               <Pagination 
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    handlePageChange={handlePageChange}  
-                    size={paginationSize}
-                    hidePrevButton={isMediumScreen}
-                    hideNextButton={isMediumScreen}/>
+                currentPage={currentPage}
+                totalPages={totalPages}
+                size={paginationSize}
+                handlePageChange={handlePageChange}  
+                hidePrevButton={isMediumScreen}
+                hideNextButton={isMediumScreen}/>
             </Box>
           )}
         </>

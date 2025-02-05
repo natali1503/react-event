@@ -9,15 +9,13 @@ import { ViewHelpRequests } from '../ViewHelpRequests';
 
 type RequestsProps = {
   helpRequests: HelpRequest[];
+  customItemsPerPage?: number;
+  noSearchResult: boolean;
+  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
   isHelpRequestsError: boolean;
   isFavouriteRequestsError?: boolean;
-  noSearchResult: boolean;
   isLoading: boolean;
   isResetFilters: boolean;
-  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
-  currentPage: number;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  customItemsPerPage?: number;
 };
 
 const HelpRequestsComponent: FC<RequestsProps> = ({
@@ -28,8 +26,6 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
   isResetFilters,
   setIsResetFilters,
   isFavouriteRequestsError,
-  currentPage,
-  setCurrentPage,
   customItemsPerPage
 }) => {
   const { viewMode, handleViewChange } = useViewMode();
@@ -49,14 +45,13 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
       <ViewHelpRequests
         viewMode={viewMode}
         helpRequests={helpRequests}
+        customItemsPerPage={customItemsPerPage}
+        notFoundResult={noSearchResult}
         isHelpRequestsError={isHelpRequestsError}
         isLoading={isLoading}
-        notFoundResult={noSearchResult}
         isResetFilters={isResetFilters}
-        setIsResetFilters={setIsResetFilters}
         isFavouriteRequestsError={isFavouriteRequestsError}
-        customItemsPerPage={customItemsPerPage}
-        setCurrentPage={setCurrentPage}
+        setIsResetFilters={setIsResetFilters}
       />
     </Box>
   );

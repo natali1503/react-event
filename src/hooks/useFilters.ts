@@ -53,7 +53,7 @@ export function useFilters({ helpRequestsList }: useFilterProps) {
   return {
     searchTerm,
     selectedOptions,
-    selectedDate, 
+    selectedDate,
     currentPage,
     filteredData,
     setSearchTerm,
