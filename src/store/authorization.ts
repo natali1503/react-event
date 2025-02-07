@@ -36,7 +36,6 @@ export const authorizationSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-
       .addCase(loginAction.pending, (state) => {
         state.isAuthPending = true;
         state.errorMessage = null; // Сбрасываем сообщение об ошибке при новом запросе
@@ -49,7 +48,7 @@ export const authorizationSlice = createSlice({
       .addCase(loginAction.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
-        state.errorMessage = String(action.payload);
+        state.errorMessage = (action.error.code == 'ERR_BAD_REQUEST') ? 'Неправильный логин или пароль' : null ;
       });
   },
 });
