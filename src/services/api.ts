@@ -41,11 +41,14 @@ export const createAPI = (): AxiosInstance => {
           case StatusCodes.INTERNAL_SERVER_ERROR:
             toast.error('Ошибка! Попробуйте еще раз');
             break;
+          case StatusCodes.BAD_REQUEST:
+            toast.error('Неверный логин или пароль');
+            break;
           case StatusCodes.FORBIDDEN:
             toast.info('Время сессии истекло. Авторизуйтесь снова.');
             break;
           default:
-            toast.error(`Ошибка! ${error.response.data.error}`);
+            toast.error(`Ошибка! ${error.response.data.message}`);
         }
 
       }

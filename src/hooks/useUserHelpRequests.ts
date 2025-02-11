@@ -42,9 +42,7 @@ export function useUserHelpRequests() {
       }
     };
   
-   // if (helpRequestsList.length == 0) {
-      fetchData();
-   // }
+    fetchData();
   }, [dispatch])
 
   /*useEffect(() => {
