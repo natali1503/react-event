@@ -76,7 +76,6 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: '2rem' }}>
           {filterOptions.map((item, index) => {
             if (item.type === 'checkList') {
-              // render standard options
               return (
                 <StandardCheckboxes
                   item={item}
@@ -87,7 +86,6 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
                 />
               );
             } else if (item.type === 'accordionList') {
-              // render options inside accordion
               return (
                 <AccordionCheckboxes
                   item={item}

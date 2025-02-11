@@ -32,7 +32,7 @@ const HelpDesk: React.FC = () => {
 
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
   const noSearchResult = hasHelpRequests && filteredData.length === 0;
-  const [isResetFilters, setIsResetFilters] = useState(false); // TODO: проверить
+  const [isResetFilters, setIsResetFilters] = useState(false);
 
   const renderHelpRequestsComponent = () => {
     return (
@@ -85,7 +85,7 @@ const HelpDesk: React.FC = () => {
               selectedOptions={selectedOptions}
               selectedDate={selectedDate}
               setSelectedOptions={setSelectedOptions}
-              setIsResetFilters={setIsResetFilters} // TODO: проверить фильтры
+              setIsResetFilters={setIsResetFilters}
               setSelectedDate={setSelectedDate}
             />
           </Box>
@@ -122,7 +122,7 @@ const HelpDesk: React.FC = () => {
           selectedDate={selectedDate}
           setSelectedOptions={setSelectedOptions} 
           setSelectedDate={setSelectedDate}
-          setIsResetFilters={setIsResetFilters} // TODO: проверить фильтры
+          setIsResetFilters={setIsResetFilters}
         />
       </ModalWindow>
     </Paper>

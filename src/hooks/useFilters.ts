@@ -11,18 +11,15 @@ export function useFilters({ helpRequestsList }: useFilterProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [filteredData, setFilteredData] = useState<HelpRequest[]>([]);
 
   useParseURL({
     searchTerm,
     selectedOptions,
     selectedDate,
-    currentPage,
     setSearchTerm,
     setSelectedOptions,
     setSelectedDate,
-    setCurrentPage,
   });
 
   const applyFilters = () => {
@@ -41,7 +38,6 @@ export function useFilters({ helpRequestsList }: useFilterProps) {
       requestedData = applyFilter(requestedData, selectedOptions);
     }
 
-    setCurrentPage(currentPage);
     setFilteredData(requestedData);
   };
 
@@ -54,11 +50,9 @@ export function useFilters({ helpRequestsList }: useFilterProps) {
     searchTerm,
     selectedOptions,
     selectedDate,
-    currentPage,
     filteredData,
     setSearchTerm,
     setSelectedOptions,
     setSelectedDate,
-    setCurrentPage,
   };
 }

@@ -20,13 +20,13 @@ type RequestsProps = {
 
 const HelpRequestsComponent: FC<RequestsProps> = ({
   helpRequests,
+  customItemsPerPage,
   noSearchResult,
+  setIsResetFilters,
   isHelpRequestsError,
   isLoading,
   isResetFilters,
-  setIsResetFilters,
-  isFavouriteRequestsError,
-  customItemsPerPage
+  isFavouriteRequestsError
 }) => {
   const { viewMode, handleViewChange } = useViewMode();
 
@@ -47,11 +47,11 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
         helpRequests={helpRequests}
         customItemsPerPage={customItemsPerPage}
         notFoundResult={noSearchResult}
+        setIsResetFilters={setIsResetFilters}
         isHelpRequestsError={isHelpRequestsError}
         isLoading={isLoading}
         isResetFilters={isResetFilters}
         isFavouriteRequestsError={isFavouriteRequestsError}
-        setIsResetFilters={setIsResetFilters}
       />
     </Box>
   );

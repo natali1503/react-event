@@ -8,17 +8,18 @@ import { NotFoundResult } from './NotFoundResult';
 import { VIEW_TOGGLE_OPTIONS } from '../const/const';
 import Pagination from './Pagination';
 import { usePagination } from '../hooks/usePagination';
+import useParseURL from '../hooks/useParseURL';
 
 interface IViewHelpRequests {
   viewMode: string;
   helpRequests: HelpRequest[];
   customItemsPerPage?: number;
   notFoundResult: boolean;
+  setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
   isResetFilters?: boolean;
   isHelpRequestsError: boolean;
   isFavouriteRequestsError?: boolean;
-  setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ViewHelpRequests: FC<IViewHelpRequests> = ({
@@ -26,11 +27,11 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   helpRequests,
   customItemsPerPage,
   notFoundResult,
+  setIsResetFilters,
   isLoading,
   isResetFilters,
   isHelpRequestsError,
   isFavouriteRequestsError,
-  setIsResetFilters,
 }) => {
   const itemsPerPage = customItemsPerPage || 3;
   const scrollCooldownDuration = 50;
@@ -38,6 +39,12 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   const { currentPage, setCurrentPage, indexOfLastItem, indexOfFirstItem } = usePagination({
     quantityHelpRequests: helpRequests.length,
     itemsPerPage
+  });
+
+  // Rewrite currentPage with data from URL
+  useParseURL({
+    currentPage,
+    setCurrentPage,
   });
 
   const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage]);

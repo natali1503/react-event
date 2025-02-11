@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type useParseURLProps = {
-  searchTerm: string,
-  selectedOptions: string[],
-  selectedDate: string | null,
-  currentPage: number,
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
-  setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>,
-  setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>,
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  searchTerm?: string,
+  selectedOptions?: string[],
+  selectedDate?: string | null,
+  currentPage?: number,
+  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>,
+  setSelectedOptions?: React.Dispatch<React.SetStateAction<string[]>>,
+  setSelectedDate?: React.Dispatch<React.SetStateAction<string | null>>,
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>
 };
 
 const useParseURL = (props: useParseURLProps) => {
@@ -40,19 +40,27 @@ const useParseURL = (props: useParseURLProps) => {
   useEffect(() => {
     const { searchTerm, selectedOptions, selectedDate, currentPage } = getQueryParams();
 
-    setSearchTerm(searchTerm);
-    setSelectedOptions(selectedOptions);
-    setSelectedDate(selectedDate);
-    setCurrentPage(currentPage);
+    if (searchTerm !== undefined && setSearchTerm) {
+      setSearchTerm(searchTerm);
+    }
+    if (selectedOptions !== undefined && setSelectedOptions) {
+      setSelectedOptions(selectedOptions);
+    }
+    if (selectedDate !== undefined && setSelectedDate) {
+      setSelectedDate(selectedDate);
+    }
+    if (currentPage !== undefined && setCurrentPage) {
+      setCurrentPage(currentPage);
+    }
   }, []);
 
   const updateFiltersInURL = () => {
     const params = new URLSearchParams();
 
     if (searchTerm) params.set('searchTerm', searchTerm);
-    selectedOptions.forEach(option => params.append('selectedOptions', option));
+    if (selectedOptions) selectedOptions.forEach(option => params.append('selectedOptions', option));
     if (selectedDate) params.set('selectedDate', selectedDate);
-    params.set('currentPage', currentPage.toString());
+    if (currentPage) params.set('currentPage', currentPage.toString());
 
     const currentUrl = new URL(window.location.href);
     const newUrl = new URL(window.location.origin + window.location.pathname + '?' + params.toString());
