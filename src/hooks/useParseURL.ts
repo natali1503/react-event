@@ -30,36 +30,75 @@ const useParseURL = (props: useParseURLProps) => {
     const params = new URLSearchParams(location.search);
 
     const urlSearchTerm = params.get('searchTerm') || ''
-    const urlSelectedOptions = params.getAll('selectedOptions')
+    const urlSelectedOptions = params.getAll('selectedOption')
     const urlSelectedDate = params.get('selectedDate') || null
     const urlCurrentPage = parseInt(params.get('currentPage') || '1', 10)
 
-    if (urlSearchTerm && urlSearchTerm !== searchTerm && setSearchTerm) {
-      setSearchTerm(urlSearchTerm);
-    } 
-    if (urlSelectedOptions && urlSelectedOptions !== selectedOptions && setSelectedOptions) {
-      setSelectedOptions(urlSelectedOptions);
-    }
-    if (urlSelectedDate && urlSelectedDate !== selectedDate && setSelectedDate) {
-      setSelectedDate(urlSelectedDate);
-    }
-    if (urlCurrentPage && urlCurrentPage !== currentPage && setCurrentPage) {
-      setCurrentPage(urlCurrentPage);
-    }
+    const parseSearchTerm = () => {
+      if (urlSearchTerm && urlSearchTerm !== searchTerm && setSearchTerm) {
+        setSearchTerm(urlSearchTerm);
+      } 
+    };
+
+    const parseSelectedOptions = () => {
+      if (urlSelectedOptions && urlSelectedOptions.length > 0) {
+        const filteredSelectedOptions = urlSelectedOptions.filter(option => option !== selectedDate);
+        if (filteredSelectedOptions !== selectedOptions && setSelectedOptions) {
+          setSelectedOptions(filteredSelectedOptions);
+        }
+      }
+    };
+
+    const parseSelectedDate = () => {
+      if (urlSelectedDate && urlSelectedDate !== selectedDate && setSelectedDate) {
+        setSelectedDate(urlSelectedDate);
+      }
+    };
+
+    const parseCurrentPage = () => {
+      if (urlCurrentPage && urlCurrentPage !== currentPage && setCurrentPage) {
+        setCurrentPage(urlCurrentPage);
+      }
+    };
+
+    parseSearchTerm();
+    parseSelectedOptions();
+    parseSelectedDate();
+    parseCurrentPage();
   };
 
   const updateFiltersInURL = () => {
     const params = new URLSearchParams(window.location.search);
-  
-    if (searchTerm) params.set('searchTerm', searchTerm);
-    else if (searchTerm === '') params.delete('searchTerm');
-    if (selectedOptions) {
-      params.delete('selectedOptions');
-      selectedOptions.forEach(option => params.append('selectedOptions', option));
-    }
-    if (selectedDate) params.set('selectedDate', selectedDate);
-    if (currentPage) params.set('currentPage', currentPage.toString());
-  
+
+    const updateSearchTermURL = () => {
+      if (searchTerm) params.set('searchTerm', searchTerm);
+      else if (searchTerm === '') params.delete('searchTerm');
+    };
+
+    const updateSelectedOptionsURL = () => {
+      if (selectedOptions) {
+        const filteredOptions = selectedOptions.filter(option => option !== selectedDate);
+        params.delete('selectedOption');
+        filteredOptions.forEach(option => params.append('selectedOption', option));
+      } else {
+        params.delete('selectedOption');
+      }
+    };
+    
+    const updateSelectedDateURL = () => {
+      if (selectedDate) params.set('selectedDate', selectedDate);
+      else if (selectedDate === null || undefined) params.delete('selectedDate');
+    };
+
+    const updateCurrentPageURL = () => {
+      if (currentPage) params.set('currentPage', currentPage.toString());
+    };
+    
+    updateSearchTermURL();
+    updateSelectedOptionsURL();
+    updateSelectedDateURL();
+    updateCurrentPageURL();
+
     const currentUrl = new URL(window.location.href);
     const newUrl = new URL(window.location.origin + window.location.pathname + '?' + params.toString());
   
