@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface IUsePagination {
   quantityHelpRequests: number;
@@ -10,10 +10,6 @@ export function usePagination({ quantityHelpRequests, itemsPerPage }: IUsePagina
   const totalPages = Math.ceil(quantityHelpRequests / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [quantityHelpRequests, itemsPerPage]);
 
   return { 
     currentPage,

@@ -15,6 +15,7 @@ import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
 
 const HelpDesk: React.FC = () => {
   const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } = useUserHelpRequests();
+  const [isResetFilters, setIsResetFilters] = useState(false);
 
   const {
     selectedOptions,
@@ -23,8 +24,8 @@ const HelpDesk: React.FC = () => {
     filteredData,
     setSearchTerm,
     setSelectedOptions,
-    setSelectedDate
-  } = useFilters({ helpRequestsList });
+    setSelectedDate,
+  } = useFilters({ helpRequestsList, setIsResetFilters });
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [theme] = useMode();
@@ -32,7 +33,6 @@ const HelpDesk: React.FC = () => {
 
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
   const noSearchResult = hasHelpRequests && filteredData.length === 0;
-  const [isResetFilters, setIsResetFilters] = useState(false);
 
   const renderHelpRequestsComponent = () => {
     return (
@@ -85,7 +85,6 @@ const HelpDesk: React.FC = () => {
               selectedOptions={selectedOptions}
               selectedDate={selectedDate}
               setSelectedOptions={setSelectedOptions}
-              setIsResetFilters={setIsResetFilters}
               setSelectedDate={setSelectedDate}
             />
           </Box>
@@ -122,7 +121,6 @@ const HelpDesk: React.FC = () => {
           selectedDate={selectedDate}
           setSelectedOptions={setSelectedOptions} 
           setSelectedDate={setSelectedDate}
-          setIsResetFilters={setIsResetFilters}
         />
       </ModalWindow>
     </Paper>

@@ -9,7 +9,7 @@ type useParseURLProps = {
   setSearchTerm?: React.Dispatch<React.SetStateAction<string>>,
   setSelectedOptions?: React.Dispatch<React.SetStateAction<string[]>>,
   setSelectedDate?: React.Dispatch<React.SetStateAction<string | null>>,
-  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>,
 };
 
 const useParseURL = (props: useParseURLProps) => {
@@ -26,49 +26,52 @@ const useParseURL = (props: useParseURLProps) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const getQueryParams = (): { searchTerm: string; selectedOptions: string[]; selectedDate: string | null; currentPage: number } => {
+  const getQueryParams = () => {
     const params = new URLSearchParams(location.search);
 
-    return {
-      searchTerm: params.get('searchTerm') || '',
-      selectedOptions: params.getAll('selectedOptions'),
-      selectedDate: params.get('selectedDate') || null,
-      currentPage: parseInt(params.get('currentPage') || '1', 10),
-    };
+    const urlSearchTerm = params.get('searchTerm') || ''
+    const urlSelectedOptions = params.getAll('selectedOptions')
+    const urlSelectedDate = params.get('selectedDate') || null
+    const urlCurrentPage = parseInt(params.get('currentPage') || '1', 10)
+
+    if (urlSearchTerm && urlSearchTerm !== searchTerm && setSearchTerm) {
+      setSearchTerm(urlSearchTerm);
+    } 
+    if (urlSelectedOptions && urlSelectedOptions !== selectedOptions && setSelectedOptions) {
+      setSelectedOptions(urlSelectedOptions);
+    }
+    if (urlSelectedDate && urlSelectedDate !== selectedDate && setSelectedDate) {
+      setSelectedDate(urlSelectedDate);
+    }
+    if (urlCurrentPage && urlCurrentPage !== currentPage && setCurrentPage) {
+      setCurrentPage(urlCurrentPage);
+    }
   };
 
-  useEffect(() => {
-    const { searchTerm, selectedOptions, selectedDate, currentPage } = getQueryParams();
-
-    if (searchTerm !== undefined && setSearchTerm) {
-      setSearchTerm(searchTerm);
-    }
-    if (selectedOptions !== undefined && setSelectedOptions) {
-      setSelectedOptions(selectedOptions);
-    }
-    if (selectedDate !== undefined && setSelectedDate) {
-      setSelectedDate(selectedDate);
-    }
-    if (currentPage !== undefined && setCurrentPage) {
-      setCurrentPage(currentPage);
-    }
-  }, []);
-
   const updateFiltersInURL = () => {
-    const params = new URLSearchParams();
-
+    const params = new URLSearchParams(window.location.search);
+  
     if (searchTerm) params.set('searchTerm', searchTerm);
-    if (selectedOptions) selectedOptions.forEach(option => params.append('selectedOptions', option));
+    else if (searchTerm === '') params.delete('searchTerm');
+    if (selectedOptions) {
+      params.delete('selectedOptions');
+      selectedOptions.forEach(option => params.append('selectedOptions', option));
+    }
     if (selectedDate) params.set('selectedDate', selectedDate);
     if (currentPage) params.set('currentPage', currentPage.toString());
-
+  
     const currentUrl = new URL(window.location.href);
     const newUrl = new URL(window.location.origin + window.location.pathname + '?' + params.toString());
-
+  
     if (currentUrl.search !== newUrl.search) {
       navigate({ search: params.toString() }, { replace: true });
     }
   };
+
+  useEffect(() => {
+    getQueryParams();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     updateFiltersInURL();
