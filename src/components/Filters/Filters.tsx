@@ -11,7 +11,12 @@ import { FilterProps } from '../../types/IFilterOption';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { useMode } from '../../theme';
 
-const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSelectedOptions, setSelectedDate, setIsResetFilters }) => {
+const Filters: React.FC<FilterProps> = ({
+  selectedOptions,
+  selectedDate,
+  setSelectedOptions,
+  setSelectedDate,
+}) => {
   const [theme] = useMode();
 
   // Toggle checkbox filter
@@ -43,7 +48,6 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
   const handleReset = () => {
     setSelectedOptions([]);
     setSelectedDate(null);
-    setIsResetFilters(true);
   };
 
   useEffect(() => {
@@ -52,23 +56,21 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
     }
   }, [selectedDate]);
 
-  useEffect(() => {
-    setIsResetFilters(true);
-  }, [selectedOptions]);
-
   return (
-    <Paper sx={{ 
-      backgroundColor: 'white', 
-      padding: '0 2rem', 
-      height: 'fit-content', 
-      width: '320px',
-      [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
-        width: '100%',
-      },
-      [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-        boxShadow: 'none',
-      }
-    }}>
+    <Paper
+      sx={{
+        backgroundColor: 'white',
+        padding: '0 2rem',
+        height: 'fit-content',
+        width: '320px',
+        [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
+          width: '100%',
+        },
+        [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+          boxShadow: 'none',
+        },
+      }}
+    >
       <Box sx={{ padding: '2rem 0' }}>
         <Typography variant="h6" width="fit-content">
           Фильтрация

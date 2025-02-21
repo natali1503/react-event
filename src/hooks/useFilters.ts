@@ -5,9 +5,10 @@ import useParseURL from './useParseURL';
 
 type useFilterProps = {
   helpRequestsList: HelpRequest[];
+  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function useFilters({ helpRequestsList }: useFilterProps) {
+export function useFilters({ helpRequestsList, setIsResetFilters }: useFilterProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -39,12 +40,12 @@ export function useFilters({ helpRequestsList }: useFilterProps) {
     }
 
     setFilteredData(requestedData);
+    setIsResetFilters(true);
   };
 
   useEffect(() => {
     applyFilters();
   }, [helpRequestsList, searchTerm, selectedOptions, selectedDate]);
-
 
   return {
     searchTerm,

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useMemo } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { HelpRequest } from '../types/HelpRequest';
 import { Box, Skeleton, useMediaQuery } from '@mui/material';
 import CardList from './CardList/CardList';
@@ -33,12 +33,13 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   isHelpRequestsError,
   isFavouriteRequestsError,
 }) => {
+  const [isInitialReset, setIsInitialReset] = useState(true)
   const itemsPerPage = customItemsPerPage || 3;
   const scrollCooldownDuration = 50;
 
-  const { currentPage, setCurrentPage, indexOfLastItem, indexOfFirstItem } = usePagination({
+  const { currentPage, setCurrentPage, totalPages, indexOfLastItem, indexOfFirstItem } = usePagination({
     quantityHelpRequests: helpRequests.length,
-    itemsPerPage
+    itemsPerPage,
   });
 
   // Rewrite currentPage with data from URL
@@ -47,10 +48,12 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     setCurrentPage,
   });
 
-  const totalPages = useMemo(() => Math.ceil(helpRequests.length / itemsPerPage), [helpRequests.length, itemsPerPage]);
   const isMediumScreen = useMediaQuery('(max-width:604px)');
   const isSmallScreen = useMediaQuery('(max-width:380px)');
-  const [currentItems, setCurrentItems] = useState(helpRequests.slice(indexOfFirstItem, indexOfLastItem));
+
+  const currentItems = useMemo(() => {
+    return helpRequests.slice(indexOfFirstItem, indexOfLastItem);
+  }, [helpRequests, indexOfFirstItem, indexOfLastItem]);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setCurrentPage(value);
@@ -82,22 +85,16 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   };
 
   useEffect(() => {
-    if (isResetFilters && setIsResetFilters) {
+    if (isResetFilters && setIsResetFilters && !isInitialReset) {
       setCurrentPage(1);
       setIsResetFilters(false);
+    } else if (isInitialReset) {
+      setIsInitialReset(false)
     }
   }, [isResetFilters]);
 
-  useEffect(() => {
-    setCurrentItems(helpRequests.slice(indexOfFirstItem, indexOfLastItem));
-  }, [helpRequests, indexOfFirstItem, indexOfLastItem]);
-
   return (
-    <Box
-      sx={{
-        height: '100%',
-      }}
-    >
+    <Box sx={{ height: '100%'}}>
       {errorMessage}
       {errorMessage === null && (
         <>

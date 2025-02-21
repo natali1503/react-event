@@ -31,7 +31,6 @@ export type FilterProps = {
   selectedDate: string | null;
   setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
-  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type IFilterOption = IStandardFilterOption | IAccordionFilterOption;
