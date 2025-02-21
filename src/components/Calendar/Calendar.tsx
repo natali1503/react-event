@@ -15,7 +15,7 @@ type CalendarProps = {
   setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const Calendar: FC<CalendarProps> = ({selectedDate, setSelectedDate}) => {
+const Calendar: FC<CalendarProps> = ({ selectedDate, setSelectedDate }) => {
   const [cleared, setCleared] = React.useState<boolean>(false);
 
   const handleDateChange = (date: Dayjs | null) => {

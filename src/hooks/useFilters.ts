@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { applyFilter, applySearch } from '../utils/filterUtils';
+import { applyDate, applyFilter, applySearch } from '../utils/filterUtils';
 import { HelpRequest } from '../types/HelpRequest';
 import useParseURL from './useParseURL';
 
@@ -37,6 +37,10 @@ export function useFilters({ helpRequestsList, setIsResetFilters }: useFilterPro
 
     if (selectedOptions.length > 0) {
       requestedData = applyFilter(requestedData, selectedOptions);
+    }
+
+    if (selectedDate) {
+      requestedData = applyDate(requestedData, selectedDate);
     }
 
     setFilteredData(requestedData);
