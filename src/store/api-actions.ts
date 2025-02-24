@@ -70,8 +70,7 @@ export const addToFavouritesAction = createAsyncThunk<string, string, {
     const response = await api.post(APIRoute.FavouritesHelpRequests, {
       requestId: favouriteId,
     });
-    // добавить id в стор
-    return favouriteId;  // возращаем ID, если успешно добавили
+    return favouriteId; 
   }
 );
 
@@ -83,7 +82,7 @@ export const removeFromFavouritesAction = createAsyncThunk<string, string, {
   'favourites/removeFromFavourites',
   async (favouriteId, { extra: api }) => {
     await api.delete(`${APIRoute.FavouritesHelpRequests}/${favouriteId}`);
-    return favouriteId;  // возращаем ID, если успешно удалили
+    return favouriteId;
   }
 );
 

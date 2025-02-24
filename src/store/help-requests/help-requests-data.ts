@@ -27,7 +27,7 @@ export const helpRequestData = createSlice({
         state.isRequestsDataLoading = false;
         
       })
-      .addCase(fetchHelpRequestsAction.rejected, (state, action) => {
+      .addCase(fetchHelpRequestsAction.rejected, (state) => {
         state.isRequestsDataLoading = false;
         state.hasError = true;
       })

@@ -14,8 +14,8 @@ const showErrorToast = (text: string) => {
       theme: 'white',
       transition: Bounce,
       style: {
-        backgroundColor: 'red', // Красный фон
-        color: 'white', // Белый текст
+        backgroundColor: 'red',
+        color: 'white',
       },
       progressStyle: { backgroundColor: 'white' }
     });}
@@ -32,8 +32,8 @@ const showSuccessToast = (text: string) => {
       theme: 'white',
       transition: Bounce,
       style: {
-        backgroundColor: 'green', // Красный фон
-        color: 'white', // Белый текст
+        backgroundColor: 'green', 
+        color: 'white',
       },
       progressStyle: { backgroundColor: 'white' }
     });}

@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   favourites: userFavouritesReducer,
   HELP_REQUEST: helpRequestData.reducer,
-  // остальные редьюсеры
 });
 
 interface ActionWithError extends Action {
@@ -28,7 +27,6 @@ type RootState = ReturnType<typeof rootReducer>;
 // задавили линтер по необходимости согласно инструкции редакса https://redux.js.org/usage/usage-with-typescript
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
-  // здесь ловим 403 ошибку
   const typedAction = action as ActionWithError;
 
   if (typedAction.type.endsWith('rejected') &&

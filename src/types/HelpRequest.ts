@@ -23,7 +23,7 @@ export interface HelpRequest {
       phone?: string;
       website?: string;
   },
-  requesterType: "person" | 'organization',
+  requesterType: 'person' | 'organization',
   helpType: 'finance' | 'material',
   helperRequirements: {
       helperType: 'group' | 'single',
