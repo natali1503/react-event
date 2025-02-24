@@ -16,13 +16,20 @@ const rootReducer = combineReducers({
   // остальные редьюсеры
 });
 
+interface ActionWithError extends Action {
+  error?: {
+    name: string;
+    message: string;
+  };
+}
+
 type RootState = ReturnType<typeof rootReducer>;
 
 // задавили линтер по необходимости согласно инструкции редакса https://redux.js.org/usage/usage-with-typescript
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
   // здесь ловим 403 ошибку
-  const typedAction = action as Action;
+  const typedAction = action as ActionWithError;
 
   if (typedAction.type.endsWith('rejected') &&
     typedAction.error?.name === 'AxiosError' &&
