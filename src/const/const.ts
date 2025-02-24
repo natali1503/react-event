@@ -6,6 +6,8 @@ export enum AppRoute {
   TestPage = '/test', // to delete
 }
 
+export const AUTH_TOKEN_KEY_NAME = 'charitable-react-event-token';
+
 export const REQUEST_TIMEOUT = 5000;
 
 export const BASE_URL = 'http://localhost:4040/api';

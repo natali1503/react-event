@@ -1,5 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = 'token';
-//const AUTH_TOKEN_KEY_NAME = 'charitable-react-event-token';
+import { AUTH_TOKEN_KEY_NAME } from '../const/const';
 
 export type Token = string;
 

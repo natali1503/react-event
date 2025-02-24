@@ -34,12 +34,6 @@ export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (a
   return next(action);
 };
 
-/*export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authMiddleware),
-  devTools: true,
-});*/
-
 export const api = createAPI();
 
 export const store = configureStore({

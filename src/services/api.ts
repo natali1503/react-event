@@ -48,7 +48,7 @@ export const createAPI = (): AxiosInstance => {
             toast.info('Время сессии истекло. Авторизуйтесь снова.');
             break;
           default:
-            toast.error(`Ошибка! ${error.response.data.message}`);
+            toast.error(`Ошибка! ${error.response.data.error}`); // TODO: проверить
         }
 
       }

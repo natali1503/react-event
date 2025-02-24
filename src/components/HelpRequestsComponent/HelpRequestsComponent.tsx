@@ -39,7 +39,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
           alignItems: 'center',
         }}
       >
-        <Typography variant="h6">Найдено: {helpRequests.length}</Typography>
+        <Typography variant="h6">Найдено: {isFavouriteRequestsError ? 0 : helpRequests.length}</Typography>
         <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />
       </Box>
       <ViewHelpRequests

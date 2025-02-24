@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginAction } from './api-actions';
 import { dropToken } from '../services/token';
+import { AUTH_TOKEN_KEY_NAME } from '../const/const';
 
 // Define a type for the slice state
 interface CounterState {
@@ -11,7 +12,7 @@ interface CounterState {
 
 // Define the initial state using that type
 const initialState: CounterState = {
-  isAuthenticated: !!localStorage.getItem('token'),
+  isAuthenticated: !!localStorage.getItem(AUTH_TOKEN_KEY_NAME),
   isAuthPending: false,
   errorMessage: null, // Изначально ошибка отсутствует
 };

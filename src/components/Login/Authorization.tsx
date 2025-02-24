@@ -51,7 +51,7 @@ export function Authorization() {
     dispatch(loginAction(authData));
   };
 
-  const handleFormSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     if (isLoginValid && isPasswordValid) {
       onSubmit({ login, password });
