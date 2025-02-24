@@ -23,14 +23,6 @@ const ScrollAndSwipeHandler: React.FC<ScrollAndSwipeHandlerProps> = (props) => {
 
   const isCooldown = useRef(false);
 
-  // Make sure the currentPage stays within
-  // bounds when totalPages updates
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [totalPages, currentPage, setCurrentPage]);
-
   const handleWheel = (e: WheelEvent) => {
     e.preventDefault();
 

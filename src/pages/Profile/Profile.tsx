@@ -2,7 +2,7 @@ import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../store/api-actions';
+import { getUserAction } from '../../store/api-actions';
 import { AppDispatch, RootState } from '../../store/types';
 
 import { ErrorComponent } from '../../components/Error';
@@ -13,18 +13,21 @@ import Contacts from '../../components/Profile/Contacts';
 import Favorites from '../../components/Profile/Favorites';
 import { useMode } from '../../theme';
 import { TabsProfile } from '../../components/Profile/element/TabsProfile';
+import ViewToggle from '../../components/ViewToggle/ViewToggle';
+import { useViewMode } from '../../hooks/useViewMode';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
   const [theme] = useMode();
   const dispatch = useDispatch<AppDispatch>();
+  const { viewMode, handleViewChange } = useViewMode();
   const profile = useSelector((state: RootState) => {
     return state.profile;
   });
 
   useEffect(() => {
     if (profile.isData) return;
-    dispatch(getUser());
+    dispatch(getUserAction());
   }, []);
 
   return (
@@ -73,6 +76,9 @@ export default function Profile() {
                 flexDirection: 'column',
                 margin: '2rem 4rem',
               },
+              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                margin: '2rem 2rem',
+              },
             }}
           >
             <Stack
@@ -93,7 +99,10 @@ export default function Profile() {
               width={'100%'}
               minHeight={'60vh'}
             >
-              <TabsProfile value={numberTab} setValue={setNumberTab} />
+              <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} marginTop={'12px'}>
+                <TabsProfile value={numberTab} setValue={setNumberTab} />
+                {numberTab === 2 && <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />}
+              </Box>
               <PagesProfile value={numberTab} index={0}>
                 <PersonalData />
               </PagesProfile>
@@ -101,7 +110,7 @@ export default function Profile() {
                 <Contacts />
               </PagesProfile>
               <PagesProfile value={numberTab} index={2}>
-                <Favorites />
+                <Favorites viewMode={viewMode} />
               </PagesProfile>
             </Box>
           </Box>

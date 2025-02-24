@@ -7,3 +7,11 @@ export const getFavouriteRequestsIDs = ((state: RootState) => {
 export const getIsFavouriteLoading = ((state: RootState) => {
   return state['favourites'].isLoading;
 });
+
+export const getFavouriteLoadedFlag = ((state: RootState) => {
+  return state['favourites'].isFavouriteRequestsLoaded;
+});
+
+export const getFavouriteRequestsError = ((state: RootState) => {
+  return state['favourites'].isFavoritesListError;
+});

@@ -3,10 +3,13 @@ export enum AppRoute {
   Main = '/',
   Profile = '/profile',
   HelpRequest = '/request/:id',
-  TestPage = '/test', // to delete
 }
 
-//const BASE_URL = 'http://localhost:4040/api';
+export const AUTH_TOKEN_KEY_NAME = 'charitable-react-event-token';
+
+export const REQUEST_TIMEOUT = 5000;
+
+//export const BASE_URL = 'http://localhost:4040/api';
 export const BASE_URL = 'https://natticharity.eveloth.ru/api';
 
 export enum APIRoute {

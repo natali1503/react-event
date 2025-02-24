@@ -47,6 +47,9 @@ const VerticalCard: FC<CardItemProps> = (props) => {
           flexDirection: 'column',
           padding: 0,
           gap: 0,
+          [`@media (max-width:${450}px)`]: {
+            width: '100%',
+          },
         }}
       >
         <CardMedia
@@ -127,8 +130,8 @@ const VerticalCard: FC<CardItemProps> = (props) => {
                 minHeight={'3.5rem'}
                 sx={{
                   display: '-webkit-box',
-                  '-webkit-line-clamp': '2',
-                  '-webkit-box-orient': 'vertical',
+                  WebkitLineClamp: '2',
+                  WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
                 }}

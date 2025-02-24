@@ -1,143 +1,113 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { api } from '../api';
+import { saveToken } from '../services/token';
 import { HelpRequest } from '../types/HelpRequest';
 import { IProfileData } from '../types/IUser';
 import { setFavourites } from './user-favourites/userFavourites';
-import { IError } from '../types/IError';
-import { showSuccessToast } from '../components/Toasts/showToasts';
-import { toast } from 'react-toastify';
+import { setAuthorized } from './authorization';
+import { APIRoute } from '../const/const';
+import { AxiosInstance } from 'axios';
+import { AppDispatch, RootState } from './types';
+import { AuthData } from '../types/auth-data';
+import { IAuth } from '../types/IAuth';
 
-const MAX_RETRIES = 5;
-
-export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[]>(
+export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[], void, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
   'helpRequests/fetchHelpRequests',
-  async () => {
-    const response = await api.getHelpRequests();
-    return response;
+  async (_, {extra: api}) => {
+    const response = await api.get(APIRoute.HelpRequests);
+    return response.data;
   }
 );
 
-export const fetchСontributeToRequest = createAsyncThunk<
-  string,
-  { id: string },
-  { rejectValue: IError }
->(
+export const fetchContributeToRequest = createAsyncThunk<string, { id: string }, {
+    dispatch: AppDispatch;
+    state: RootState;
+    extra: AxiosInstance;
+  }>(
   'helpRequests/contributeToRequest',
-  async ({ id }, { rejectWithValue }) => {
-    try {
-      const response = await api.contributeToRequest(id);
-
-      if (typeof response === 'string') {
-        return response;
-      }
-
-      return rejectWithValue(response as IError);
-    } catch (error) {
-      return rejectWithValue({
-        codeError: 500,
-        message: String(error),
-      });
-    }
+  async ({ id }, {extra: api}) => {
+    const response = await api.post(`${APIRoute.HelpRequests}/${id}/contribution`);
+    return response.data;
   }
 );
 
-
-export const getUser = createAsyncThunk<IProfileData>(
+export const getUserAction = createAsyncThunk<IProfileData, void, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
   'profile/user',
-  async (_, { dispatch }) => {
-    const response = await api.getUser();
-
-    const { favouriteRequests, ...profileData } = response;
+  async (_, {dispatch, extra: api}) => {
+    const response = await api.get(APIRoute.User);
+    const { favouriteRequests } = response.data;
     dispatch(setFavourites(favouriteRequests));
-
-    return profileData;
+    return response.data;
   }
 );
 
-export const getFavouritesAction = createAsyncThunk<string[], void, { rejectValue: string }>(
+export const getFavouritesAction = createAsyncThunk<string[], void, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
   'favourites/getFavouritesAction',
-  async (_, { rejectWithValue }) => {
-    let attempt = 1;
-
-    while (attempt <= MAX_RETRIES) {
-      try {
-        const response = await api.getUserFavourites(); 
-        if (Array.isArray(response) && response.length >= 0) {
-          return response;
-        }; 
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          if (attempt === MAX_RETRIES) {
-            return rejectWithValue(error.message);
-          }
-          attempt++;
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        } else {
-          if (attempt === MAX_RETRIES) {
-            return rejectWithValue('Unexpected error occurred');
-          }
-          attempt++;
-          await new Promise((resolve) => setTimeout(resolve, 500));
-        };
-      };
-    };
-    return rejectWithValue('Max retries reached');
+  async (_, {extra: api}) => {
+    const response = await api.get(APIRoute.FavouritesHelpRequests);
+    return response.data;
   }
 );
 
-export const addToFavouritesAction = createAsyncThunk<string, string, { rejectValue: string | IError }>(
+export const addToFavouritesAction = createAsyncThunk<string, string, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
   'favourites/addToFavourites',
-  async (favouriteId: string, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await api.addToFavourites(favouriteId); 
-
-      if ((response as IError).message && (response as IError).codeError) {
-        toast.error('Ошибка! Попробуйте еще раз')
-        return rejectWithValue(response);
-      }
-
-      dispatch(getFavouritesAction());
-      showSuccessToast('Успех! Добавлено в избранное');
-      return favouriteId;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error('Error adding to favourites:', error.message);
-      return rejectWithValue(error.message);
-    }
+  async (favouriteId, { extra: api }) => {
+    const response = await api.post(APIRoute.FavouritesHelpRequests, {
+      requestId: favouriteId,
+    });
+    return favouriteId; 
   }
 );
 
-export const removeFromFavouritesAction = createAsyncThunk <string, string, { rejectValue: string | IError }>(
-  'favourites/remove',
-  async (favouriteId: string, { rejectWithValue, dispatch }) => {
-    try {
-      const response = await api.removeFromFavourites(favouriteId);
-
-      if (!response) {
-        return rejectWithValue('Failed to remove from favourites: No response returned');
-      }
-
-      if ((response as IError).message && (response as IError).codeError) {
-        toast.error('Ошибка! Попробуйте еще раз')
-        return rejectWithValue(response);
-      }
-
-      dispatch(getFavouritesAction());
-      return favouriteId;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.log('Error removing from favourites:', error.message);
-      return rejectWithValue('Unexpected error occurred while removing from favourites');
-    }
+export const removeFromFavouritesAction = createAsyncThunk<string, string, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  'favourites/removeFromFavourites',
+  async (favouriteId, { extra: api }) => {
+    await api.delete(`${APIRoute.FavouritesHelpRequests}/${favouriteId}`);
+    return favouriteId;
   }
 );
 
-export const fetchRequestAction = createAsyncThunk<HelpRequest, string>(
+export const fetchRequestAction = createAsyncThunk<HelpRequest, string, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
   'helpRequests/fetchRequestAction',
-  async (id) => {
-    const response = await api.getHelpRequestInfo(id);
-    return response;
+  async (id, { extra: api }) => {
+    const response = await api.get(`${APIRoute.HelpRequests}/${id}`);
+    return response.data;
   }
+);
+
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch;
+  state: RootState;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async ({login, password}, {dispatch, extra: api}) => {
+    const {data} = await api.post<IAuth>(APIRoute.Login, {login, password});
+    saveToken(data.token);
+    dispatch(setAuthorized());
+    //dispatch(redirectToRoute(AppRoute.Main)); // TODO: по возможности переписать редирект, убрав из компонента
+  },
 );

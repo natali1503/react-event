@@ -13,13 +13,8 @@ export const ProtectedRoute: FC<Props> = ({ component }) => {
   const location = useLocation();
 
   console.log('ProtectedRoute render', user);
-  // if (user) {
-  //   const { from } = location.state || { from: { pathname: '/' } };
-  //   return <Navigate to={from} />;
-  // }
 
   if (!user) {
-    // Роут для авторизованных, но пользователь не авторизован
     // Перенаправляем на страницу логина
     return <Navigate to={AppRoute.Login} state={{ from: location }} />;
   }

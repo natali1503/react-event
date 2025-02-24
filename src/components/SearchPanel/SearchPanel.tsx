@@ -11,7 +11,7 @@ type SearchProps = {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
 };
 
-const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
+const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
   const [inputValue, setInputValue] = useState(searchTerm);
   const [theme] = useMode();
 
@@ -28,9 +28,8 @@ const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
   };
 
   useEffect(() => {
-    // todo: fix the warning - functionality works as expected
-    debouncedSearch.current = debouncedFunction(handleSearch, 250);
-  }, [handleSearch]);
+    setInputValue(searchTerm);
+  }, [searchTerm]);
 
   return (
     <Paper sx={{
@@ -70,7 +69,10 @@ const SearchPanel: FC<SearchProps> = ({searchTerm, setSearchTerm}) => {
             sx={{
               width: '100%',
               fontSize: '1.6rem',
-              paddingLeft: '2.5rem'
+              paddingLeft: '2.5rem',
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                fontSize: '1.4rem'
+              }
             }}
           />
         </Box>

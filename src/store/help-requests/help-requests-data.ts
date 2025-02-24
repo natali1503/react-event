@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { HelpRequestData } from '../../types/state';
-import { fetchHelpRequestsAction, fetchСontributeToRequest, fetchRequestAction } from '../api-actions';
+import { fetchHelpRequestsAction, fetchContributeToRequest, fetchRequestAction } from '../api-actions';
 
 const initialState: HelpRequestData = {
   helpRequestsList: [],
@@ -25,18 +25,19 @@ export const helpRequestData = createSlice({
       .addCase(fetchHelpRequestsAction.fulfilled, (state, action) => {
         state.helpRequestsList = action.payload;
         state.isRequestsDataLoading = false;
+        
       })
-      .addCase(fetchHelpRequestsAction.rejected, (state, action) => {
+      .addCase(fetchHelpRequestsAction.rejected, (state) => {
         state.isRequestsDataLoading = false;
-        if (action.error.message === '500') state.hasError = true;
+        state.hasError = true;
       })
-      .addCase(fetchСontributeToRequest.pending, (state) => {
+      .addCase(fetchContributeToRequest.pending, (state) => {
         state.isСontributionPostingStatus = true;
       })
-      .addCase(fetchСontributeToRequest.fulfilled, (state) => {
+      .addCase(fetchContributeToRequest.fulfilled, (state) => {
         state.isСontributionPostingStatus = false;
       })
-      .addCase(fetchСontributeToRequest.rejected, (state) => {
+      .addCase(fetchContributeToRequest.rejected, (state) => {
         state.isСontributionPostingStatus = false;
       })
       .addCase(fetchRequestAction.pending, (state) => {

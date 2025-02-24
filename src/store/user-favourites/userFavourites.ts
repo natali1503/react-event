@@ -7,16 +7,19 @@ export const userFavouritesSlice = createSlice({
   initialState: {
     isData: false,
     isLoading: false,
-    isFavouriteRequests: false,
+    isFavouriteRequestsLoaded: false,
     favouriteRequests: <string[]>[],
     helpRequest: <HelpRequest[]>[],
     favouriteHelp: <HelpRequest[]>[],
-    error: '',
+    isFavoritesListError: false,
   },
   reducers: {
     setFavourites: (state, action: PayloadAction<string[]>) => {
-      state.favouriteRequests = action.payload;
-      state.isFavouriteRequests = true;
+      if (!state.isFavouriteRequestsLoaded) {
+        state.favouriteRequests = action.payload;
+        state.isFavouriteRequestsLoaded = true;
+        state.isFavoritesListError = false;
+      } 
     },
     setHelpRequest(state, action: PayloadAction<HelpRequest[]>) {
       state.helpRequest = action.payload;
@@ -32,47 +35,41 @@ export const userFavouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Handle the "getFavouritesAction" states
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
-        state.error = '';
+        state.isFavoritesListError = false;
         state.isData = false;
       })
       .addCase(getFavouritesAction.fulfilled, (state, action: PayloadAction<string[]>) => {
         state.isLoading = false;
         state.isData = true;
-        state.favouriteRequests = action.payload;
+        state.isFavoritesListError = false;
+        if (!state.isFavouriteRequestsLoaded) {
+          state.favouriteRequests = action.payload;
+          state.isFavouriteRequestsLoaded = true;
+        }
       })
-      .addCase(getFavouritesAction.rejected, (state, action) => {
+      .addCase(getFavouritesAction.rejected, (state) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = (action.payload as string) || 'Failed to fetch favourites';
-      });
-
-    builder
-      // Handle the "addToFavouritesAction" states
+        state.isFavoritesListError = true;
+      })
       .addCase(addToFavouritesAction.pending, (state) => {
         state.isLoading = true;
-        state.error = '';
         state.isData = false;
       })
       .addCase(addToFavouritesAction.fulfilled, (state, action: PayloadAction<string>) => {
         state.isLoading = false;
         state.isData = true;
         const idToAdd = action.payload;
-        state.favouriteRequests = [...new Set([...state.favouriteRequests, ...idToAdd])];
+        state.favouriteRequests = [...new Set([...state.favouriteRequests, idToAdd])];
       })
-      .addCase(addToFavouritesAction.rejected, (state, action) => {
+      .addCase(addToFavouritesAction.rejected, (state) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = (action.payload as string) || 'Failed to add to favourites';
-      });
-
-    builder
-      // Handle the "removeFromFavouritesAction" states
+      })
       .addCase(removeFromFavouritesAction.pending, (state) => {
         state.isLoading = true;
-        state.error = '';
         state.isData = false;
       })
       .addCase(removeFromFavouritesAction.fulfilled, (state, action: PayloadAction<string>) => {
@@ -81,10 +78,9 @@ export const userFavouritesSlice = createSlice({
         const idToDelete = action.payload;
         state.favouriteRequests = state.favouriteRequests.filter((id) => id !== idToDelete);
       })
-      .addCase(removeFromFavouritesAction.rejected, (state, action) => {
+      .addCase(removeFromFavouritesAction.rejected, (state) => {
         state.isLoading = false;
         state.isData = false;
-        state.error = (action.payload as string) || 'Failed to remove from favourites';
       });
   },
 });

@@ -31,10 +31,8 @@ export function applyFilter(data: any[], selectedOptions: string[]) {
     const matchesHelperType = !selectedOptions.includes(request.helperRequirements.helperType);
     const matchesOnline = !selectedOptions.includes(`${request.helperRequirements.isOnline}`);
     const matchesQualification = !selectedOptions.includes(request.helperRequirements.qualification);
-    // Check if the request date is before or on the selected date
     const selectedDate = selectedOptions.find(option => option.match(/^\d{4}-\d{2}-\d{2}$/));
     const matchesDate = selectedDate ? new Date(request.endingDate) <= new Date(selectedDate) : true;
-    // Check if all selected filters match
     return (
       matchesRequesterType &&
       matchesHelpType &&

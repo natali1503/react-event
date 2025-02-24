@@ -6,54 +6,45 @@ import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRe
 import FilterButton from '../../components/Filters/FilterButton';
 import ModalWindow from '../../components/ModalWindow/ModalWindow';
 // styles
-import { Box, Typography, Grid2, CircularProgress, Paper} from '@mui/material';
+import { Box, Typography, Grid2, Paper} from '@mui/material';
 import { useMode } from '../../theme';
 // hooks
 import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
+import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
 
 const HelpDesk: React.FC = () => {
-  const { 
-    helpRequestsList,
-    hasHelpRequests,
-    isHelpRequestsLoading,
-    isHelpRequestsError
-  } = useUserHelpRequests();
+  const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } = useUserHelpRequests();
+  const [isResetFilters, setIsResetFilters] = useState(false);
 
   const {
-    searchTerm,
     selectedOptions,
-    currentPage,
+    selectedDate,
+    searchTerm,
     filteredData,
     setSearchTerm,
     setSelectedOptions,
-    setCurrentPage,
-    selectedDate, 
-    setSelectedDate
-  } = useFilters({ helpRequestsList });
+    setSelectedDate,
+  } = useFilters({ helpRequestsList, setIsResetFilters });
 
   const [openFilterModal, setOpenFilterModal] = useState(false);
   const [theme] = useMode();
+  const itemsPerPage = useResponsiveItemsPerPage();
 
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
   const noSearchResult = hasHelpRequests && filteredData.length === 0;
 
   const renderHelpRequestsComponent = () => {
-    if (isHelpRequestsLoading) {
-      return (
-        <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
-          <CircularProgress />
-        </Box>
-      );
-    }
-
     return (
       <HelpRequestsComponent
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
         helpRequests={dataToDisplay}
-        isHelpRequestsError={isHelpRequestsError}
+        customItemsPerPage={itemsPerPage}
         noSearchResult={noSearchResult}
+        setIsResetFilters={setIsResetFilters}
+        isFavouriteRequestsError={isFavouriteRequestsError}
+        isHelpRequestsError={isHelpRequestsError}
+        isLoading={isHelpRequestsLoading}
+        isResetFilters={isResetFilters}
       />
     );
   };
@@ -72,6 +63,9 @@ const HelpDesk: React.FC = () => {
         padding: '3rem 4rem',
         background: theme.palette.background.default,
         width: '100%',
+        [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+          padding: '2rem 2rem',
+        },
       }}
     >
       <Box>
@@ -79,14 +73,18 @@ const HelpDesk: React.FC = () => {
         <Grid2 container columnSpacing={3} mt={'1.2rem'}>
           <Box sx={{
             display: 'flex',
+            [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
+              width: '22.5%',
+              minWidth: '240px',
+            },
             [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
               display: 'none',
             }
           }}>
-            <Filters 
-              selectedOptions={selectedOptions} 
+            <Filters
+              selectedOptions={selectedOptions}
               selectedDate={selectedDate}
-              setSelectedOptions={setSelectedOptions} 
+              setSelectedOptions={setSelectedOptions}
               setSelectedDate={setSelectedDate}
             />
           </Box>
@@ -118,7 +116,7 @@ const HelpDesk: React.FC = () => {
         handleCloseFilterModal={handleCloseFilterModal}
         slideDirection={'left'}
       >
-        <Filters 
+        <Filters
           selectedOptions={selectedOptions} 
           selectedDate={selectedDate}
           setSelectedOptions={setSelectedOptions} 
