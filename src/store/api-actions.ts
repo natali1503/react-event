@@ -1,19 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-//import { api } from '../api';
 import { saveToken } from '../services/token';
 import { HelpRequest } from '../types/HelpRequest';
-import { IProfileData, IUser } from '../types/IUser';
+import { IProfileData } from '../types/IUser';
 import { setFavourites } from './user-favourites/userFavourites';
 import { setAuthorized } from './authorization';
-import { IError } from '../types/IError';
-import { APIRoute, AppRoute } from '../const/const';
+import { APIRoute } from '../const/const';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, RootState } from './types';
 import { AuthData } from '../types/auth-data';
 import { IAuth } from '../types/IAuth';
-import { redirectToRoute } from './action';
-
-//const MAX_RETRIES = 5;
 
 export const fetchHelpRequestsAction = createAsyncThunk<HelpRequest[], void, {
   dispatch: AppDispatch;
@@ -53,7 +48,6 @@ export const getUserAction = createAsyncThunk<IProfileData, void, {
   }
 );
 
-// удалить 
 export const getFavouritesAction = createAsyncThunk<string[], void, {
   dispatch: AppDispatch;
   state: RootState;
@@ -66,7 +60,6 @@ export const getFavouritesAction = createAsyncThunk<string[], void, {
   }
 );
 
-
 export const addToFavouritesAction = createAsyncThunk<string, string, {
   dispatch: AppDispatch;
   state: RootState;
@@ -77,8 +70,7 @@ export const addToFavouritesAction = createAsyncThunk<string, string, {
     const response = await api.post(APIRoute.FavouritesHelpRequests, {
       requestId: favouriteId,
     });
-    // добавить id в стор
-    return favouriteId;  // возращаем ID, если успешно добавили
+    return favouriteId; 
   }
 );
 
@@ -90,7 +82,7 @@ export const removeFromFavouritesAction = createAsyncThunk<string, string, {
   'favourites/removeFromFavourites',
   async (favouriteId, { extra: api }) => {
     await api.delete(`${APIRoute.FavouritesHelpRequests}/${favouriteId}`);
-    return favouriteId;  // возращаем ID, если успешно удалили
+    return favouriteId;
   }
 );
 
@@ -119,39 +111,3 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     //dispatch(redirectToRoute(AppRoute.Main)); // TODO: по возможности переписать редирект, убрав из компонента
   },
 );
-
-
-/*
-
-export const login = createAsyncThunk<IUser,
-  { login: string; password: string },
-  { rejectValue: IError }
->('auth/login', async ({ login, password }, { rejectWithValue }) => {
-  try {
-    const response = await api.post<IUser>(APIRoute.Login, { login, password });
-    return response.data;
-  } catch (error: any) {
-    const errorMessage = error.response?.data || 'Ошибка при входе';
-    return rejectWithValue({
-      codeError: error.response?.status || 500,
-      message: errorMessage,
-    });
-  }
-});
-
-
-export const fetchUser = createAsyncThunk<IUser, void, { rejectValue: IError }>(
-  'profile/user',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await api.get<IUser>(APIRoute.User);
-      return response.data;
-    } catch (error: any) {
-      const errorMessage = error.response?.data || 'Ошибка при загрузке пользователя';
-      return rejectWithValue({
-        codeError: error.response?.status || 500,
-        message: errorMessage,
-      });
-    }
-  }
-);*/

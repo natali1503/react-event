@@ -10,7 +10,7 @@ const useContributeToRequest = (helpRequest: HelpRequest | undefined) => {
   const handleContributeToRequest = () => {
     if (helpRequest) {
       dispatch(fetchContributeToRequest({ id: helpRequest.id }))
-        .then(unwrapResult) // Обрабатываем успешный результат
+        .then(unwrapResult)
         .then(() => {
           toast.success('Успех! Спасибо за помощь!');
         }); 

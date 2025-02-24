@@ -15,14 +15,6 @@ export function useUserHelpRequests() {
   const isHelpRequestsError = useSelector(getRequestDataError)
   const isFavouriteRequestsError = useSelector(getFavouriteRequestsError)
   
-  /*useEffect(() => {
-    if (helpRequestsList.length > 0) {
-      dispatch(setHelpRequest(helpRequestsList));
-    } else {
-      dispatch(fetchHelpRequestsAction());
-    }
-  }, [helpRequestsList.length]);*/
-
   // get favourite IDs list and profileData
   useEffect(() => {
     const fetchData = async () => {
@@ -44,14 +36,6 @@ export function useUserHelpRequests() {
   
     fetchData();
   }, [dispatch])
-
-  /*useEffect(() => {
-    dispatch(getUser());
-  }, [helpRequestsList.length]);
-
-  useEffect(() => {
-    setHasHelpRequests(helpRequestsList.length > 0);
-  }, [helpRequestsList]);*/
 
   return { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError };
 };

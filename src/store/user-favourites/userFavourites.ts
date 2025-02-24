@@ -35,7 +35,6 @@ export const userFavouritesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Handle the "getFavouritesAction" states
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
         state.isFavoritesListError = false;
