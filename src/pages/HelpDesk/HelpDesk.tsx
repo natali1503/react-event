@@ -34,21 +34,6 @@ const HelpDesk: React.FC = () => {
   const dataToDisplay = filteredData ? filteredData : helpRequestsList;
   const noSearchResult = hasHelpRequests && filteredData.length === 0;
 
-  const renderHelpRequestsComponent = () => {
-    return (
-      <HelpRequestsComponent
-        helpRequests={dataToDisplay}
-        customItemsPerPage={itemsPerPage}
-        noSearchResult={noSearchResult}
-        setIsResetFilters={setIsResetFilters}
-        isFavouriteRequestsError={isFavouriteRequestsError}
-        isHelpRequestsError={isHelpRequestsError}
-        isLoading={isHelpRequestsLoading}
-        isResetFilters={isResetFilters}
-      />
-    );
-  };
-
   const handleOpenFilterModal = () => {
     setOpenFilterModal(true);
   };
@@ -100,13 +85,28 @@ const HelpDesk: React.FC = () => {
                 alignContent: 'center',
                 [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
                   display: 'flex',
+                  
+                },
+                [`@media (max-width:${366}px)`]: {
+                  display: 'flex',
+                  justifyContent: 'end',
+                  width: '100%'
                 }
               }}>
                 <FilterButton onClick={handleOpenFilterModal}/>
               </Box>
             </Grid2>
             <Paper sx={{width: '100%', minHeight: 'calc(57.35rem - 14.1rem - 1.6rem)', padding: '2rem 3rem'}}>
-              {renderHelpRequestsComponent()}
+              <HelpRequestsComponent
+                helpRequests={dataToDisplay}
+                customNumberItemsPerPage={itemsPerPage}
+                noSearchResult={noSearchResult}
+                setIsResetFilters={setIsResetFilters}
+                isFavouriteRequestsError={isFavouriteRequestsError}
+                isHelpRequestsError={isHelpRequestsError}
+                isLoading={isHelpRequestsLoading}
+                isResetFilters={isResetFilters}
+              />
             </Paper>
           </Grid2>
         </Grid2>

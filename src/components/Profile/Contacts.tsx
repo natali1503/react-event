@@ -25,7 +25,7 @@ export default function Contacts() {
       <Stack gap={'10px'} alignItems={'flex-start'}>
         <Typography variant="h6">Социальные сети</Typography>
         <Stack gap={'6px'}>
-          <ItemSocial name="Vkontakte" link={`https://vk.com/${data.contacts.social.vk}`} icon={<Vk />} />
+          <ItemSocial name="VKontakte" link={`https://vk.com/${data.contacts.social.vk}`} icon={<Vk />} />
           <ItemSocial name="Telegram" link={`https://t.me/${data.contacts.social.telegram}`} icon={<Telegram />} />
           <ItemSocial name="Whatsapp" link={`https://wa.me/${data.contacts.social.whatsapp}`} icon={<WhatsApp />} />
         </Stack>

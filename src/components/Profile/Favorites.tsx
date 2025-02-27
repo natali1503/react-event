@@ -14,8 +14,9 @@ import { VIEW_TOGGLE_OPTIONS } from '../../const/const';
 
 interface IFavorites {
   viewMode: VIEW_TOGGLE_OPTIONS;
+  customNumberItemsPerPage: number;
 }
-const Favorites: FC<IFavorites> = ({ viewMode }) => {
+const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
   const userFavourites = useSelector((state: RootState) => {
     return state.favourites;
   });
@@ -60,6 +61,7 @@ const Favorites: FC<IFavorites> = ({ viewMode }) => {
         isLoading={userFavourites.isLoading}
         isHelpRequestsError={helpRequestDataError}
         notFoundResult={notFoundResult}
+        customNumberItemsPerPage={customNumberItemsPerPage}
       />
     </Box>
   );
