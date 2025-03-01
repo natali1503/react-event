@@ -20,7 +20,7 @@ const FundraisingForm: FC<RequestProps> = ({ helpRequest }) => {
     helpRequest;
   const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { isBreakpointOverlap } = useBreakpointOverlap(700);
+  const { isBreakpointOverlap } = useBreakpointOverlap({ breakpointOverlapValue: 700 });
 
   return (
     <Paper sx={{ padding: '1.5rem' }}>
