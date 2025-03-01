@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { HelpRequest } from '../../types/HelpRequest';
-import CardItem from '../CardItem/CardItem';
 import Grid from '@mui/material/Grid2';
 import { Box } from '@mui/material';
+
+import { HelpRequest } from '../../types/HelpRequest';
+import CardItem from '../CardItem/CardItem';
 import ScrollAndSwipeHandler from '../ScrollAndSwipeHandler/ScrollAndSwipeHandler';
 
 type RequestsProps = {
@@ -18,11 +19,7 @@ const CardList: FC<RequestsProps> = (requests) => {
   const { helpRequests, viewMode, totalPages, currentPage, setCurrentPage, scrollCooldownDuration } = requests;
 
   return (
-    <Box
-      display={'flex'}
-      justifyContent={'center'}
-      width={'100%'}
-    >
+    <Box display={'flex'} justifyContent={'center'} width={'100%'}>
       <ScrollAndSwipeHandler
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

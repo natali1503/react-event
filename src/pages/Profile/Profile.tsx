@@ -1,10 +1,9 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getUserAction } from '../../store/api-actions';
 import { AppDispatch, RootState } from '../../store/types';
-
 import { ErrorComponent } from '../../components/Error';
 import CardProfile from '../../components/Profile/CardProfile';
 import PersonalData from '../../components/Profile/PersonalData';
@@ -31,11 +30,11 @@ export default function Profile() {
   }, []);
 
   return (
-    <Box display="flex" flexDirection={'column'} alignItems={'center'} width={'100%'}>
+    <Box display='flex' flexDirection={'column'} alignItems={'center'} width={'100%'}>
       <Box
         height={'100%'}
         width={'100%'}
-        display="flex"
+        display='flex'
         flexDirection={'column'}
         bgcolor={theme.palette.background.default}
         sx={{
@@ -46,7 +45,7 @@ export default function Profile() {
       >
         <Stack alignItems={'flex-start'}>
           <Typography
-            variant="h4"
+            variant='h4'
             margin={
               'calc(3rem - 0.015*(100vw - 192rem)) calc(4rem - 0.02*(100vw - 192rem)) 0px calc(4rem - 0.02*(100vw - 192rem))'
             }
@@ -67,7 +66,7 @@ export default function Profile() {
         {profile.error && <ErrorComponent />}
         {profile.isData && (
           <Box
-            display="flex"
+            display='flex'
             margin={'calc(2rem - 0.01*(100vw - 192rem)) calc(2rem - 0.02*(100vw - 192rem))'}
             flexDirection={'row'}
             gap={'2rem'}

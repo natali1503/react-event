@@ -1,7 +1,9 @@
 import { Box } from '@mui/material';
+
+import { useMode } from '../theme';
+
 import HeaderNavigationApp from './Header/Header';
 import BottomNavigationApp from './Footer/Footer';
-import { useMode } from '../theme';
 
 export default function Wrapper({ children }) {
   const [theme] = useMode();

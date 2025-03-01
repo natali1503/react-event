@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { useMode } from '../theme';
 
 export function useBreakpointOverlap(breakpointOverlapValue?: number) {

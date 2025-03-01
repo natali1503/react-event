@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { AppRoute } from './const/const';
 import NotFoundPage from './pages/NotFoundPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -16,19 +17,10 @@ function App() {
         <Wrapper>
           <Routes>
             <Route path={AppRoute.Login} element={<LoginPage />} />
-            <Route
-              path={AppRoute.Main}
-              element={<ProtectedRoute component={<HelpDesk />} />}
-            />
-            <Route
-              path={AppRoute.Profile}
-              element={<ProtectedRoute component={<Profile />} />}
-            />
-            <Route
-              path={AppRoute.HelpRequest}
-              element={<ProtectedRoute component={<HelpRequest />} />}
-            />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path={AppRoute.Main} element={<ProtectedRoute component={<HelpDesk />} />} />
+            <Route path={AppRoute.Profile} element={<ProtectedRoute component={<Profile />} />} />
+            <Route path={AppRoute.HelpRequest} element={<ProtectedRoute component={<HelpRequest />} />} />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Wrapper>
       </Router>

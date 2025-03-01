@@ -1,8 +1,8 @@
 import { Box, Divider } from '@mui/material';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../hooks/useAppSelector';
-import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../const/const';
 import TestingProfiles from '../components/Login/TestingProfiles';
 import { useMode } from '../theme';
@@ -37,7 +37,7 @@ const LoginPage = () => {
       <Authorization />
       <Box>
         <Divider
-          orientation="vertical"
+          orientation='vertical'
           sx={{
             [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
               opacity: 0,
@@ -45,7 +45,7 @@ const LoginPage = () => {
           }}
         />
         <Divider
-          orientation="horizontal"
+          orientation='horizontal'
           sx={{
             [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
               opacity: 1,

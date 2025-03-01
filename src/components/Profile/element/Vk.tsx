@@ -12,7 +12,7 @@ export function Vk() {
       height={'100%'}
     >
       <ReactSVG
-        src="/img/vk.svg"
+        src='/img/vk.svg'
         beforeInjection={(svg) => {
           svg.removeAttribute('width');
           svg.removeAttribute('height');

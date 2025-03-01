@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { HelpRequest } from '../../types/HelpRequest';
 import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../api-actions';
 
@@ -19,7 +20,7 @@ export const userFavouritesSlice = createSlice({
         state.favouriteRequests = action.payload;
         state.isFavouriteRequestsLoaded = true;
         state.isFavoritesListError = false;
-      } 
+      }
     },
     setHelpRequest(state, action: PayloadAction<HelpRequest[]>) {
       state.helpRequest = action.payload;

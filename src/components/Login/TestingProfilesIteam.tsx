@@ -1,14 +1,15 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { InfoOutlined } from '@mui/icons-material';
-import { setPassword, setLogin } from '../../store/formAuthorization';
 import { useDispatch } from 'react-redux';
+
+import { setPassword, setLogin } from '../../store/formAuthorization';
 import { AppDispatch } from '../../store/types';
 
 export function TestingProfilesIteam({ user }) {
   const dispatch = useDispatch<AppDispatch>();
   return (
     <Card
-      variant="outlined"
+      variant='outlined'
       onClick={() => {
         dispatch(setLogin(user.login));
         dispatch(setPassword(user.password));
@@ -23,7 +24,7 @@ export function TestingProfilesIteam({ user }) {
     >
       <CardContent>
         <Box sx={{ display: 'flex' }}>
-          <InfoOutlined color="primary" sx={{ mr: 1 }} />
+          <InfoOutlined color='primary' sx={{ mr: 1 }} />
           <Box
             sx={{
               display: 'flex',

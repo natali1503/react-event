@@ -1,4 +1,5 @@
 import { Stack } from '@mui/material';
+
 import { Row } from './Row';
 interface IItemBaseLocations {
   district: string;

@@ -1,10 +1,11 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { RootState } from '../../store/types';
-import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/authorization';
-import { UserImg } from './element/UserImg';
 import { useMode } from '../../theme';
+
+import { UserImg } from './element/UserImg';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {
@@ -32,22 +33,13 @@ export default function CardProfile() {
       <UserImg />
       <Divider />
       <Stack>
-        <Stack
-          marginBottom={'10px'}
-          marginTop={'20px'}
-          alignItems={'flex-start'}
-        >
-          <Typography variant="h6" marginLeft={'20px'}>
+        <Stack marginBottom={'10px'} marginTop={'20px'} alignItems={'flex-start'}>
+          <Typography variant='h6' marginLeft={'20px'}>
             {data.name} {data.lastName}
           </Typography>
         </Stack>
 
-        <Stack
-          marginLeft={'20px'}
-          direction={'row'}
-          gap={'4px'}
-          marginBottom={'50px'}
-        >
+        <Stack marginLeft={'20px'} direction={'row'} gap={'4px'} marginBottom={'50px'}>
           <Typography fontSize={14} fontWeight={500}>
             Статус:
           </Typography>
@@ -57,7 +49,7 @@ export default function CardProfile() {
 
       <Stack margin={'0 20px'} marginBottom={'20px'} justifyContent={'center'}>
         <Button
-          variant="outlined"
+          variant='outlined'
           sx={{
             color: '#000',
             border: '1px solid #000',

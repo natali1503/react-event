@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
+
 import { formatDate } from '../../helper-functions/helper-functions';
 import { HelpRequest } from '../../types/HelpRequest';
 import { IYandexMap, IYandexObjectManager } from '../../types/IMap';
@@ -8,7 +9,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ymaps: any;
   }
-};
+}
 
 type YandexMap = {
   helpRequests: HelpRequest[];
@@ -25,31 +26,32 @@ const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
       await loadYandexMaps();
       await waitForYmapsMap();
       const ymaps = window.ymaps;
-      
-        if (mapContainerRef.current) {
-          // Initialize map only once
-          if (!mapRef.current) {
-            mapRef.current = new ymaps.Map(mapContainerRef.current, {
-              center: [55.76, 37.64],
-              zoom: 4,
-            });
 
-            objectManagerRef.current = new ymaps.ObjectManager({
-              clusterize: true,
-              gridSize: 32,
-              clusterDisableClickZoom: true,
-            });
+      if (mapContainerRef.current) {
+        // Initialize map only once
+        if (!mapRef.current) {
+          mapRef.current = new ymaps.Map(mapContainerRef.current, {
+            center: [55.76, 37.64],
+            zoom: 4,
+          });
 
-            if (mapRef.current) { // Check if mapRef.current is not null
-              mapRef.current.geoObjects.add(objectManagerRef.current);
-            }
+          objectManagerRef.current = new ymaps.ObjectManager({
+            clusterize: true,
+            gridSize: 32,
+            clusterDisableClickZoom: true,
+          });
+
+          if (mapRef.current) {
+            // Check if mapRef.current is not null
+            mapRef.current.geoObjects.add(objectManagerRef.current);
           }
-          updateMarkers();
         }
+        updateMarkers();
+      }
     } catch (error) {
-        //todo: handle error and delete console.log
-        console.log('___map Error:',error);
-      } 
+      //todo: handle error and delete console.log
+      console.log('___map Error:', error);
+    }
   };
 
   const loadYandexMaps = () => {
@@ -87,7 +89,7 @@ const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
 
   const updateMarkers = () => {
     if (objectManagerRef.current) {
-      const features = helpRequests.map(item => ({
+      const features = helpRequests.map((item) => ({
         type: 'Feature',
         id: `${item.location.latitude}-${item.location.longitude}`,
         geometry: {
@@ -125,12 +127,7 @@ const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
     }
   }, [helpRequests, isMounted]);
 
-  return (
-    <div 
-      ref={mapContainerRef} 
-      style={{ maxWidth: '100%', height: '600px' }} 
-    />
-  );
+  return <div ref={mapContainerRef} style={{ maxWidth: '100%', height: '600px' }} />;
 };
 
 export default YandexMap;

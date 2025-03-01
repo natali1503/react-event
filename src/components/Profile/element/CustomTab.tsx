@@ -1,4 +1,5 @@
 import { Tab } from '@mui/material';
+
 import { useMode } from '../../../theme';
 
 export function CustomTab({ label, index, ...props }) {

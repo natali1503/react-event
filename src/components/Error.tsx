@@ -11,10 +11,8 @@ export function ErrorComponent() {
       gap={'20px'}
       height={'100%'}
     >
-      <ReactSVG src="/img/noDataError.svg" />
-      <Typography variant="h5">
-        Ошибка! Не удалось загрузить информацию
-      </Typography>
+      <ReactSVG src='/img/noDataError.svg' />
+      <Typography variant='h5'>Ошибка! Не удалось загрузить информацию</Typography>
     </Box>
   );
 }
