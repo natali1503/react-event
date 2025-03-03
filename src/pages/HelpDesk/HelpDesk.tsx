@@ -85,18 +85,19 @@ const HelpDesk: React.FC = () => {
                 alignContent: 'center',
                 [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
                   display: 'flex',
-                  
                 },
-                [`@media (max-width:${366}px)`]: {
-                  display: 'flex',
-                  justifyContent: 'end',
-                  width: '100%'
-                }
               }}>
                 <FilterButton onClick={handleOpenFilterModal}/>
               </Box>
             </Grid2>
-            <Paper sx={{width: '100%', minHeight: 'calc(57.35rem - 14.1rem - 1.6rem)', padding: '2rem 3rem'}}>
+            <Paper sx={{
+              width: '100%',
+              minHeight: 'calc(57.35rem - 14.1rem - 1.6rem)',
+              padding: '2rem 3rem',
+              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                padding: '2rem 1.6rem',
+              },
+            }}>
               <HelpRequestsComponent
                 helpRequests={dataToDisplay}
                 customNumberItemsPerPage={itemsPerPage}

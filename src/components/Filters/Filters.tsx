@@ -47,6 +47,9 @@ const Filters: React.FC<FilterProps> = ({
         [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
           boxShadow: 'none',
         },
+        [`@media (max-width: ${319}px)`]: {
+          width: '240px'
+        },
       }}
     >
       <Box sx={{ padding: '2rem 0' }}>

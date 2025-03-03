@@ -96,9 +96,16 @@ export default function Profile() {
               border={`1px solid ${theme.palette.grey[300]}`}
               width={'100%'}
               minHeight={'60vh'}
+              sx={{
+                [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                  padding: '0 2rem 4rem 2rem'
+                }
+              }}
             >
-              <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} marginTop={'12px'}>
-                <TabsProfile value={numberTab} setValue={setNumberTab} />
+              <Box display={'flex'} flexDirection={'row'} width={'100%'} justifyContent={'space-between'} marginTop={'12px'}>
+                <Box width={'72%'}>
+                  <TabsProfile value={numberTab} setValue={setNumberTab} />
+                </Box>
                 {numberTab === 2 && <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />}
               </Box>
               <PagesProfile value={numberTab} index={0}>

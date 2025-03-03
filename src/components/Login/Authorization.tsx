@@ -59,17 +59,41 @@ export function Authorization() {
   };
 
   return (
-    <Box display="flex" width="100%" sx={{ [`@media (max-width:${theme.breakpoints.values.sm}px)`]: { justifyContent: 'center' } }}>
-      <Box marginLeft="4rem" marginTop="64px" sx={{ maxWidth: '480px', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      display="flex"
+      width="100%"
+      sx={{
+        [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+          justifyContent: 'center',
+        },
+      }}
+    >
+      <Box
+        display="flex"
+        flexDirection="column"
+        maxWidth="480px"
+        marginLeft="4rem"
+        marginRight="2rem"
+        marginTop="64px"
+        sx={{
+          flexDirection: 'column',
+          [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+            marginLeft: '0',
+            marginBottom: '4rem',
+          },
+        }}
+      >
         <Typography variant="h4">Авторизация</Typography>
-        <Typography variant="h5" sx={{ marginTop: '9rem', marginBottom: '35px' }}>Вход</Typography>
+        <Typography variant="h5" sx={{ marginTop: '9rem', marginBottom: '35px' }}>
+          Вход
+        </Typography>
 
         <Box display="flex" flexDirection="column" gap="30px">
           <FormControl>
             <TextField
               label="Логин"
               variant="outlined"
-              value={login} 
+              value={login}
               onChange={handleInputLoginChange}
               error={!isLoginValid || !!errorMessage}
               helperText={!isLoginValid ? 'Введите корректный email-адрес' : errorMessage}
@@ -85,7 +109,12 @@ export function Authorization() {
               onChange={handleInputPasswordChange}
               endAdornment={
                 <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} onMouseUp={handleMouseUpPassword} edge="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                  >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
@@ -100,7 +129,12 @@ export function Authorization() {
           </FormControl>
         </Box>
 
-        <Button variant="contained" onClick={handleFormSubmit} sx={{ marginTop: '4rem' }} disabled={!login || !password || !isLoginValid || !isPasswordValid}>
+        <Button
+          variant="contained"
+          onClick={handleFormSubmit}
+          sx={{ marginTop: '4rem' }}
+          disabled={!login || !password || !isLoginValid || !isPasswordValid}
+        >
           Войти
         </Button>
       </Box>
