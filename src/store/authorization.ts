@@ -31,6 +31,9 @@ export const authorizationSlice = createSlice({
       state.errorMessage = null; // Сбрасываем сообщение об ошибке при выходе
       state.isAuthPending = false;
     },
+    clearErrorMessage: (state) => {
+      state.errorMessage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -51,6 +54,6 @@ export const authorizationSlice = createSlice({
   },
 });
 
-export const { setAuthorized, logOut } = authorizationSlice.actions;
+export const { setAuthorized, logOut, clearErrorMessage } = authorizationSlice.actions;
 
 export default authorizationSlice.reducer;

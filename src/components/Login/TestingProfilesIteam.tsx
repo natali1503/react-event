@@ -1,17 +1,26 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { InfoOutlined } from '@mui/icons-material';
-import { setPassword, setLogin } from '../../store/formAuthorization';
+import { setPassword, setLogin, setIsPasswordValid, setIsLoginValid } from '../../store/formAuthorization';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/types';
+import { useValidation } from '../../hooks/useValidation';
+import { clearErrorMessage } from '../../store/authorization';
 
 export function TestingProfilesIteam({ user }) {
   const dispatch = useDispatch<AppDispatch>();
+  const { validateLogin, validatePassword } = useValidation();
+  
   return (
     <Card
       variant="outlined"
       onClick={() => {
         dispatch(setLogin(user.login));
         dispatch(setPassword(user.password));
+        const isLoginValid = validateLogin(user.login);
+        const isPasswordValid = validatePassword(user.password);
+        dispatch(setIsLoginValid(isLoginValid));
+        dispatch(setIsPasswordValid(isPasswordValid));
+        dispatch(clearErrorMessage());
       }}
       sx={{
         borderColor: '#1976d2',
