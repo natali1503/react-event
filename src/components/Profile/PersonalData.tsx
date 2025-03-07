@@ -1,12 +1,14 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { RootState } from '../../store/types';
 import { useSelector } from 'react-redux';
+
+import { RootState } from '../../store/types';
 import { getDateStr } from '../../features/getDateStr';
+import { useMode } from '../../theme';
+
 import { Row } from './element/Row';
 import { ItemEducation } from './element/ItemEducation';
 import { ItemBaseLocations } from './element/ItemBaseLocations';
-import { useMode } from '../../theme';
 
 export default function PersonalData() {
   const { data } = useSelector((state: RootState) => {
@@ -43,7 +45,7 @@ export default function PersonalData() {
         }}
       >
         <Stack>
-          <Typography variant="h6">Профиль</Typography>
+          <Typography variant='h6'>Профиль</Typography>
         </Stack>
         <Stack>
           <Stack direction={'row'} gap={'4px'}>
@@ -71,9 +73,7 @@ export default function PersonalData() {
         </Typography>
         <Stack gap={'16px'}>
           {data.baseLocations.map(({ city, district }, i) => {
-            return (
-              <ItemBaseLocations key={i} city={city} district={district} />
-            );
+            return <ItemBaseLocations key={i} city={city} district={district} />;
           })}
         </Stack>
       </Stack>
@@ -83,18 +83,16 @@ export default function PersonalData() {
           Образование
         </Typography>
         <Stack gap={'16px'}>
-          {data.educations.map(
-            ({ organizationName, level, graduationYear }, i) => {
-              return (
-                <ItemEducation
-                  key={i}
-                  organizationName={organizationName}
-                  level={level}
-                  graduationYear={graduationYear}
-                />
-              );
-            }
-          )}
+          {data.educations.map(({ organizationName, level, graduationYear }, i) => {
+            return (
+              <ItemEducation
+                key={i}
+                organizationName={organizationName}
+                level={level}
+                graduationYear={graduationYear}
+              />
+            );
+          })}
         </Stack>
       </Stack>
 

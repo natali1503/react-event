@@ -1,21 +1,21 @@
-import { Box } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
-import { HelpRequest } from '../../types/HelpRequest'
-import './ScrollAndSwipeAnimations.css'
+import { Box } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { HelpRequest } from '../../types/HelpRequest';
+import './ScrollAndSwipeAnimations.css';
 
 type ScrollAndSwipeHandlerProps = {
-  currentPage: number,
-  totalPages: number,
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
-  helpRequests: HelpRequest[],
-  cooldownDuration: number,
-  viewMode: string,
-  children: React.ReactNode
-}
+  currentPage: number;
+  totalPages: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  helpRequests: HelpRequest[];
+  cooldownDuration: number;
+  viewMode: string;
+  children: React.ReactNode;
+};
 
 const ScrollAndSwipeHandler: React.FC<ScrollAndSwipeHandlerProps> = (props) => {
-  const {currentPage, totalPages, setCurrentPage, helpRequests, cooldownDuration, viewMode, children} = props
+  const { currentPage, totalPages, setCurrentPage, helpRequests, cooldownDuration, viewMode, children } = props;
 
   const [animationState, setAnimationState] = useState<'enter' | 'exit' | 'none'>('none');
   const listRef = useRef<HTMLDivElement>(null);
@@ -96,7 +96,7 @@ const ScrollAndSwipeHandler: React.FC<ScrollAndSwipeHandlerProps> = (props) => {
     >
       {children}
     </Box>
-  )
-}
+  );
+};
 
-export default ScrollAndSwipeHandler
+export default ScrollAndSwipeHandler;

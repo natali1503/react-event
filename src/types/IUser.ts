@@ -10,7 +10,7 @@ export interface IUser {
       longitude: number;
       district: string;
       city: string;
-    }
+    },
   ];
   educations: [
     {
@@ -18,7 +18,7 @@ export interface IUser {
       level: string;
       specialization: string;
       graduationYear: number;
-    }
+    },
   ];
   additionalInfo: string;
   contacts: {
@@ -44,7 +44,7 @@ export interface IProfileData {
       longitude: number;
       district: string;
       city: string;
-    }
+    },
   ];
   educations: [
     {
@@ -52,7 +52,7 @@ export interface IProfileData {
       level: string;
       specialization: string;
       graduationYear: number;
-    }
+    },
   ];
   additionalInfo: string;
   contacts: {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+
 import { useMode } from '../../theme';
+
 import { TestProfilesSlider } from './TestProfilesSlider';
 
 export default function TestingProfilesSM() {
@@ -34,7 +36,7 @@ export default function TestingProfilesSM() {
           },
         }}
       >
-        <Typography variant="h4" marginLeft={'3.5rem'}>
+        <Typography variant='h4' marginLeft={'3.5rem'}>
           Тестовые профили
         </Typography>
         <TestProfilesSlider />

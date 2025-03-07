@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+
 import { VIEW_TOGGLE_OPTIONS } from '../const/const';
 
 export function useViewMode() {

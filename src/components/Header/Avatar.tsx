@@ -1,18 +1,10 @@
 import { useState, Fragment } from 'react';
-
 import { useDispatch } from 'react-redux';
-import { logOut } from '../../store/authorization';
-
-import {
-  Box,
-  Avatar,
-  Menu,
-  MenuItem,
-  ListItemIcon,
-  IconButton,
-} from '@mui/material';
+import { Box, Avatar, Menu, MenuItem, ListItemIcon, IconButton } from '@mui/material';
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate, Link } from 'react-router-dom';
+
+import { logOut } from '../../store/authorization';
 import { AppRoute } from '../../const/const';
 
 export default function ImageAvatar() {
@@ -45,18 +37,18 @@ export default function ImageAvatar() {
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <IconButton
           onClick={handleClick}
-          size="small"
+          size='small'
           sx={{ ml: 2 }}
           aria-controls={open ? 'account-menu' : undefined}
-          aria-haspopup="true"
+          aria-haspopup='true'
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar src="/broken-image.jpg" />
+          <Avatar src='/broken-image.jpg' />
         </IconButton>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id="account-menu"
+        id='account-menu'
         open={open}
         onClose={handleClose}
         onClick={() => {}}
@@ -94,14 +86,9 @@ export default function ImageAvatar() {
         <MenuItem onClick={handleClickProfile} sx={{ fontSize: '16px' }}>
           <Avatar /> Мой профиль
         </MenuItem>
-        <MenuItem
-          component={Link}
-          to="/login"
-          onClick={handlLogOut}
-          sx={{ fontSize: '16px' }}
-        >
+        <MenuItem component={Link} to='/login' onClick={handlLogOut} sx={{ fontSize: '16px' }}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout fontSize='small' />
           </ListItemIcon>
           Выйти
         </MenuItem>

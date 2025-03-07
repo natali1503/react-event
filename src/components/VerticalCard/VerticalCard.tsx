@@ -13,13 +13,14 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import { HelpRequest } from '../../types/HelpRequest';
 import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
-import { Link } from 'react-router-dom';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
-import { useSelector } from 'react-redux';
 
 type CardItemProps = {
   helpRequest: HelpRequest;
@@ -58,10 +59,10 @@ const VerticalCard: FC<CardItemProps> = (props) => {
             helpRequest.requesterType === 'organization'
               ? '/img/organization.svg'
               : helpRequest.requesterType === 'person' && helpRequest.helpType === 'finance'
-              ? '/img/person-finance.svg'
-              : helpRequest.requesterType === 'person' && helpRequest.helpType === 'material'
-              ? '/img/person-material.svg'
-              : '/img/organization.svg' // default
+                ? '/img/person-finance.svg'
+                : helpRequest.requesterType === 'person' && helpRequest.helpType === 'material'
+                  ? '/img/person-material.svg'
+                  : '/img/organization.svg' // default
           }
           title={helpRequest.requesterType}
         />
@@ -87,7 +88,7 @@ const VerticalCard: FC<CardItemProps> = (props) => {
             />
           }
         />
-        <Divider component="div" />
+        <Divider component='div' />
         <CardContent
           sx={{
             padding: '10px 16px',
@@ -100,22 +101,22 @@ const VerticalCard: FC<CardItemProps> = (props) => {
           }}
         >
           <Stack spacing={0.5} sx={{ marginBottom: '20px' }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+            <Typography variant='subtitle2' sx={{ fontWeight: 'bold' }}>
               Организатор
             </Typography>
-            <Typography variant="body2">{helpRequest.organization.title}</Typography>
+            <Typography variant='body2'>{helpRequest.organization.title}</Typography>
           </Stack>
 
           <Stack spacing={0.5} sx={{ marginBottom: '20px' }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+            <Typography variant='subtitle2' sx={{ fontWeight: 'bold' }}>
               Локация
             </Typography>
-            <Typography variant="body2">{helpRequest.location.district}</Typography>
-            <Typography variant="body2">Населенный пункт: {helpRequest.location.city}</Typography>
+            <Typography variant='body2'>{helpRequest.location.district}</Typography>
+            <Typography variant='body2'>Населенный пункт: {helpRequest.location.city}</Typography>
           </Stack>
 
           <Stack spacing={0.5} sx={{ marginBottom: '20px' }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+            <Typography variant='subtitle2' sx={{ fontWeight: 'bold' }}>
               Цель сбора
             </Typography>
 
@@ -126,7 +127,7 @@ const VerticalCard: FC<CardItemProps> = (props) => {
               onClose={() => setIsShow(false)}
             >
               <Typography
-                variant="body2"
+                variant='body2'
                 minHeight={'3.5rem'}
                 sx={{
                   display: '-webkit-box',
@@ -142,23 +143,23 @@ const VerticalCard: FC<CardItemProps> = (props) => {
           </Stack>
 
           <Stack spacing={0.5} sx={{ marginBottom: '20px' }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+            <Typography variant='subtitle2' sx={{ fontWeight: 'bold' }}>
               Завершение
             </Typography>
-            <Typography variant="body2">{formatDate(helpRequest.endingDate)}</Typography>
+            <Typography variant='body2'>{formatDate(helpRequest.endingDate)}</Typography>
           </Stack>
 
           <Stack spacing={0.5}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
+            <Typography variant='subtitle2' sx={{ fontWeight: 'bold' }}>
               Мы собрали
             </Typography>
             <LinearProgress
-              variant="determinate"
+              variant='determinate'
               value={Math.min((helpRequest.requestGoalCurrentValue / helpRequest.requestGoal) * 100, 100)}
             />
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Typography variant="body2">{formatNumber(helpRequest.requestGoalCurrentValue)} руб</Typography>
-              <Typography variant="body2">{formatNumber(helpRequest.requestGoal)} руб</Typography>
+              <Typography variant='body2'>{formatNumber(helpRequest.requestGoalCurrentValue)} руб</Typography>
+              <Typography variant='body2'>{formatNumber(helpRequest.requestGoal)} руб</Typography>
             </Box>
           </Stack>
         </CardContent>
@@ -172,13 +173,13 @@ const VerticalCard: FC<CardItemProps> = (props) => {
             marginTop: 'auto',
           }}
         >
-          <Typography variant="body2" sx={{ marginBottom: '10px' }}>
+          <Typography variant='body2' sx={{ marginBottom: '10px' }}>
             Нас уже: {formatNumber(helpRequest.contributorsCount)}
           </Typography>
           <Button
-            size="large"
-            variant="contained"
-            color="primary"
+            size='large'
+            variant='contained'
+            color='primary'
             fullWidth
             onClick={(event) => {
               event.stopPropagation();

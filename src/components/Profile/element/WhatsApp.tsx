@@ -12,7 +12,7 @@ export function WhatsApp() {
       height={'100%'}
     >
       <ReactSVG
-        src="/img/whatsapp.svg"
+        src='/img/whatsapp.svg'
         beforeInjection={(svg) => {
           svg.removeAttribute('width');
           svg.removeAttribute('height');

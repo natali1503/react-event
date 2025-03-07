@@ -41,9 +41,13 @@ export const formAuthorizationSlice = createSlice({
       } else {
         state.passwordError = '';
       }*/
-      state.isPasswordValid = action.payload;
+      state.isPasswordValid  = action.payload;
+    },
+    resetFormAuthorization: (state) => {
+      state.login = '';
+      state.password = '';
     },
   },
 });
-export const { setLogin, setPassword, setIsLoginValid, setIsPasswordValid } = formAuthorizationSlice.actions;
+export const { setLogin, setPassword, setIsLoginValid, setIsPasswordValid, resetFormAuthorization } = formAuthorizationSlice.actions;
 export default formAuthorizationSlice.reducer;

@@ -1,23 +1,25 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
-// utils
-import { debouncedFunction } from '../../utils/filterUtils';
-// styles
 import { Box, InputBase, Paper, Stack, Typography } from '@mui/material';
-import { useMode } from '../../theme';
 import SearchIcon from '@mui/icons-material/Search';
 
+import { debouncedFunction } from '../../utils/filterUtils';
+import { useMode } from '../../theme';
+
 type SearchProps = {
-  searchTerm: string,
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>,
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
   const [inputValue, setInputValue] = useState(searchTerm);
   const [theme] = useMode();
 
-  const handleSearch = useCallback((value: string) => {
-    setSearchTerm(value);
-  }, [setSearchTerm]);
+  const handleSearch = useCallback(
+    (value: string) => {
+      setSearchTerm(value);
+    },
+    [setSearchTerm],
+  );
 
   const debouncedSearch = useRef<(value: string) => void>(debouncedFunction(handleSearch, 250));
 
@@ -32,22 +34,24 @@ const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
   }, [searchTerm]);
 
   return (
-    <Paper sx={{
-      width: '100%'
-    }}>
-      <Stack 
-        sx={{ 
+    <Paper
+      sx={{
+        width: '100%',
+      }}
+    >
+      <Stack
+        sx={{
           backgroundColor: 'white',
           gap: '2rem',
           padding: '2rem',
           mb: '1.6rem',
           [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
             padding: '1.6rem',
-            mb: '0'
-          }
+            mb: '0',
+          },
         }}
       >
-        <Typography 
+        <Typography
           variant='h6'
           width='fit-content'
           sx={{
@@ -55,15 +59,15 @@ const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
             width: 'fit-content',
             [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
               display: 'none',
-            }
+            },
           }}
         >
           Найти запрос
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid gray' }}>
-          <SearchIcon sx={{ position: 'absolute', color: 'gray'}} />
+          <SearchIcon sx={{ position: 'absolute', color: 'gray' }} />
           <InputBase
-            placeholder="Введите название задачи или организации"
+            placeholder='Введите название задачи или организации'
             value={inputValue}
             onChange={handleInputChange}
             sx={{
@@ -71,8 +75,8 @@ const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
               fontSize: '1.6rem',
               paddingLeft: '2.5rem',
               [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                fontSize: '1.4rem'
-              }
+                fontSize: '1.4rem',
+              },
             }}
           />
         </Box>

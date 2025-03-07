@@ -1,14 +1,15 @@
-import FundraisingCard from '../components/FundraisingCard';
-import FundraisingForm from '../components/FundraisingForm';
 import { CircularProgress, Box, Paper, Typography } from '@mui/material';
-import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
+import FundraisingCard from '../components/FundraisingCard';
+import FundraisingForm from '../components/FundraisingForm';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 import { fetchRequestAction, getFavouritesAction } from '../store/api-actions';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { getHelpRequestError, getHelpRequestInfo, getRequestLoadingStatus } from '../store/help-requests/selectors';
 import { ErrorComponent } from '../components/Error';
-import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 import { getFavouriteLoadedFlag, getFavouriteRequestsError } from '../store/user-favourites/favourites-selectors';
 import { resetFavouriteRequestsError } from '../store/user-favourites/userFavourites';
 import { resetHelpRequestError } from '../store/help-requests/help-requests-data';
@@ -59,10 +60,10 @@ const HelpRequest: React.FC = () => {
         </Box>
       ) : (
         <Box>
-          <Typography variant="h4" mb={2}>
+          <Typography variant='h4' mb={2}>
             Запрос о помощи
           </Typography>
-          <Box display="flex" gap={'2rem'} flexDirection={isBreakpointOverlap ? 'column' : 'row'}>
+          <Box display='flex' gap={'2rem'} flexDirection={isBreakpointOverlap ? 'column' : 'row'}>
             <Box width={isBreakpointOverlap ? '100%' : '80%'} order={isBreakpointOverlap ? 2 : 1}>
               <FundraisingForm helpRequest={request} />
             </Box>

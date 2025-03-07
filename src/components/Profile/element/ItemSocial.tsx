@@ -14,8 +14,8 @@ export const ItemSocial = ({ name, link, icon }: IItemSocial) => {
       </Box>
       <Link
         href={`${link}`}
-        target="_blank"
-        underline="hover"
+        target='_blank'
+        underline='hover'
         sx={{
           color: 'black',
           '&:hover': { color: 'black' },

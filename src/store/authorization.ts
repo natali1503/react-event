@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loginAction } from './api-actions';
+
 import { dropToken } from '../services/token';
 import { AUTH_TOKEN_KEY_NAME } from '../const/const';
+
+import { loginAction } from './api-actions';
 
 // Define a type for the slice state
 interface CounterState {
@@ -49,7 +51,7 @@ export const authorizationSlice = createSlice({
       .addCase(loginAction.rejected, (state, action) => {
         state.isAuthPending = false;
         state.isAuthenticated = false;
-        state.errorMessage = (action.error.code == 'ERR_BAD_REQUEST') ? 'Неправильный логин или пароль' : null ;
+        state.errorMessage = action.error.code == 'ERR_BAD_REQUEST' ? 'Неправильный логин или пароль' : null;
       });
   },
 });
