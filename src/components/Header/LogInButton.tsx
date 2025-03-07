@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-
 import { Link } from 'react-router-dom';
+
 import { useMode } from '../../theme';
 
 export default function LogInButton() {
@@ -20,8 +20,8 @@ export default function LogInButton() {
       }}
     >
       <Button
-        variant="outlined"
-        color="inherit"
+        variant='outlined'
+        color='inherit'
         sx={{
           width: '122px',
           height: '40px',
@@ -30,7 +30,7 @@ export default function LogInButton() {
           },
         }}
         component={Link}
-        to="/login"
+        to='/login'
       >
         ВОЙТИ &gt;
       </Button>

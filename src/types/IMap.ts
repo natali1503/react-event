@@ -5,7 +5,7 @@ export interface IYandexMap {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     add: (objectManager: any) => void;
   };
-};
+}
 
 export interface IYandexObjectManager {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,6 +18,5 @@ export interface ILocation {
   longitude: number;
   district?: string;
   city?: string;
-  endingDate?: string
-};
-
+  endingDate?: string;
+}

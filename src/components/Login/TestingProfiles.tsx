@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
+
 import { useMode } from '../../theme';
 import { testUsers } from '../../const/const';
+
 import { TestingProfilesIteam } from './TestingProfilesIteam';
 
 const TestingProfiles = () => {
@@ -33,7 +35,7 @@ const TestingProfiles = () => {
           },
         }}
       >
-        <Typography variant="h4">Тестовые профили</Typography>
+        <Typography variant='h4'>Тестовые профили</Typography>
         <Box
           sx={{
             marginTop: '9rem',

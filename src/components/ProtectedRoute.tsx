@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
-import { useAppSelector } from '../hooks/useAppSelector';
 import { Navigate, useLocation } from 'react-router-dom';
+
+import { useAppSelector } from '../hooks/useAppSelector';
 import { AppRoute } from '../const/const';
 
 type Props = {

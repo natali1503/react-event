@@ -17,7 +17,8 @@ export const formAuthorizationSlice = createSlice({
       state.password = action.payload;
       formAuthorizationSlice.caseReducers.setPasswordError(state);
     },
-    setEmailError: (state) => { // TODO: удалить
+    setEmailError: (state) => {
+      // TODO: удалить
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (state.login && !emailRegex.test(state.login)) {
         state.emailError = 'Введите корректный email-адрес';
@@ -25,14 +26,19 @@ export const formAuthorizationSlice = createSlice({
         state.emailError = '';
       }
     },
-    setPasswordError: (state) => {  // TODO: удалить
+    setPasswordError: (state) => {
+      // TODO: удалить
       if (state.password.length < 5) {
         state.passwordError = 'Пароль не менее 5 символов';
       } else {
         state.passwordError = '';
       }
     },
+    resetFormAuthorization: (state) => {
+      state.login = '';
+      state.password = '';
+    },
   },
 });
-export const { setLogin, setPassword } = formAuthorizationSlice.actions;
+export const { setLogin, setPassword, resetFormAuthorization } = formAuthorizationSlice.actions;
 export default formAuthorizationSlice.reducer;

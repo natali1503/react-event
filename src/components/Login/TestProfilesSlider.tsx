@@ -1,12 +1,15 @@
 import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRightOutlined';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import { Dot } from './Dot';
-import { TestingProfilesIteam } from './TestingProfilesIteam';
+import { Box, Button } from '@mui/material';
+
 import { testUsers } from '../../const/const';
 import { useSlider } from '../../hooks/useSlider';
-import { useSwiper } from './useSwiper';
-import { Box, Button } from '@mui/material';
 import { useMode } from '../../theme';
+
+import { Dot } from './Dot';
+import { TestingProfilesIteam } from './TestingProfilesIteam';
+import { useSwiper } from './useSwiper';
+
 export function TestProfilesSlider() {
   const { currentDiv, onHandleClickSlider } = useSlider();
   const { handleTouchStart, handleTouchEnd } = useSwiper({
@@ -47,10 +50,10 @@ export function TestProfilesSlider() {
         </Box>
         <Box sx={{ width: '250px', height: '106px' }}>
           <div style={{ position: 'relative' }}>
-            <div 
-              id="slider"       
+            <div
+              id='slider'
               onTouchStart={handleTouchStart}
-              onTouchEnd={handleTouchEnd} 
+              onTouchEnd={handleTouchEnd}
               style={{ display: 'flex', gap: '30px', left: '0px', top: '0px', position: 'absolute' }}
             >
               {testUsers.map((user, index) => (
@@ -86,7 +89,7 @@ export function TestProfilesSlider() {
             onClick={() =>
               onHandleClickSlider(
                 index + 1 > currentDiv ? 'next' : 'previous',
-                index + 1 > currentDiv ? index + 1 - currentDiv : currentDiv - index - 1
+                index + 1 > currentDiv ? index + 1 - currentDiv : currentDiv - index - 1,
               )
             }
           />

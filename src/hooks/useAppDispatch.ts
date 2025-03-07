@@ -1,5 +1,6 @@
-import { useDispatch } from 'react-redux'
-import type { AppDispatch } from '../store/types'
+import { useDispatch } from 'react-redux';
+
+import type { AppDispatch } from '../store/types';
 
 // Типизация useDispatch() необходима согласно доке
 // https://redux-toolkit.js.org/tutorials/typescript#define-typed-hooks

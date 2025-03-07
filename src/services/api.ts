@@ -1,8 +1,10 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { BASE_URL, REQUEST_TIMEOUT } from '../const/const';
 import { StatusCodes } from 'http-status-codes';
-import { getToken } from './token';
 import { toast } from 'react-toastify';
+
+import { BASE_URL, REQUEST_TIMEOUT } from '../const/const';
+
+import { getToken } from './token';
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -21,23 +23,21 @@ export const createAPI = (): AxiosInstance => {
     },
   });
 
-  api.interceptors.request.use(
-    (config: InternalAxiosRequestConfig ) => {
-      const token = getToken();
+  api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    const token = getToken();
 
-      if (token && config.headers) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
-      return config;
-    },
-  );
+    return config;
+  });
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{error: string}>) => {
+    (error: AxiosError<{ error: string }>) => {
       if (error.response && shouldDisplayError(error.response)) {
-        switch(error.response.status) {
+        switch (error.response.status) {
           case StatusCodes.INTERNAL_SERVER_ERROR:
             toast.error('Ошибка! Попробуйте еще раз');
             break;
@@ -50,10 +50,9 @@ export const createAPI = (): AxiosInstance => {
           default:
             toast.error(`Ошибка! ${error.response.data.error}`); // TODO: проверить
         }
-
       }
       throw error;
-    }
+    },
   );
 
   return api;

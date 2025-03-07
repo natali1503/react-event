@@ -6,6 +6,6 @@ export interface HelpRequestData {
   hasError: boolean;
   isСontributionPostingStatus: boolean;
   request: HelpRequest | null;
-  isRequestDataLoading: boolean,
-  hasHelpRequestError: boolean,
-};
+  isRequestDataLoading: boolean;
+  hasHelpRequestError: boolean;
+}

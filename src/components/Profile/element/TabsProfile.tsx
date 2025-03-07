@@ -1,4 +1,5 @@
 import { Box, Tabs } from '@mui/material';
+
 import { CustomTab } from './CustomTab';
 export function TabsProfile({ value, setValue }) {
   function handleChange(e: React.SyntheticEvent, numberTab: number) {

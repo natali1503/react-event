@@ -2,11 +2,11 @@ import { AppBar, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { AppRoute } from '../../const/const';
-import LogInButton from './LogInButton';
-import ImageAvatar from './Avatar';
-
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useMode } from '../../theme';
+
+import LogInButton from './LogInButton';
+import ImageAvatar from './Avatar';
 import { Logo } from './Logo';
 
 export default function HeaderNavigationApp() {
@@ -27,7 +27,7 @@ export default function HeaderNavigationApp() {
         alignItems: 'center',
       }}
     >
-      <AppBar position="static" color="inherit" sx={{ zIndex: '1' }}>
+      <AppBar position='static' color='inherit' sx={{ zIndex: '1' }}>
         <Box
           sx={{
             width: '100%',
@@ -52,13 +52,13 @@ export default function HeaderNavigationApp() {
               flexGrow: 1,
               display: 'flex',
               justifyContent: 'center',
-              textAlign: 'center'
+              textAlign: 'center',
             }}
           >
             <Link
               onClick={handleClickRequest}
-              color="inherit"
-              underline="hover"
+              color='inherit'
+              underline='hover'
               sx={{
                 fontSize: '16px',
                 lineHeight: '150%',

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface IUsePagination {
   quantityHelpRequests: number;
-  itemsPerPage: number
+  itemsPerPage: number;
 }
 
 export function usePagination({ quantityHelpRequests, itemsPerPage }: IUsePagination) {
@@ -11,11 +11,11 @@ export function usePagination({ quantityHelpRequests, itemsPerPage }: IUsePagina
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  return { 
+  return {
     currentPage,
     totalPages,
     indexOfLastItem,
     indexOfFirstItem,
-    setCurrentPage
+    setCurrentPage,
   };
 }
