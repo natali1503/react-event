@@ -15,9 +15,11 @@ import { TabsProfile } from '../../components/Profile/element/TabsProfile';
 import ViewToggle from '../../components/ViewToggle/ViewToggle';
 import { useViewMode } from '../../hooks/useViewMode';
 import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
+import { deleteParametersURL } from '../../hooks/useParseURL';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
+  const [isURLParsingEnabled, setIsURLParsingEnabled] = useState<boolean>(numberTab === 2);
   const [theme] = useMode();
   const dispatch = useDispatch<AppDispatch>();
   const { viewMode, handleViewChange } = useViewMode();
@@ -25,6 +27,20 @@ export default function Profile() {
   const profile = useSelector((state: RootState) => {
     return state.profile;
   });
+
+  const params = new URLSearchParams(location.search);
+  const urlCurrentPage = parseInt(params.get('currentPage') || '1', 10);
+  if (isURLParsingEnabled === false) deleteParametersURL();
+
+  useEffect(() => {
+    setIsURLParsingEnabled(numberTab === 2);
+  }, [numberTab]);
+
+  useEffect(() => {
+    if (urlCurrentPage > 1) {
+      setNumberTab(2);
+    }
+  }, []);
 
   useEffect(() => {
     if (profile.isData) return;

@@ -4,7 +4,6 @@ import { Box, Skeleton, useMediaQuery } from '@mui/material';
 import { HelpRequest } from '../types/HelpRequest';
 import { VIEW_TOGGLE_OPTIONS } from '../const/const';
 import { usePagination } from '../hooks/usePagination';
-import useParseURL from '../hooks/useParseURL';
 
 import CardList from './CardList/CardList';
 import MapWrapper from './Map/MapWrapper';
@@ -42,12 +41,6 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   const { currentPage, setCurrentPage, totalPages, indexOfLastItem, indexOfFirstItem } = usePagination({
     quantityHelpRequests: helpRequests.length,
     itemsPerPage,
-  });
-
-  // Rewrite currentPage with data from URL
-  useParseURL({
-    currentPage,
-    setCurrentPage,
   });
 
   const isMediumScreen = useMediaQuery('(max-width:604px)');
