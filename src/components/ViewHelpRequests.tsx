@@ -1,14 +1,16 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import { HelpRequest } from '../types/HelpRequest';
 import { Box, Skeleton, useMediaQuery } from '@mui/material';
+
+import { HelpRequest } from '../types/HelpRequest';
+import { VIEW_TOGGLE_OPTIONS } from '../const/const';
+import { usePagination } from '../hooks/usePagination';
+import useParseURL from '../hooks/useParseURL';
+
 import CardList from './CardList/CardList';
 import MapWrapper from './Map/MapWrapper';
 import { ErrorComponent } from './Error';
 import { NotFoundResult } from './NotFoundResult';
-import { VIEW_TOGGLE_OPTIONS } from '../const/const';
 import Pagination from './Pagination';
-import { usePagination } from '../hooks/usePagination';
-import useParseURL from '../hooks/useParseURL';
 
 interface IViewHelpRequests {
   viewMode: string;
@@ -33,7 +35,7 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
   isHelpRequestsError,
   isFavouriteRequestsError,
 }) => {
-  const [isInitialReset, setIsInitialReset] = useState(true)
+  const [isInitialReset, setIsInitialReset] = useState(true);
   const itemsPerPage = customNumberItemsPerPage || 3;
   const scrollCooldownDuration = 50;
 
@@ -82,19 +84,19 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     paginationSize = 'medium';
   } else {
     paginationSize = 'large';
-  };
+  }
 
   useEffect(() => {
     if (isResetFilters && setIsResetFilters && !isInitialReset) {
       setCurrentPage(1);
       setIsResetFilters(false);
     } else if (isInitialReset) {
-      setIsInitialReset(false)
+      setIsInitialReset(false);
     }
   }, [isResetFilters]);
 
   return (
-    <Box sx={{ height: '100%'}}>
+    <Box sx={{ height: '100%' }}>
       {errorMessage}
       {errorMessage === null && (
         <>
@@ -110,13 +112,14 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
                 setCurrentPage={setCurrentPage}
                 scrollCooldownDuration={scrollCooldownDuration}
               />
-              <Pagination 
+              <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
                 size={paginationSize}
-                handlePageChange={handlePageChange}  
+                handlePageChange={handlePageChange}
                 hidePrevButton={isMediumScreen}
-                hideNextButton={isMediumScreen}/>
+                hideNextButton={isMediumScreen}
+              />
             </Box>
           )}
         </>

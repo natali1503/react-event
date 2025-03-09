@@ -1,11 +1,13 @@
 import { Action, combineReducers, Middleware } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
+
+import { createAPI } from '../services/api';
+
 import authorizationReducer, { logOut } from './authorization';
 import userFavouritesReducer from './user-favourites/userFavourites';
 import profileReducer from './profileStore';
 import formAuthorizationReducer from './formAuthorization';
 import { helpRequestData } from './help-requests/help-requests-data';
-import { createAPI } from '../services/api';
 
 const rootReducer = combineReducers({
   auth: authorizationReducer,
@@ -29,7 +31,8 @@ type RootState = ReturnType<typeof rootReducer>;
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
   const typedAction = action as ActionWithError;
 
-  if (typedAction.type.endsWith('rejected') &&
+  if (
+    typedAction.type.endsWith('rejected') &&
     typedAction.error?.name === 'AxiosError' &&
     typedAction.error?.message.includes('403')
   ) {
@@ -49,6 +52,5 @@ export const store = configureStore({
         extraArgument: api,
       },
     }).concat(authMiddleware),
-    devTools: true,
+  devTools: true,
 });
-

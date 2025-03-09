@@ -1,8 +1,10 @@
-import { fetchContributeToRequest } from '../store/api-actions';
 import { toast } from 'react-toastify';
-import { useAppDispatch } from './useAppDispatch';
-import { HelpRequest } from '../types/HelpRequest';
 import { unwrapResult } from '@reduxjs/toolkit';
+
+import { fetchContributeToRequest } from '../store/api-actions';
+import { HelpRequest } from '../types/HelpRequest';
+
+import { useAppDispatch } from './useAppDispatch';
 
 const useContributeToRequest = (helpRequest: HelpRequest | undefined) => {
   const dispatch = useAppDispatch();
@@ -13,7 +15,7 @@ const useContributeToRequest = (helpRequest: HelpRequest | undefined) => {
         .then(unwrapResult)
         .then(() => {
           toast.success('Успех! Спасибо за помощь!');
-        }); 
+        });
     }
   };
 

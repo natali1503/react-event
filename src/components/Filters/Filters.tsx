@@ -1,21 +1,15 @@
-// components
-import StandardCheckboxes from './StandardCheckboxes';
-import AccordionCheckboxes from './AccordionCheckboxes';
-import Calendar from '../Calendar/Calendar';
-// data
-import { filterOptions } from '../../const/filterOptions';
-// types
-import { FilterProps } from '../../types/IFilterOption';
-// styles
 import { Box, Button, Paper, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+
+import Calendar from '../Calendar/Calendar';
+import { filterOptions } from '../../const/filterOptions';
+import { FilterProps } from '../../types/IFilterOption';
 import { useMode } from '../../theme';
 
-const Filters: React.FC<FilterProps> = ({
-  selectedOptions,
-  selectedDate,
-  setSelectedOptions,
-  setSelectedDate,
-}) => {
+import AccordionCheckboxes from './AccordionCheckboxes';
+import StandardCheckboxes from './StandardCheckboxes';
+
+const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSelectedOptions, setSelectedDate }) => {
   const [theme] = useMode();
 
   // Toggle checkbox filter
@@ -48,12 +42,12 @@ const Filters: React.FC<FilterProps> = ({
           boxShadow: 'none',
         },
         [`@media (max-width: ${319}px)`]: {
-          width: '240px'
+          width: '240px',
         },
       }}
     >
       <Box sx={{ padding: '2rem 0' }}>
-        <Typography variant="h6" width="fit-content">
+        <Typography variant='h6' width='fit-content'>
           Фильтрация
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: '2rem' }}>
@@ -84,7 +78,7 @@ const Filters: React.FC<FilterProps> = ({
         </Box>
 
         <Box sx={{ marginTop: '2rem' }}>
-          <Typography variant="subtitle1" sx={{ opacity: '0.6' }}>
+          <Typography variant='subtitle1' sx={{ opacity: '0.6' }}>
             Помощь актуальна до:
           </Typography>
           <Box sx={{ marginTop: '1rem' }}>
@@ -96,7 +90,7 @@ const Filters: React.FC<FilterProps> = ({
           <Button
             disabled={selectedOptions.length === 0}
             onClick={() => handleReset()}
-            variant="outlined"
+            variant='outlined'
             sx={{
               width: '100%',
               color: 'black',

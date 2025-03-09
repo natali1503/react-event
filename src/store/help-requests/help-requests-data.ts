@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { HelpRequestData } from '../../types/state';
 import { fetchHelpRequestsAction, fetchContributeToRequest, fetchRequestAction } from '../api-actions';
 
@@ -25,7 +26,6 @@ export const helpRequestData = createSlice({
       .addCase(fetchHelpRequestsAction.fulfilled, (state, action) => {
         state.helpRequestsList = action.payload;
         state.isRequestsDataLoading = false;
-        
       })
       .addCase(fetchHelpRequestsAction.rejected, (state) => {
         state.isRequestsDataLoading = false;

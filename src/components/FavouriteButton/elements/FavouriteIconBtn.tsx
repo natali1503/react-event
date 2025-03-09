@@ -1,7 +1,8 @@
 import { Box, CircularProgress, IconButton } from '@mui/material';
-import { IFavouriteButton } from '../../../types/IFavouriteButton';
 import { Star, StarBorder } from '@mui/icons-material';
 import { forwardRef } from 'react';
+
+import { IFavouriteButton } from '../../../types/IFavouriteButton';
 
 type FavouriteIconButtonProps = IFavouriteButton;
 
@@ -23,7 +24,7 @@ const FavouriteIconBtn = forwardRef<HTMLDivElement, FavouriteIconButtonProps>(
         </IconButton>
       </Box>
     );
-  }
+  },
 );
 
 export default FavouriteIconBtn;

@@ -11,8 +11,8 @@ const NotFoundPage = () => {
       gap={'20px'}
       width={'100%'}
     >
-      <ReactSVG src="/img/notFoundResult.svg" />
-      <Typography variant="h5">Страница не найдена</Typography>
+      <ReactSVG src='/img/notFoundResult.svg' />
+      <Typography variant='h5'>Страница не найдена</Typography>
     </Box>
   );
 };

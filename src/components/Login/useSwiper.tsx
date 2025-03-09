@@ -1,19 +1,13 @@
 import { useRef } from 'react';
 
 type useSwiperProps = {
-  cooldownDuration: number, 
-  currentItem: number, 
-  maxItems: number, 
-  action: (arrow: 'previous' | 'next', step?: number) => void
-}
+  cooldownDuration: number;
+  currentItem: number;
+  maxItems: number;
+  action: (arrow: 'previous' | 'next', step?: number) => void;
+};
 
-export function useSwiper({
-  cooldownDuration,
-  currentItem,
-  maxItems,
-  action
-}: useSwiperProps) {
-
+export function useSwiper({ cooldownDuration, currentItem, maxItems, action }: useSwiperProps) {
   const touchStartRef = useRef<number>(0);
   const isCooldown = useRef(false);
 
@@ -38,7 +32,7 @@ export function useSwiper({
     setTimeout(() => {
       isCooldown.current = false;
     }, cooldownDuration);
-  }
+  };
 
-  return { handleTouchStart, handleTouchEnd }
+  return { handleTouchStart, handleTouchEnd };
 }

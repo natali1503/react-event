@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-// components
+import { Box, Typography, Grid2, Paper } from '@mui/material';
+
 import Filters from '../../components/Filters/Filters';
 import SearchPanel from '../../components/SearchPanel/SearchPanel';
 import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRequestsComponent';
 import FilterButton from '../../components/Filters/FilterButton';
 import ModalWindow from '../../components/ModalWindow/ModalWindow';
-// styles
-import { Box, Typography, Grid2, Paper} from '@mui/material';
 import { useMode } from '../../theme';
-// hooks
 import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
 import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
 
 const HelpDesk: React.FC = () => {
-  const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } = useUserHelpRequests();
+  const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } =
+    useUserHelpRequests();
   const [isResetFilters, setIsResetFilters] = useState(false);
 
   const {
@@ -41,7 +40,7 @@ const HelpDesk: React.FC = () => {
   const handleCloseFilterModal = () => {
     setOpenFilterModal(false);
   };
-  
+
   return (
     <Paper
       sx={{
@@ -54,18 +53,20 @@ const HelpDesk: React.FC = () => {
       }}
     >
       <Box>
-        <Typography variant="h4">Запросы о помощи</Typography>
+        <Typography variant='h4'>Запросы о помощи</Typography>
         <Grid2 container columnSpacing={3} mt={'1.2rem'}>
-          <Box sx={{
-            display: 'flex',
-            [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
-              width: '22.5%',
-              minWidth: '240px',
-            },
-            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-              display: 'none',
-            }
-          }}>
+          <Box
+            sx={{
+              display: 'flex',
+              [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
+                width: '22.5%',
+                minWidth: '240px',
+              },
+              [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                display: 'none',
+              },
+            }}
+          >
             <Filters
               selectedOptions={selectedOptions}
               selectedDate={selectedDate}
@@ -78,26 +79,30 @@ const HelpDesk: React.FC = () => {
               <Box display={'flex'} flexGrow={1}>
                 <SearchPanel searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
               </Box>
-              <Box sx={{
-                display: 'none',
-                width: 'fitContent',
-                justifyContent: 'center',
-                alignContent: 'center',
-                [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                  display: 'flex',
-                },
-              }}>
-                <FilterButton onClick={handleOpenFilterModal}/>
+              <Box
+                sx={{
+                  display: 'none',
+                  width: 'fitContent',
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+                    display: 'flex',
+                  },
+                }}
+              >
+                <FilterButton onClick={handleOpenFilterModal} />
               </Box>
             </Grid2>
-            <Paper sx={{
-              width: '100%',
-              minHeight: 'calc(57.35rem - 14.1rem - 1.6rem)',
-              padding: '2rem 3rem',
-              [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-                padding: '2rem 1.6rem',
-              },
-            }}>
+            <Paper
+              sx={{
+                width: '100%',
+                minHeight: 'calc(57.35rem - 14.1rem - 1.6rem)',
+                padding: '2rem 3rem',
+                [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+                  padding: '2rem 1.6rem',
+                },
+              }}
+            >
               <HelpRequestsComponent
                 helpRequests={dataToDisplay}
                 customNumberItemsPerPage={itemsPerPage}
@@ -118,9 +123,9 @@ const HelpDesk: React.FC = () => {
         slideDirection={'left'}
       >
         <Filters
-          selectedOptions={selectedOptions} 
+          selectedOptions={selectedOptions}
           selectedDate={selectedDate}
-          setSelectedOptions={setSelectedOptions} 
+          setSelectedOptions={setSelectedOptions}
           setSelectedDate={setSelectedDate}
         />
       </ModalWindow>

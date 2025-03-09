@@ -12,7 +12,7 @@ export function Telegram() {
       height={'100%'}
     >
       <ReactSVG
-        src="/img/telegram.svg"
+        src='/img/telegram.svg'
         beforeInjection={(svg) => {
           svg.removeAttribute('width');
           svg.removeAttribute('height');

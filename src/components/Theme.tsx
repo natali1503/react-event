@@ -1,4 +1,5 @@
 import { ThemeProvider, CssBaseline } from '@mui/material';
+
 import { useMode } from '../theme';
 
 export function Theme({ children }) {

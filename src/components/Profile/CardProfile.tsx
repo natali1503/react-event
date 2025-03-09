@@ -1,10 +1,11 @@
 import { Box, Button, Divider, Stack, Typography } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { RootState } from '../../store/types';
-import { useDispatch } from 'react-redux';
 import { logOut } from '../../store/authorization';
-import { UserImg } from './element/UserImg';
 import { useMode } from '../../theme';
+
+import { UserImg } from './element/UserImg';
 
 export default function CardProfile() {
   const { data } = useSelector((state: RootState) => {
@@ -27,16 +28,17 @@ export default function CardProfile() {
             flexDirection: 'row',
             justifyContent: 'space-around',
             alignItems: 'center',
-            gap: '1.5rem'
+            gap: '1.5rem',
           },
         }}
       >
         <UserImg />
-        <Divider sx={{
-          [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-            display: 'none',
-          },
-        }}
+        <Divider
+          sx={{
+            [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+              display: 'none',
+            },
+          }}
         />
         <Stack>
           <Stack
@@ -45,15 +47,16 @@ export default function CardProfile() {
             alignItems={'flex-start'}
             sx={{
               [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                margin:'0'
+                margin: '0',
               },
             }}
           >
-            <Typography variant="h6" 
+            <Typography
+              variant='h6'
               marginLeft={'20px'}
               sx={{
                 [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                  margin:'0' 
+                  margin: '0',
                 },
               }}
             >
@@ -68,16 +71,16 @@ export default function CardProfile() {
             marginBottom={'50px'}
             sx={{
               [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-                margin:'0' 
+                margin: '0',
               },
             }}
           >
             <Typography
-              fontSize={14} 
+              fontSize={14}
               fontWeight={500}
               sx={{
                 [`@media (min-width: ${0}px) and (max-width: ${426}px)`]: {
-                  display: 'none'
+                  display: 'none',
                 },
               }}
             >
@@ -87,21 +90,21 @@ export default function CardProfile() {
           </Stack>
         </Stack>
 
-        <Stack 
-          margin={'0 20px'} 
-          marginBottom={'20px'} 
+        <Stack
+          margin={'0 20px'}
+          marginBottom={'20px'}
           justifyContent={'center'}
           sx={{
             [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-              margin:'0'
+              margin: '0',
             },
             [`@media (max-width:${426}px)`]: {
-              display: 'none'
+              display: 'none',
             },
           }}
         >
           <Button
-            variant="outlined"
+            variant='outlined'
             sx={{
               color: '#000',
               border: '1px solid #000',
@@ -113,22 +116,22 @@ export default function CardProfile() {
           </Button>
         </Stack>
       </Box>
-      <Stack 
+      <Stack
         display={'none'}
-        margin={'0 20px'} 
-        marginBottom={'20px'} 
+        margin={'0 20px'}
+        marginBottom={'20px'}
         justifyContent={'center'}
         sx={{
           [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-            margin:'0'
+            margin: '0',
           },
           [`@media (min-width: ${0}px) and (max-width: ${426}px)`]: {
-            display: 'flex'
+            display: 'flex',
           },
         }}
       >
         <Button
-          variant="outlined"
+          variant='outlined'
           sx={{
             color: '#000',
             border: '1px solid #000',

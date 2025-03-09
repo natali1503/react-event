@@ -1,7 +1,5 @@
-import {
-  addToFavouritesAction,
-  removeFromFavouritesAction,
-} from '../store/api-actions';
+import { addToFavouritesAction, removeFromFavouritesAction } from '../store/api-actions';
+
 import { useAppDispatch } from './useAppDispatch';
 
 export const useFavourites = () => {

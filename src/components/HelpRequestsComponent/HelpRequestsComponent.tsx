@@ -1,10 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
+
 import { HelpRequest } from '../../types/HelpRequest';
 import ViewToggle from '../ViewToggle/ViewToggle';
-
 import { useViewMode } from '../../hooks/useViewMode';
-
 import { ViewHelpRequests } from '../ViewHelpRequests';
 
 type RequestsProps = {
@@ -26,7 +25,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
   isHelpRequestsError,
   isLoading,
   isResetFilters,
-  isFavouriteRequestsError
+  isFavouriteRequestsError,
 }) => {
   const { viewMode, handleViewChange } = useViewMode();
 
@@ -39,7 +38,7 @@ const HelpRequestsComponent: FC<RequestsProps> = ({
           alignItems: 'center',
         }}
       >
-        <Typography variant="h6">Найдено: {isFavouriteRequestsError ? 0 : helpRequests.length}</Typography>
+        <Typography variant='h6'>Найдено: {isFavouriteRequestsError ? 0 : helpRequests.length}</Typography>
         <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />
       </Box>
       <ViewHelpRequests

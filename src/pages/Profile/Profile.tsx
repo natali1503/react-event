@@ -1,10 +1,9 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getUserAction } from '../../store/api-actions';
 import { AppDispatch, RootState } from '../../store/types';
-
 import { ErrorComponent } from '../../components/Error';
 import CardProfile from '../../components/Profile/CardProfile';
 import PersonalData from '../../components/Profile/PersonalData';
@@ -33,24 +32,22 @@ export default function Profile() {
   }, []);
 
   return (
-    <Box display="flex" flexDirection={'column'} alignItems={'center'} width={'100%'}>
+    <Box display='flex' flexDirection={'column'} alignItems={'center'} width={'100%'}>
       <Box
         height={'100%'}
         width={'100%'}
-        display="flex"
+        display='flex'
         flexDirection={'column'}
         padding={'3rem 4rem'}
         bgcolor={theme.palette.background.default}
         sx={{
           [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
             padding: '2rem 2rem',
-          }
+          },
         }}
       >
         <Stack alignItems={'flex-start'}>
-          <Typography variant="h4">
-            Мой профиль
-          </Typography>
+          <Typography variant='h4'>Мой профиль</Typography>
         </Stack>
         {profile.loading && (
           <Box height={'100%'}>
@@ -60,15 +57,15 @@ export default function Profile() {
         {profile.error && <ErrorComponent />}
         {profile.isData && (
           <Box
-            display="flex"
+            display='flex'
             flexDirection={'row'}
             gap={'2rem'}
             marginTop={'1.2rem'}
             sx={{
               [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
                 flexDirection: 'column',
-                gap: '1rem'
-              }
+                gap: '1rem',
+              },
             }}
           >
             <Stack
@@ -84,7 +81,7 @@ export default function Profile() {
                 [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
                   width: '100%',
                   minWidth: 'none',
-                }
+                },
               }}
             >
               <CardProfile />
@@ -98,11 +95,17 @@ export default function Profile() {
               minHeight={'60vh'}
               sx={{
                 [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-                  padding: '0 2rem 4rem 2rem'
-                }
+                  padding: '0 2rem 4rem 2rem',
+                },
               }}
             >
-              <Box display={'flex'} flexDirection={'row'} width={'100%'} justifyContent={'space-between'} marginTop={'12px'}>
+              <Box
+                display={'flex'}
+                flexDirection={'row'}
+                width={'100%'}
+                justifyContent={'space-between'}
+                marginTop={'12px'}
+              >
                 <Box width={'72%'}>
                   <TabsProfile value={numberTab} setValue={setNumberTab} />
                 </Box>

@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
+
 import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
@@ -60,8 +61,8 @@ export function Authorization() {
 
   return (
     <Box
-      display="flex"
-      width="100%"
+      display='flex'
+      width='100%'
       sx={{
         [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
           justifyContent: 'center',
@@ -69,12 +70,12 @@ export function Authorization() {
       }}
     >
       <Box
-        display="flex"
-        flexDirection="column"
-        maxWidth="480px"
-        marginLeft="4rem"
-        marginRight="2rem"
-        marginTop="64px"
+        display='flex'
+        flexDirection='column'
+        maxWidth='480px'
+        marginLeft='4rem'
+        marginRight='2rem'
+        marginTop='64px'
         sx={{
           flexDirection: 'column',
           [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
@@ -83,16 +84,16 @@ export function Authorization() {
           },
         }}
       >
-        <Typography variant="h4">Авторизация</Typography>
-        <Typography variant="h5" sx={{ marginTop: '9rem', marginBottom: '35px' }}>
+        <Typography variant='h4'>Авторизация</Typography>
+        <Typography variant='h5' sx={{ marginTop: '9rem', marginBottom: '35px' }}>
           Вход
         </Typography>
 
-        <Box display="flex" flexDirection="column" gap="30px">
+        <Box display='flex' flexDirection='column' gap='30px'>
           <FormControl>
             <TextField
-              label="Логин"
-              variant="outlined"
+              label='Логин'
+              variant='outlined'
               value={login}
               onChange={handleInputLoginChange}
               error={!isLoginValid || !!errorMessage}
@@ -101,28 +102,28 @@ export function Authorization() {
           </FormControl>
 
           <FormControl error={!isPasswordValid || !!errorMessage}>
-            <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
+            <InputLabel htmlFor='outlined-adornment-password'>Пароль</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
+              id='outlined-adornment-password'
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={handleInputPasswordChange}
               endAdornment={
-                <InputAdornment position="end">
+                <InputAdornment position='end'>
                   <IconButton
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
                     onMouseUp={handleMouseUpPassword}
-                    edge="end"
+                    edge='end'
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
               }
-              label="Пароль"
+              label='Пароль'
             />
             {(!isPasswordValid || errorMessage) && (
-              <Typography color="error" variant="caption">
+              <Typography color='error' variant='caption'>
                 {!isPasswordValid ? 'Пароль не менее 5 символов' : errorMessage}
               </Typography>
             )}
@@ -130,7 +131,7 @@ export function Authorization() {
         </Box>
 
         <Button
-          variant="contained"
+          variant='contained'
           onClick={handleFormSubmit}
           sx={{ marginTop: '4rem' }}
           disabled={!login || !password || !isLoginValid || !isPasswordValid}

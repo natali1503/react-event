@@ -1,6 +1,7 @@
-import { Button, Paper, Typography } from '@mui/material'
+import React from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import React from 'react'
+import { Button, Paper, Typography } from '@mui/material';
+
 import { useMode } from '../../theme';
 
 interface FilterButtonProps {
@@ -12,7 +13,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({ onClick }) => {
 
   return (
     <Paper>
-      <Button 
+      <Button
         onClick={onClick}
         sx={{
           height: '100%',
@@ -24,18 +25,20 @@ const FilterButton: React.FC<FilterButtonProps> = ({ onClick }) => {
           padding: '1.2rem 1.2rem !important',
         }}
       >
-        <FilterListIcon/>
-        <Typography sx={{
-          marginLeft: '0.5rem',
-          [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-            display: 'none',
-          }
-        }}>
+        <FilterListIcon />
+        <Typography
+          sx={{
+            marginLeft: '0.5rem',
+            [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+              display: 'none',
+            },
+          }}
+        >
           Фильтры
         </Typography>
       </Button>
     </Paper>
-  )
-}
+  );
+};
 
-export default FilterButton
+export default FilterButton;

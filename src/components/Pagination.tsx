@@ -10,7 +10,14 @@ interface IPagination {
   hideNextButton: boolean;
 }
 
-const Pagination: FC<IPagination> = ({ totalPages, currentPage, handlePageChange, size, hideNextButton, hidePrevButton }) => {
+const Pagination: FC<IPagination> = ({
+  totalPages,
+  currentPage,
+  handlePageChange,
+  size,
+  hideNextButton,
+  hidePrevButton,
+}) => {
   return (
     <Box
       sx={{
@@ -19,14 +26,14 @@ const Pagination: FC<IPagination> = ({ totalPages, currentPage, handlePageChange
         marginTop: '30px',
       }}
     >
-      <MuiPagination 
-        count={totalPages} 
-        page={currentPage} 
-        size={size} 
-        onChange={handlePageChange} 
-        hidePrevButton={hidePrevButton} 
-        hideNextButton={hideNextButton} 
-        color="primary" 
+      <MuiPagination
+        count={totalPages}
+        page={currentPage}
+        size={size}
+        onChange={handlePageChange}
+        hidePrevButton={hidePrevButton}
+        hideNextButton={hideNextButton}
+        color='primary'
       />
     </Box>
   );

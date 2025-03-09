@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type useParseURLProps = {
-  searchTerm?: string,
-  selectedOptions?: string[],
-  selectedDate?: string | null,
-  currentPage?: number,
-  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>,
-  setSelectedOptions?: React.Dispatch<React.SetStateAction<string[]>>,
-  setSelectedDate?: React.Dispatch<React.SetStateAction<string | null>>,
-  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>,
+  searchTerm?: string;
+  selectedOptions?: string[];
+  selectedDate?: string | null;
+  currentPage?: number;
+  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedOptions?: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedDate?: React.Dispatch<React.SetStateAction<string | null>>;
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const useParseURL = (props: useParseURLProps) => {
@@ -29,15 +29,15 @@ const useParseURL = (props: useParseURLProps) => {
   const getQueryParams = () => {
     const params = new URLSearchParams(location.search);
 
-    const urlSearchTerm = params.get('searchTerm') || ''
-    const urlSelectedOptions = params.getAll('selectedOption')
-    const urlSelectedDate = params.get('selectedDate') || null
-    const urlCurrentPage = parseInt(params.get('currentPage') || '1', 10)
+    const urlSearchTerm = params.get('searchTerm') || '';
+    const urlSelectedOptions = params.getAll('selectedOption');
+    const urlSelectedDate = params.get('selectedDate') || null;
+    const urlCurrentPage = parseInt(params.get('currentPage') || '1', 10);
 
     const parseSearchTerm = () => {
       if (urlSearchTerm && urlSearchTerm !== searchTerm && setSearchTerm) {
         setSearchTerm(urlSearchTerm);
-      } 
+      }
     };
 
     const parseSelectedOptions = () => {
@@ -77,12 +77,12 @@ const useParseURL = (props: useParseURLProps) => {
     const updateSelectedOptionsURL = () => {
       if (selectedOptions) {
         params.delete('selectedOption');
-        selectedOptions.forEach(option => params.append('selectedOption', option));
+        selectedOptions.forEach((option) => params.append('selectedOption', option));
       } else {
         params.delete('selectedOption');
       }
     };
-    
+
     const updateSelectedDateURL = () => {
       if (selectedDate) params.set('selectedDate', selectedDate);
       else if (selectedDate === null || undefined) params.delete('selectedDate');
@@ -91,7 +91,7 @@ const useParseURL = (props: useParseURLProps) => {
     const updateCurrentPageURL = () => {
       if (currentPage) params.set('currentPage', currentPage.toString());
     };
-    
+
     updateSearchTermURL();
     updateSelectedOptionsURL();
     updateSelectedDateURL();
@@ -99,7 +99,7 @@ const useParseURL = (props: useParseURLProps) => {
 
     const currentUrl = new URL(window.location.href);
     const newUrl = new URL(window.location.origin + window.location.pathname + '?' + params.toString());
-  
+
     if (currentUrl.search !== newUrl.search) {
       navigate({ search: params.toString() }, { replace: true });
     }
@@ -107,7 +107,7 @@ const useParseURL = (props: useParseURLProps) => {
 
   useEffect(() => {
     getQueryParams();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

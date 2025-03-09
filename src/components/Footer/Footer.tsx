@@ -1,4 +1,5 @@
 import { Box, Link } from '@mui/material';
+
 import { useMode } from '../../theme';
 
 export default function BottomNavigationApp() {
@@ -37,15 +38,15 @@ export default function BottomNavigationApp() {
         justifyContent={'flex-start'}
         sx={{
           [`@media (max-width:${500}px)`]: {
-            justifyContent: 'center'
+            justifyContent: 'center',
           },
         }}
       >
         <Link
-          href="https://github.com/nat-davydova/charity_event_back_oct2024/tree/main"
+          href='https://github.com/nat-davydova/charity_event_back_oct2024/tree/main'
           fontSize={'16px'}
-          target="_blank"
-          underline="hover"
+          target='_blank'
+          underline='hover'
           sx={{
             color: 'black',
             '&:hover': { color: 'black' },
@@ -56,8 +57,8 @@ export default function BottomNavigationApp() {
       </Box>
       <Box display={'flex'}>
         <Link
-          href="https://github.com/heyhurricane/react-event"
-          underline="hover"
+          href='https://github.com/heyhurricane/react-event'
+          underline='hover'
           fontSize={'16px'}
           sx={{
             color: 'black',
@@ -69,9 +70,9 @@ export default function BottomNavigationApp() {
       </Box>
       <Box display={'flex'} justifyContent={'flex-end'}>
         <Link
-          href="https://t.me/natti_jun_front"
-          target="_blank"
-          underline="hover"
+          href='https://t.me/natti_jun_front'
+          target='_blank'
+          underline='hover'
           fontSize={'16px'}
           sx={{
             color: 'black',

@@ -1,15 +1,15 @@
-import { Button, Dialog, DialogActions, DialogContent, Slide, Typography } from '@mui/material'
-import React from 'react'
+import { Button, Dialog, DialogActions, DialogContent, Slide, Typography } from '@mui/material';
+import React from 'react';
 
 type ModalWindowProps = {
-  openFilterModal: boolean,
-  handleCloseFilterModal: () => void,
-  children: React.ReactNode,
-  slideDirection: 'right' | 'left' | 'up' | 'down' | undefined
-}
+  openFilterModal: boolean;
+  handleCloseFilterModal: () => void;
+  children: React.ReactNode;
+  slideDirection: 'right' | 'left' | 'up' | 'down' | undefined;
+};
 
 const ModalWindow: React.FC<ModalWindowProps> = (props) => {
-  const {openFilterModal, handleCloseFilterModal, children, slideDirection} = props;
+  const { openFilterModal, handleCloseFilterModal, children, slideDirection } = props;
 
   return (
     <Dialog
@@ -23,7 +23,7 @@ const ModalWindow: React.FC<ModalWindowProps> = (props) => {
           width: 'fit-content',
           top: '0',
           right: 0,
-          margin: '0'
+          margin: '0',
         },
       }}
     >
@@ -34,23 +34,23 @@ const ModalWindow: React.FC<ModalWindowProps> = (props) => {
             flexDirection: 'column',
             height: '100%',
             padding: '0',
-            overflowY: 'scroll'
+            overflowY: 'scroll',
           }}
         >
           {children}
         </DialogContent>
       </Slide>
-      <DialogActions sx={{
-        paddingTop: '2rem',
-      }}>
-        <Button onClick={handleCloseFilterModal} color="primary">
-          <Typography>
-            Закрыть
-          </Typography>
+      <DialogActions
+        sx={{
+          paddingTop: '2rem',
+        }}
+      >
+        <Button onClick={handleCloseFilterModal} color='primary'>
+          <Typography>Закрыть</Typography>
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
+  );
+};
 
-export default ModalWindow
+export default ModalWindow;

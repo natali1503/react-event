@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
+
 import { IFilterOption } from '../../types/IFilterOption';
 
 type AccordionCheckboxesProps = {
@@ -59,7 +60,7 @@ const AccordionCheckboxes: React.FC<AccordionCheckboxesProps> = ({ item, index, 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pl: '2rem' }}>
           {item.accordion.items.map((subItem) => (
             <Box key={subItem.title} sx={{ display: 'flex', flexDirection: 'column' }}>
-              <Typography variant="subtitle1" sx={{ opacity: '0.6', fontSize: '1.6rem' }}>
+              <Typography variant='subtitle1' sx={{ opacity: '0.6', fontSize: '1.6rem' }}>
                 {subItem.title}
               </Typography>
               {subItem.options.map(({ label, prop }) => (
@@ -69,13 +70,13 @@ const AccordionCheckboxes: React.FC<AccordionCheckboxesProps> = ({ item, index, 
                     control={<Checkbox checked={selectedOptions.includes(prop)} onChange={() => handleToggle(prop)} />}
                     label={label}
                     sx={{
-                      width: 'fit-content', 
+                      width: 'fit-content',
                       hyphens: 'auto',
                       wordBreak: 'break-word',
                       userSelect: 'none',
                       '& .MuiFormControlLabel-label': {
                         fontSize: '1.6rem',
-                      }, 
+                      },
                     }}
                   />
                 </Box>

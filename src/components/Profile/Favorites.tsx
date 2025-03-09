@@ -1,14 +1,11 @@
 import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { AppDispatch, RootState } from '../../store/types';
-
-import { useDispatch } from 'react-redux';
 import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
 import { matchFavourites } from '../../features/matchFavourites';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
-
 import { ViewHelpRequests } from '../ViewHelpRequests';
 import { VIEW_TOGGLE_OPTIONS } from '../../const/const';
 

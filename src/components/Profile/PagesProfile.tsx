@@ -12,16 +12,20 @@ export default function PagesProfile(props: IPagesProfile) {
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
       style={{
-        height: '100%'
+        height: '100%',
       }}
     >
-      {value === index && <Box display={'flex'} flexDirection={'column'} height={'100%'}>{children}</Box>}
+      {value === index && (
+        <Box display={'flex'} flexDirection={'column'} height={'100%'}>
+          {children}
+        </Box>
+      )}
     </div>
   );
 }
