@@ -27,6 +27,7 @@ export default function LogInButton() {
           height: '40px',
           [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
             width: '4.5rem',
+            fontSize: '1.1rem',
             marginLeft: '0.5rem',
           },
         }}
