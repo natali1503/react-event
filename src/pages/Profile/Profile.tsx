@@ -15,11 +15,10 @@ import { TabsProfile } from '../../components/Profile/element/TabsProfile';
 import ViewToggle from '../../components/ViewToggle/ViewToggle';
 import { useViewMode } from '../../hooks/useViewMode';
 import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
-import { deleteParametersURL } from '../../hooks/useParseURL';
+import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
-  const [isURLParsingEnabled, setIsURLParsingEnabled] = useState<boolean>(numberTab === 2);
   const [theme] = useMode();
   const dispatch = useDispatch<AppDispatch>();
   const { viewMode, handleViewChange } = useViewMode();
@@ -28,19 +27,7 @@ export default function Profile() {
     return state.profile;
   });
 
-  const params = new URLSearchParams(location.search);
-  const urlCurrentPage = parseInt(params.get('currentPage') || '1', 10);
-  if (isURLParsingEnabled === false) deleteParametersURL();
-
-  useEffect(() => {
-    setIsURLParsingEnabled(numberTab === 2);
-  }, [numberTab]);
-
-  useEffect(() => {
-    if (urlCurrentPage > 1) {
-      setNumberTab(2);
-    }
-  }, []);
+  useProfileURLHandler(numberTab, setNumberTab);
 
   useEffect(() => {
     if (profile.isData) return;
@@ -122,10 +109,18 @@ export default function Profile() {
                 justifyContent={'space-between'}
                 marginTop={'12px'}
               >
-                <Box width={'72%'}>
-                  <TabsProfile value={numberTab} setValue={setNumberTab} />
+                <Box
+                  display={'flex'}
+                  flexDirection={'row'}
+                  width={'100%'}
+                  justifyContent={'space-between'}
+                  alignItems={'end'}
+                >
+                  <Box width={'72%'}>
+                    <TabsProfile value={numberTab} setValue={setNumberTab} />
+                  </Box>
+                  <Box>{numberTab === 2 && <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />}</Box>
                 </Box>
-                {numberTab === 2 && <ViewToggle viewMode={viewMode} onOptionChange={handleViewChange} />}
               </Box>
               <PagesProfile value={numberTab} index={0}>
                 <PersonalData />

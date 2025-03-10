@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useParseURL from './useParseURL';
 
@@ -18,6 +18,17 @@ export function usePagination({ quantityHelpRequests, itemsPerPage, isURLParsing
   const totalPages = Math.ceil(quantityHelpRequests / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  useEffect(() => {
+    if (totalPages) {
+      if (currentPage > totalPages) {
+        setCurrentPage(totalPages);
+      }
+      if (currentPage < 1) {
+        setCurrentPage(1);
+      }
+    }
+  }, [totalPages]);
 
   return {
     currentPage,
