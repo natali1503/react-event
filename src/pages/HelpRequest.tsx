@@ -48,7 +48,7 @@ const HelpRequest: React.FC = () => {
     };
   }, [dispatch]);
 
-  if (isRequestDataLoading && !favouriteRequestsFlag && !isFavouriteRequestsError) {
+  if ((isRequestDataLoading || !favouriteRequestsFlag) && !isFavouriteRequestsError) {
     return <CircularProgress />;
   }
 
