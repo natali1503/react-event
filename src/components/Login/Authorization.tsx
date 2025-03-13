@@ -17,10 +17,15 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useValidation } from '../../hooks/useValidation';
 import { loginAction } from '../../store/api-actions';
-import { setPassword, setLogin, setIsPasswordValid, setIsLoginValid } from '../../store/formAuthorization';
+import {
+  setPassword,
+  setLogin,
+  setIsPasswordValid,
+  setIsLoginValid,
+} from '../../store/authorization/authorizationFormSlice';
 import { AuthData } from '../../types/auth-data';
-import { getAuthError } from '../../store/authorization/authorization-selectors';
-import { clearErrorMessage } from '../../store/authorization';
+import { getAuthError } from '../../store/authorization/authorizationSelectors';
+import { clearErrorMessage } from '../../store/authorization/authorizationSlice';
 
 export function Authorization() {
   const errorMessage = useAppSelector(getAuthError);
@@ -63,9 +68,7 @@ export function Authorization() {
     }
   };
 
-  useEffect(() => {
-    
-  }, [validateLogin]);
+  useEffect(() => {}, [validateLogin]);
 
   return (
     <Box

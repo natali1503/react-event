@@ -7,7 +7,7 @@ import { useSlider } from '../../hooks/useSlider';
 import { useMode } from '../../theme';
 
 import { Dot } from './Dot';
-import { TestingProfilesIteam } from './TestingProfilesIteam';
+import { TestingProfilesItem } from './TestingProfilesItem';
 import { useSwiper } from './useSwiper';
 
 export function TestProfilesSlider() {
@@ -58,7 +58,7 @@ export function TestProfilesSlider() {
             >
               {testUsers.map((user, index) => (
                 <Box sx={{ width: '250px' }} key={index} id={`div${index + 1}`}>
-                  <TestingProfilesIteam user={user} />
+                  <TestingProfilesItem user={user} />
                 </Box>
               ))}
             </div>

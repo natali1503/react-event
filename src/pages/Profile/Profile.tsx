@@ -1,9 +1,10 @@
 import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { getProfileData } from '../../store/userProfile/profileSelectors';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { getUserAction } from '../../store/api-actions';
-import { AppDispatch, RootState } from '../../store/types';
 import { ErrorComponent } from '../../components/Error';
 import CardProfile from '../../components/Profile/CardProfile';
 import PersonalData from '../../components/Profile/PersonalData';
@@ -18,14 +19,12 @@ import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
 import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
 
 export default function Profile() {
+  const profile = useAppSelector(getProfileData);
+  const dispatch = useAppDispatch();
   const [numberTab, setNumberTab] = useState(0);
   const [theme] = useMode();
-  const dispatch = useDispatch<AppDispatch>();
   const { viewMode, handleViewChange } = useViewMode();
   const itemsPerPage = useResponsiveItemsPerPage();
-  const profile = useSelector((state: RootState) => {
-    return state.profile;
-  });
 
   useProfileURLHandler(numberTab, setNumberTab);
 
@@ -54,7 +53,7 @@ export default function Profile() {
         </Stack>
         {profile.loading && (
           <Box height={'100%'}>
-            <Skeleton width={'100px'} height={'100px'} />
+            <Skeleton width={'10rem'} height={'10rem'} />
           </Box>
         )}
         {profile.error && <ErrorComponent />}
@@ -107,7 +106,7 @@ export default function Profile() {
                 flexDirection={'row'}
                 width={'100%'}
                 justifyContent={'space-between'}
-                marginTop={'12px'}
+                marginTop={'1.2rem'}
               >
                 <Box
                   display={'flex'}

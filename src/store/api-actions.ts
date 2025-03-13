@@ -9,9 +9,9 @@ import { AuthData } from '../types/auth-data';
 import { IAuth } from '../types/IAuth';
 
 import { setFavourites } from './user-favourites/userFavourites';
-import { setAuthorized } from './authorization';
+import { setAuthorized } from './authorization/authorizationSlice';
 import { AppDispatch, RootState } from './types';
-import { resetFormAuthorization } from './formAuthorization';
+import { resetFormAuthorization } from './authorization/authorizationFormSlice';
 
 export const fetchHelpRequestsAction = createAsyncThunk<
   HelpRequest[],
