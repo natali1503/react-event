@@ -9,9 +9,10 @@ import { getProfileData } from '../../store/userProfile/profileSelectors';
 import { UserImg } from './element/UserImg';
 
 export default function CardProfile() {
-  const { data } = useAppSelector(getProfileData);
   const dispatch = useAppDispatch();
+  const { data } = useAppSelector(getProfileData);
   const [theme] = useMode();
+
   function handleClick() {
     dispatch(logOut());
   }
@@ -40,8 +41,8 @@ export default function CardProfile() {
         />
         <Stack>
           <Stack
-            marginBottom={'1rem'}
             marginTop={'2rem'}
+            marginBottom={'1rem'}
             alignItems={'flex-start'}
             sx={{
               [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
@@ -63,9 +64,9 @@ export default function CardProfile() {
           </Stack>
 
           <Stack
-            marginLeft={'2rem'}
             direction={'row'}
             gap={'0.4rem'}
+            marginLeft={'2rem'}
             marginBottom={'5rem'}
             sx={{
               [`@media (max-width:${theme.breakpoints.values.md}px)`]: {

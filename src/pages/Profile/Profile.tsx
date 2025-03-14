@@ -19,8 +19,8 @@ import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
 import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
 
 export default function Profile() {
-  const profile = useAppSelector(getProfileData);
   const dispatch = useAppDispatch();
+  const profile = useAppSelector(getProfileData);
   const [numberTab, setNumberTab] = useState(0);
   const [theme] = useMode();
   const { viewMode, handleViewChange } = useViewMode();
@@ -34,12 +34,12 @@ export default function Profile() {
   }, []);
 
   return (
-    <Box display='flex' flexDirection={'column'} alignItems={'center'} width={'100%'}>
+    <Box display={'flex'} flexDirection={'column'} alignItems={'center'} width={'100%'}>
       <Box
-        height={'100%'}
-        width={'100%'}
-        display='flex'
+        display={'flex'}
         flexDirection={'column'}
+        width={'100%'}
+        height={'100%'}
         padding={'3rem 4rem'}
         bgcolor={theme.palette.background.default}
         sx={{
@@ -59,7 +59,7 @@ export default function Profile() {
         {profile.error && <ErrorComponent />}
         {profile.isData && (
           <Box
-            display='flex'
+            display={'flex'}
             flexDirection={'row'}
             gap={'2rem'}
             marginTop={'1.2rem'}
@@ -72,13 +72,13 @@ export default function Profile() {
           >
             <Stack
               bgcolor={'white'}
-              borderRadius={'4px'}
+              borderRadius={'0.4rem'}
               border={`1px solid ${theme.palette.grey[300]}`}
               height={'fit-content'}
               sx={{
                 [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
                   width: '22.5%',
-                  minWidth: '240px',
+                  minWidth: '24rem',
                 },
                 [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
                   width: '100%',
@@ -90,11 +90,11 @@ export default function Profile() {
             </Stack>
             <Box
               bgcolor={'white'}
-              padding={'0 3rem 4rem 3rem'}
-              borderRadius={'4px'}
-              border={`1px solid ${theme.palette.grey[300]}`}
               width={'100%'}
               minHeight={'60vh'}
+              border={`1px solid ${theme.palette.grey[300]}`}
+              borderRadius={'0.4rem'}
+              padding={'0 3rem 4rem 3rem'}
               sx={{
                 [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
                   padding: '0 2rem 4rem 2rem',

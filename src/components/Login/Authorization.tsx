@@ -83,10 +83,10 @@ export function Authorization() {
       <Box
         display='flex'
         flexDirection='column'
-        maxWidth='480px'
+        maxWidth='48rem'
         marginLeft='4rem'
         marginRight='2rem'
-        marginTop='64px'
+        marginTop='6.4rem'
         sx={{
           flexDirection: 'column',
           [`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
@@ -96,11 +96,11 @@ export function Authorization() {
         }}
       >
         <Typography variant='h4'>Авторизация</Typography>
-        <Typography variant='h5' sx={{ marginTop: '9rem', marginBottom: '35px' }}>
+        <Typography variant='h5' sx={{ marginTop: '9rem', marginBottom: '3.5rem' }}>
           Вход
         </Typography>
 
-        <Box display='flex' flexDirection='column' gap='30px'>
+        <Box display='flex' flexDirection='column' gap='3rem'>
           <FormControl>
             <TextField
               label='Логин'

@@ -51,7 +51,7 @@ const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
   const notFoundResult = userFavourites.isData && userFavourites.favouriteRequests.length === 0;
 
   return (
-    <Box height={'100%'} marginTop={'20px'}>
+    <Box height={'100%'} marginTop={'2rem'}>
       <ViewHelpRequests
         viewMode={viewMode}
         helpRequests={userFavourites.favouriteHelp}

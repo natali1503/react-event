@@ -11,7 +11,7 @@ export function TabsProfile({ value, setValue }) {
   return (
     <Box
       sx={{
-        padding: '10px 0 0 0',
+        padding: '1rem 0 0 0',
       }}
     >
       <Tabs
@@ -23,7 +23,7 @@ export function TabsProfile({ value, setValue }) {
         sx={{
           minHeight: 0,
           '& .MuiTabs-scrollButtons': {
-            width: '26px',
+            width: '2.6rem',
           },
         }}
       >

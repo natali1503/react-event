@@ -24,8 +24,8 @@ export default function PersonalData() {
   return (
     <Box
       display={'flex'}
-      gap={'3rem'}
       flexDirection={'column'}
+      gap={'3rem'}
       sx={{
         [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
           gap: '2rem',
@@ -34,8 +34,8 @@ export default function PersonalData() {
     >
       <Stack
         alignItems={'flex-start'}
-        marginTop={'3rem'}
         gap={'1rem'}
+        marginTop={'3rem'}
         sx={{
           [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
             marginTop: '1.5rem',

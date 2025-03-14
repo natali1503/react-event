@@ -47,8 +47,8 @@ export function TestingProfilesItem({ user }) {
             }}
           >
             <Typography sx={{ fontWeight: 500, fontSize: '1.6rem' }}>{user.name}</Typography>
-            <Typography sx={{ fontWeight: 400, fontSize: '1.6rem' }}>Логин: {user.login}</Typography>
-            <Typography sx={{ fontWeight: 400, fontSize: '1.6rem' }}>Пароль: {user.password}</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: '1.4rem' }}>Логин: {user.login}</Typography>
+            <Typography sx={{ fontWeight: 400, fontSize: '1.4rem' }}>Пароль: {user.password}</Typography>
           </Box>
         </Box>
       </CardContent>

@@ -8,8 +8,8 @@ export function WhatsApp() {
       justifyContent={'center'}
       flexDirection={'column'}
       alignItems={'center'}
-      gap={'20px'}
       height={'100%'}
+      gap={'2rem'}
     >
       <ReactSVG
         src='/img/whatsapp.svg'

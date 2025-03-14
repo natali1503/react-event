@@ -4,13 +4,14 @@ import { useMode } from '../../../theme';
 
 export function CustomTab({ label, index, ...props }) {
   const [theme] = useMode();
+
   return (
     <Tab
       label={label}
       {...a11yProps(index)}
       {...props}
       sx={{
-        paddingTop: '0px',
+        paddingTop: '0',
         minHeight: 0,
         borderBottom: 1,
         borderColor: 'divider',

@@ -5,10 +5,10 @@ export function ErrorComponent() {
   return (
     <Box
       display={'flex'}
-      justifyContent={'center'}
       flexDirection={'column'}
+      justifyContent={'center'}
       alignItems={'center'}
-      gap={'20px'}
+      gap={'2rem'}
       height={'100%'}
     >
       <ReactSVG src='/img/noDataError.svg' />
