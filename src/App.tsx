@@ -5,10 +5,10 @@ import NotFoundPage from './pages/NotFoundPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import Wrapper from './components/Wrapper';
-import Profile from './pages/Profile/Profile';
+import Profile from './pages/Profile';
 import HelpRequest from './pages/HelpRequest';
 import { Theme } from './components/Theme';
-import HelpDesk from './pages/HelpDesk/HelpDesk';
+import HelpDesk from './pages/HelpDesk';
 
 function App() {
   return (

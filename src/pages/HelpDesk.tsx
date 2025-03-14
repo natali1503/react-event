@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Grid2, Paper } from '@mui/material';
 
-import Filters from '../../components/Filters/Filters';
-import SearchPanel from '../../components/SearchPanel/SearchPanel';
-import HelpRequestsComponent from '../../components/HelpRequestsComponent/HelpRequestsComponent';
-import FilterButton from '../../components/Filters/FilterButton';
-import ModalWindow from '../../components/ModalWindow/ModalWindow';
-import { useMode } from '../../theme';
-import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
-import { useFilters } from '../../hooks/useFilters';
-import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { resetFavouriteRequestsError } from '../../store/user-favourites/userFavourites';
+import Filters from '../components/Filters/Filters';
+import SearchPanel from '../components/SearchPanel/SearchPanel';
+import HelpRequestsComponent from '../components/HelpRequestsComponent/HelpRequestsComponent';
+import FilterButton from '../components/Filters/FilterButton';
+import ModalWindow from '../components/ModalWindow/ModalWindow';
+import { useMode } from '../theme';
+import { useUserHelpRequests } from '../hooks/useUserHelpRequests';
+import { useFilters } from '../hooks/useFilters';
+import useResponsiveItemsPerPage from '../hooks/useResponsiveItemsPerPage';
+import { useAppDispatch } from '../hooks/useAppDispatch';
+import { resetFavouriteRequestsError } from '../store/user-favourites/userFavourites';
 
 const HelpDesk: React.FC = () => {
   const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } =
