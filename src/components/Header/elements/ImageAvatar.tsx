@@ -3,11 +3,11 @@ import { Box, Avatar, Menu, MenuItem, ListItemIcon, IconButton } from '@mui/mate
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { logOut } from '../../store/authorization/authorizationSlice';
-import { AppRoute } from '../../constants/globalConsts';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { logOut } from '../../../store/authorization/authorizationSlice';
+import { AppRoute } from '../../../constants/globalConsts';
 
-export default function ImageAvatar() {
+const ImageAvatar = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -94,4 +94,6 @@ export default function ImageAvatar() {
       </Menu>
     </Fragment>
   );
-}
+};
+
+export default ImageAvatar;

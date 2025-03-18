@@ -10,7 +10,7 @@ import HelpRequest from './pages/HelpRequest';
 import { Theme } from './components/Theme';
 import HelpDesk from './pages/HelpDesk/HelpDesk';
 
-function App() {
+const App = () => {
   return (
     <Theme>
       <Router>
@@ -26,6 +26,6 @@ function App() {
       </Router>
     </Theme>
   );
-}
+};
 
 export default App;
