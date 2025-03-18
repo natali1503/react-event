@@ -1,7 +1,7 @@
 import { AppBar, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { AppRoute } from '../../const/const';
+import { AppRoute } from '../../constants/globalConsts';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useMode } from '../../theme';
 

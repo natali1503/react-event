@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Box, Skeleton, useMediaQuery } from '@mui/material';
 
 import { HelpRequest } from '../types/HelpRequest';
-import { VIEW_TOGGLE_OPTIONS } from '../const/const';
+import { VIEW_TOGGLE_OPTIONS } from '../constants/globalConsts';
 import { usePagination } from '../hooks/usePagination';
 
 import CardList from './CardList/CardList';

@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 
 import { useMode } from '../../theme';
-import { testUsers } from '../../const/const';
+import { testUsers } from '../../constants/globalConsts';
 
 import { TestingProfilesItem } from './TestingProfilesItem';
 

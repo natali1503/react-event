@@ -4,7 +4,7 @@ import { AxiosInstance } from 'axios';
 import { saveToken } from '../services/token';
 import { HelpRequest } from '../types/HelpRequest';
 import { IProfileData } from '../types/IUser';
-import { APIRoute } from '../const/const';
+import { APIRoute } from '../constants/globalConsts';
 import { AuthData } from '../types/auth-data';
 import { IAuth } from '../types/IAuth';
 

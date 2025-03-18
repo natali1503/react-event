@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../hooks/useAppSelector';
-import { AppRoute } from '../const/const';
+import { AppRoute } from '../constants/globalConsts';
 import { useMode } from '../theme';
 import { Authorization } from '../components/Login/Authorization';
 import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';

@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { AppDispatch, RootState } from '../../store/types';
 import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
-import { matchFavourites } from '../../features/matchFavourites';
+import { matchFavourites } from '../../helpers/matchFavourites';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
 import { ViewHelpRequests } from '../ViewHelpRequests';
-import { VIEW_TOGGLE_OPTIONS } from '../../const/const';
+import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';
 
 interface IFavorites {
   viewMode: VIEW_TOGGLE_OPTIONS;

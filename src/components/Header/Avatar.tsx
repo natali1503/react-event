@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { logOut } from '../../store/authorization/authorizationSlice';
-import { AppRoute } from '../../const/const';
+import { AppRoute } from '../../constants/globalConsts';
 
 export default function ImageAvatar() {
   const dispatch = useAppDispatch();

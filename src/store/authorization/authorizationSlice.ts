@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { dropToken } from '../../services/token';
-import { AUTH_TOKEN_KEY_NAME } from '../../const/const';
+import { AUTH_TOKEN_KEY_NAME } from '../../constants/globalConsts';
 import { loginAction } from '../api-actions';
 
 interface CounterState {

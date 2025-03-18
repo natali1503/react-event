@@ -2,7 +2,7 @@ import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRig
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import { Box, Button } from '@mui/material';
 
-import { testUsers } from '../../const/const';
+import { testUsers } from '../../constants/globalConsts';
 import { useSlider } from '../../hooks/useSlider';
 import { useMode } from '../../theme';
 

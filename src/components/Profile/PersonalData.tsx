@@ -1,7 +1,7 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { getDateStr } from '../../features/getDateStr';
+import { getDateStr } from '../../helpers/getDateStr';
 import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getProfileData } from '../../store/userProfile/profileSelectors';
