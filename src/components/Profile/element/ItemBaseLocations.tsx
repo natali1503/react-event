@@ -1,11 +1,11 @@
 import { Stack } from '@mui/material';
 
-import { Row } from './Row';
+import Row from './Row';
 interface IItemBaseLocations {
   district: string;
   city: string;
 }
-export const ItemBaseLocations = ({ district, city }: IItemBaseLocations) => {
+const ItemBaseLocations = ({ district, city }: IItemBaseLocations) => {
   return (
     <Stack gap={'0.4rem'}>
       <Stack direction={'row'} gap={'0.4rem'}>
@@ -17,3 +17,5 @@ export const ItemBaseLocations = ({ district, city }: IItemBaseLocations) => {
     </Stack>
   );
 };
+
+export default ItemBaseLocations;

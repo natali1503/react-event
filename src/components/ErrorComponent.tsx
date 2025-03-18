@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { ReactSVG } from 'react-svg';
 
-export function ErrorComponent() {
+const ErrorComponent = () => {
   return (
     <Box
       display={'flex'}
@@ -15,4 +15,6 @@ export function ErrorComponent() {
       <Typography variant='h5'>Ошибка! Не удалось загрузить информацию</Typography>
     </Box>
   );
-}
+};
+
+export default ErrorComponent;

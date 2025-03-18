@@ -2,7 +2,7 @@ import { Tab } from '@mui/material';
 
 import { useMode } from '../../../theme';
 
-export function CustomTab({ label, index, ...props }) {
+const CustomTab = ({ label, index, ...props }) => {
   const [theme] = useMode();
 
   return (
@@ -31,10 +31,13 @@ export function CustomTab({ label, index, ...props }) {
       }}
     />
   );
-}
+};
+
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
+
+export default CustomTab;

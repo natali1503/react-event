@@ -6,11 +6,11 @@ import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getProfileData } from '../../store/userProfile/profileSelectors';
 
-import { Row } from './element/Row';
-import { ItemEducation } from './element/ItemEducation';
-import { ItemBaseLocations } from './element/ItemBaseLocations';
+import Row from './element/Row';
+import ItemEducation from './element/ItemEducation';
+import ItemBaseLocations from './element/ItemBaseLocations';
 
-export default function PersonalData() {
+const PersonalData = () => {
   const { data } = useAppSelector(getProfileData);
   const [birthDate, setBirthDate] = useState('');
   const [theme] = useMode();
@@ -105,4 +105,6 @@ export default function PersonalData() {
       </Stack>
     </Box>
   );
-}
+};
+
+export default PersonalData;

@@ -3,12 +3,12 @@ import { Box, Stack, Typography } from '@mui/material';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getProfileData } from '../../store/userProfile/profileSelectors';
 
-import { ItemSocial } from './element/ItemSocial';
-import { Vk } from './element/Vk';
-import { WhatsApp } from './element/WhatsApp';
-import { Telegram } from './element/Telegram';
+import ItemSocial from './element/ItemSocial';
+import Vk from './element/Vk';
+import WhatsApp from './element/WhatsApp';
+import Telegram from './element/Telegram';
 
-export default function Contacts() {
+const Contacts = () => {
   const { data } = useAppSelector(getProfileData);
 
   return (
@@ -31,4 +31,6 @@ export default function Contacts() {
       </Stack>
     </Box>
   );
-}
+};
+
+export default Contacts;

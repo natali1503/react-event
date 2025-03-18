@@ -6,7 +6,7 @@ interface IItemSocial {
   icon: JSX.Element;
 }
 
-export const ItemSocial = ({ name, link, icon }: IItemSocial) => {
+const ItemSocial = ({ name, link, icon }: IItemSocial) => {
   return (
     <Stack display={'flex'} direction={'row'} gap={'3.2rem'} alignItems={'center'}>
       <Box width={'2.4rem'} height={'2.4rem'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
@@ -26,3 +26,5 @@ export const ItemSocial = ({ name, link, icon }: IItemSocial) => {
     </Stack>
   );
 };
+
+export default ItemSocial;

@@ -4,7 +4,7 @@ interface IRow {
   header: string;
   value: string;
 }
-export const Row = ({ header, value }: IRow) => {
+const Row = ({ header, value }: IRow) => {
   return (
     <Stack direction={'row'} gap={'0.4rem'}>
       <Typography fontWeight={'500'}>{header}:</Typography>
@@ -12,3 +12,5 @@ export const Row = ({ header, value }: IRow) => {
     </Stack>
   );
 };
+
+export default Row;

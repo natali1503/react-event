@@ -5,18 +5,18 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { getProfileData } from '../../store/userProfile/profileSelectors';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { getUserAction } from '../../store/api-actions';
-import { ErrorComponent } from '../../components/Error';
+import { useMode } from '../../theme';
+import { useViewMode } from '../../hooks/useViewMode';
+import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
+import { useResponsiveItemsPerPage } from '../../hooks/useResponsiveItemsPerPage';
+import ErrorComponent from '../../components/ErrorComponent';
 import CardProfile from '../../components/Profile/CardProfile';
 import PersonalData from '../../components/Profile/PersonalData';
 import PagesProfile from '../../components/Profile/PagesProfile';
 import Contacts from '../../components/Profile/Contacts';
 import Favorites from '../../components/Profile/Favorites';
-import { useMode } from '../../theme';
-import { TabsProfile } from '../../components/Profile/element/TabsProfile';
+import TabsProfile from '../../components/Profile/element/TabsProfile';
 import ViewToggle from '../../components/ViewToggle/ViewToggle';
-import { useViewMode } from '../../hooks/useViewMode';
-import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
-import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
 
 export default function Profile() {
   const dispatch = useAppDispatch();

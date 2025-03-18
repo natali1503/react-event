@@ -6,9 +6,9 @@ import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getProfileData } from '../../store/userProfile/profileSelectors';
 
-import { UserImg } from './element/UserImg';
+import UserImg from './element/UserImg';
 
-export default function CardProfile() {
+const CardProfile = () => {
   const dispatch = useAppDispatch();
   const { data } = useAppSelector(getProfileData);
   const [theme] = useMode();
@@ -143,4 +143,6 @@ export default function CardProfile() {
       </Stack>
     </Box>
   );
-}
+};
+
+export default CardProfile;

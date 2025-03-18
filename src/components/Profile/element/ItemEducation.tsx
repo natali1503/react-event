@@ -1,13 +1,13 @@
 import { Stack } from '@mui/material';
 
-import { Row } from './Row';
+import Row from './Row';
 
 interface IItemEducation {
   organizationName: string;
   level: string;
   graduationYear: number;
 }
-export const ItemEducation = ({ organizationName, level, graduationYear }: IItemEducation) => {
+const ItemEducation = ({ organizationName, level, graduationYear }: IItemEducation) => {
   return (
     <Stack gap={'0.4rem'}>
       <Stack direction={'row'} gap={'0.4rem'}>
@@ -22,3 +22,5 @@ export const ItemEducation = ({ organizationName, level, graduationYear }: IItem
     </Stack>
   );
 };
+
+export default ItemEducation;

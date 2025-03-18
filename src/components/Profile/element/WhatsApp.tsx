@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { ReactSVG } from 'react-svg';
 
-export function WhatsApp() {
+const WhatsApp = () => {
   return (
     <Box
       display={'flex'}
@@ -24,4 +24,6 @@ export function WhatsApp() {
       />
     </Box>
   );
-}
+};
+
+export default WhatsApp;

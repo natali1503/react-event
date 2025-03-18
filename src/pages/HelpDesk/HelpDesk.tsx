@@ -9,7 +9,7 @@ import ModalWindow from '../../components/ModalWindow/ModalWindow';
 import { useMode } from '../../theme';
 import { useUserHelpRequests } from '../../hooks/useUserHelpRequests';
 import { useFilters } from '../../hooks/useFilters';
-import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
+import { useResponsiveItemsPerPage } from '../../hooks/useResponsiveItemsPerPage';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { resetFavouriteRequestsError } from '../../store/user-favourites/userFavourites';
 

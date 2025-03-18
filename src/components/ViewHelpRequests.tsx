@@ -7,8 +7,8 @@ import { usePagination } from '../hooks/usePagination';
 
 import CardList from './CardList/CardList';
 import MapWrapper from './Map/MapWrapper';
-import { ErrorComponent } from './Error';
-import { NotFoundResult } from './NotFoundResult';
+import ErrorComponent from './ErrorComponent';
+import NotFoundResult from './NotFoundResult';
 import Pagination from './Pagination';
 
 interface IViewHelpRequests {
