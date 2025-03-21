@@ -5,10 +5,10 @@ import { Box, Button } from '@mui/material';
 import { testUsers } from '../../constants/globalConsts';
 import { useSlider } from '../../hooks/useSlider';
 import { useMode } from '../../theme';
+import { useSwiper } from '../../hooks/useSwiper';
 
 import { Dot } from './Dot';
 import { TestingProfilesItem } from './TestingProfilesItem';
-import { useSwiper } from './useSwiper';
 
 export function TestProfilesSlider() {
   const { currentDiv, onHandleClickSlider } = useSlider();

@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
 
 import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
-import { matchFavourites } from '../../helpers/matchFavourites';
+import { matchFavourites } from '../../utils/matchFavouritesUtils';
 import { fetchHelpRequestsAction } from '../../store/api-actions';
 import { ViewHelpRequests } from '../ViewHelpRequests';
 import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';

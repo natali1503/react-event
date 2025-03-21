@@ -6,7 +6,7 @@ import {
   setLogin,
   setIsPasswordValid,
   setIsLoginValid,
-} from '../../store/authorization/authorizationFormSlice';
+} from '../../store/authorizationForm/authorizationFormSlice';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useValidation } from '../../hooks/useValidation';
 import { clearErrorMessage } from '../../store/authorization/authorizationSlice';

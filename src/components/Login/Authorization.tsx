@@ -22,7 +22,7 @@ import {
   setLogin,
   setIsPasswordValid,
   setIsLoginValid,
-} from '../../store/authorization/authorizationFormSlice';
+} from '../../store/authorizationForm/authorizationFormSlice';
 import { AuthData } from '../../types/auth-data';
 import { getAuthError } from '../../store/authorization/authorizationSelectors';
 import { clearErrorMessage } from '../../store/authorization/authorizationSlice';

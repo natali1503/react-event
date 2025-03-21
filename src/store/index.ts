@@ -6,7 +6,7 @@ import { createAPI } from '../services/api';
 import authorizationReducer, { logOut } from './authorization/authorizationSlice';
 import userFavouritesReducer from './user-favourites/userFavourites';
 import profileReducer from './userProfile/profileSlice';
-import formAuthorizationReducer from './authorization/authorizationFormSlice';
+import formAuthorizationReducer from './authorizationForm/authorizationFormSlice';
 import { helpRequestData } from './help-requests/help-requests-data';
 
 const rootReducer = combineReducers({
