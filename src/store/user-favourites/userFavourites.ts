@@ -35,7 +35,7 @@ export const userFavouritesSlice = createSlice({
     },
     resetFavouriteRequestsError: (state) => {
       state.isFavoritesListError = false;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -90,4 +90,5 @@ export const userFavouritesSlice = createSlice({
 });
 
 export default userFavouritesSlice.reducer;
-export const { setFavourites, setHelpRequest, setFavouriteHelp, setIsLoading, resetFavouriteRequestsError } = userFavouritesSlice.actions;
+export const { setFavourites, setHelpRequest, setFavouriteHelp, setIsLoading, resetFavouriteRequestsError } =
+  userFavouritesSlice.actions;

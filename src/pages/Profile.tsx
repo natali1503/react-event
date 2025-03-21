@@ -1,21 +1,22 @@
-import { Box, Skeleton, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserAction } from '../../store/api-actions';
-import { AppDispatch, RootState } from '../../store/types';
-import { ErrorComponent } from '../../components/Error';
-import CardProfile from '../../components/Profile/CardProfile';
-import PersonalData from '../../components/Profile/PersonalData';
-import PagesProfile from '../../components/Profile/PagesProfile';
-import Contacts from '../../components/Profile/Contacts';
-import Favorites from '../../components/Profile/Favorites';
-import { useMode } from '../../theme';
-import { TabsProfile } from '../../components/Profile/element/TabsProfile';
-import ViewToggle from '../../components/ViewToggle/ViewToggle';
-import { useViewMode } from '../../hooks/useViewMode';
-import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
-import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
+import { getUserAction } from '../store/api-actions';
+import { AppDispatch, RootState } from '../store/types';
+import { ErrorComponent } from '../components/Status/Error';
+import CardProfile from '../components/Profile/CardProfile';
+import PersonalData from '../components/Profile/PersonalData';
+import PagesProfile from '../components/Profile/PagesProfile';
+import Contacts from '../components/Profile/Contacts';
+import Favorites from '../components/Profile/Favorites';
+import { useMode } from '../theme';
+import { TabsProfile } from '../components/Profile/element/TabsProfile';
+import ViewToggle from '../components/ViewToggle/ViewToggle';
+import { useViewMode } from '../hooks/useViewMode';
+import useResponsiveItemsPerPage from '../hooks/useResponsiveItemsPerPage';
+import { useProfileURLHandler } from '../hooks/useProfileURLHandler';
+import Loading from '../components/Status/Loading';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
@@ -52,11 +53,7 @@ export default function Profile() {
         <Stack alignItems={'flex-start'}>
           <Typography variant='h4'>Мой профиль</Typography>
         </Stack>
-        {profile.loading && (
-          <Box height={'100%'}>
-            <Skeleton width={'100px'} height={'100px'} />
-          </Box>
-        )}
+        {profile.loading && <Loading />}
         {profile.error && <ErrorComponent />}
         {profile.isData && (
           <Box
