@@ -1,30 +1,20 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  Divider,
-  LinearProgress,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { HelpRequest } from '../../types/HelpRequest';
-import { formatDate, formatNumber, formatString } from '../../utils/formatUtils';
+import { formatDate, formatString } from '../../utils/formatUtils';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import DonationStatusCard from '../HelpRequest/DonationStatusCard';
 
-type CardItemProps = {
+interface ICardItemProps {
   helpRequest: HelpRequest;
-};
+}
 
-const HorizontalCard: FC<CardItemProps> = (props) => {
+const HorizontalCard: FC<ICardItemProps> = (props) => {
   const { helpRequest } = props;
   const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
@@ -53,41 +43,12 @@ const HorizontalCard: FC<CardItemProps> = (props) => {
           }}
         >
           <CardHeader sx={{ marginBottom: '30px', padding: 0 }} title={formatString(helpRequest.title)} />
-          <Stack spacing={0.5}>
-            <Typography variant='subtitle2' sx={{ fontWeight: 'bold' }}>
-              Мы собрали
-            </Typography>
-            <LinearProgress
-              variant='determinate'
-              value={Math.min((helpRequest.requestGoalCurrentValue / helpRequest.requestGoal) * 100, 100)}
-            />
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Typography variant='body2'>{formatNumber(helpRequest.requestGoalCurrentValue)} руб</Typography>
-              <Typography variant='body2'>{formatNumber(helpRequest.requestGoal)} руб</Typography>
-            </Box>
-          </Stack>
-          <CardActions
-            disableSpacing
-            sx={{ padding: 0, textAlign: 'left', flexDirection: 'column', alignItems: 'flex-start' }}
-          >
-            <Typography variant='body2' sx={{ marginBottom: '10px' }}>
-              Нас уже: {formatNumber(helpRequest.contributorsCount)}
-            </Typography>
-            <Button
-              href='/user:id'
-              size='large'
-              variant='contained'
-              color='primary'
-              fullWidth
-              onClick={(event) => {
-                event.stopPropagation();
-                event.preventDefault();
-                handleContributeToRequest();
-              }}
-            >
-              Помочь
-            </Button>
-          </CardActions>
+          <DonationStatusCard
+            contributorsCount={helpRequest.contributorsCount}
+            requestGoalCurrentValue={helpRequest.requestGoalCurrentValue}
+            requestGoal={helpRequest.requestGoal}
+            handleDonation={handleContributeToRequest}
+          />
         </Box>
 
         <Divider component='div' />

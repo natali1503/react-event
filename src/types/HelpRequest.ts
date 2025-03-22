@@ -1,4 +1,4 @@
-export interface HelpRequest {
+export type HelpRequest = {
   id: string;
   title: string;
   organization: {
@@ -33,4 +33,4 @@ export interface HelpRequest {
   contributorsCount: number;
   requestGoal: number;
   requestGoalCurrentValue: number;
-}
+};

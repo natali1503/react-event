@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { ReactSVG } from 'react-svg';
 
-const ErrorComponent = () => {
+const Error = () => {
   return (
     <Box
       display={'flex'}
@@ -17,4 +17,4 @@ const ErrorComponent = () => {
   );
 };
 
-export default ErrorComponent;
+export default Error;

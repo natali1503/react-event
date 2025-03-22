@@ -1,5 +1,5 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import { Box, Skeleton, useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 
 import { HelpRequest } from '../types/HelpRequest';
 import { VIEW_TOGGLE_OPTIONS } from '../constants/globalConsts';
@@ -7,9 +7,10 @@ import { usePagination } from '../hooks/usePagination';
 
 import CardList from './CardList/CardList';
 import MapWrapper from './Map/MapWrapper';
-import ErrorComponent from './ErrorComponent';
-import NotFoundResult from './NotFoundResult';
 import Pagination from './Pagination';
+import Loading from './Status/Loading';
+import Error from './Status/Error';
+import NotFoundResult from './Status/NotFoundResult';
 
 interface IViewHelpRequests {
   viewMode: string;
@@ -56,11 +57,12 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
 
   const renderErrorMessage = () => {
     if (isHelpRequestsError || isFavouriteRequestsError) {
-      return <ErrorComponent />;
+      return <Error />;
     }
     if (isLoading) {
-      return <Skeleton width={'100px'} height={'100px'} />;
+      return <Loading />;
     }
+
     if (notFoundResult) {
       return <NotFoundResult />;
     }
