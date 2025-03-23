@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../hooks/useAppSelector';
-import { AppRoute } from '../constants/globalConsts';
+import { APP_ROUTE } from '../constants/globalConsts';
 import { useMode } from '../theme';
 import { Authorization } from '../components/Login/Authorization';
 import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(AppRoute.Main, { replace: true });
+      navigate(APP_ROUTE.Main, { replace: true });
     }
   }, [isAuthenticated, navigate]);
 

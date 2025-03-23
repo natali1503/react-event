@@ -3,14 +3,14 @@ import { FC } from 'react';
 
 import { formatDate } from '../../utils/formatUtils';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { useMode } from '../../theme';
 import { useBreakpointOverlap } from '../../hooks/useBreakpointOverlap';
 
 import DonationStatusCard from './DonationStatusCard';
 
 interface IRequestProps {
-  helpRequest: HelpRequest;
+  helpRequest: IHelpRequest;
 }
 
 const FundraisingCard: FC<IRequestProps> = ({ helpRequest }) => {

@@ -1,16 +1,16 @@
 import { FC } from 'react';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import VerticalCard from '../VerticalCard/VerticalCard';
 import HorizontalCard from '../HorizontalCard/HorizontalCard';
 
-type CardItemProps = {
-  helpRequest: HelpRequest;
+interface ICardItemProps {
+  helpRequest: IHelpRequest;
   orientation: string;
   keyValue: string;
-};
+}
 
-const CardItem: FC<CardItemProps> = (props) => {
+const CardItem: FC<ICardItemProps> = (props) => {
   const { helpRequest, orientation } = props;
 
   return orientation !== 'horizontal' ? (

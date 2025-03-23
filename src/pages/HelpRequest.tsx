@@ -8,16 +8,20 @@ import Loading from '../components/Status/Loading';
 import Error from '../components/Status/Error';
 import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { fetchRequestAction, getFavouritesAction } from '../store/api-actions';
+import { fetchRequestAction, getFavouritesAction } from '../store/apiActions';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { getHelpRequestError, getHelpRequestInfo, getRequestLoadingStatus } from '../store/help-requests/selectors';
+import {
+  getHelpRequestError,
+  getHelpRequestInfo,
+  getRequestLoadingStatus,
+} from '../store/helpRequests/helpRequestsSelectors';
 import {
   getFavouriteLoadedFlag,
   getFavouriteRequestsError,
   getIsFavouriteLoading,
-} from '../store/user-favourites/favourites-selectors';
-import { resetFavouriteRequestsError } from '../store/user-favourites/userFavourites';
-import { resetHelpRequestError } from '../store/help-requests/help-requests-data';
+} from '../store/userFavourites/userFavouritesSelectors';
+import { resetFavouriteRequestsError } from '../store/userFavourites/userFavouritesSlice';
+import { resetHelpRequestError } from '../store/helpRequests/helpRequestsSlice';
 
 const HelpRequest: FC = () => {
   const dispatch = useAppDispatch();

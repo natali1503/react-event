@@ -1,21 +1,21 @@
 import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
 
-import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
+import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/userFavourites/userFavouritesSlice';
 import { matchFavourites } from '../../utils/matchFavouritesUtils';
-import { fetchHelpRequestsAction } from '../../store/api-actions';
-import { ViewHelpRequests } from '../ViewHelpRequests';
+import { fetchHelpRequestsAction } from '../../store/apiActions';
+import ViewHelpRequests from '../ViewHelpRequests/ViewHelpRequests';
 import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';
-import { getHelpRequests, getRequestDataError } from '../../store/help-requests/selectors';
+import { getHelpRequests, getRequestDataError } from '../../store/helpRequests/helpRequestsSelectors';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
-import { getFavourites } from '../../store/user-favourites/favourites-selectors';
+import { getFavourites } from '../../store/userFavourites/userFavouritesSelectors';
 
-interface IFavorites {
+interface IFavourites {
   viewMode: VIEW_TOGGLE_OPTIONS;
   customNumberItemsPerPage: number;
 }
-const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
+const Favourites: FC<IFavourites> = ({ viewMode, customNumberItemsPerPage }) => {
   const dispatch = useAppDispatch();
 
   const helpRequestData = useAppSelector(getHelpRequests);
@@ -57,4 +57,4 @@ const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
     </Box>
   );
 };
-export default Favorites;
+export default Favourites;

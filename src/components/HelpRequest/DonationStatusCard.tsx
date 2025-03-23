@@ -2,12 +2,14 @@ import { Box, Button, LinearProgress, Typography } from '@mui/material';
 import { FC } from 'react';
 
 import { formatNumber } from '../../utils/formatUtils';
+
 interface IDonationStatusCard {
   contributorsCount: number;
   requestGoalCurrentValue: number;
   requestGoal: number;
   handleDonation: () => void;
 }
+
 const DonationStatusCard: FC<IDonationStatusCard> = ({
   requestGoalCurrentValue,
   requestGoal,
@@ -31,7 +33,17 @@ const DonationStatusCard: FC<IDonationStatusCard> = ({
           Нас уже: {formatNumber(contributorsCount)}
         </Typography>
       </Box>
-      <Button size='large' variant='contained' color='primary' fullWidth onClick={() => handleDonation()}>
+      <Button
+        size='large'
+        variant='contained'
+        color='primary'
+        fullWidth
+        onClick={(event) => {
+          event.stopPropagation();
+          event.preventDefault();
+          handleDonation();
+        }}
+      >
         Помочь
       </Button>
     </Box>

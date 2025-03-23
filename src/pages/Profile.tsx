@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { getProfileData } from '../store/userProfile/profileSelectors';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { getUserAction } from '../store/api-actions';
+import { getUserAction } from '../store/apiActions';
 import { useMode } from '../theme';
 import { useViewMode } from '../hooks/useViewMode';
 import { useProfileURLHandler } from '../hooks/useProfileURLHandler';
@@ -14,7 +14,7 @@ import CardProfile from '../components/Profile/CardProfile';
 import PersonalData from '../components/Profile/PersonalData';
 import PagesProfile from '../components/Profile/PagesProfile';
 import Contacts from '../components/Profile/Contacts';
-import Favorites from '../components/Profile/Favorites';
+import Favourites from '../components/Profile/Favourites';
 import TabsProfile from '../components/Profile/element/TabsProfile';
 import ViewToggle from '../components/ViewToggle/ViewToggle';
 
@@ -129,7 +129,7 @@ export default function Profile() {
                   <Contacts />
                 </PagesProfile>
                 <PagesProfile value={numberTab} index={2}>
-                  <Favorites viewMode={viewMode} customNumberItemsPerPage={itemsPerPage} />
+                  <Favourites viewMode={viewMode} customNumberItemsPerPage={itemsPerPage} />
                 </PagesProfile>
               </Box>
             </Box>

@@ -1,22 +1,23 @@
 import { Box, Card, CardContent, CardHeader, Divider, Stack, Typography } from '@mui/material';
 import { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { formatDate, formatString } from '../../utils/formatUtils';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
-import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import { getFavouriteRequestsIDs } from '../../store/userFavourites/userFavouritesSelectors';
 import DonationStatusCard from '../HelpRequest/DonationStatusCard';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 interface ICardItemProps {
-  helpRequest: HelpRequest;
+  helpRequest: IHelpRequest;
 }
 
 const HorizontalCard: FC<ICardItemProps> = (props) => {
   const { helpRequest } = props;
-  const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
+  const userFavouritesIDs = useAppSelector(getFavouriteRequestsIDs);
+
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
   const [isLoading, setIsLoading] = useState<boolean>(false); // /n
 

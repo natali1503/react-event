@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { useAppDispatch } from '../../../hooks/useAppDispatch';
 import { logOut } from '../../../store/authorization/authorizationSlice';
-import { AppRoute } from '../../../constants/globalConsts';
+import { APP_ROUTE } from '../../../constants/globalConsts';
 
 const ImageAvatar = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +19,7 @@ const ImageAvatar = () => {
   };
 
   const handleClickProfile = (event: React.MouseEvent<HTMLElement>) => {
-    navigate(AppRoute.Profile, { replace: true });
+    navigate(APP_ROUTE.Profile, { replace: true });
     handleClose();
   };
 
@@ -29,7 +29,7 @@ const ImageAvatar = () => {
 
   const handleLogOut = () => {
     dispatch(logOut());
-    navigate(AppRoute.Login, { replace: true });
+    navigate(APP_ROUTE.Login, { replace: true });
   };
 
   return (

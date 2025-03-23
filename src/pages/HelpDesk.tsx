@@ -11,7 +11,7 @@ import { useUserHelpRequests } from '../hooks/useUserHelpRequests';
 import { useFilters } from '../hooks/useFilters';
 import { useResponsiveItemsPerPage } from '../hooks/useResponsiveItemsPerPage';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { resetFavouriteRequestsError } from '../store/user-favourites/userFavourites';
+import { resetFavouriteRequestsError } from '../store/userFavourites/userFavouritesSlice';
 
 const HelpDesk: FC = () => {
   const { helpRequestsList, hasHelpRequests, isHelpRequestsLoading, isHelpRequestsError, isFavouriteRequestsError } =

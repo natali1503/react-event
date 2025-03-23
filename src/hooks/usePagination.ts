@@ -5,10 +5,9 @@ import useParseURL from './useParseURL';
 interface IUsePagination {
   quantityHelpRequests: number;
   itemsPerPage: number;
-  isURLParsingEnabled?: boolean;
 }
 
-export function usePagination({ quantityHelpRequests, itemsPerPage, isURLParsingEnabled }: IUsePagination) {
+export function usePagination({ quantityHelpRequests, itemsPerPage }: IUsePagination) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   // Rewrite currentPage with data from URL
   useParseURL({

@@ -2,8 +2,8 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
 import { formatDate, formatString } from '../../utils/formatUtils';
-import { HelpRequest } from '../../types/HelpRequest';
-import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import { IHelpRequest } from '../../types/IHelpRequest';
+import { getFavouriteRequestsIDs } from '../../store/userFavourites/userFavouritesSelectors';
 import { useBreakpointOverlap } from '../../hooks/useBreakpointOverlap';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { useAppSelector } from '../../hooks/useAppSelector';
@@ -13,7 +13,7 @@ import VerifiedOrganization from './VerifiedOrganization';
 import ActionsSchedule from './ActionsSchedule';
 
 interface IFundraisingForm {
-  helpRequest: HelpRequest;
+  helpRequest: IHelpRequest;
 }
 
 const FundraisingForm: FC<IFundraisingForm> = ({ helpRequest }) => {

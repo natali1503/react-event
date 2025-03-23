@@ -1,20 +1,20 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Box, useMediaQuery } from '@mui/material';
 
-import { HelpRequest } from '../types/HelpRequest';
-import { VIEW_TOGGLE_OPTIONS } from '../constants/globalConsts';
-import { usePagination } from '../hooks/usePagination';
+import { IHelpRequest } from '../../types/IHelpRequest';
+import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';
+import { usePagination } from '../../hooks/usePagination';
 
-import CardList from './CardList/CardList';
-import MapWrapper from './Map/MapWrapper';
-import Pagination from './Pagination';
-import Loading from './Status/Loading';
-import Error from './Status/Error';
-import NotFoundResult from './Status/NotFoundResult';
+import CardList from './../CardList/CardList';
+import MapWrapper from './../Map/MapWrapper';
+import Pagination from './../Pagination/Pagination';
+import Loading from './../Status/Loading';
+import Error from './../Status/Error';
+import NotFoundResult from './../Status/NotFoundResult';
 
 interface IViewHelpRequests {
   viewMode: string;
-  helpRequests: HelpRequest[];
+  helpRequests: IHelpRequest[];
   customNumberItemsPerPage?: number;
   notFoundResult: boolean;
   setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ interface IViewHelpRequests {
   isFavouriteRequestsError?: boolean;
 }
 
-export const ViewHelpRequests: FC<IViewHelpRequests> = ({
+const ViewHelpRequests: FC<IViewHelpRequests> = ({
   viewMode,
   helpRequests,
   customNumberItemsPerPage,
@@ -122,3 +122,5 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     </Box>
   );
 };
+
+export default ViewHelpRequests;

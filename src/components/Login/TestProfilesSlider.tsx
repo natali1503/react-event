@@ -2,7 +2,7 @@ import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRig
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import { Box, Button } from '@mui/material';
 
-import { testUsers } from '../../constants/globalConsts';
+import { TEST_USERS } from '../../constants/globalConsts';
 import { useSlider } from '../../hooks/useSlider';
 import { useMode } from '../../theme';
 import { useSwiper } from '../../hooks/useSwiper';
@@ -15,7 +15,7 @@ export function TestProfilesSlider() {
   const { handleTouchStart, handleTouchEnd } = useSwiper({
     cooldownDuration: 50,
     currentItem: currentDiv,
-    maxItems: testUsers.length,
+    maxItems: TEST_USERS.length,
     action: onHandleClickSlider,
   });
   const [theme] = useMode();
@@ -56,7 +56,7 @@ export function TestProfilesSlider() {
               onTouchEnd={handleTouchEnd}
               style={{ display: 'flex', gap: '30px', left: '0px', top: '0px', position: 'absolute' }}
             >
-              {testUsers.map((user, index) => (
+              {TEST_USERS.map((user, index) => (
                 <Box sx={{ width: '250px' }} key={index} id={`div${index + 1}`}>
                   <TestingProfilesItem user={user} />
                 </Box>
@@ -71,7 +71,7 @@ export function TestProfilesSlider() {
               minWidth: 0,
               width: '30px',
             }}
-            disabled={currentDiv === testUsers.length}
+            disabled={currentDiv === TEST_USERS.length}
             onClick={() => {
               onHandleClickSlider('next');
             }}
@@ -81,7 +81,7 @@ export function TestProfilesSlider() {
         </Box>
       </Box>
       <Box display={'flex'} flexDirection={'row'} justifyContent={'center'} gap={'5px'}>
-        {testUsers.map((_, index) => (
+        {TEST_USERS.map((_, index) => (
           <Dot
             key={index}
             activ={index + 1 === currentDiv ? true : false}

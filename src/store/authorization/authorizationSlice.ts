@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { dropToken } from '../../services/token';
+// Define a type for the slice state
 import { AUTH_TOKEN_KEY_NAME } from '../../constants/globalConsts';
-import { loginAction } from '../api-actions';
+import { loginAction } from '../apiActions';
 
 interface CounterState {
   isAuthenticated: boolean;

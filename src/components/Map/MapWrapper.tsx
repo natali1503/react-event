@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 
 import YandexMap from './YandexMap';
 
-type MapWrapperProps = {
-  helpRequests: HelpRequest[];
-};
+interface IMapWrapperProps {
+  helpRequests: IHelpRequest[];
+}
 
-const MapWrapper: React.FC<MapWrapperProps> = ({ helpRequests }) => {
+const MapWrapper: FC<IMapWrapperProps> = ({ helpRequests }) => {
   const isMounted = useRef(false);
 
   useEffect(() => {

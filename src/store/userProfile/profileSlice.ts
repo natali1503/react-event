@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { IProfileData } from '../../types/IUser';
-import { getUserAction } from '../api-actions';
+import { getUserAction } from '../apiActions';
 
 export const profileSlice = createSlice({
   name: 'profile',

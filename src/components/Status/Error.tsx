@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
 import { ReactSVG } from 'react-svg';
 
-const Error = () => {
+const Error: FC = () => {
   return (
     <Box
       display={'flex'}

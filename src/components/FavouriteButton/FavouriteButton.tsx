@@ -1,20 +1,20 @@
 import { Tooltip } from '@mui/material';
-import { useRef, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { useFavourites } from '../../hooks/useFavourites';
 
 import FavouriteIconBtn from './elements/FavouriteIconBtn';
 
-type FavouriteButton = {
+interface IFavouriteButton {
   format: string;
   favouriteRequestsIDs: string[];
-  helpRequest: HelpRequest;
+  helpRequest: IHelpRequest;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
-const FavouriteButton: React.FC<FavouriteButton> = (props) => {
+const FavouriteButton: FC<IFavouriteButton> = (props) => {
   const { helpRequest, favouriteRequestsIDs, isLoading, setIsLoading } = props;
   const { handleAddToFavourites, handleRemoveFavourite } = useFavourites();
   const isFavourite = favouriteRequestsIDs.includes(helpRequest.id);

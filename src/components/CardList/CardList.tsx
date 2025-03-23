@@ -2,20 +2,20 @@ import { FC } from 'react';
 import Grid from '@mui/material/Grid2';
 import { Box } from '@mui/material';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import CardItem from '../CardItem/CardItem';
-import ScrollAndSwipeHandler from '../ScrollAndSwipeHandler/ScrollAndSwipeHandler';
+import ScrollAndSwipeHandler from '../ScrollAndSwipeWrapper/ScrollAndSwipeWrapper';
 
-type RequestsProps = {
-  helpRequests: HelpRequest[];
+interface IRequestsProps {
+  helpRequests: IHelpRequest[];
   viewMode: string;
   totalPages: number;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   scrollCooldownDuration: number;
-};
+}
 
-const CardList: FC<RequestsProps> = (requests) => {
+const CardList: FC<IRequestsProps> = (requests) => {
   const { helpRequests, viewMode, totalPages, currentPage, setCurrentPage, scrollCooldownDuration } = requests;
 
   return (

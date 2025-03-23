@@ -14,21 +14,21 @@ import {
 } from '@mui/material';
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { formatDate, formatNumber, formatString } from '../../utils/formatUtils';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
-import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import { getFavouriteRequestsIDs } from '../../store/userFavourites/userFavouritesSelectors';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
-type CardItemProps = {
-  helpRequest: HelpRequest;
-};
+interface ICardItemProps {
+  helpRequest: IHelpRequest;
+}
 
-const VerticalCard: FC<CardItemProps> = (props) => {
+const VerticalCard: FC<ICardItemProps> = (props) => {
   const { helpRequest } = props;
-  const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
+  const userFavouritesIDs = useAppSelector(getFavouriteRequestsIDs);
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShow, setIsShow] = useState<boolean>(false);

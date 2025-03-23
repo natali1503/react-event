@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { HelpRequest } from '../../types/HelpRequest';
-import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../api-actions';
+import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../apiActions';
+import { IHelpRequest } from '../../types/IHelpRequest';
 
 export const userFavouritesSlice = createSlice({
   name: 'userFavourites',
@@ -10,22 +10,22 @@ export const userFavouritesSlice = createSlice({
     isLoading: false,
     isFavouriteRequestsLoaded: false,
     favouriteRequests: <string[]>[],
-    helpRequest: <HelpRequest[]>[],
-    favouriteHelp: <HelpRequest[]>[],
-    isFavoritesListError: false,
+    helpRequest: <IHelpRequest[]>[],
+    favouriteHelp: <IHelpRequest[]>[],
+    isFavouritesListError: false,
   },
   reducers: {
     setFavourites: (state, action: PayloadAction<string[]>) => {
       if (!state.isFavouriteRequestsLoaded) {
         state.favouriteRequests = action.payload;
         state.isFavouriteRequestsLoaded = true;
-        state.isFavoritesListError = false;
+        state.isFavouritesListError = false;
       }
     },
-    setHelpRequest(state, action: PayloadAction<HelpRequest[]>) {
+    setHelpRequest(state, action: PayloadAction<IHelpRequest[]>) {
       state.helpRequest = action.payload;
     },
-    setFavouriteHelp(state, action: PayloadAction<HelpRequest[]>) {
+    setFavouriteHelp(state, action: PayloadAction<IHelpRequest[]>) {
       state.favouriteHelp = action.payload;
       state.isLoading = false;
       state.isData = true;
@@ -34,20 +34,20 @@ export const userFavouritesSlice = createSlice({
       state.isLoading = !state.isLoading;
     },
     resetFavouriteRequestsError: (state) => {
-      state.isFavoritesListError = false;
+      state.isFavouritesListError = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
-        state.isFavoritesListError = false;
+        state.isFavouritesListError = false;
         state.isData = false;
       })
       .addCase(getFavouritesAction.fulfilled, (state, action: PayloadAction<string[]>) => {
         state.isLoading = false;
         state.isData = true;
-        state.isFavoritesListError = false;
+        state.isFavouritesListError = false;
         if (!state.isFavouriteRequestsLoaded) {
           state.favouriteRequests = action.payload;
           state.isFavouriteRequestsLoaded = true;
@@ -56,7 +56,7 @@ export const userFavouritesSlice = createSlice({
       .addCase(getFavouritesAction.rejected, (state) => {
         state.isLoading = false;
         state.isData = false;
-        state.isFavoritesListError = true;
+        state.isFavouritesListError = true;
       })
       .addCase(addToFavouritesAction.pending, (state) => {
         state.isLoading = true;

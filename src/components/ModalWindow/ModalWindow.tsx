@@ -1,14 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, Slide, Typography } from '@mui/material';
-import React from 'react';
+import { FC, ReactNode } from 'react';
 
-type ModalWindowProps = {
+interface IModalWindowProps {
   openFilterModal: boolean;
   handleCloseFilterModal: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   slideDirection: 'right' | 'left' | 'up' | 'down' | undefined;
-};
+}
 
-const ModalWindow: React.FC<ModalWindowProps> = (props) => {
+const ModalWindow: FC<IModalWindowProps> = (props) => {
   const { openFilterModal, handleCloseFilterModal, children, slideDirection } = props;
 
   return (

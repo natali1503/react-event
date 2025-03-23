@@ -17,5 +17,5 @@ export const getFavouriteLoadedFlag = (state: RootState) => {
 };
 
 export const getFavouriteRequestsError = (state: RootState) => {
-  return state['favourites'].isFavoritesListError;
+  return state['favourites'].isFavouritesListError;
 };

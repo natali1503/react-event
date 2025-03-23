@@ -1,7 +1,7 @@
 import { AppBar, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { AppRoute } from '../../constants/globalConsts';
+import { APP_ROUTE } from '../../constants/globalConsts';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useMode } from '../../theme';
 
@@ -15,7 +15,7 @@ const Header = () => {
   const [theme] = useMode();
 
   const handleClickRequest = () => {
-    navigate(AppRoute.Main, { replace: true });
+    navigate(APP_ROUTE.Main, { replace: true });
   };
 
   return (

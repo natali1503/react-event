@@ -1,4 +1,4 @@
-export type HelpRequest = {
+export interface IHelpRequest {
   id: string;
   title: string;
   organization: {
@@ -33,4 +33,4 @@ export type HelpRequest = {
   contributorsCount: number;
   requestGoal: number;
   requestGoalCurrentValue: number;
-};
+}

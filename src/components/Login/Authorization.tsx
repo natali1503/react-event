@@ -16,14 +16,14 @@ import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useValidation } from '../../hooks/useValidation';
-import { loginAction } from '../../store/api-actions';
+import { loginAction } from '../../store/apiActions';
 import {
   setPassword,
   setLogin,
   setIsPasswordValid,
   setIsLoginValid,
 } from '../../store/authorizationForm/authorizationFormSlice';
-import { AuthData } from '../../types/auth-data';
+import { IAuthData } from '../../types/IAuthData';
 import { getAuthError } from '../../store/authorization/authorizationSelectors';
 import { clearErrorMessage } from '../../store/authorization/authorizationSlice';
 
@@ -57,7 +57,7 @@ export function Authorization() {
     dispatch(clearErrorMessage());
   };
 
-  const onSubmit = (authData: AuthData) => {
+  const onSubmit = (authData: IAuthData) => {
     dispatch(loginAction(authData));
   };
 

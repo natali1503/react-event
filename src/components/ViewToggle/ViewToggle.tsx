@@ -6,12 +6,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';
 
-type ViewToggleProps = {
+interface IViewToggleProps {
   viewMode: VIEW_TOGGLE_OPTIONS;
   onOptionChange: (newViewMode: VIEW_TOGGLE_OPTIONS) => void;
-};
+}
 
-const ViewToggle: FC<ViewToggleProps> = ({ viewMode, onOptionChange }) => {
+const ViewToggle: FC<IViewToggleProps> = ({ viewMode, onOptionChange }) => {
   const handleViewClick = (event: React.MouseEvent<HTMLElement>, newViewMode: VIEW_TOGGLE_OPTIONS | null) => {
     if (newViewMode) {
       onOptionChange(newViewMode);

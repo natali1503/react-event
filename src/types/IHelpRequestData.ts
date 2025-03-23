@@ -1,11 +1,11 @@
-import { HelpRequest } from './HelpRequest';
+import { IHelpRequest } from './IHelpRequest';
 
-export interface HelpRequestData {
-  helpRequestsList: HelpRequest[];
+export interface IHelpRequestData {
+  helpRequestsList: IHelpRequest[];
   isRequestsDataLoading: boolean;
   hasError: boolean;
   isContributionPostingStatus: boolean;
-  request: HelpRequest | null;
+  request: IHelpRequest | null;
   isRequestDataLoading: boolean;
   hasHelpRequestError: boolean;
 }
