@@ -1,10 +1,10 @@
-import { IHelpRequest } from './helpRequest';
+import { IHelpRequest } from './IHelpRequest';
 
-export interface HelpRequestData {
+export interface IHelpRequestData {
   helpRequestsList: IHelpRequest[];
   isRequestsDataLoading: boolean;
   hasError: boolean;
-  isСontributionPostingStatus: boolean;
+  isContributionPostingStatus: boolean;
   request: IHelpRequest | null;
   isRequestDataLoading: boolean;
   hasHelpRequestError: boolean;

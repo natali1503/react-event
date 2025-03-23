@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
 
 import { useMode } from '../../theme';
-import { TEST_USERS } from '../../const/const';
+import { TEST_USERS } from '../../constants/globalConsts';
 
-import { TestingProfilesIteam } from './TestingProfilesIteam';
+import { TestingProfilesItem } from './TestingProfilesItem';
 
 const TestingProfiles = () => {
   const [theme] = useMode();
@@ -19,7 +19,7 @@ const TestingProfiles = () => {
     >
       <Box
         marginLeft={'4rem'}
-        marginTop={'64px'}
+        marginTop={'6.4rem'}
         sx={{
           [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
             marginLeft: '2rem',
@@ -45,7 +45,7 @@ const TestingProfiles = () => {
           }}
         >
           {TEST_USERS.map((user, index) => (
-            <TestingProfilesIteam user={user} key={index} />
+            <TestingProfilesItem user={user} key={index} />
           ))}
         </Box>
       </Box>

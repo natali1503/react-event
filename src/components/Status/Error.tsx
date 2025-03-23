@@ -2,14 +2,14 @@ import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 import { ReactSVG } from 'react-svg';
 
-const ErrorComponent: FC = () => {
+const Error: FC = () => {
   return (
     <Box
       display={'flex'}
-      justifyContent={'center'}
       flexDirection={'column'}
+      justifyContent={'center'}
       alignItems={'center'}
-      gap={'20px'}
+      gap={'2rem'}
       height={'100%'}
     >
       <ReactSVG src='/img/noDataError.svg' />
@@ -18,4 +18,4 @@ const ErrorComponent: FC = () => {
   );
 };
 
-export default ErrorComponent;
+export default Error;

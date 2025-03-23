@@ -2,9 +2,9 @@ import { FC } from 'react';
 import Grid from '@mui/material/Grid2';
 import { Box } from '@mui/material';
 
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import CardItem from '../CardItem/CardItem';
-import ScrollAndSwipeHandler from '../ScrollAndSwipeHandler/ScrollAndSwipeHandler';
+import ScrollAndSwipeHandler from '../ScrollAndSwipeWrapper/ScrollAndSwipeWrapper';
 
 interface IRequestsProps {
   helpRequests: IHelpRequest[];

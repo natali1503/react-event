@@ -1,4 +1,4 @@
-export type AuthData = {
+export interface IAuthData {
   login: string;
   password: string;
-};
+}

@@ -2,13 +2,13 @@ import KeyboardArrowRightOutlinedIcon from '@mui/icons-material/KeyboardArrowRig
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import { Box, Button } from '@mui/material';
 
-import { TEST_USERS } from '../../const/const';
+import { TEST_USERS } from '../../constants/globalConsts';
 import { useSlider } from '../../hooks/useSlider';
 import { useMode } from '../../theme';
+import { useSwiper } from '../../hooks/useSwiper';
 
 import { Dot } from './Dot';
-import { TestingProfilesIteam } from './TestingProfilesIteam';
-import { useSwiper } from './useSwiper';
+import { TestingProfilesItem } from './TestingProfilesItem';
 
 export function TestProfilesSlider() {
   const { currentDiv, onHandleClickSlider } = useSlider();
@@ -58,7 +58,7 @@ export function TestProfilesSlider() {
             >
               {TEST_USERS.map((user, index) => (
                 <Box sx={{ width: '250px' }} key={index} id={`div${index + 1}`}>
-                  <TestingProfilesIteam user={user} />
+                  <TestingProfilesItem user={user} />
                 </Box>
               ))}
             </div>

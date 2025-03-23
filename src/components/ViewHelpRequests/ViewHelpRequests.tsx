@@ -1,15 +1,16 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import { Box, Skeleton, useMediaQuery } from '@mui/material';
+import { Box, useMediaQuery } from '@mui/material';
 
-import { IHelpRequest } from '../types/helpRequest';
-import { VIEW_TOGGLE_OPTIONS } from '../const/const';
-import { usePagination } from '../hooks/usePagination';
+import { IHelpRequest } from '../../types/IHelpRequest';
+import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';
+import { usePagination } from '../../hooks/usePagination';
 
-import CardList from './CardList/CardList';
-import MapWrapper from './Map/MapWrapper';
-import ErrorComponent from './Error';
-import Pagination from './Pagination';
-import NotFoundResult from './NotFoundResult';
+import CardList from './../CardList/CardList';
+import MapWrapper from './../Map/MapWrapper';
+import Pagination from './../Pagination/Pagination';
+import Loading from './../Status/Loading';
+import Error from './../Status/Error';
+import NotFoundResult from './../Status/NotFoundResult';
 
 interface IViewHelpRequests {
   viewMode: string;
@@ -56,11 +57,12 @@ const ViewHelpRequests: FC<IViewHelpRequests> = ({
 
   const renderErrorMessage = () => {
     if (isHelpRequestsError || isFavouriteRequestsError) {
-      return <ErrorComponent />;
+      return <Error />;
     }
     if (isLoading) {
-      return <Skeleton width={'100px'} height={'100px'} />;
+      return <Loading />;
     }
+
     if (notFoundResult) {
       return <NotFoundResult />;
     }

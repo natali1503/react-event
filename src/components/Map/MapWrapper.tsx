@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef } from 'react';
 
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 
 import YandexMap from './YandexMap';
 

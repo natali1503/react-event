@@ -1,4 +1,4 @@
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { RootState } from '../types';
 
 export const getHelpRequests = (state: RootState): IHelpRequest[] => state['HELP_REQUEST'].helpRequestsList;

@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 import { fetchContributeToRequest } from '../store/apiActions';
-import { IHelpRequest } from '../types/helpRequest';
+import { IHelpRequest } from '../types/IHelpRequest';
 
 import { useAppDispatch } from './useAppDispatch';
 

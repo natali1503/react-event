@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import VerticalCard from '../VerticalCard/VerticalCard';
 import HorizontalCard from '../HorizontalCard/HorizontalCard';
 

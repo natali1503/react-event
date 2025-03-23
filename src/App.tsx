@@ -1,16 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { APP_ROUTE } from './const/const';
+import { APP_ROUTE } from './constants/globalConsts';
 import NotFoundPage from './pages/NotFoundPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import Wrapper from './components/Wrapper';
-import Profile from './pages/Profile/Profile';
+import Profile from './pages/Profile';
 import HelpRequest from './pages/HelpRequest';
-import { Theme } from './components/Theme';
+import Theme from './components/Theme';
 import HelpDesk from './pages/HelpDesk';
 
-function App() {
+const App = () => {
   return (
     <Theme>
       <Router>
@@ -26,6 +26,6 @@ function App() {
       </Router>
     </Theme>
   );
-}
+};
 
 export default App;

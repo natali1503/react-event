@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 
-import { formatDate } from '../../helperFunctions/helperFunctions';
-import { IHelpRequest } from '../../types/helpRequest';
+import { formatDate } from '../../utils/formatUtils';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { IYandexMap, IYandexObjectManager } from '../../types/IMap';
 
 declare global {

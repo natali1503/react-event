@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface IFormAutorization {
+interface IFormAuthorization {
   login: string;
   password: string;
   isLoginValid: boolean;
   isPasswordValid: boolean;
 }
 
-const initialState: IFormAutorization = {
+const initialState: IFormAuthorization = {
   login: '',
   password: '',
   isLoginValid: true,

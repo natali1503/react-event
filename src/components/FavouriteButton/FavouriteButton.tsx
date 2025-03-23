@@ -1,7 +1,7 @@
 import { Tooltip } from '@mui/material';
 import { FC, useRef, useState } from 'react';
 
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import { useFavourites } from '../../hooks/useFavourites';
 
 import FavouriteIconBtn from './elements/FavouriteIconBtn';

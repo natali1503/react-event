@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { applyDate, applyFilter, applySearch } from '../utils/filterUtils';
-import { IHelpRequest } from '../types/helpRequest';
+import { IHelpRequest } from '../types/IHelpRequest';
 
 import useParseURL from './useParseURL';
 

@@ -15,11 +15,11 @@ import {
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { IHelpRequest } from '../../types/helpRequest';
-import { formatDate, formatNumber, formatString } from '../../helperFunctions/helperFunctions';
+import { IHelpRequest } from '../../types/IHelpRequest';
+import { formatDate, formatNumber, formatString } from '../../utils/formatUtils';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
-import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import { getFavouriteRequestsIDs } from '../../store/userFavourites/userFavouritesSelectors';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
 interface ICardItemProps {

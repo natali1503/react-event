@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../apiActions';
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 
 export const userFavouritesSlice = createSlice({
   name: 'userFavourites',

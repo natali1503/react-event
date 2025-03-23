@@ -2,11 +2,11 @@ import { FC, ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { useAppSelector } from '../hooks/useAppSelector';
-import { APP_ROUTE } from '../const/const';
+import { APP_ROUTE } from '../constants/globalConsts';
 
-type Props = {
+interface Props {
   component: ReactNode; // Changed from ReactNode to ComponentType
-};
+}
 
 const ProtectedRoute: FC<Props> = ({ component }) => {
   const user = useAppSelector((store) => store.auth.isAuthenticated);

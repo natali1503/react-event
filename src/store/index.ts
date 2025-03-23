@@ -4,9 +4,9 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createAPI } from '../services/api';
 
 import authorizationReducer, { logOut } from './authorization/authorizationSlice';
-import userFavouritesReducer from './user-favourites/userFavourites';
-import profileReducer from './profileStore';
-import formAuthorizationReducer from './formAuthorization';
+import userFavouritesReducer from './userFavourites/userFavouritesSlice';
+import profileReducer from './userProfile/profileSlice';
+import formAuthorizationReducer from './authorizationForm/authorizationFormSlice';
 import { helpRequestData } from './helpRequests/helpRequestsSlice';
 
 const rootReducer = combineReducers({

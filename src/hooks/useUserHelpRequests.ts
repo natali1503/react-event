@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { fetchHelpRequestsAction, getFavouritesAction } from '../store/apiActions';
 import { getHelpRequests, getIsRequestLoading, getRequestDataError } from '../store/helpRequests/helpRequestsSelectors';
-import { setHelpRequest } from '../store/user-favourites/userFavourites';
-import { getFavouriteLoadedFlag, getFavouriteRequestsError } from '../store/user-favourites/favourites-selectors';
+import { setHelpRequest } from '../store/userFavourites/userFavouritesSlice';
+import { getFavouriteLoadedFlag, getFavouriteRequestsError } from '../store/userFavourites/userFavouritesSelectors';
 
 import { useAppDispatch } from './useAppDispatch';
 import { useAppSelector } from './useAppSelector';

@@ -3,15 +3,15 @@ import { AxiosInstance } from 'axios';
 
 import { saveToken } from '../services/token';
 import { IProfileData } from '../types/IUser';
-import { API_ROUTE } from '../const/const';
-import { AuthData } from '../types/auth-data';
+import { API_ROUTE } from '../constants/globalConsts';
+import { AuthData } from '../types/IAuthData';
 import { IAuth } from '../types/IAuth';
-import { IHelpRequest } from '../types/helpRequest';
+import { IHelpRequest } from '../types/IHelpRequest';
 
-import { setFavourites } from './user-favourites/userFavourites';
+import { setFavourites } from './userFavourites/userFavouritesSlice';
 import { setAuthorized } from './authorization/authorizationSlice';
 import { AppDispatch, RootState } from './types';
-import { resetFormAuthorization } from './formAuthorization';
+import { resetFormAuthorization } from './authorizationForm/authorizationFormSlice';
 
 export const fetchHelpRequestsAction = createAsyncThunk<
   IHelpRequest[],

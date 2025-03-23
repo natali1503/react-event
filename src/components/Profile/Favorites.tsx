@@ -1,32 +1,26 @@
 import { FC, useEffect } from 'react';
 import { Box } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { AppDispatch, RootState } from '../../store/types';
-import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
-import { matchFavourites } from '../../features/matchFavourites';
+import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/userFavourites/userFavouritesSlice';
+import { matchFavourites } from '../../utils/matchFavouritesUtils';
 import { fetchHelpRequestsAction } from '../../store/apiActions';
-import ViewHelpRequests from '../ViewHelpRequests';
-import { VIEW_TOGGLE_OPTIONS } from '../../const/const';
+import ViewHelpRequests from '../ViewHelpRequests/ViewHelpRequests';
+import { VIEW_TOGGLE_OPTIONS } from '../../constants/globalConsts';
+import { getHelpRequests, getRequestDataError } from '../../store/helpRequests/helpRequestsSelectors';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { getFavourites } from '../../store/userFavourites/userFavouritesSelectors';
 
 interface IFavorites {
   viewMode: VIEW_TOGGLE_OPTIONS;
   customNumberItemsPerPage: number;
 }
 const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
-  const userFavourites = useSelector((state: RootState) => {
-    return state.favourites;
-  });
+  const dispatch = useAppDispatch();
 
-  const helpRequestData = useSelector((state: RootState) => {
-    return state.HELP_REQUEST.helpRequestsList;
-  });
-
-  const helpRequestDataError = useSelector((state: RootState) => {
-    return state.HELP_REQUEST.hasError;
-  });
-
-  const dispatch = useDispatch<AppDispatch>();
+  const helpRequestData = useAppSelector(getHelpRequests);
+  const helpRequestDataError = useAppSelector(getRequestDataError);
+  const userFavourites = useAppSelector(getFavourites);
 
   useEffect(() => {
     if (helpRequestData.length > 0) {
@@ -51,7 +45,7 @@ const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
   const notFoundResult = userFavourites.isData && userFavourites.favouriteRequests.length === 0;
 
   return (
-    <Box height={'100%'} marginTop={'20px'}>
+    <Box height={'100%'} marginTop={'2rem'}>
       <ViewHelpRequests
         viewMode={viewMode}
         helpRequests={userFavourites.favouriteHelp}

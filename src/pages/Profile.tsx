@@ -2,20 +2,20 @@ import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserAction } from '../../store/apiActions';
-import { AppDispatch, RootState } from '../../store/types';
-import ErrorComponent from '../../components/Error';
-import CardProfile from '../../components/Profile/CardProfile';
-import PersonalData from '../../components/Profile/PersonalData';
-import PagesProfile from '../../components/Profile/PagesProfile';
-import Contacts from '../../components/Profile/Contacts';
-import Favorites from '../../components/Profile/Favorites';
-import { useMode } from '../../theme';
-import { TabsProfile } from '../../components/Profile/element/TabsProfile';
-import ViewToggle from '../../components/ViewToggle/ViewToggle';
-import { useViewMode } from '../../hooks/useViewMode';
-import useResponsiveItemsPerPage from '../../hooks/useResponsiveItemsPerPage';
-import { useProfileURLHandler } from '../../hooks/useProfileURLHandler';
+import { getUserAction } from '../store/apiActions';
+import { AppDispatch, RootState } from '../store/types';
+import Error from '../components/Status/Error';
+import CardProfile from '../components/Profile/CardProfile';
+import PersonalData from '../components/Profile/PersonalData';
+import PagesProfile from '../components/Profile/PagesProfile';
+import Contacts from '../components/Profile/Contacts';
+import Favorites from '../components/Profile/Favorites';
+import { useMode } from '../theme';
+import TabsProfile from '../components/Profile/element/TabsProfile';
+import ViewToggle from '../components/ViewToggle/ViewToggle';
+import { useViewMode } from '../hooks/useViewMode';
+import { useResponsiveItemsPerPage } from '../hooks/useResponsiveItemsPerPage';
+import { useProfileURLHandler } from '../hooks/useProfileURLHandler';
 
 export default function Profile() {
   const [numberTab, setNumberTab] = useState(0);
@@ -57,7 +57,7 @@ export default function Profile() {
             <Skeleton width={'100px'} height={'100px'} />
           </Box>
         )}
-        {profile.error && <ErrorComponent />}
+        {profile.error && <Error />}
         {profile.isData && (
           <Box
             display='flex'

@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { HelpRequestData } from '../../types/state';
+import { IHelpRequestData } from '../../types/IHelpRequestData';
 import { fetchHelpRequestsAction, fetchContributeToRequest, fetchRequestAction } from '../apiActions';
 
-const initialState: HelpRequestData = {
+const initialState: IHelpRequestData = {
   helpRequestsList: [],
   isRequestsDataLoading: false,
   hasError: false,
-  isСontributionPostingStatus: false,
+  isContributionPostingStatus: false,
   request: null,
   isRequestDataLoading: true,
   hasHelpRequestError: false,
@@ -36,13 +36,13 @@ export const helpRequestData = createSlice({
         state.hasError = true;
       })
       .addCase(fetchContributeToRequest.pending, (state) => {
-        state.isСontributionPostingStatus = true;
+        state.isContributionPostingStatus = true;
       })
       .addCase(fetchContributeToRequest.fulfilled, (state) => {
-        state.isСontributionPostingStatus = false;
+        state.isContributionPostingStatus = false;
       })
       .addCase(fetchContributeToRequest.rejected, (state) => {
-        state.isСontributionPostingStatus = false;
+        state.isContributionPostingStatus = false;
       })
       .addCase(fetchRequestAction.pending, (state) => {
         state.isRequestDataLoading = true;

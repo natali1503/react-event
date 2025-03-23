@@ -1,10 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 
-import { IHelpRequest } from '../../types/helpRequest';
+import { IHelpRequest } from '../../types/IHelpRequest';
 import ViewToggle from '../ViewToggle/ViewToggle';
 import { useViewMode } from '../../hooks/useViewMode';
-import ViewHelpRequests from '../ViewHelpRequests';
+import ViewHelpRequests from '../ViewHelpRequests/ViewHelpRequests';
 
 interface IRequestsProps {
   helpRequests: IHelpRequest[];
