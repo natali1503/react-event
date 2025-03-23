@@ -5,7 +5,6 @@ import useParseURL from './useParseURL';
 interface IUsePagination {
   quantityHelpRequests: number;
   itemsPerPage: number;
-  isURLParsingEnabled?: boolean;
 }
 
 export function usePagination({ quantityHelpRequests, itemsPerPage }: IUsePagination) {
