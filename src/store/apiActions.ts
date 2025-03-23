@@ -4,7 +4,7 @@ import { AxiosInstance } from 'axios';
 import { saveToken } from '../services/token';
 import { IProfileData } from '../types/IUser';
 import { API_ROUTE } from '../constants/globalConsts';
-import { AuthData } from '../types/IAuthData';
+import { IAuthData } from '../types/IAuthData';
 import { IAuth } from '../types/IAuth';
 import { IHelpRequest } from '../types/IHelpRequest';
 
@@ -110,7 +110,7 @@ export const fetchRequestAction = createAsyncThunk<
 
 export const loginAction = createAsyncThunk<
   void,
-  AuthData,
+  IAuthData,
   {
     dispatch: AppDispatch;
     state: RootState;
