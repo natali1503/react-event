@@ -11,11 +11,11 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { getFavourites } from '../../store/userFavourites/userFavouritesSelectors';
 
-interface IFavorites {
+interface IFavourites {
   viewMode: VIEW_TOGGLE_OPTIONS;
   customNumberItemsPerPage: number;
 }
-const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
+const Favourites: FC<IFavourites> = ({ viewMode, customNumberItemsPerPage }) => {
   const dispatch = useAppDispatch();
 
   const helpRequestData = useAppSelector(getHelpRequests);
@@ -57,4 +57,4 @@ const Favorites: FC<IFavorites> = ({ viewMode, customNumberItemsPerPage }) => {
     </Box>
   );
 };
-export default Favorites;
+export default Favourites;

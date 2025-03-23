@@ -12,14 +12,14 @@ export const userFavouritesSlice = createSlice({
     favouriteRequests: <string[]>[],
     helpRequest: <IHelpRequest[]>[],
     favouriteHelp: <IHelpRequest[]>[],
-    isFavoritesListError: false,
+    isFavouritesListError: false,
   },
   reducers: {
     setFavourites: (state, action: PayloadAction<string[]>) => {
       if (!state.isFavouriteRequestsLoaded) {
         state.favouriteRequests = action.payload;
         state.isFavouriteRequestsLoaded = true;
-        state.isFavoritesListError = false;
+        state.isFavouritesListError = false;
       }
     },
     setHelpRequest(state, action: PayloadAction<IHelpRequest[]>) {
@@ -34,20 +34,20 @@ export const userFavouritesSlice = createSlice({
       state.isLoading = !state.isLoading;
     },
     resetFavouriteRequestsError: (state) => {
-      state.isFavoritesListError = false;
+      state.isFavouritesListError = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getFavouritesAction.pending, (state) => {
         state.isLoading = true;
-        state.isFavoritesListError = false;
+        state.isFavouritesListError = false;
         state.isData = false;
       })
       .addCase(getFavouritesAction.fulfilled, (state, action: PayloadAction<string[]>) => {
         state.isLoading = false;
         state.isData = true;
-        state.isFavoritesListError = false;
+        state.isFavouritesListError = false;
         if (!state.isFavouriteRequestsLoaded) {
           state.favouriteRequests = action.payload;
           state.isFavouriteRequestsLoaded = true;
@@ -56,7 +56,7 @@ export const userFavouritesSlice = createSlice({
       .addCase(getFavouritesAction.rejected, (state) => {
         state.isLoading = false;
         state.isData = false;
-        state.isFavoritesListError = true;
+        state.isFavouritesListError = true;
       })
       .addCase(addToFavouritesAction.pending, (state) => {
         state.isLoading = true;
