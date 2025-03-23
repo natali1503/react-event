@@ -1,7 +1,7 @@
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { FC, useState } from 'react';
 
-import { formatDate, formatString } from '../../helper-functions/helper-functions';
+import { formatDate, formatString } from '../../utils/formatUtils';
 import { HelpRequest } from '../../types/HelpRequest';
 import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
 import { useBreakpointOverlap } from '../../hooks/useBreakpointOverlap';

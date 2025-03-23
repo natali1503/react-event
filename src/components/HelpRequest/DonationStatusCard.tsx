@@ -1,7 +1,7 @@
 import { Box, Button, LinearProgress, Typography } from '@mui/material';
 import { FC } from 'react';
 
-import { formatNumber } from '../../helper-functions/helper-functions';
+import { formatNumber } from '../../utils/formatUtils';
 interface IDonationStatusCard {
   contributorsCount: number;
   requestGoalCurrentValue: number;

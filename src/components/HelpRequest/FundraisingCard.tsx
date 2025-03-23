@@ -1,7 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { FC } from 'react';
 
-import { formatDate } from '../../helper-functions/helper-functions';
+import { formatDate } from '../../utils/formatUtils';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import { HelpRequest } from '../../types/HelpRequest';
 import { useMode } from '../../theme';

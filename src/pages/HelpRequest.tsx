@@ -1,15 +1,16 @@
-import { CircularProgress, Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 import FundraisingCard from '../components/HelpRequest/FundraisingCard';
 import FundraisingForm from '../components/HelpRequest/FundraisingForm';
+import Loading from '../components/Status/Loading';
+import Error from '../components/Status/Error';
+import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { fetchRequestAction, getFavouritesAction } from '../store/api-actions';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { getHelpRequestError, getHelpRequestInfo, getRequestLoadingStatus } from '../store/help-requests/selectors';
-import { ErrorComponent } from '../components/Status/Error';
 import {
   getFavouriteLoadedFlag,
   getFavouriteRequestsError,
@@ -17,7 +18,6 @@ import {
 } from '../store/user-favourites/favourites-selectors';
 import { resetFavouriteRequestsError } from '../store/user-favourites/userFavourites';
 import { resetHelpRequestError } from '../store/help-requests/help-requests-data';
-import Loading from '../components/Status/Loading';
 
 const HelpRequest: FC = () => {
   const dispatch = useAppDispatch();
@@ -61,7 +61,7 @@ const HelpRequest: FC = () => {
   return (
     <Paper sx={{ padding: '30px 40px', background: '#F5F5F5', width: '100%' }}>
       {isLoading && <Loading />}
-      {isError && !isLoading && <ErrorComponent />}
+      {isError && !isLoading && <Error />}
       {!isLoading && !isError && (
         <Box>
           <Typography variant='h4' mb={2}>

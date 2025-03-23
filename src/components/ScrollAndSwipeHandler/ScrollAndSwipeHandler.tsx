@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 import { HelpRequest } from '../../types/HelpRequest';
 import './ScrollAndSwipeAnimations.css';
@@ -14,7 +14,7 @@ type ScrollAndSwipeHandlerProps = {
   children: React.ReactNode;
 };
 
-const ScrollAndSwipeHandler: React.FC<ScrollAndSwipeHandlerProps> = (props) => {
+const ScrollAndSwipeWrapper: FC<ScrollAndSwipeHandlerProps> = (props) => {
   const { currentPage, totalPages, setCurrentPage, helpRequests, cooldownDuration, viewMode, children } = props;
 
   const [animationState, setAnimationState] = useState<'enter' | 'exit' | 'none'>('none');
@@ -99,4 +99,4 @@ const ScrollAndSwipeHandler: React.FC<ScrollAndSwipeHandlerProps> = (props) => {
   );
 };
 
-export default ScrollAndSwipeHandler;
+export default ScrollAndSwipeWrapper;
