@@ -1,4 +1,4 @@
-export interface HelpRequest {
+export interface IHelpRequest {
   id: string;
   title: string;
   organization: {

@@ -1,12 +1,10 @@
 import { Box, CircularProgress, IconButton } from '@mui/material';
-import { Star, StarBorder } from '@mui/icons-material';
 import { forwardRef } from 'react';
+import { Star, StarBorder } from '@mui/icons-material';
 
 import { IFavouriteButton } from '../../../types/IFavouriteButton';
 
-type FavouriteIconButtonProps = IFavouriteButton;
-
-const FavouriteIconBtn = forwardRef<HTMLDivElement, FavouriteIconButtonProps>(
+const FavouriteIconBtn = forwardRef<HTMLDivElement, IFavouriteButton>(
   ({ handleToggleFavourite, isFavourite, ariaLabel, isLoading, ...rest }, ref) => {
     return (
       <Box ref={ref} {...rest}>

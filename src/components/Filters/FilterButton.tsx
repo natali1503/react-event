@@ -1,14 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { Button, Paper, Typography } from '@mui/material';
 
 import { useMode } from '../../theme';
 
-interface FilterButtonProps {
+interface IFilterButtonProps {
   onClick: () => void;
 }
 
-const FilterButton: React.FC<FilterButtonProps> = ({ onClick }) => {
+const FilterButton: FC<IFilterButtonProps> = ({ onClick }) => {
   const [theme] = useMode();
 
   return (

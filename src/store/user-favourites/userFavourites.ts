@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { HelpRequest } from '../../types/HelpRequest';
-import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../api-actions';
+import { addToFavouritesAction, getFavouritesAction, removeFromFavouritesAction } from '../apiActions';
+import { IHelpRequest } from '../../types/helpRequest';
 
 export const userFavouritesSlice = createSlice({
   name: 'userFavourites',
@@ -10,8 +10,8 @@ export const userFavouritesSlice = createSlice({
     isLoading: false,
     isFavouriteRequestsLoaded: false,
     favouriteRequests: <string[]>[],
-    helpRequest: <HelpRequest[]>[],
-    favouriteHelp: <HelpRequest[]>[],
+    helpRequest: <IHelpRequest[]>[],
+    favouriteHelp: <IHelpRequest[]>[],
     isFavoritesListError: false,
   },
   reducers: {
@@ -22,10 +22,10 @@ export const userFavouritesSlice = createSlice({
         state.isFavoritesListError = false;
       }
     },
-    setHelpRequest(state, action: PayloadAction<HelpRequest[]>) {
+    setHelpRequest(state, action: PayloadAction<IHelpRequest[]>) {
       state.helpRequest = action.payload;
     },
-    setFavouriteHelp(state, action: PayloadAction<HelpRequest[]>) {
+    setFavouriteHelp(state, action: PayloadAction<IHelpRequest[]>) {
       state.favouriteHelp = action.payload;
       state.isLoading = false;
       state.isData = true;
@@ -35,7 +35,7 @@ export const userFavouritesSlice = createSlice({
     },
     resetFavouriteRequestsError: (state) => {
       state.isFavoritesListError = false;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -90,4 +90,5 @@ export const userFavouritesSlice = createSlice({
 });
 
 export default userFavouritesSlice.reducer;
-export const { setFavourites, setHelpRequest, setFavouriteHelp, setIsLoading, resetFavouriteRequestsError } = userFavouritesSlice.actions;
+export const { setFavourites, setHelpRequest, setFavouriteHelp, setIsLoading, resetFavouriteRequestsError } =
+  userFavouritesSlice.actions;

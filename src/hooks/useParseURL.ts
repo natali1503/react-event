@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-type useParseURLProps = {
+interface IUseParseURLProps {
   searchTerm?: string;
   selectedOptions?: string[];
   selectedDate?: string | null;
@@ -10,9 +10,9 @@ type useParseURLProps = {
   setSelectedOptions?: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedDate?: React.Dispatch<React.SetStateAction<string | null>>;
   setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
-};
+}
 
-const useParseURL = (props: useParseURLProps) => {
+const useParseURL = (props: IUseParseURLProps) => {
   const {
     searchTerm,
     selectedOptions,

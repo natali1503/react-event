@@ -11,21 +11,22 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
 
-import { HelpRequest } from '../../types/HelpRequest';
-import { formatDate, formatNumber, formatString } from '../../helper-functions/helper-functions';
+import { IHelpRequest } from '../../types/helpRequest';
+import { formatDate, formatNumber, formatString } from '../../helperFunctions/helperFunctions';
 import useContributeToRequest from '../../hooks/useContributeToRequest';
 import FavouriteButton from '../FavouriteButton/FavouriteButton';
 import { getFavouriteRequestsIDs } from '../../store/user-favourites/favourites-selectors';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
-type CardItemProps = {
-  helpRequest: HelpRequest;
-};
+interface ICardItemProps {
+  helpRequest: IHelpRequest;
+}
 
-const HorizontalCard: FC<CardItemProps> = (props) => {
+const HorizontalCard: FC<ICardItemProps> = (props) => {
   const { helpRequest } = props;
-  const userFavouritesIDs = useSelector(getFavouriteRequestsIDs);
+  const userFavouritesIDs = useAppSelector(getFavouriteRequestsIDs);
+
   const { handleContributeToRequest } = useContributeToRequest(helpRequest);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

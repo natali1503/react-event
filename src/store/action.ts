@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { AppRoute } from '../const/const';
+import { APP_ROUTE } from '../const/const';
 
-export const redirectToRoute = createAction<AppRoute>('game/redirectToRoute');
+export const redirectToRoute = createAction<APP_ROUTE>('game/redirectToRoute');

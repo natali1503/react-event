@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 
-import { formatDate } from '../../helper-functions/helper-functions';
-import { HelpRequest } from '../../types/HelpRequest';
+import { formatDate } from '../../helperFunctions/helperFunctions';
+import { IHelpRequest } from '../../types/helpRequest';
 import { IYandexMap, IYandexObjectManager } from '../../types/IMap';
 
 declare global {
@@ -11,12 +11,12 @@ declare global {
   }
 }
 
-type YandexMap = {
-  helpRequests: HelpRequest[];
-  isMounted: React.MutableRefObject<boolean>; // Update type here
-};
+interface IYandexMapProps {
+  helpRequests: IHelpRequest[];
+  isMounted: React.MutableRefObject<boolean>;
+}
 
-const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
+const YandexMap: FC<IYandexMapProps> = ({ helpRequests, isMounted }) => {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<IYandexMap | null>(null);
   const objectManagerRef = useRef<IYandexObjectManager | null>(null);
@@ -28,7 +28,6 @@ const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
       const ymaps = window.ymaps;
 
       if (mapContainerRef.current) {
-        // Initialize map only once
         if (!mapRef.current) {
           mapRef.current = new ymaps.Map(mapContainerRef.current, {
             center: [55.76, 37.64],
@@ -42,14 +41,12 @@ const YandexMap: FC<YandexMap> = ({ helpRequests, isMounted }) => {
           });
 
           if (mapRef.current) {
-            // Check if mapRef.current is not null
             mapRef.current.geoObjects.add(objectManagerRef.current);
           }
         }
         updateMarkers();
       }
     } catch (error) {
-      //todo: handle error and delete console.log
       console.log('___map Error:', error);
     }
   };

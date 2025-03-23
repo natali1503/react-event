@@ -2,19 +2,19 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 
 import { saveToken } from '../services/token';
-import { HelpRequest } from '../types/HelpRequest';
 import { IProfileData } from '../types/IUser';
-import { APIRoute } from '../const/const';
+import { API_ROUTE } from '../const/const';
 import { AuthData } from '../types/auth-data';
 import { IAuth } from '../types/IAuth';
+import { IHelpRequest } from '../types/helpRequest';
 
 import { setFavourites } from './user-favourites/userFavourites';
-import { setAuthorized } from './authorization';
+import { setAuthorized } from './authorization/authorizationSlice';
 import { AppDispatch, RootState } from './types';
 import { resetFormAuthorization } from './formAuthorization';
 
 export const fetchHelpRequestsAction = createAsyncThunk<
-  HelpRequest[],
+  IHelpRequest[],
   void,
   {
     dispatch: AppDispatch;
@@ -22,7 +22,7 @@ export const fetchHelpRequestsAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('helpRequests/fetchHelpRequests', async (_, { extra: api }) => {
-  const response = await api.get(APIRoute.HelpRequests);
+  const response = await api.get(API_ROUTE.HelpRequests);
   return response.data;
 });
 
@@ -35,7 +35,7 @@ export const fetchContributeToRequest = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('helpRequests/contributeToRequest', async ({ id }, { extra: api }) => {
-  const response = await api.post(`${APIRoute.HelpRequests}/${id}/contribution`);
+  const response = await api.post(`${API_ROUTE.HelpRequests}/${id}/contribution`);
   return response.data;
 });
 
@@ -48,7 +48,7 @@ export const getUserAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('profile/user', async (_, { dispatch, extra: api }) => {
-  const response = await api.get(APIRoute.User);
+  const response = await api.get(API_ROUTE.User);
   const { favouriteRequests } = response.data;
   dispatch(setFavourites(favouriteRequests));
   return response.data;
@@ -63,7 +63,7 @@ export const getFavouritesAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('favourites/getFavouritesAction', async (_, { extra: api }) => {
-  const response = await api.get(APIRoute.FavouritesHelpRequests);
+  const response = await api.get(API_ROUTE.FavouritesHelpRequests);
   return response.data;
 });
 
@@ -76,7 +76,7 @@ export const addToFavouritesAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('favourites/addToFavourites', async (favouriteId, { extra: api }) => {
-  await api.post(APIRoute.FavouritesHelpRequests, {
+  await api.post(API_ROUTE.FavouritesHelpRequests, {
     requestId: favouriteId,
   });
   return favouriteId;
@@ -91,12 +91,12 @@ export const removeFromFavouritesAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('favourites/removeFromFavourites', async (favouriteId, { extra: api }) => {
-  await api.delete(`${APIRoute.FavouritesHelpRequests}/${favouriteId}`);
+  await api.delete(`${API_ROUTE.FavouritesHelpRequests}/${favouriteId}`);
   return favouriteId;
 });
 
 export const fetchRequestAction = createAsyncThunk<
-  HelpRequest,
+  IHelpRequest,
   string,
   {
     dispatch: AppDispatch;
@@ -104,7 +104,7 @@ export const fetchRequestAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('helpRequests/fetchRequestAction', async (id, { extra: api }) => {
-  const response = await api.get(`${APIRoute.HelpRequests}/${id}`);
+  const response = await api.get(`${API_ROUTE.HelpRequests}/${id}`);
   return response.data;
 });
 
@@ -117,9 +117,9 @@ export const loginAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('user/login', async ({ login, password }, { dispatch, extra: api }) => {
-  const { data } = await api.post<IAuth>(APIRoute.Login, { login, password });
+  const { data } = await api.post<IAuth>(API_ROUTE.Login, { login, password });
   saveToken(data.token);
   dispatch(setAuthorized());
   dispatch(resetFormAuthorization());
-  //dispatch(redirectToRoute(AppRoute.Main)); // TODO: по возможности переписать редирект, убрав из компонента
+  //dispatch(redirectToRoute(APP_ROUTE.Main)); // TODO: по возможности переписать редирект, убрав из компонента
 });

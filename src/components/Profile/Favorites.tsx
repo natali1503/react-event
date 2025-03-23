@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/types';
 import { setHelpRequest, setFavouriteHelp, setIsLoading } from '../../store/user-favourites/userFavourites';
 import { matchFavourites } from '../../features/matchFavourites';
-import { fetchHelpRequestsAction } from '../../store/api-actions';
-import { ViewHelpRequests } from '../ViewHelpRequests';
+import { fetchHelpRequestsAction } from '../../store/apiActions';
+import ViewHelpRequests from '../ViewHelpRequests';
 import { VIEW_TOGGLE_OPTIONS } from '../../const/const';
 
 interface IFavorites {

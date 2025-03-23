@@ -1,7 +1,8 @@
 import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
 import { ReactSVG } from 'react-svg';
 
-export function NotFoundResult() {
+const NotFoundResult: FC = () => {
   return (
     <Box
       display={'flex'}
@@ -15,4 +16,6 @@ export function NotFoundResult() {
       <Typography variant='h5'>Запросы не найдены</Typography>
     </Box>
   );
-}
+};
+
+export default NotFoundResult;

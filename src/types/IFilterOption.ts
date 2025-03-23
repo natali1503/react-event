@@ -26,11 +26,11 @@ export interface IAccordionFilterOption extends IFilterOptionBase {
   };
 }
 
-export type FilterProps = {
+export interface IFilterProps {
   selectedOptions: string[];
   selectedDate: string | null;
   setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>;
   setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
-};
+}
 
-export type IFilterOption = IStandardFilterOption | IAccordionFilterOption;
+export type FilterOption = IStandardFilterOption | IAccordionFilterOption;

@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
-import { fetchHelpRequestsAction, getFavouritesAction } from '../store/api-actions';
-import { getHelpRequests, getIsRequestLoading, getRequestDataError } from '../store/help-requests/selectors';
+import { fetchHelpRequestsAction, getFavouritesAction } from '../store/apiActions';
+import { getHelpRequests, getIsRequestLoading, getRequestDataError } from '../store/helpRequests/helpRequestsSelectors';
 import { setHelpRequest } from '../store/user-favourites/userFavourites';
 import { getFavouriteLoadedFlag, getFavouriteRequestsError } from '../store/user-favourites/favourites-selectors';
 
 import { useAppDispatch } from './useAppDispatch';
+import { useAppSelector } from './useAppSelector';
 
 export function useUserHelpRequests() {
   const dispatch = useAppDispatch();
-  const helpRequestsList = useSelector(getHelpRequests);
-  const favouriteRequestsFlag = useSelector(getFavouriteLoadedFlag);
+  const helpRequestsList = useAppSelector(getHelpRequests);
+  const favouriteRequestsFlag = useAppSelector(getFavouriteLoadedFlag);
   const [hasHelpRequests, setHasHelpRequests] = useState(helpRequestsList.length > 0);
-  const isHelpRequestsLoading = useSelector(getIsRequestLoading);
-  const isHelpRequestsError = useSelector(getRequestDataError);
-  const isFavouriteRequestsError = useSelector(getFavouriteRequestsError);
+  const isHelpRequestsLoading = useAppSelector(getIsRequestLoading);
+  const isHelpRequestsError = useAppSelector(getRequestDataError);
+  const isFavouriteRequestsError = useAppSelector(getFavouriteRequestsError);
 
   // get favourite IDs list and profileData
   useEffect(() => {

@@ -1,14 +1,14 @@
 import { Box, Button, LinearProgress, Paper, Typography } from '@mui/material';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
-import { formatDate, formatNumber } from '../helper-functions/helper-functions';
+import { formatDate, formatNumber } from '../helperFunctions/helperFunctions';
 import useContributeToRequest from '../hooks/useContributeToRequest';
-import { HelpRequest } from '../types/HelpRequest';
+import { IHelpRequest } from '../types/helpRequest';
 import { useMode } from '../theme';
 import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 
 type RequestProps = {
-  helpRequest: HelpRequest;
+  helpRequest: IHelpRequest;
 };
 
 const FundraisingCard: FC<RequestProps> = ({ helpRequest }) => {

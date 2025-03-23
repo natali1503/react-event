@@ -1,19 +1,19 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { FC } from 'react';
 
-import Calendar from '../Calendar/Calendar';
 import { filterOptions } from '../../const/filterOptions';
-import { FilterProps } from '../../types/IFilterOption';
+import { IFilterProps } from '../../types/IFilterOption';
 import { useMode } from '../../theme';
 
+import Calendar from './Calendar';
 import AccordionCheckboxes from './AccordionCheckboxes';
 import StandardCheckboxes from './StandardCheckboxes';
 
-const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSelectedOptions, setSelectedDate }) => {
+const Filters: FC<IFilterProps> = ({ selectedOptions, selectedDate, setSelectedOptions, setSelectedDate }) => {
   const [theme] = useMode();
 
   // Toggle checkbox filter
-  const handleToggle = (props: string): void => {
+  const toggleFilterOption = (props: string): void => {
     setSelectedOptions((prev) => {
       if (prev.includes(props)) {
         return prev.filter((o) => o !== props);
@@ -28,24 +28,24 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
     setSelectedDate(null);
   };
 
+  const paperStyles = {
+    backgroundColor: 'white',
+    padding: '0 2rem',
+    height: 'fit-content',
+    width: '320px',
+    [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
+      width: '100%',
+    },
+    [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+      boxShadow: 'none',
+    },
+    [`@media (max-width: ${319}px)`]: {
+      width: '240px',
+    },
+  };
+
   return (
-    <Paper
-      sx={{
-        backgroundColor: 'white',
-        padding: '0 2rem',
-        height: 'fit-content',
-        width: '320px',
-        [`@media (min-width: ${theme.breakpoints.values.md}px) and (max-width: ${1560}px)`]: {
-          width: '100%',
-        },
-        [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
-          boxShadow: 'none',
-        },
-        [`@media (max-width: ${319}px)`]: {
-          width: '240px',
-        },
-      }}
-    >
+    <Paper sx={paperStyles}>
       <Box sx={{ padding: '2rem 0' }}>
         <Typography variant='h6' width='fit-content'>
           Фильтрация
@@ -58,7 +58,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
                   item={item}
                   index={index}
                   selectedOptions={selectedOptions}
-                  handleToggle={handleToggle}
+                  toggleFilterOption={toggleFilterOption}
                   key={index}
                 />
               );
@@ -68,7 +68,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
                   item={item}
                   index={index}
                   selectedOptions={selectedOptions}
-                  handleToggle={handleToggle}
+                  toggleFilterOption={toggleFilterOption}
                   key={index}
                 />
               );
@@ -89,7 +89,7 @@ const Filters: React.FC<FilterProps> = ({ selectedOptions, selectedDate, setSele
         <Box sx={{ marginTop: '4rem' }}>
           <Button
             disabled={selectedOptions.length === 0}
-            onClick={() => handleReset()}
+            onClick={handleReset}
             variant='outlined'
             sx={{
               width: '100%',

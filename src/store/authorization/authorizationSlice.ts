@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { dropToken } from '../services/token';
-import { AUTH_TOKEN_KEY_NAME } from '../const/const';
-
-import { loginAction } from './api-actions';
+import { dropToken } from '../../services/token';
+import { AUTH_TOKEN_KEY_NAME } from '../../const/const';
+import { loginAction } from '../apiActions';
 
 // Define a type for the slice state
 interface CounterState {

@@ -2,9 +2,9 @@ import { Box, Skeleton, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserAction } from '../../store/api-actions';
+import { getUserAction } from '../../store/apiActions';
 import { AppDispatch, RootState } from '../../store/types';
-import { ErrorComponent } from '../../components/Error';
+import ErrorComponent from '../../components/Error';
 import CardProfile from '../../components/Profile/CardProfile';
 import PersonalData from '../../components/Profile/PersonalData';
 import PagesProfile from '../../components/Profile/PagesProfile';

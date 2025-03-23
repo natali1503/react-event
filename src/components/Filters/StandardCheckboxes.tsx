@@ -2,41 +2,48 @@
 import { FC } from 'react';
 import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
 
-import { IFilterOption } from '../../types/IFilterOption';
+import { FilterOption } from '../../types/IFilterOption';
 // styles
 
-type StandardCheckboxesProps = {
-  item: IFilterOption;
+interface IStandardCheckboxesProps {
+  item: FilterOption;
   index: number;
   selectedOptions: string[];
-  handleToggle: (props: string) => void;
-};
+  toggleFilterOption: (props: string) => void;
+}
 
-const StandardCheckboxes: FC<StandardCheckboxesProps> = ({ item, index, selectedOptions, handleToggle }) => {
-  if (!item.options) {
+const StandardCheckboxes: FC<IStandardCheckboxesProps> = ({
+  item: { title, options },
+  index,
+  selectedOptions,
+  toggleFilterOption,
+}) => {
+  const labelStyles = {
+    width: 'fit-content',
+    hyphens: 'auto',
+    wordBreak: 'break-word',
+    userSelect: 'none',
+    '& .MuiFormControlLabel-label': {
+      fontSize: '1.6rem',
+    },
+  };
+
+  if (!options) {
     return null;
   }
 
   return (
     <Box key={index}>
       <Typography variant='subtitle1' sx={{ opacity: '0.6', fontSize: '1.6rem' }}>
-        {item.title}
+        {title}
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', ml: '1.2rem' }}>
-        {item.options.map(({ label, prop }) => (
+        {options.map(({ label, prop }) => (
           <FormControlLabel
             key={prop}
-            control={<Checkbox checked={selectedOptions.includes(prop)} onChange={() => handleToggle(prop)} />}
+            control={<Checkbox checked={selectedOptions.includes(prop)} onChange={() => toggleFilterOption(prop)} />}
             label={label}
-            sx={{
-              width: 'fit-content',
-              hyphens: 'auto',
-              wordBreak: 'break-word',
-              userSelect: 'none',
-              '& .MuiFormControlLabel-label': {
-                fontSize: '1.6rem',
-              },
-            }}
+            sx={labelStyles}
           />
         ))}
       </Box>

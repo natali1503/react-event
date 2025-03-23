@@ -2,7 +2,7 @@ import { Box, Button, Divider, Stack, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../store/types';
-import { logOut } from '../../store/authorization';
+import { logOut } from '../../store/authorization/authorizationSlice';
 import { useMode } from '../../theme';
 
 import { UserImg } from './element/UserImg';

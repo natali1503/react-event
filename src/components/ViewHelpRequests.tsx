@@ -1,19 +1,19 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { Box, Skeleton, useMediaQuery } from '@mui/material';
 
-import { HelpRequest } from '../types/HelpRequest';
+import { IHelpRequest } from '../types/helpRequest';
 import { VIEW_TOGGLE_OPTIONS } from '../const/const';
 import { usePagination } from '../hooks/usePagination';
 
 import CardList from './CardList/CardList';
 import MapWrapper from './Map/MapWrapper';
-import { ErrorComponent } from './Error';
-import { NotFoundResult } from './NotFoundResult';
+import ErrorComponent from './Error';
 import Pagination from './Pagination';
+import NotFoundResult from './NotFoundResult';
 
 interface IViewHelpRequests {
   viewMode: string;
-  helpRequests: HelpRequest[];
+  helpRequests: IHelpRequest[];
   customNumberItemsPerPage?: number;
   notFoundResult: boolean;
   setIsResetFilters?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +23,7 @@ interface IViewHelpRequests {
   isFavouriteRequestsError?: boolean;
 }
 
-export const ViewHelpRequests: FC<IViewHelpRequests> = ({
+const ViewHelpRequests: FC<IViewHelpRequests> = ({
   viewMode,
   helpRequests,
   customNumberItemsPerPage,
@@ -120,3 +120,5 @@ export const ViewHelpRequests: FC<IViewHelpRequests> = ({
     </Box>
   );
 };
+
+export default ViewHelpRequests;

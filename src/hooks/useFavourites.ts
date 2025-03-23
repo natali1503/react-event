@@ -1,4 +1,4 @@
-import { addToFavouritesAction, removeFromFavouritesAction } from '../store/api-actions';
+import { addToFavouritesAction, removeFromFavouritesAction } from '../store/apiActions';
 
 import { useAppDispatch } from './useAppDispatch';
 

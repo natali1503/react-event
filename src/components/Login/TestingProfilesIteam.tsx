@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux';
 import { setPassword, setLogin, setIsPasswordValid, setIsLoginValid } from '../../store/formAuthorization';
 import { AppDispatch } from '../../store/types';
 import { useValidation } from '../../hooks/useValidation';
-import { clearErrorMessage } from '../../store/authorization';
+import { clearErrorMessage } from '../../store/authorization/authorizationSlice';
 
 export function TestingProfilesIteam({ user }) {
   const dispatch = useDispatch<AppDispatch>();
   const { validateLogin, validatePassword } = useValidation();
-  
+
   return (
     <Card
       variant='outlined'

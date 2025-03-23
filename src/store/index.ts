@@ -3,11 +3,11 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { createAPI } from '../services/api';
 
-import authorizationReducer, { logOut } from './authorization';
+import authorizationReducer, { logOut } from './authorization/authorizationSlice';
 import userFavouritesReducer from './user-favourites/userFavourites';
 import profileReducer from './profileStore';
 import formAuthorizationReducer from './formAuthorization';
-import { helpRequestData } from './help-requests/help-requests-data';
+import { helpRequestData } from './helpRequests/helpRequestsSlice';
 
 const rootReducer = combineReducers({
   auth: authorizationReducer,
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   HELP_REQUEST: helpRequestData.reducer,
 });
 
-interface ActionWithError extends Action {
+interface IActionWithError extends Action {
   error?: {
     name: string;
     message: string;
@@ -29,7 +29,7 @@ type RootState = ReturnType<typeof rootReducer>;
 // задавили линтер по необходимости согласно инструкции редакса https://redux.js.org/usage/usage-with-typescript
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => (action) => {
-  const typedAction = action as ActionWithError;
+  const typedAction = action as IActionWithError;
 
   if (
     typedAction.type.endsWith('rejected') &&

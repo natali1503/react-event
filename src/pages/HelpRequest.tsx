@@ -1,20 +1,24 @@
 import { CircularProgress, Box, Paper, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 import FundraisingCard from '../components/FundraisingCard';
 import FundraisingForm from '../components/FundraisingForm';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { fetchRequestAction, getFavouritesAction } from '../store/api-actions';
+import { fetchRequestAction, getFavouritesAction } from '../store/apiActions';
 import { useAppSelector } from '../hooks/useAppSelector';
-import { getHelpRequestError, getHelpRequestInfo, getRequestLoadingStatus } from '../store/help-requests/selectors';
-import { ErrorComponent } from '../components/Error';
+import {
+  getHelpRequestError,
+  getHelpRequestInfo,
+  getRequestLoadingStatus,
+} from '../store/helpRequests/helpRequestsSelectors';
+import ErrorComponent from '../components/Error';
 import { getFavouriteLoadedFlag, getFavouriteRequestsError } from '../store/user-favourites/favourites-selectors';
 import { resetFavouriteRequestsError } from '../store/user-favourites/userFavourites';
-import { resetHelpRequestError } from '../store/help-requests/help-requests-data';
+import { resetHelpRequestError } from '../store/helpRequests/helpRequestsSlice';
 
-const HelpRequest: React.FC = () => {
+const HelpRequest: FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const request = useAppSelector(getHelpRequestInfo);
@@ -37,7 +41,7 @@ const HelpRequest: React.FC = () => {
         }
       }
     };
-  
+
     fetchData();
   }, [id, dispatch]);
 

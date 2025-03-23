@@ -7,12 +7,12 @@ import { ruRU } from '@mui/x-date-pickers/locales';
 import { Box } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 
-type CalendarProps = {
+interface ICalendarProps {
   selectedDate: string | null;
   setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
-};
+}
 
-const Calendar: FC<CalendarProps> = ({ selectedDate, setSelectedDate }) => {
+const Calendar: FC<ICalendarProps> = ({ selectedDate, setSelectedDate }) => {
   const [cleared, setCleared] = React.useState<boolean>(false);
 
   const handleDateChange = (date: Dayjs | null) => {

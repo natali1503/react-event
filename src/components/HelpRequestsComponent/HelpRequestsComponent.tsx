@@ -1,13 +1,13 @@
 import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 
-import { HelpRequest } from '../../types/HelpRequest';
+import { IHelpRequest } from '../../types/helpRequest';
 import ViewToggle from '../ViewToggle/ViewToggle';
 import { useViewMode } from '../../hooks/useViewMode';
-import { ViewHelpRequests } from '../ViewHelpRequests';
+import ViewHelpRequests from '../ViewHelpRequests';
 
-type RequestsProps = {
-  helpRequests: HelpRequest[];
+interface IRequestsProps {
+  helpRequests: IHelpRequest[];
   customNumberItemsPerPage?: number;
   noSearchResult: boolean;
   setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,9 +15,9 @@ type RequestsProps = {
   isFavouriteRequestsError?: boolean;
   isLoading: boolean;
   isResetFilters: boolean;
-};
+}
 
-const HelpRequestsComponent: FC<RequestsProps> = ({
+const HelpRequestsComponent: FC<IRequestsProps> = ({
   helpRequests,
   customNumberItemsPerPage,
   noSearchResult,

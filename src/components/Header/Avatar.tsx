@@ -4,8 +4,8 @@ import { Box, Avatar, Menu, MenuItem, ListItemIcon, IconButton } from '@mui/mate
 import Logout from '@mui/icons-material/Logout';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { logOut } from '../../store/authorization';
-import { AppRoute } from '../../const/const';
+import { logOut } from '../../store/authorization/authorizationSlice';
+import { APP_ROUTE } from '../../const/const';
 
 export default function ImageAvatar() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function ImageAvatar() {
   };
 
   const handleClickProfile = (event: React.MouseEvent<HTMLElement>) => {
-    navigate(AppRoute.Profile, { replace: true });
+    navigate(APP_ROUTE.Profile, { replace: true });
     handleClose();
   };
 
@@ -29,7 +29,7 @@ export default function ImageAvatar() {
 
   const handlLogOut = () => {
     dispatch(logOut());
-    navigate(AppRoute.Login, { replace: true });
+    navigate(APP_ROUTE.Login, { replace: true });
   };
 
   return (

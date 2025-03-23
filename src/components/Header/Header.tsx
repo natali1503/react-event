@@ -1,7 +1,7 @@
 import { AppBar, Box, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { AppRoute } from '../../const/const';
+import { APP_ROUTE } from '../../const/const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useMode } from '../../theme';
 
@@ -14,7 +14,7 @@ export default function HeaderNavigationApp() {
   const isAuthenticated = useAppSelector((store) => store.auth.isAuthenticated);
 
   const handleClickRequest = () => {
-    navigate(AppRoute.Main, { replace: true });
+    navigate(APP_ROUTE.Main, { replace: true });
   };
   const [theme] = useMode();
   return (

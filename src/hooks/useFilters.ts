@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 
 import { applyDate, applyFilter, applySearch } from '../utils/filterUtils';
-import { HelpRequest } from '../types/HelpRequest';
+import { IHelpRequest } from '../types/helpRequest';
 
 import useParseURL from './useParseURL';
 
-type useFilterProps = {
-  helpRequestsList: HelpRequest[];
+interface IUseFilterProps {
+  helpRequestsList: IHelpRequest[];
   setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
-export function useFilters({ helpRequestsList, setIsResetFilters }: useFilterProps) {
+export function useFilters({ helpRequestsList, setIsResetFilters }: IUseFilterProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [filteredData, setFilteredData] = useState<HelpRequest[]>([]);
+  const [filteredData, setFilteredData] = useState<IHelpRequest[]>([]);
 
   useParseURL({
     searchTerm,

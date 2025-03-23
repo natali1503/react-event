@@ -5,12 +5,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import { debouncedFunction } from '../../utils/filterUtils';
 import { useMode } from '../../theme';
 
-type SearchProps = {
+interface ISearchProps {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-};
+}
 
-const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
+const SearchPanel: FC<ISearchProps> = ({ searchTerm, setSearchTerm }) => {
   const [inputValue, setInputValue] = useState(searchTerm);
   const [theme] = useMode();
 
@@ -53,7 +53,6 @@ const SearchPanel: FC<SearchProps> = ({ searchTerm, setSearchTerm }) => {
       >
         <Typography
           variant='h6'
-          width='fit-content'
           sx={{
             display: 'flex',
             width: 'fit-content',

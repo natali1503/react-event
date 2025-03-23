@@ -4,15 +4,15 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import { useSelector } from 'react-redux';
 
-import { formatDate, formatPhoneNumber, formatString } from '../helper-functions/helper-functions';
-import { HelpRequest } from '../types/HelpRequest';
+import { formatDate, formatPhoneNumber, formatString } from '../helperFunctions/helperFunctions';
+import { IHelpRequest } from '../types/helpRequest';
 import { getFavouriteRequestsIDs } from '../store/user-favourites/favourites-selectors';
 import { useBreakpointOverlap } from '../hooks/useBreakpointOverlap';
 
 import FavouriteButton from './FavouriteButton/FavouriteButton';
 
 type RequestProps = {
-  helpRequest: HelpRequest;
+  helpRequest: IHelpRequest;
 };
 
 const FundraisingForm: FC<RequestProps> = ({ helpRequest }) => {

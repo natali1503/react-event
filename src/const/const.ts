@@ -1,4 +1,4 @@
-export enum AppRoute {
+export const enum APP_ROUTE {
   Login = '/login',
   Main = '/',
   Profile = '/profile',
@@ -12,7 +12,7 @@ export const REQUEST_TIMEOUT = 5000;
 //export const BASE_URL = 'http://localhost:4040/api';
 export const BASE_URL = 'https://natticharity.eveloth.ru/api';
 
-export enum APIRoute {
+export const enum API_ROUTE {
   HelpRequests = `${BASE_URL}/request`,
   Login = `${BASE_URL}/auth`,
   FavouritesHelpRequests = `${BASE_URL}/user/favourites`,
@@ -20,13 +20,7 @@ export enum APIRoute {
   ContributeToRequest = `${BASE_URL}/request/{id}/contribution`,
 }
 
-export enum APIMethod {
-  GET = 'GET',
-  POST = 'POST',
-  DELETE = 'DELETE',
-}
-
-export const testUsers = [
+export const TEST_USERS = [
   {
     name: 'Первый пользователь',
     login: 'testUser15@test.com',
@@ -44,7 +38,7 @@ export const testUsers = [
   },
 ];
 
-export enum VIEW_TOGGLE_OPTIONS {
+export const enum VIEW_TOGGLE_OPTIONS {
   Grid = 'grid',
   List = 'list',
   Map = 'map',

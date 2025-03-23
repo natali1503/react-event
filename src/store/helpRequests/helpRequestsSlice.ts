@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { HelpRequestData } from '../../types/state';
-import { fetchHelpRequestsAction, fetchContributeToRequest, fetchRequestAction } from '../api-actions';
+import { fetchHelpRequestsAction, fetchContributeToRequest, fetchRequestAction } from '../apiActions';
 
 const initialState: HelpRequestData = {
   helpRequestsList: [],

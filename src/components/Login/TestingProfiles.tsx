@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 
 import { useMode } from '../../theme';
-import { testUsers } from '../../const/const';
+import { TEST_USERS } from '../../const/const';
 
 import { TestingProfilesIteam } from './TestingProfilesIteam';
 
@@ -44,7 +44,7 @@ const TestingProfiles = () => {
             },
           }}
         >
-          {testUsers.map((user, index) => (
+          {TEST_USERS.map((user, index) => (
             <TestingProfilesIteam user={user} key={index} />
           ))}
         </Box>
