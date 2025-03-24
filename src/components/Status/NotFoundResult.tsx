@@ -6,13 +6,25 @@ const NotFoundResult = () => {
     <Box
       display={'flex'}
       height={'100%'}
-      justifyContent={'center'}
       flexDirection={'column'}
+      justifyContent={'center'}
       alignItems={'center'}
-      gap={'20px'}
+      gap={'2rem'}
     >
-      <ReactSVG src='/img/notFoundResult.svg' />
-      <Typography variant='h5'>Запросы не найдены</Typography>
+      <ReactSVG
+        src='/img/notFoundResult.svg'
+        beforeInjection={(svg) => {
+          svg.removeAttribute('width');
+          svg.removeAttribute('height');
+        }}
+        style={{
+          width: '100%',
+          maxWidth: '262px',
+        }}
+      />
+      <Typography variant='h5' textAlign={'center'}>
+        Запросы не найдены
+      </Typography>
     </Box>
   );
 };

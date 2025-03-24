@@ -5,14 +5,16 @@ const NotFoundPage = () => {
   return (
     <Box
       display={'flex'}
-      justifyContent={'center'}
       flexDirection={'column'}
+      justifyContent={'center'}
       alignItems={'center'}
-      gap={'20px'}
+      gap={'2rem'}
       width={'100%'}
     >
       <ReactSVG src='/img/notFoundResult.svg' />
-      <Typography variant='h5'>Страница не найдена</Typography>
+      <Typography variant='h5' textAlign={'center'}>
+        Страница не найдена
+      </Typography>
     </Box>
   );
 };
