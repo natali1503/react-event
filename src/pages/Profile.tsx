@@ -1,5 +1,5 @@
 import { Box, Paper, Skeleton, Stack, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { useAppSelector } from '../hooks/useAppSelector';
 import { getProfileData } from '../store/userProfile/profileSelectors';
@@ -18,7 +18,7 @@ import Favourites from '../components/Profile/Favourites';
 import TabsProfile from '../components/Profile/element/TabsProfile';
 import ViewToggle from '../components/ViewToggle/ViewToggle';
 
-export default function Profile() {
+const Profile: FC = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector(getProfileData);
   const [numberTab, setNumberTab] = useState(0);
@@ -35,7 +35,7 @@ export default function Profile() {
 
   return (
     <Paper sx={{ width: '100%' }}>
-      <Box display={'flex'} flexDirection={'column'} alignItems={'center'} width={'100%'}>
+      <Box display={'flex'} flexDirection={'column'} alignItems={'center'} width={'100%'} height={'100%'}>
         <Box
           display={'flex'}
           flexDirection={'column'}
@@ -138,4 +138,6 @@ export default function Profile() {
       </Box>
     </Paper>
   );
-}
+};
+
+export default Profile;
