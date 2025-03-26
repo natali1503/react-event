@@ -11,7 +11,7 @@ export interface IHelpRequest {
     stepLabel: string;
     isDone?: boolean;
   }>;
-  endingDate: Date;
+  endingDate: string;
   location: {
     latitude: number;
     longitude: number;
