@@ -32,7 +32,6 @@ export const applyDate = (data: any[], selectedDate: string | null) => {
 
 export function applyFilter(data: IHelpRequest[], selectedOptions: string[]) {
   if (selectedOptions.length === 0) {
-    console.log('early return');
     return data;
   }
 

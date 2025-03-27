@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface IUseParseURLProps {
@@ -66,7 +66,7 @@ const useParseURL = (props: IUseParseURLProps) => {
     parseCurrentPage();
   };
 
-  const updateFiltersInURL = () => {
+  const updateFiltersInURL = useCallback(() => {
     const params = new URLSearchParams(window.location.search);
 
     const updateSearchTermURL = () => {
@@ -75,9 +75,10 @@ const useParseURL = (props: IUseParseURLProps) => {
     };
 
     const updateSelectedOptionsURL = () => {
-      if (selectedOptions) {
-        params.delete('selectedOption');
-        selectedOptions.forEach((option) => params.append('selectedOption', option));
+      if (selectedOptions && selectedOptions.length > 0) {
+        selectedOptions.forEach((option) => {
+          params.append('selectedOption', option);
+        });
       } else {
         params.delete('selectedOption');
       }
@@ -85,7 +86,7 @@ const useParseURL = (props: IUseParseURLProps) => {
 
     const updateSelectedDateURL = () => {
       if (selectedDate) params.set('selectedDate', selectedDate);
-      else if (selectedDate === null || undefined) params.delete('selectedDate');
+      else if (selectedDate === null || selectedDate === undefined) params.delete('selectedDate');
     };
 
     const updateCurrentPageURL = () => {
@@ -103,7 +104,7 @@ const useParseURL = (props: IUseParseURLProps) => {
     if (currentUrl.search !== newUrl.search) {
       navigate({ search: params.toString() }, { replace: true });
     }
-  };
+  }, [searchTerm, selectedOptions, selectedDate, currentPage]);
 
   useEffect(() => {
     getQueryParams();

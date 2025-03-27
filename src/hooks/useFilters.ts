@@ -7,10 +7,10 @@ import useParseURL from './useParseURL';
 
 interface IUseFilterProps {
   helpRequestsList: IHelpRequest[];
-  setIsResetFilters: React.Dispatch<React.SetStateAction<boolean>>;
+  setShouldResetPagination: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function useFilters({ helpRequestsList, setIsResetFilters }: IUseFilterProps) {
+export function useFilters({ helpRequestsList, setShouldResetPagination }: IUseFilterProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -51,9 +51,14 @@ export function useFilters({ helpRequestsList, setIsResetFilters }: IUseFilterPr
       setFilteredData([]);
     } else {
       setFilteredData(filteredDataMemo);
-      setIsResetFilters(true);
     }
   }, [helpRequestsList, searchTerm, selectedOptions, selectedDate]);
+
+  useEffect(() => {
+    if (!helpRequestsList || helpRequestsList.length > 0) {
+      setShouldResetPagination(true);
+    }
+  }, [searchTerm, selectedOptions, selectedDate]);
 
   return {
     searchTerm,
