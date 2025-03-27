@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { applyDate, applyFilter, applySearch } from '../utils/filterUtils';
 import { IHelpRequest } from '../types/IHelpRequest';
@@ -25,14 +25,7 @@ export function useFilters({ helpRequestsList, setIsResetFilters }: IUseFilterPr
     setSelectedDate,
   });
 
-  const applyFilters = () => {
-    if (!helpRequestsList || helpRequestsList.length === 0) {
-      setFilteredData([]);
-      return;
-    }
-
-    let requestedData = helpRequestsList;
-
+  const applyFilters = (requestedData: IHelpRequest[]) => {
     if (searchTerm) {
       requestedData = applySearch(requestedData, searchTerm);
     }
@@ -45,12 +38,21 @@ export function useFilters({ helpRequestsList, setIsResetFilters }: IUseFilterPr
       requestedData = applyDate(requestedData, selectedDate);
     }
 
-    setFilteredData(requestedData);
-    setIsResetFilters(true);
+    return requestedData;
   };
 
+  const filteredDataMemo = useMemo(
+    () => applyFilters(helpRequestsList),
+    [searchTerm, selectedOptions, selectedDate, helpRequestsList],
+  );
+
   useEffect(() => {
-    applyFilters();
+    if (!helpRequestsList || helpRequestsList.length === 0) {
+      setFilteredData([]);
+    } else {
+      setFilteredData(filteredDataMemo);
+      setIsResetFilters(true);
+    }
   }, [helpRequestsList, searchTerm, selectedOptions, selectedDate]);
 
   return {
