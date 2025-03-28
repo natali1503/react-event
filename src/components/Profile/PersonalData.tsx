@@ -1,10 +1,10 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 
-import { getDateStr } from '../../helpers/getDateStr';
 import { useMode } from '../../theme';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getProfileData } from '../../store/userProfile/profileSelectors';
+import { formatDate } from '../../utils/formatUtils';
 
 import Row from './element/Row';
 import ItemEducation from './element/ItemEducation';
@@ -17,7 +17,7 @@ const PersonalData = () => {
 
   useEffect(() => {
     if (Object.keys(data).length === 0) return;
-    const birthdate = getDateStr(data.birthdate);
+    const birthdate = formatDate(data.birthdate);
     setBirthDate(birthdate);
   }, [data]);
 
