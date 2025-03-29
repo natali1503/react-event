@@ -9,30 +9,31 @@ type useSwiperProps = {
 
 export function useSwiper({ cooldownDuration, currentItem, maxItems, action }: useSwiperProps) {
   const touchStartRef = useRef<number>(0);
-  const touchStartTimeRef = useRef<number>(0); // Track the start time
+  const touchStartTimeRef = useRef<number>(0);
   const isCooldown = useRef(false);
 
   const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
-    touchStartRef.current = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
+    touchStartRef.current = 'touches' in e ? e.touches[0].clientX : (e as unknown as MouseEvent).clientX;
     touchStartTimeRef.current = Date.now();
   };
 
   const handleTouchEnd = (e: React.TouchEvent | React.MouseEvent) => {
     if (isCooldown.current) return;
 
-    const touchEnd = 'changedTouches' in e ? e.changedTouches[0].clientX : (e as MouseEvent).clientX;
-    const swipeThreshold = 50; // Minimum distance for a valid swipe
-    const fastSwipeThreshold = 300; // Max duration in ms to be considered a "fast swipe"
+    const touchEnd = 'changedTouches' in e ? e.changedTouches[0].clientX : (e as unknown as MouseEvent).clientX;
+    const swipeThreshold = 150;
+    const fastSwipeThreshold = 3000;
+    const minSwiperDuration = 300;
 
-    const timeDiff = Date.now() - touchStartTimeRef.current; // Time difference in ms
-    const swipeDistance = Math.abs(touchStartRef.current - touchEnd); // Distance traveled
+    const timeDiff = Date.now() - touchStartTimeRef.current;
+    const swipeDistance = Math.abs(touchStartRef.current - touchEnd);
 
-    // Prevent swipe if it's too fast or the swipe distance is too small
-    if (isCooldown.current || timeDiff < fastSwipeThreshold) return;
+    if (timeDiff < fastSwipeThreshold) return;
+
+    if (isCooldown.current || timeDiff < minSwiperDuration || swipeDistance < swipeThreshold) return;
 
     isCooldown.current = true;
 
-    // If the swipe distance is above threshold and within time limit, trigger action
     if (swipeDistance > swipeThreshold) {
       if (touchStartRef.current - touchEnd > swipeThreshold && currentItem !== maxItems) {
         action('next');
